@@ -1,1 +1,1 @@
-# booking-fe
+# accommodiq-fe
