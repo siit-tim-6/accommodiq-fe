@@ -1,4 +1,4 @@
-.navbar {
+:host {
   display: flex;
   flex-direction: column;
   padding: 24px;
@@ -10,14 +10,14 @@
   overflow-y: hidden;
 }
 
-.navbar > img {
+:host > img {
   height: 36px;
   width: 36px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.navbar > img:first-child {
+:host > img:first-child {
   height: 56px;
   width: 56px;
   margin-bottom: 20px;
