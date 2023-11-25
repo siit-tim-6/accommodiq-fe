@@ -6,8 +6,10 @@ import { Component } from '@angular/core';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  email: string | undefined;
+  password: string | undefined;
 
   onSubmit() {
-    alert("Submit pressed!");
+    console.log(this.email + " " + this.password)
   }
 }
