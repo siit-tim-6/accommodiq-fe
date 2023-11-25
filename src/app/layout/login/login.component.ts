@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -8,6 +9,7 @@ import { Component } from '@angular/core';
 export class LoginComponent {
   email: string | undefined;
   password: string | undefined;
+  faCoffee = faCoffee;
 
   onSubmit() {
     console.log(this.email + " " + this.password)
