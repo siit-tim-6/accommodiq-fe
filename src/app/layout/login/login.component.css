@@ -8,7 +8,7 @@
   overflow-y: hidden;
 }
 
-:host * {
+:host not input {
   text-align: center;
 }
 
