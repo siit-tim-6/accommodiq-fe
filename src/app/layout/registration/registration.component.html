@@ -1,0 +1,23 @@
+<link rel="stylesheet"
+      href=
+        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<h2>Registration</h2>
+<form (submit)="onSubmit()">
+  <div class="accommodiq-input-wrapper">
+    <i class="fa-solid fa-envelope"></i>
+    <input type="text" id="username" name="username" [(ngModel)]="email" placeholder="Enter email" required>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <i class="fa-solid fa-shield-halved"></i>
+    <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="Enter password" required>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <i class="fa-solid fa-shield-halved"></i>
+    <input type="password" id="repeat-password" name="repeat-password" [(ngModel)]="password" placeholder="Repeat password" required>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <i class="fa-solid fa-user"></i>
+    <input type="password" id="first-name" name="repeat-password" [(ngModel)]="password" placeholder="Enter first name" required>
+  </div>
+  <button class="accommodiq-button" type="submit">Login</button>
+</form>
