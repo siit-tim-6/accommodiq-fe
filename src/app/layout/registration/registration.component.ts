@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { faCoffee} from "@fortawesome/free-solid-svg-icons";
+import {Component} from '@angular/core';
+import {faCoffee} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-registration',
@@ -9,9 +9,21 @@ import { faCoffee} from "@fortawesome/free-solid-svg-icons";
 export class RegistrationComponent {
   email: string | undefined;
   password: string | undefined;
+  repeatPassword: string | undefined;
+  firstName: string | undefined;
+  lastName: string | undefined;
+  address: string | undefined;
+  phoneNumber: string | undefined;
+  selectedRole: string | undefined;
   faCoffee = faCoffee;
 
   onSubmit() {
-    console.log(this.email + " " + this.password)
+    if (this.password != this.repeatPassword) {
+      console.log("Passwords do not match");
+    } else {
+      console.log("Registration successful");
+      console.log(this.email + " " + this.password + " " + this.repeatPassword + " " + this.firstName +
+        " " + this.lastName + " " + this.address + " " + this.phoneNumber + " " + this.selectedRole);
+    }
   }
 }
