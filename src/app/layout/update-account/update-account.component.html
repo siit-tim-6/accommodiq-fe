@@ -1,1 +1,49 @@
+<link rel="stylesheet"
+      href=
+        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<h2>Update your account</h2>
+<h3>Update your personal data</h3>
+<form (submit)="onUpdatePersonalData()">
+  <div class="accommodiq-input-wrapper">
+    <fa-icon [icon]="faUser"></fa-icon>
+    <input type="text" id="first-name" name="first-name" [(ngModel)]="firstName" placeholder="Enter first name" required>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <fa-icon [icon]="faUser"></fa-icon>
+    <input type="text" id="last-name" name="last-name" [(ngModel)]="lastName" placeholder="Enter last name" required>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <fa-icon [icon]="faEnvelope"></fa-icon>
+    <input type="text" id="username" name="username" [(ngModel)]="email" placeholder="Enter email" required>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <fa-icon [icon]="faAddressCard"></fa-icon>
+    <input type="text" id="address" name="address" [(ngModel)]="address" placeholder="Enter address" required>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <fa-icon [icon]="faPhone"></fa-icon>
+    <input type="tel" id="phone-number" name="phone-number" [(ngModel)]="phoneNumber" placeholder="Enter phone number" required>
+  </div>
+  <button class="accommodiq-button" type="submit">Update</button>
+</form>
 
+<h3>Delete your account</h3>
+<form (submit)="onDelete()">
+<button class="accommodiq-button" type="submit">Delete</button>
+</form>
+
+<h3>Update your password</h3>
+<form (submit)="onUpdatePassword()">
+  <div class="accommodiq-input-wrapper">
+    <fa-icon [icon]="faShieldHalved"></fa-icon>
+    <input type="password" id="old-password" name="old-password" [(ngModel)]="oldPassword" placeholder="Enter old password" required>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <fa-icon [icon]="faShieldHalved"></fa-icon>
+    <input type="password" id="new-password" name="new-password"  [(ngModel)]="newPassword" placeholder="Enter new password" required>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <fa-icon [icon]="faShieldHalved"></fa-icon>
+    <input type="password" id="repeat-new-password" name="repeat-new-password"  [(ngModel)]="repeatNewPassword" placeholder="Repeat new password" required>
+  </div>
+</form>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import {faAddressCard, faCoffee, faEnvelope, faPhone, faShieldHalved, faUser} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-update-account',
@@ -15,7 +15,6 @@ export class UpdateAccountComponent {
   oldPassword: string | undefined;
   newPassword: string | undefined;
   repeatNewPassword: string | undefined;
-  faCoffee = faCoffee;
 
   onDelete() {
     console.log('onDelete()');
@@ -29,4 +28,9 @@ export class UpdateAccountComponent {
     console.log('onUpdatePassword()');
   }
 
+  protected readonly faUser = faUser;
+  protected readonly faEnvelope = faEnvelope;
+  protected readonly faAddressCard = faAddressCard;
+  protected readonly faPhone = faPhone;
+  protected readonly faShieldHalved = faShieldHalved;
 }
