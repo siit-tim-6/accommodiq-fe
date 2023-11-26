@@ -15,3 +15,17 @@
 :host div {
   margin-bottom: 20px;
 }
+
+:host .inline-update-form{
+  display: flex;
+  justify-content: space-between;
+}
+
+:host .form-wrapper {
+  margin-right: 40px;
+}
+
+:host .delete-from-wrapper {
+  margin-top: 50px;
+}
+
