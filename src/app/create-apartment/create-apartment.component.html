@@ -1,1 +1,30 @@
-<p>create-apartment works!</p>
+<h2>Create new apartment</h2>
+<form (submit)="onSubmit()">
+  <div class="accommodiq-input-wrapper">
+    <input type="text" id="name" name="name" [(ngModel)]="name" placeholder="Enter name" required>
+  </div>
+  <div>
+    <textarea id="description" name="description" [(ngModel)]="description" placeholder="Enter description" required></textarea>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <input type="text" id="address" name="address" [(ngModel)]="address" placeholder="Enter address" required>
+  </div>
+  <div>
+    <label>
+      <input type="radio" id="wifi" name="wifi" [(ngModel)]="wifi" value="wifi" required>
+      <span>Wi-Fi</span>
+    </label>
+    <label>
+      <input type="radio" id="kitchen" name="kitchen" [(ngModel)]="kitchen" value="kitchen" required>
+      <span>Kitchen</span>
+    </label>
+    <label>
+      <input type="radio" id="parking" name="parking" [(ngModel)]="parking" value="parking" required>
+      <span>Parking</span>
+    </label>
+    <label>
+      <input type="radio" id="ac" name="ac" [(ngModel)]="ac" value="ac" required>
+      <span>AC</span>
+    </label>
+  </div>
+</form>
