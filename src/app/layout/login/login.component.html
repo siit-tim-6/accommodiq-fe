@@ -1,0 +1,15 @@
+<link rel="stylesheet"
+      href=
+        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<h2>Login</h2>
+<form (submit)="onSubmit()">
+  <div class="accommodiq-input-wrapper">
+    <i class="fa-solid fa-envelope"></i>
+    <input type="text" id="username" name="username" [(ngModel)]="email" placeholder="Enter email" required>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <i class="fa-solid fa-shield-halved"></i>
+    <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="Enter password" required>
+  </div>
+  <button class="accommodiq-button" type="submit">Login</button>
+</form>
