@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+@import "assets/themes/default/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
 html, body {
   margin: 0;
   padding: 0;
@@ -11,4 +15,14 @@ html, body {
 
 h1, h2, h3, h4, h5, h6, p, a {
   font-family: 'Inter';
+}
+
+h1 {
+  font-weight: 600;
+  font-size: 32px;
+}
+
+h4 {
+  font-weight: 300;
+  font-size: 14px;
 }
