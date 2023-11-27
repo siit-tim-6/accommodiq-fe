@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {faMapLocationDot, faUser} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-account-info',
@@ -35,4 +36,6 @@ export class AccountInfoComponent {
       console.log(this.stars);
     }
   }
+  protected readonly faMapLocationDot = faMapLocationDot;
+  protected readonly faUser = faUser;
 }

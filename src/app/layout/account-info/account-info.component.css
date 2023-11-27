@@ -1,19 +1,23 @@
-:host .account-container {
+/* component.css */
+
+:host {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+:host .profile-container {
   display: flex;
   align-items: center;
-  padding: 5px 10px;
+  margin-top: 80px;
 }
 
 :host .left-section {
-  margin-right: 20px; /* Adjust as needed */
+  margin-right: 30px;
 }
 
-:host .account-img-card {
-  width: 100px; /* Adjust as needed */
-  height: 100px; /* Adjust as needed */
-}
-
-:host .rounded {
+:host .rounded-photo {
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
 }
 
@@ -21,16 +25,43 @@
   flex-grow: 1;
 }
 
-:host .rating {
-  /* Add styles for the rating as needed */
-}
-
-:host .review-count {
-  margin-left: 5px; /* Adjust as needed */
-}
-
-:host .same-row {
+:host .top-row {
   display: flex;
-  align-items: baseline;
   justify-content: space-between;
+  align-items: baseline;
+  font-size: x-large;
 }
+
+:host .top-row, .middle-row, .bottom-row {
+  margin-bottom: 25px;
+  font-size: x-large;
+}
+
+:host .rating {
+  display: flex;
+  align-items: center;
+}
+
+:host .fa-star, .fa-star-half-o, .fa-star-o{
+  margin-right: 5px;
+}
+
+:host .rating-value {
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+:host .num-ratings {
+  font-weight: lighter;
+}
+
+:host #full-name {
+  font-size: xxx-large;
+  font-weight: bold;
+}
+
+:host fa-icon {
+  margin-right: 10px;
+  margin-left: 50px;
+}
+
