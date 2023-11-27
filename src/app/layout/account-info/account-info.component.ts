@@ -9,27 +9,30 @@ export class AccountInfoComponent {
   imageUrl: string = 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50';
   firstName: string = 'John Doe';
   lastName: string = 'Doe';
-  numReviews: number = 25;
+  reviewCount: number = 25;
   address: string = 'San Francisco';
   role: string = 'Owner';
   stars: string[] = [];
+  rating: number | undefined;
 
   ngOnInit() {
     this.calculateStarRating();
   }
 
   calculateStarRating() {
-    const rating = 4.5; // will be implemented later
-    const roundedRating = Math.round(rating*2)/2;
+    this.rating = 4.5; // will be implemented later
+    const roundedRating = Math.round(this.rating*2)/2;
 
     for (let i = 1; i <= 5; i++) {
-      if (roundedRating >= 1) {
+      if (roundedRating >= i) {
         this.stars.push('fa fa-star');
-      } else if (roundedRating === 0.5) {
+      } else if (roundedRating + 0.5 === i) {
         this.stars.push('fa fa-star-half-o');
       } else {
         this.stars.push('fa fa-star-o');
       }
+
+      console.log(this.stars);
     }
   }
 }

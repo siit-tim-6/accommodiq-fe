@@ -6,10 +6,11 @@ import { RegistrationComponent } from './registration/registration.component';
 import {FormsModule} from "@angular/forms";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {RouterLink} from "@angular/router";
+import {AccountInfoComponent} from "./account-info/account-info.component";
 
 @NgModule({
-  declarations: [NavBarComponent, LoginComponent, RegistrationComponent],
+  declarations: [NavBarComponent, LoginComponent, RegistrationComponent, AccountInfoComponent],
   imports: [CommonModule, FormsModule, FaIconComponent, RouterLink],
-  exports: [NavBarComponent, LoginComponent, RegistrationComponent],
+  exports: [NavBarComponent, LoginComponent, RegistrationComponent, AccountInfoComponent],
 })
 export class LayoutModule {}

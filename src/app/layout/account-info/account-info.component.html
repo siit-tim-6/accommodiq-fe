@@ -1,1 +1,11 @@
-<p>account-info works!</p>
+<div class="account-container">
+  <img [src]="imageUrl" alt="Profile Image" class="account-img-card">
+  <h2>{{firstName}} {{lastName}}</h2>
+  <div class="rating">
+    <span *ngFor="let star of stars" [class]="star"></span>
+    <span>{{rating}}</span>
+    <span class="review-count">({{reviewCount}})</span>
+  </div>
+  <p> {{address}}</p>
+  <p> {{role}}</p>
+</div>
