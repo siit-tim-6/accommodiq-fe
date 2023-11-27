@@ -1,0 +1,36 @@
+:host .account-container {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+:host .left-section {
+  margin-right: 20px; /* Adjust as needed */
+}
+
+:host .account-img-card {
+  width: 100px; /* Adjust as needed */
+  height: 100px; /* Adjust as needed */
+}
+
+:host .rounded {
+  border-radius: 50%;
+}
+
+:host .right-section {
+  flex-grow: 1;
+}
+
+:host .rating {
+  /* Add styles for the rating as needed */
+}
+
+:host .review-count {
+  margin-left: 5px; /* Adjust as needed */
+}
+
+:host .same-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
