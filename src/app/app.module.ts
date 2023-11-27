@@ -5,9 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { AccountInfoComponent } from './layout/account-info/account-info.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, AccountInfoComponent],
   imports: [BrowserModule, AppRoutingModule, LayoutModule, FormsModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
