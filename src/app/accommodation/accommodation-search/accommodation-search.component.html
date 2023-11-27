@@ -1,0 +1,30 @@
+<h1>132 stays in Novi Sad</h1>
+<h4>Book your next stay at one of our properties</h4>
+
+<div class="row">
+  <span class="p-input-icon-left">
+    <i class="pi top-offset">
+      <img src="../../../assets/images/location-icon.svg" alt="location icon" />
+    </i>
+    <input type="text" pInputText placeholder="Location" />
+  </span>
+
+  <p-calendar selectionMode="range" placeholder="Date" [showIcon]="true" />
+
+  <span class="p-input-icon-left">
+    <i class="pi pi-dollar"></i>
+    <input type="text" pInputText placeholder="Price" />
+  </span>
+
+  <p-button icon="pi pi-filter" label="More filters" severity="secondary" />
+</div>
+
+<div class="row">
+  <span class="p-input-icon-left search-input">
+    <i class="pi pi-search"></i>
+    <input type="text" pInputText placeholder="Search" />
+  </span>
+
+  <p-button severity="secondary" label="Clear" />
+  <p-button label="Search" />
+</div>
