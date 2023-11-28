@@ -1,0 +1,46 @@
+<link rel="stylesheet"
+      href=
+        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<h2>Registration</h2>
+<form (submit)="onSubmit()">
+  <div class="accommodiq-input-wrapper">
+    <i class="fa-solid fa-envelope"></i>
+    <input type="text" id="username" name="username" [(ngModel)]="email" placeholder="Enter email" required>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <i class="fa-solid fa-shield-halved"></i>
+    <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="Enter password" required>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <i class="fa-solid fa-shield-halved"></i>
+    <input type="password" id="repeat-password" name="repeat-password"  [(ngModel)]="repeatPassword" placeholder="Repeat password" required>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <i class="fa-solid fa-user"></i>
+    <input type="text" id="first-name" name="first-name" [(ngModel)]="firstName" placeholder="Enter first name" required>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <i class="fa-solid fa-user"></i>
+    <input type="text" id="last-name" name="last-name" [(ngModel)]="lastName" placeholder="Enter last name" required>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <i class="fa-solid fa-address-card"></i>
+    <input type="text" id="address" name="address" [(ngModel)]="address" placeholder="Enter address" required>
+  </div>
+  <div class="accommodiq-input-wrapper">
+    <i class="fa-solid fa-phone-square"></i>
+    <input type="tel" id="phone-number" name="phone-number" [(ngModel)]="phoneNumber" placeholder="Enter phone number" required>
+  </div>
+  <div>
+    <label>
+      <input type="radio" id="roleHost" name="role" [(ngModel)]="selectedRole" value="host" required>
+      <span>Host</span>
+    </label>
+    <label>
+      <input type="radio" id="roleGuest" name="role" [(ngModel)]="selectedRole" value="guest" required>
+      <span>Guest</span>
+    </label>
+  </div>
+  <button class="accommodiq-button" type="submit">Sign up</button>
+  <p>Already have an account? <a routerLink="/login" class="link-with-underline">Sign In</a></p>
+</form>
