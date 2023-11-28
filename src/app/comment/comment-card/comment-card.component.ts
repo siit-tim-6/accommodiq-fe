@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import { IComment } from '../comment.model';
 
 @Component({
   selector: 'app-comment',
@@ -6,11 +7,6 @@ import {Component, Input} from '@angular/core';
   styleUrl: './comment-card.component.css'
 })
 export class CommentCardComponent {
-  @Input() comment: Comment | undefined;
+  @Input() comment: IComment | undefined;
 }
 
-interface Comment {
-  rating: number;
-  author: string;
-  content: string;
-}

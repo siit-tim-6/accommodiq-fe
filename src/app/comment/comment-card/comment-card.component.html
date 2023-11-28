@@ -1,12 +1,8 @@
+<div class="first-line">
+  <h2>{{comment?.author}}</h2>
+  <p-rating [(ngModel)]="comment!.rating" [cancel]="false" [readonly]="true" />
+</div>
 
-<div class="comment">
-    <div class="first-line">
-      <h2>{{comment?.author}}</h2>
-      <p-rating [(ngModel)]="comment?.rating" [cancel]="false" [readonly]="true" />
-    </div>
-
-    <div class="row">
-      <p>{{comment?.content}}</p>
-    </div>
-
+<div class="row">
+  <p>{{comment?.content}}</p>
 </div>
