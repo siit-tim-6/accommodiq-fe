@@ -1,30 +1,34 @@
 <h2>Create new apartment</h2>
 <form (submit)="onSubmit()">
-  <div class="accommodiq-input-wrapper">
-    <input type="text" id="name" name="name" [(ngModel)]="name" placeholder="Enter name" required>
-  </div>
-  <div>
-    <textarea id="description" name="description" [(ngModel)]="description" placeholder="Enter description" required></textarea>
-  </div>
-  <div class="accommodiq-input-wrapper">
-    <input type="text" id="address" name="address" [(ngModel)]="address" placeholder="Enter address" required>
-  </div>
-  <div>
-    <label>
-      <input type="radio" id="wifi" name="wifi" [(ngModel)]="wifi" value="wifi" required>
-      <span>Wi-Fi</span>
-    </label>
-    <label>
-      <input type="radio" id="kitchen" name="kitchen" [(ngModel)]="kitchen" value="kitchen" required>
-      <span>Kitchen</span>
-    </label>
-    <label>
-      <input type="radio" id="parking" name="parking" [(ngModel)]="parking" value="parking" required>
-      <span>Parking</span>
-    </label>
-    <label>
-      <input type="radio" id="ac" name="ac" [(ngModel)]="ac" value="ac" required>
-      <span>AC</span>
-    </label>
+    <span class="p-float-label">
+        <input pInputText id="name" [(ngModel)]="name" />
+        <label htmlFor="name">Name</label>
+    </span>
+    <span class="p-float-label">
+        <textarea rows="5" cols="30" id="description" name="description" pInputTextarea [(ngModel)]="description"></textarea>
+        <label for="description">Description</label>
+    </span>
+    <span class="p-float-label">
+        <input pInputText id="address" [(ngModel)]="address" />
+        <label htmlFor="address">Address</label>
+    </span>
+
+  <div class="checkbox-group">
+      <span class="checkbox-option">
+          <p-checkbox name="benefits" value="wifi" label="Wi-Fi" [(ngModel)]="benefits" ></p-checkbox>
+          <i class="pi pi-wifi"></i>
+      </span>
+      <span class="checkbox-option">
+          <p-checkbox name="benefits" value="kitchen" label="Kitchen" [(ngModel)]="benefits"></p-checkbox>
+          <i class="pi pi-home"></i>
+      </span>
+      <span class="checkbox-option">
+          <p-checkbox name="benefits" value="parking" label="Parking" [(ngModel)]="benefits"></p-checkbox>
+          <i class="pi pi-car"></i>
+      </span>
+      <span class="checkbox-option">
+          <p-checkbox name="benefits" value="ac" label="AC" [(ngModel)]="benefits"></p-checkbox>
+          <i class="pi pi-slack"></i>
+      </span>
   </div>
 </form>

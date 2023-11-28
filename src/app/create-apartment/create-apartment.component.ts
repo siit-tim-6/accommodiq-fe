@@ -16,10 +16,7 @@ export class CreateApartmentComponent {
   address: string | undefined;
   price: number | undefined;
   description: string | undefined;
-  wifi: boolean | undefined;
-  parking: boolean | undefined;
-  ac: boolean | undefined;
-  kitchen: boolean | undefined;
+  benefits: string[] | undefined;
   imageUrls: string[] | undefined;
   minGuests: number | undefined;
   maxGuests: number | undefined;
