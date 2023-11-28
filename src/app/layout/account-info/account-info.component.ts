@@ -20,16 +20,14 @@ export class AccountInfoComponent {
   }
 
   calculateStarRating() {
-    this.rating = 3.5; // will be implemented later
-    const roundedRating = Math.round(this.rating*2)/2;
+    this.rating = 3.6; // will be implemented later
+    const roundedRating = Math.round(this.rating*2)/2
 
     for (let i = 1; i <= 5; i++) {
       if (roundedRating >= i) {
-        this.stars.push('fa fa-star');
-      } else if (roundedRating + 0.5 === i) {
-        this.stars.push('fa fa-star-half-o');
+        this.stars.push('pi pi-star-fill');
       } else {
-        this.stars.push('fa fa-star-o');
+        this.stars.push('pi pi-star');
       }
 
       console.log(this.stars);
