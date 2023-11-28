@@ -60,7 +60,7 @@
   font-weight: bold;
 }
 
-:host fa-icon {
+:host i {
   margin-right: 10px;
   margin-left: 50px;
 }

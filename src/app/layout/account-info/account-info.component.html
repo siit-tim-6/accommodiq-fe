@@ -1,6 +1,6 @@
 <link rel="stylesheet"
       href=
-        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+              "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="profile-container">
   <div class="left-section">
     <img [src]="imageUrl" alt="Profile Image" class="rounded-photo">
@@ -8,11 +8,11 @@
   <div class="right-section">
     <div class="top-row">
       <span id="full-name">{{ firstName }} {{ lastName }}</span>
-      <fa-icon [icon]="faMapLocationDot"></fa-icon>
+      <i class="pi pi-id-card"></i>
       <span>{{ address }}</span>
     </div>
     <div class="middle-row">
-      <fa-icon [icon]="faUser"></fa-icon>
+      <i class="pi pi-user"></i>
       <span>{{ role }}</span>
     </div>
     <div class="bottom-row">
