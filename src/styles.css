@@ -49,6 +49,11 @@ h1, h2, h3, h4, h5, h6, p, a {
   color: transparent;
 }
 
+.link-with-underline {
+  text-decoration: underline;
+  font-weight: bold;
+  color: #000000;
+
 h1 {
   font-weight: 600;
   font-size: 32px;
