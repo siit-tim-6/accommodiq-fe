@@ -29,8 +29,6 @@ export class AccountInfoComponent {
       } else {
         this.stars.push('pi pi-star');
       }
-
-      console.log(this.stars);
     }
   }
 }
