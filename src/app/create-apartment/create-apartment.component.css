@@ -82,6 +82,10 @@
   margin-right: 10px;
 }
 
+:host .file-upload-wrapper {
+  width: 450px;
+}
+
 :host p-dropdown:focus {
   border-color: #007ad9;
   box-shadow: 0 0 0 0.25rem rgba(0, 122, 217, 0.25);

@@ -37,14 +37,17 @@
     </div>
 
     <div class="column-wrapper">
+
+      <div class="file-upload-wrapper">
       <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)"
                     [multiple]="true" accept="image/*" [maxFileSize]=1000000>
         <ng-template pTemplate="content">
           <ul *ngIf="imageUrls.length">
-            <li *ngFor="let file of imageUrls">{{ file.name }} - {{ file.size }} bytes</li>
+            <li *ngFor="let file of imageUrls">{{ file.name }} - {{ file.size }}</li>
           </ul>
         </ng-template>
       </p-fileUpload>
+      </div>
 
 
       <div class="row-wrapper">
@@ -65,17 +68,20 @@
           </span>
         </div>
       </div>
+
       <div>
       <p-dropdown id="apartment-type" name="apartment-type" [options]="apartmentTypes" [(ngModel)]="apartmentType" [showClear]="true" placeholder="Select a Type"></p-dropdown>
       </div>
+
       <div class="checkbox-group">
         <span class="checkbox-option">
           <p-checkbox [(ngModel)]="pricePerGuest" id="price-per-guests" name="price-per-guests"  label="Price per guest" [binary]="true" inputId="binary"></p-checkbox>
           </span>
         <span class="checkbox-option">
-        <p-checkbox [(ngModel)]="automaticallyAcceptIncomingReservations"  id="accpet-incoming-reservations" name="accpet-incoming-reservations" label="Automatically accept incoming reservations" [binary]="true" inputId="binary"></p-checkbox>
+        <p-checkbox [(ngModel)]="automaticallyAcceptIncomingReservations"  id="accept-incoming-reservations" name="accept-incoming-reservations" label="Automatically accept incoming reservations" [binary]="true" inputId="binary"></p-checkbox>
           </span>
       </div>
+
     </div>
   </div>
   <p-button label="Submit" type="submit"></p-button>

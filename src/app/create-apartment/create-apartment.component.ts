@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormGroup} from "@angular/forms";
 
 interface RentalPeriod {
@@ -15,7 +15,6 @@ interface RentalPeriod {
 export class CreateApartmentComponent {
   name: string | undefined;
   address: string | undefined;
-  price: number | undefined;
   description: string | undefined;
   benefits: string[] | undefined;
   imageUrls: File[] = [];
@@ -41,7 +40,7 @@ export class CreateApartmentComponent {
     // Validate the input
     if (this.currentRentalPeriod.startDate && this.currentRentalPeriod.endDate && this.currentRentalPeriod.price) {
       // Add the current period to the list
-      this.rentalPeriods.push({ ...this.currentRentalPeriod });
+      this.rentalPeriods.push({...this.currentRentalPeriod});
 
       // Clear the current period
       this.currentRentalPeriod = {
@@ -51,8 +50,11 @@ export class CreateApartmentComponent {
       };
     }
   }
+
   onSubmit() {
-    console.log(this.name + " " + this.address + " " + this.price + " " + this.description)
+    console.log(this.name + " " + this.address  + " " + this.description + " " + this.benefits + " "
+      + this.imageUrls + " " + this.minGuests + " " + this.maxGuests + " " + this.apartmentType + " " + this.pricePerGuest
+      + " " + this.automaticallyAcceptIncomingReservations + " " + this.rentalPeriods);
   }
 
   onUpload($event: any) {
