@@ -1,0 +1,30 @@
+:host .row {
+  display: flex;
+  align-items: center;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 5px 10px;
+  border: 2px solid black;
+  border-radius: 30px;
+  cursor: default;
+}
+
+:host h2, p {
+  margin: 5px 5px;
+}
+
+:host p {
+  font-weight: 500;
+  text-align: justify;
+}
+:host .first-line {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}

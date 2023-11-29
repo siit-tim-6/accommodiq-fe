@@ -4,6 +4,7 @@ import { LoginComponent } from './layout/login/login.component';
 import { RegistrationComponent } from './layout/registration/registration.component';
 import { AccommodationListComponent } from './accommodation/accommodation-list/accommodation-list.component';
 import { AccommodationDetailsComponent } from './accommodation/accommodation-details/accommodation-details.component';
+import { CommentListComponent } from './comment/comment-list/comment-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
