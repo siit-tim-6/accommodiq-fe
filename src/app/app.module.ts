@@ -10,19 +10,24 @@ import { AccommodationModule } from './accommodation/accommodation.module';
 import { CommentCardComponent } from './comment/comment-card/comment-card.component';
 import {RatingModule} from "primeng/rating";
 import { CommentListComponent } from './comment/comment-list/comment-list.component';
+import { AddCommentFormComponent } from './comment/add-comment-form/add-comment-form.component';
+import {InputTextModule} from "primeng/inputtext";
+import {ButtonModule} from "primeng/button";
 
 @NgModule({
-  declarations: [AppComponent, CommentCardComponent, CommentListComponent],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        LayoutModule,
-        AccommodationModule,
-        FormsModule,
-        ReactiveFormsModule,
-        RatingModule
-    ],
+  declarations: [AppComponent, CommentCardComponent, CommentListComponent, AddCommentFormComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    LayoutModule,
+    AccommodationModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RatingModule,
+    InputTextModule,
+    ButtonModule
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

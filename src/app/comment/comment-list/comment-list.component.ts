@@ -8,6 +8,7 @@ import {IComment} from "../comment.model";
 })
 export class CommentListComponent implements OnInit{
   comments: IComment[] = [];
+  canAddComment: boolean = true;
 
   ngOnInit() {
     for (let i = 1; i <= 5; i++) {
