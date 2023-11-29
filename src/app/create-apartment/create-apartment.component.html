@@ -50,6 +50,7 @@
       </div>
 
 
+      <span class="label-text">Number of guests</span>
       <div class="row-wrapper">
         <div class="min-max-input-wrapper">
           <span class="p-input-icon-left">
@@ -73,12 +74,14 @@
       <p-dropdown id="apartment-type" name="apartment-type" [options]="apartmentTypes" [(ngModel)]="apartmentType" [showClear]="true" placeholder="Select a Type"></p-dropdown>
       </div>
 
+
+
       <div class="checkbox-group">
         <span class="checkbox-option">
-          <p-checkbox [(ngModel)]="pricePerGuest" id="price-per-guests" name="price-per-guests"  label="Price per guest" [binary]="true" inputId="binary"></p-checkbox>
+          <p-checkbox [(ngModel)]="pricePerGuest" id="price-per-guests" name="price-per-guests"  label="Price per guest" [binary]="true"></p-checkbox>
           </span>
         <span class="checkbox-option">
-        <p-checkbox [(ngModel)]="automaticallyAcceptIncomingReservations"  id="accept-incoming-reservations" name="accept-incoming-reservations" label="Automatically accept incoming reservations" [binary]="true" inputId="binary"></p-checkbox>
+        <p-checkbox [(ngModel)]="automaticallyAcceptIncomingReservations"  id="accept-incoming-reservations" name="accept-incoming-reservations" label="Automatically accept incoming reservations" [binary]="true"></p-checkbox>
           </span>
       </div>
 

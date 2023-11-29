@@ -14,6 +14,7 @@ import {CheckboxModule} from "primeng/checkbox";
 import {FileUploadModule} from "primeng/fileupload";
 import {InputNumberModule} from "primeng/inputnumber";
 import {DropdownModule} from "primeng/dropdown";
+import {CalendarModule} from "primeng/calendar";
 
 @NgModule({
   declarations: [AppComponent, CreateApartmentComponent],
@@ -31,6 +32,7 @@ import {DropdownModule} from "primeng/dropdown";
     InputNumberModule,
     ReactiveFormsModule,
     DropdownModule,
+    CalendarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

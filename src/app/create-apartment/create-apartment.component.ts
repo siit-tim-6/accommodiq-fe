@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {FormGroup} from "@angular/forms";
 
 interface RentalPeriod {
   startDate: Date;
@@ -24,8 +23,8 @@ export class CreateApartmentComponent {
   apartmentTypes: string[] | undefined;
   pricePerGuest: boolean | undefined;
   automaticallyAcceptIncomingReservations: boolean | undefined;
-  rentalPeriods: RentalPeriod[] = [];
-  currentRentalPeriod: RentalPeriod = {
+  availabilityPeriods: RentalPeriod[] = [];
+  currentAvailabilityPeriod: RentalPeriod = {
     startDate: new Date(),
     endDate: new Date(),
     price: 0
@@ -38,12 +37,12 @@ export class CreateApartmentComponent {
 
   addRentalPeriod() {
     // Validate the input
-    if (this.currentRentalPeriod.startDate && this.currentRentalPeriod.endDate && this.currentRentalPeriod.price) {
+    if (this.currentAvailabilityPeriod.startDate && this.currentAvailabilityPeriod.endDate && this.currentAvailabilityPeriod.price) {
       // Add the current period to the list
-      this.rentalPeriods.push({...this.currentRentalPeriod});
+      this.availabilityPeriods.push({...this.currentAvailabilityPeriod});
 
       // Clear the current period
-      this.currentRentalPeriod = {
+      this.currentAvailabilityPeriod = {
         startDate: new Date(),
         endDate: new Date(),
         price: 0
@@ -54,7 +53,7 @@ export class CreateApartmentComponent {
   onSubmit() {
     console.log(this.name + " " + this.address  + " " + this.description + " " + this.benefits + " "
       + this.imageUrls + " " + this.minGuests + " " + this.maxGuests + " " + this.apartmentType + " " + this.pricePerGuest
-      + " " + this.automaticallyAcceptIncomingReservations + " " + this.rentalPeriods);
+      + " " + this.automaticallyAcceptIncomingReservations + " " + this.availabilityPeriods);
   }
 
   onUpload($event: any) {
