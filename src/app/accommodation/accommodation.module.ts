@@ -10,6 +10,7 @@ import { AccommodationListComponent } from './accommodation-list/accommodation-l
 import { AccommodationDetailsComponent } from './accommodation-details/accommodation-details.component';
 import { RouterModule } from '@angular/router';
 import { GalleriaModule } from 'primeng/galleria';
+import { CommentModule } from '../comment/comment.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { GalleriaModule } from 'primeng/galleria';
     RatingModule,
     RouterModule,
     GalleriaModule,
+    CommentModule,
   ],
   exports: [
     AccommodationSearchComponent,
