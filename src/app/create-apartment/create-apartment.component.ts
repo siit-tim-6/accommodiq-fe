@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {FormGroup} from "@angular/forms";
 
 interface RentalPeriod {
   startDate: Date;
@@ -17,10 +18,11 @@ export class CreateApartmentComponent {
   price: number | undefined;
   description: string | undefined;
   benefits: string[] | undefined;
-  imageUrls: string[] | undefined;
+  imageUrls: File[] = [];
   minGuests: number | undefined;
   maxGuests: number | undefined;
   apartmentType: string | undefined;
+  apartmentTypes: string[] | undefined;
   pricePerGuest: boolean | undefined;
   automaticallyAcceptIncomingReservations: boolean | undefined;
   rentalPeriods: RentalPeriod[] = [];
@@ -29,6 +31,11 @@ export class CreateApartmentComponent {
     endDate: new Date(),
     price: 0
   };
+
+  ngOnInit(): void {
+    this.apartmentTypes = ['Entire apartment', 'Private room', 'Shared room', 'Hotel room'];
+    console.log(this.apartmentTypes);
+  }
 
   addRentalPeriod() {
     // Validate the input
@@ -46,5 +53,9 @@ export class CreateApartmentComponent {
   }
   onSubmit() {
     console.log(this.name + " " + this.address + " " + this.price + " " + this.description)
+  }
+
+  onUpload($event: any) {
+    console.log("onUpload");
   }
 }

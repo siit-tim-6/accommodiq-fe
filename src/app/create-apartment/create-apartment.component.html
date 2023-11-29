@@ -1,34 +1,82 @@
 <h2>Create new apartment</h2>
 <form (submit)="onSubmit()">
+  <div class="inline-update-form">
+    <div>
     <span class="p-float-label">
-        <input pInputText id="name" [(ngModel)]="name" />
+        <input pInputText id="name" name="name" [(ngModel)]="name"/>
         <label htmlFor="name">Name</label>
     </span>
-    <span class="p-float-label">
-        <textarea rows="5" cols="30" id="description" name="description" pInputTextarea [(ngModel)]="description"></textarea>
+      <span class="p-float-label">
+        <textarea rows="5" cols="30" id="description" name="description" pInputTextarea
+                  [(ngModel)]="description"></textarea>
         <label for="description">Description</label>
     </span>
-    <span class="p-float-label">
-        <input pInputText id="address" [(ngModel)]="address" />
+      <span class="p-float-label">
+        <input pInputText id="address" name="address" [(ngModel)]="address"/>
         <label htmlFor="address">Address</label>
     </span>
 
-  <div class="checkbox-group">
+      <div class="checkbox-group" ngModelGroup="benefits">
       <span class="checkbox-option">
-          <p-checkbox name="benefits" value="wifi" label="Wi-Fi" [(ngModel)]="benefits" ></p-checkbox>
+          <p-checkbox name="benefits" value="wifi" label="Wi-Fi" [(ngModel)]="benefits"></p-checkbox>
           <i class="pi pi-wifi"></i>
       </span>
-      <span class="checkbox-option">
+        <span class="checkbox-option">
           <p-checkbox name="benefits" value="kitchen" label="Kitchen" [(ngModel)]="benefits"></p-checkbox>
           <i class="pi pi-home"></i>
       </span>
-      <span class="checkbox-option">
+        <span class="checkbox-option">
           <p-checkbox name="benefits" value="parking" label="Parking" [(ngModel)]="benefits"></p-checkbox>
           <i class="pi pi-car"></i>
       </span>
-      <span class="checkbox-option">
+        <span class="checkbox-option">
           <p-checkbox name="benefits" value="ac" label="AC" [(ngModel)]="benefits"></p-checkbox>
           <i class="pi pi-slack"></i>
       </span>
+      </div>
+    </div>
+
+    <div class="column-wrapper">
+      <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)"
+                    [multiple]="true" accept="image/*" [maxFileSize]=1000000>
+        <ng-template pTemplate="content">
+          <ul *ngIf="imageUrls.length">
+            <li *ngFor="let file of imageUrls">{{ file.name }} - {{ file.size }} bytes</li>
+          </ul>
+        </ng-template>
+      </p-fileUpload>
+
+
+      <div class="row-wrapper">
+        <div class="min-max-input-wrapper">
+          <span class="p-input-icon-left">
+          <i class="pi pi-users"></i>
+          <input type="number" id="min-guests" name="min-guests" pInputText [(ngModel)]="minGuests" placeholder="min"/>
+          </span>
+        </div>
+
+        <div class="between-line">
+        </div>
+
+        <div class="min-max-input-wrapper">
+          <span class="p-input-icon-left">
+            <i class="pi pi-users"></i>
+            <input type="number" id="max-guests" name="max-guests" pInputText [(ngModel)]="maxGuests" placeholder="max"/>
+          </span>
+        </div>
+      </div>
+      <div>
+      <p-dropdown id="apartment-type" name="apartment-type" [options]="apartmentTypes" [(ngModel)]="apartmentType" [showClear]="true" placeholder="Select a Type"></p-dropdown>
+      </div>
+      <div class="checkbox-group">
+        <span class="checkbox-option">
+          <p-checkbox [(ngModel)]="pricePerGuest" id="price-per-guests" name="price-per-guests"  label="Price per guest" [binary]="true" inputId="binary"></p-checkbox>
+          </span>
+        <span class="checkbox-option">
+        <p-checkbox [(ngModel)]="automaticallyAcceptIncomingReservations"  id="accpet-incoming-reservations" name="accpet-incoming-reservations" label="Automatically accept incoming reservations" [binary]="true" inputId="binary"></p-checkbox>
+          </span>
+      </div>
+    </div>
   </div>
+  <p-button label="Submit" type="submit"></p-button>
 </form>
