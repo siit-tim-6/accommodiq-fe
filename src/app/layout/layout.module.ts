@@ -1,17 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { UpdateAccountComponent } from './update-account/update-account.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import {FormsModule} from "@angular/forms";
-import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {RouterLink} from "@angular/router";
 import {AccountInfoComponent} from "./account-info/account-info.component";
-import { RatingModule } from 'primeng/rating';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @NgModule({
-  declarations: [NavBarComponent, LoginComponent, RegistrationComponent, AccountInfoComponent],
-  imports: [CommonModule, FormsModule, FaIconComponent, RouterLink,RatingModule],
-  exports: [NavBarComponent, LoginComponent, RegistrationComponent, AccountInfoComponent],
+  declarations: [
+    NavBarComponent,
+    LoginComponent,
+    RegistrationComponent,
+    UpdateAccountComponent,
+    AccountInfoComponent,
+  ],
+  imports: [CommonModule, FormsModule, RouterLink],
+  exports: [
+    NavBarComponent,
+    LoginComponent,
+    RegistrationComponent,
+    UpdateAccountComponent,
+    AccountInfoComponent,
+  ],
 })
 export class LayoutModule {}

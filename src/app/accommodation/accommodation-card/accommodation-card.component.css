@@ -1,0 +1,57 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.row > * {
+  margin-right: 15px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.icon-label {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon-label > * {
+  margin-right: 8px;
+}
+
+.first-line {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+:host {
+  display: flex;
+  flex-direction: row;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  border-top: 1px solid #ced4da;
+}
+
+img {
+  margin-right: 20px;
+  border-radius: 15px;
+  width: 270px;
+  height: 200px;
+}
+
+.accommodation-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.accommodation-info h2 {
+  margin-top: 0px;
+}
