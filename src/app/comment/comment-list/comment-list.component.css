@@ -1,0 +1,8 @@
+:host {
+  width: 60%;
+  margin: 10px;
+}
+
+:host > div {
+  margin: 15px 0 15px 7em;
+}
