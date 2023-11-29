@@ -7,12 +7,16 @@ import { CalendarModule } from 'primeng/calendar';
 import { RatingModule } from 'primeng/rating';
 import { AccommodationCardComponent } from './accommodation-card/accommodation-card.component';
 import { AccommodationListComponent } from './accommodation-list/accommodation-list.component';
+import { AccommodationDetailsComponent } from './accommodation-details/accommodation-details.component';
+import { RouterModule } from '@angular/router';
+import { GalleriaModule } from 'primeng/galleria';
 
 @NgModule({
   declarations: [
     AccommodationSearchComponent,
     AccommodationCardComponent,
     AccommodationListComponent,
+    AccommodationDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -20,6 +24,8 @@ import { AccommodationListComponent } from './accommodation-list/accommodation-l
     ButtonModule,
     CalendarModule,
     RatingModule,
+    RouterModule,
+    GalleriaModule,
   ],
   exports: [
     AccommodationSearchComponent,
