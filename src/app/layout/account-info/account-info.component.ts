@@ -11,7 +11,7 @@ export class AccountInfoComponent {
   lastName: string = 'Doe';
   reviewCount: number = 25;
   address: string = 'San Francisco';
-  role: string = 'Owner';
+  role: string = 'Guest';
   stars: string[] = [];
   rating: number | undefined;
 

@@ -7,6 +7,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import {FormsModule} from "@angular/forms";
 import {RouterLink} from "@angular/router";
 import {AccountInfoComponent} from "./account-info/account-info.component";
+import {ButtonModule} from "primeng/button";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import {AccountInfoComponent} from "./account-info/account-info.component";
     UpdateAccountComponent,
     AccountInfoComponent,
   ],
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, ButtonModule],
   exports: [
     NavBarComponent,
     LoginComponent,

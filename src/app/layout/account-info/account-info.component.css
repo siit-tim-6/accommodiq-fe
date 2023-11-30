@@ -62,3 +62,9 @@
   margin-left: 50px;
 }
 
+:host .account-info-button {
+  margin-left: 30px;
+  font-size: medium;
+  font-weight: bold;
+}
+
