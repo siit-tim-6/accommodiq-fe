@@ -8,6 +8,9 @@
   border-right: 1px solid #dfdfdf;
   box-sizing: border-box;
   overflow-y: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 :host > img {
