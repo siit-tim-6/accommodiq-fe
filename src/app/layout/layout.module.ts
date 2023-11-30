@@ -7,8 +7,6 @@ import { RegistrationComponent } from './registration/registration.component';
 import {FormsModule} from "@angular/forms";
 import {RouterLink} from "@angular/router";
 import {AccountInfoComponent} from "./account-info/account-info.component";
-import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 
 @NgModule({
   declarations: [

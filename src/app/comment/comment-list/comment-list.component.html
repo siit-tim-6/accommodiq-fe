@@ -1,0 +1,9 @@
+<h1>Reviews</h1>
+
+<div *ngIf="canAddComment">
+  <app-add-comment-form></app-add-comment-form>
+</div>
+
+<div *ngFor="let comment of comments">
+  <app-comment [comment]="comment"></app-comment>
+</div>
