@@ -8,10 +8,11 @@
   flex-direction: column;
   background-color: #ffffff;
   color: #000000;
-  padding: 5px 10px;
-  border: 2px solid black;
-  border-radius: 30px;
   cursor: default;
+
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 15px;
 }
 
 :host h2, p {
@@ -19,7 +20,7 @@
 }
 
 :host p {
-  font-weight: 500;
+  font-weight: 400;
   text-align: justify;
 }
 :host .first-line {
