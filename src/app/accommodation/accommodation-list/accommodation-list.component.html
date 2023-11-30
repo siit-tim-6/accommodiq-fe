@@ -1,4 +1,9 @@
-<app-accommodation-search />
-<div *ngFor="let el of elements">
-  <app-accommodation-card [routerLink]="['/accommodation', 1]" />
+<div class="main-content">
+  <app-accommodation-search />
+  <div *ngFor="let el of elements">
+    <app-accommodation-card [routerLink]="['/accommodation', 1]" />
+  </div>
+</div>
+<div class="map">
+  <img src="../../../assets/images/map.png" alt="map image" />
 </div>
