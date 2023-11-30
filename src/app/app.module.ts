@@ -8,6 +8,7 @@ import { LayoutModule } from './layout/layout.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccommodationModule } from './accommodation/accommodation.module';
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

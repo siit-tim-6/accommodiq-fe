@@ -58,6 +58,13 @@ h1, h2, h3, h4, h5, h6, p, a {
   color: #000000;
 }
 
+.line-separator {
+  height: 1px;
+  background-color: #dfdfdf;
+  width: 100%;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  
 h1 {
   font-weight: 600;
   font-size: 32px;

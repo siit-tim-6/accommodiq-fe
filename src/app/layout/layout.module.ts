@@ -4,8 +4,9 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { UpdateAccountComponent } from './update-account/update-account.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
-import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import {FormsModule} from "@angular/forms";
+import {RouterLink} from "@angular/router";
+import {AccountInfoComponent} from "./account-info/account-info.component";
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { RouterLink } from '@angular/router';
     LoginComponent,
     RegistrationComponent,
     UpdateAccountComponent,
+    AccountInfoComponent,
   ],
   imports: [CommonModule, FormsModule, RouterLink],
   exports: [
@@ -20,6 +22,7 @@ import { RouterLink } from '@angular/router';
     LoginComponent,
     RegistrationComponent,
     UpdateAccountComponent,
+    AccountInfoComponent,
   ],
 })
 export class LayoutModule {}

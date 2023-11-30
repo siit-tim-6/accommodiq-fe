@@ -1,8 +1,15 @@
 :host {
-  width: 60%;
   margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 :host > div {
-  margin: 15px 0 15px 7em;
+  width: 75%;
+  margin: 10px 0;
+}
+
+h1 {
+  align-self: flex-start;
 }
