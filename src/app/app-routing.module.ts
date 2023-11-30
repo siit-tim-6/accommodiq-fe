@@ -5,6 +5,7 @@ import { RegistrationComponent } from './layout/registration/registration.compon
 import { AccommodationListComponent } from './accommodation/accommodation-list/accommodation-list.component';
 import { AccommodationDetailsComponent } from './accommodation/accommodation-details/accommodation-details.component';
 import { AccountInfoComponent } from './layout/account-info/account-info.component';
+import { UpdateAccountComponent } from './layout/update-account/update-account.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
     path: 'accommodation/:accommodationId',
     component: AccommodationDetailsComponent,
   },
+  { path: 'update-account', component: UpdateAccountComponent },
 ];
 
 @NgModule({

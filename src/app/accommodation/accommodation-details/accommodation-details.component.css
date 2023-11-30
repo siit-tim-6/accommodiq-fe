@@ -56,6 +56,7 @@ h4 {
   align-items: center;
   border-bottom: 1px solid #dfdfdf;
   padding-bottom: 30px;
+  padding-top: 30px;
 }
 
 :host {
@@ -93,4 +94,5 @@ h4 {
   border: 1px solid black;
   border-radius: 15px;
   padding: 15px;
+  text-align: justify;
 }
