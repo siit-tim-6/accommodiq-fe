@@ -29,6 +29,7 @@ export class CreateApartmentComponent {
     endDate: new Date(),
     price: 0
   };
+  pickedDates: Date[] =  [new Date(), new Date()];
 
   ngOnInit(): void {
     this.apartmentTypes = ['Entire apartment', 'Private room', 'Shared room', 'Hotel room'];
@@ -53,7 +54,8 @@ export class CreateApartmentComponent {
   onSubmit() {
     console.log(this.name + " " + this.address  + " " + this.description + " " + this.benefits + " "
       + this.imageUrls + " " + this.minGuests + " " + this.maxGuests + " " + this.apartmentType + " " + this.pricePerGuest
-      + " " + this.automaticallyAcceptIncomingReservations + " " + this.availabilityPeriods);
+      + " " + this.automaticallyAcceptIncomingReservations + " " + this.availabilityPeriods + " " + this.currentAvailabilityPeriod.startDate + " "
+      + this.currentAvailabilityPeriod.endDate + " " + this.currentAvailabilityPeriod.price + " " + this.pickedDates);
   }
 
   onUpload($event: any) {

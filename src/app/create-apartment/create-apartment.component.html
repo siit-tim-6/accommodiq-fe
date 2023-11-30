@@ -1,16 +1,17 @@
 <h2>Create new apartment</h2>
 <form (submit)="onSubmit()">
   <div class="inline-update-form">
+
     <div>
-    <span class="p-float-label">
-        <input pInputText id="name" name="name" [(ngModel)]="name"/>
-        <label htmlFor="name">Name</label>
-    </span>
+      <span class="p-float-label">
+          <input pInputText id="name" name="name" [(ngModel)]="name"/>
+          <label htmlFor="name">Name</label>
+      </span>
       <span class="p-float-label">
         <textarea rows="5" cols="30" id="description" name="description" pInputTextarea
                   [(ngModel)]="description"></textarea>
         <label for="description">Description</label>
-    </span>
+      </span>
       <span class="p-float-label">
         <input pInputText id="address" name="address" [(ngModel)]="address"/>
         <label htmlFor="address">Address</label>
@@ -37,7 +38,6 @@
     </div>
 
     <div class="column-wrapper">
-
       <div class="file-upload-wrapper">
       <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)"
                     [multiple]="true" accept="image/*" [maxFileSize]=1000000>
@@ -74,7 +74,13 @@
       <p-dropdown id="apartment-type" name="apartment-type" [options]="apartmentTypes" [(ngModel)]="apartmentType" [showClear]="true" placeholder="Select a Type"></p-dropdown>
       </div>
 
-
+      <div>
+        <p-calendar [(ngModel)]="pickedDates" selectionMode="range" [readonlyInput]="true"></p-calendar>
+        <span class="p-float-label">
+        <input pInputText id="price" name="price" [(ngModel)]="currentAvailabilityPeriod.price"/>
+        <label htmlFor="name">Price</label>
+        </span>
+      </div>
 
       <div class="checkbox-group">
         <span class="checkbox-option">
@@ -87,5 +93,5 @@
 
     </div>
   </div>
-  <p-button label="Submit" type="submit"></p-button>
+  <p-button label="Create" type="submit"></p-button>
 </form>
