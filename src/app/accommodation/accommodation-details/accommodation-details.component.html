@@ -1,76 +1,82 @@
-<div class="heading-row">
-  <h1>Dvosoban stan u centru Novog Sada</h1>
-  <div class="rating-row">
+<div class="main">
+  <div class="heading-row">
+    <h1>Dvosoban stan u centru Novog Sada</h1>
+    <div class="rating-row">
+      <p-rating [cancel]="false" [readonly]="true" />
+      <p class="bold">4.92</p>
+      <p>302 reviews</p>
+    </div>
+  </div>
+
+  <h4>Mileticeva 23, 21000 Novi Sad, Srbija</h4>
+
+  <div class="row">
+    <h3>Hosted by <span class="bold">John Doe</span></h3>
     <p-rating [cancel]="false" [readonly]="true" />
     <p class="bold">4.92</p>
     <p>302 reviews</p>
   </div>
-</div>
 
-<h4>Mileticeva 23, 21000 Novi Sad, Srbija</h4>
+  <div class="main-content">
+    <p-galleria
+      [value]="images"
+      [containerStyle]="{ 'max-width': '640px' }"
+      [numVisible]="5"
+      [showItemNavigators]="true"
+    >
+      <ng-template pTemplate="item" let-item>
+        <img [src]="item" style="height: 380px; border-radius: 15px" />
+      </ng-template>
+      <ng-template pTemplate="thumbnail" let-item>
+        <div
+          class="grid grid-nogutter justify-content-center"
+          style="border-radius: 15px; height: 85px; margin-right: 15px"
+        >
+          <img [src]="item" style="border-radius: 15px; height: 80px" />
+        </div>
+      </ng-template>
+    </p-galleria>
 
-<div class="row">
-  <h3>Hosted by <span class="bold">John Doe</span></h3>
-  <p-rating [cancel]="false" [readonly]="true" />
-  <p class="bold">4.92</p>
-  <p>302 reviews</p>
-</div>
+    <div class="row" style="margin-bottom: 25px">
+      <span class="icon-label">
+        <i class="pi pi-users"></i>
+        <p>2-6 guests</p>
+      </span>
+      <span class="icon-label">
+        <i class="pi pi-wifi"></i>
+        <p>Wi-Fi</p>
+      </span>
+      <span class="icon-label">
+        <i class="pi pi-car"></i>
+        <p>AC</p>
+      </span>
+      <span class="icon-label">
+        <i class="pi pi-car"></i>
+        <p>Free parking</p>
+      </span>
+    </div>
 
-<div class="main-content">
-  <p-galleria
-    [value]="images"
-    [containerStyle]="{ 'max-width': '640px' }"
-    [numVisible]="5"
-    [showItemNavigators]="true"
-  >
-    <ng-template pTemplate="item" let-item>
-      <img [src]="item" style="height: 380px; border-radius: 15px" />
-    </ng-template>
-    <ng-template pTemplate="thumbnail" let-item>
-      <div
-        class="grid grid-nogutter justify-content-center"
-        style="border-radius: 15px; height: 85px; margin-right: 15px"
-      >
-        <img [src]="item" style="border-radius: 15px; height: 80px" />
-      </div>
-    </ng-template>
-  </p-galleria>
+    <div class="row" style="margin-bottom: 25px">
+      <p-calendar selectionMode="range" placeholder="Date" [showIcon]="true" />
+      <span class="p-input-icon-left">
+        <i class="pi pi-users"></i>
+        <input type="text" pInputText placeholder="Guests" />
+      </span>
+      <p><span class="bold">€540</span> EUR total</p>
+      <p-button label="Reserve"></p-button>
+    </div>
 
-  <div class="row" style="margin-bottom: 25px">
-    <span class="icon-label">
-      <i class="pi pi-users"></i>
-      <p>2-6 guests</p>
-    </span>
-    <span class="icon-label">
-      <i class="pi pi-wifi"></i>
-      <p>Wi-Fi</p>
-    </span>
-    <span class="icon-label">
-      <i class="pi pi-car"></i>
-      <p>AC</p>
-    </span>
-    <span class="icon-label">
-      <i class="pi pi-car"></i>
-      <p>Free parking</p>
-    </span>
+    <p class="description">
+      Dvosoban stan u centru Novog Sada je udoban i moderno uređen prostor koji
+      nudi savremen životni stil u srcu ovog šarmantnog grada. Stan se nalazi u
+      blizini svih glavnih atrakcija i pogodnosti, čineći ga idealnim izborom za
+      turiste i one koji traže praktičan smeštaj.
+    </p>
   </div>
 
-  <div class="row" style="margin-bottom: 25px">
-    <p-calendar selectionMode="range" placeholder="Date" [showIcon]="true" />
-    <span class="p-input-icon-left">
-      <i class="pi pi-users"></i>
-      <input type="text" pInputText placeholder="Guests" />
-    </span>
-    <p><span class="bold">€540</span> EUR total</p>
-    <p-button label="Reserve"></p-button>
-  </div>
-
-  <p class="description">
-    Dvosoban stan u centru Novog Sada je udoban i moderno uređen prostor koji
-    nudi savremen životni stil u srcu ovog šarmantnog grada. Stan se nalazi u
-    blizini svih glavnih atrakcija i pogodnosti, čineći ga idealnim izborom za
-    turiste i one koji traže praktičan smeštaj.
-  </p>
+  <app-comment-list />
 </div>
 
-<app-comment-list />
+<div class="map">
+  <img src="../../../assets/images/map.png" alt="map image" />
+</div>

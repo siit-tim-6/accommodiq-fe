@@ -1,6 +1,12 @@
 :host {
+  display: flex;
+  flex-direction: row;
+}
+
+:host > :first-child {
   padding: 30px;
   width: 100%;
+  margin-right: 42rem;
 }
 
 .heading-row {
@@ -11,6 +17,12 @@
 }
 
 .heading-row > h1 {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.heading-row p {
+  margin-top: 0px;
   margin-bottom: 0px;
 }
 
@@ -95,4 +107,16 @@ h4 {
   border-radius: 15px;
   padding: 15px;
   text-align: justify;
+}
+
+.map {
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.map > img {
+  height: 100vh;
+  width: 42rem;
+  filter: grayscale(100%);
 }

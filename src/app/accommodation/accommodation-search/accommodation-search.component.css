@@ -1,8 +1,8 @@
-:host > h1:first-child {
+h1:first-child {
   margin: 0;
 }
 
-:host > h4:first-of-type {
+h4:first-of-type {
   margin-top: 0px;
 }
 
