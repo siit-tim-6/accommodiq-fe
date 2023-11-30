@@ -4,9 +4,10 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { UpdateAccountComponent } from './update-account/update-account.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
-import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-import { AccountInfoComponent } from './account-info/account-info.component';
+import {FormsModule} from "@angular/forms";
+import {RouterLink} from "@angular/router";
+import {AccountInfoComponent} from "./account-info/account-info.component";
+import {ButtonModule} from "primeng/button";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { AccountInfoComponent } from './account-info/account-info.component';
     UpdateAccountComponent,
     AccountInfoComponent,
   ],
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, ButtonModule],
   exports: [
     NavBarComponent,
     LoginComponent,
