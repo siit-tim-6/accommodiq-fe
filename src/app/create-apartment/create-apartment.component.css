@@ -101,3 +101,7 @@
   margin-right: 5px;
 }
 
+:host form {
+  margin-top: 20px;
+}
+

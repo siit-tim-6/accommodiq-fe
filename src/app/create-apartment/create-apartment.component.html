@@ -1,7 +1,6 @@
 <h2>Create new apartment</h2>
 <form (submit)="onSubmit()">
   <div class="inline-update-form">
-
     <div>
       <span class="p-float-label">
           <input pInputText id="name" name="name" [(ngModel)]="name"/>
@@ -82,11 +81,36 @@
         </div>
       </div>-->
 
+      <div class="checkbox-group">
+        <span class="checkbox-option">
+          <p-checkbox [(ngModel)]="pricePerGuest" id="price-per-guests" name="price-per-guests"  label="Price per guest" [binary]="true"></p-checkbox>
+          </span>
+        <span class="checkbox-option">
+        <p-checkbox [(ngModel)]="automaticallyAcceptIncomingReservations"  id="accept-incoming-reservations" name="accept-incoming-reservations" label="Automatically accept incoming reservations" [binary]="true"></p-checkbox>
+          </span>
+      </div>
+
+    </div>
+
+    <div class="column-wrapper">
+      <div class="row-wrapper availability-wrapper">
+        <div class="calendar-wrapper">
+          <p-calendar [(ngModel)]="pickedDates" name="range" selectionMode="range" [readonlyInput]="true" placeholder="Select the Range"></p-calendar>
+        </div>
+        <span class="p-float-label">
+          <input pInputText id="price" name="price" [(ngModel)]="currentAvailabilityPeriod.price"/>
+          <label htmlFor="name">Price</label>
+        </span>
+        <div>
+          <p-button label="Add" (click)="addRange()"></p-button>
+        </div>
+      </div>
+
       <div class="file-upload-wrapper">
         <p-table
           [value]="availabilityPeriods"
           [paginator]="true"
-          [rows]="5"
+          [rows]="4"
           [showCurrentPageReport]="true"
           [tableStyle]="{ 'width': '450px' }">
           <ng-template pTemplate="header">
@@ -104,28 +128,6 @@
             </tr>
           </ng-template>
         </p-table>
-      </div>
-
-      <div class="row-wrapper availability-wrapper">
-        <div class="calendar-wrapper">
-          <p-calendar [(ngModel)]="pickedDates" name="range" selectionMode="range" [readonlyInput]="true" placeholder="Select the Range"></p-calendar>
-        </div>
-        <span class="p-float-label">
-          <input pInputText id="price" name="price" [(ngModel)]="currentAvailabilityPeriod.price"/>
-          <label htmlFor="name">Price</label>
-        </span>
-        <div>
-          <p-button label="Add" (click)="addRange()"></p-button>
-        </div>
-      </div>
-
-      <div class="checkbox-group">
-        <span class="checkbox-option">
-          <p-checkbox [(ngModel)]="pricePerGuest" id="price-per-guests" name="price-per-guests"  label="Price per guest" [binary]="true"></p-checkbox>
-          </span>
-        <span class="checkbox-option">
-        <p-checkbox [(ngModel)]="automaticallyAcceptIncomingReservations"  id="accept-incoming-reservations" name="accept-incoming-reservations" label="Automatically accept incoming reservations" [binary]="true"></p-checkbox>
-          </span>
       </div>
 
     </div>
