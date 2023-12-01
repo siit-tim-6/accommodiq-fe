@@ -1,34 +1,20 @@
-<h2>Login</h2>
+<h1>Login</h1>
 <form (submit)="onSubmit()">
-  <div class="accommodiq-input-wrapper">
-    <i class="pi pi-user"></i>
-    <input
-      type="text"
-      id="username"
-      name="username"
-      [(ngModel)]="email"
-      placeholder="Enter email"
-      required
-    />
+  <div>
+    <span class="p-float-label p-input-icon-left">
+          <i class="pi pi-user"></i>
+          <input pInputText id="username" name="username" type="text" [(ngModel)]="email"  required/>
+          <label htmlFor="name">Enter email</label>
+      </span>
   </div>
-  <div class="accommodiq-input-wrapper">
-    <i class="pi pi-shield"></i>
-    <input
-      type="password"
-      id="password"
-      name="password"
-      [(ngModel)]="password"
-      placeholder="Enter password"
-      required
-    />
+  <div>
+    <span class="p-float-label p-input-icon-left">
+          <i class="pi pi-shield"></i>
+          <input pInputText id="password" name="password" type="password" [(ngModel)]="password"  required/>
+          <label htmlFor="name">Enter password</label>
+      </span>
   </div>
-  <button
-    [routerLink]="['/update-account']"
-    class="accommodiq-button"
-    type="submit"
-  >
-    Login
-  </button>
+  <p-button label="Login" type="submit" [routerLink]="['/update-account']"></p-button>
   <p>
     Don't have an account?
     <a routerLink="/registration" class="link-with-underline">Sign Up</a>
