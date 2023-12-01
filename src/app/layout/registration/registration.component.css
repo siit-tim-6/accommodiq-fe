@@ -15,3 +15,11 @@
 :host div {
   margin-bottom: 20px;
 }
+
+:host .radio-button-wrapper {
+  margin-right: 10px;
+}
+
+:host p-radioButton {
+  margin-right: 5px;
+}

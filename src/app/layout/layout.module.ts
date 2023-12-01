@@ -9,6 +9,7 @@ import {RouterLink} from "@angular/router";
 import {AccountInfoComponent} from "./account-info/account-info.component";
 import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
+import {RadioButtonModule} from "primeng/radiobutton";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import {InputTextModule} from "primeng/inputtext";
     UpdateAccountComponent,
     AccountInfoComponent,
   ],
-  imports: [CommonModule, FormsModule, RouterLink, ButtonModule, InputTextModule],
+  imports: [CommonModule, FormsModule, RouterLink, ButtonModule, InputTextModule, RadioButtonModule],
   exports: [
     NavBarComponent,
     LoginComponent,

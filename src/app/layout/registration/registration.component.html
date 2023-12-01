@@ -1,43 +1,70 @@
-<h2>Registration</h2>
+<h1>Registration</h1>
 <form (submit)="onSubmit()">
-  <div class="accommodiq-input-wrapper">
-    <i class="pi pi-envelope"></i>
-    <input type="text" id="email" name="email" [(ngModel)]="email" placeholder="Enter email" required>
-  </div>
-  <div class="accommodiq-input-wrapper">
-    <i class="pi pi-shield"></i>
-    <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="Enter password" required>
-  </div>
-  <div class="accommodiq-input-wrapper">
-    <i class="pi pi-shield"></i>
-    <input type="password" id="repeat-password" name="repeat-password"  [(ngModel)]="repeatPassword" placeholder="Repeat password" required>
-  </div>
-  <div class="accommodiq-input-wrapper">
-    <i class="pi pi-user"></i>
-    <input type="text" id="first-name" name="first-name" [(ngModel)]="firstName" placeholder="Enter first name" required>
-  </div>
-  <div class="accommodiq-input-wrapper">
-    <i class="pi pi-user"></i>
-    <input type="text" id="last-name" name="last-name" [(ngModel)]="lastName" placeholder="Enter last name" required>
-  </div>
-  <div class="accommodiq-input-wrapper">
-    <i class="pi pi-id-card"></i>
-    <input type="text" id="address" name="address" [(ngModel)]="address" placeholder="Enter address" required>
-  </div>
-  <div class="accommodiq-input-wrapper">
-    <i class="pi pi-phone"></i>
-    <input type="tel" id="phone-number" name="phone-number" [(ngModel)]="phoneNumber" placeholder="Enter phone number" required>
+  <div>
+    <span class="p-float-label p-input-icon-left">
+          <i class="pi pi-envelope"></i>
+          <input pInputText id="email" name="email" type="email" [(ngModel)]="email"  required/>
+          <label htmlFor="name">Enter email</label>
+    </span>
   </div>
   <div>
-    <label>
-      <input type="radio" id="roleHost" name="role" [(ngModel)]="selectedRole" value="host" required>
-      <span>Host</span>
-    </label>
-    <label>
-      <input type="radio" id="roleGuest" name="role" [(ngModel)]="selectedRole" value="guest" required>
-      <span>Guest</span>
-    </label>
+    <span class="p-float-label p-input-icon-left">
+          <i class="pi pi-shield"></i>
+          <input pInputText id="password" name="password" type="password" [(ngModel)]="password"  required/>
+          <label htmlFor="name">Enter password</label>
+    </span>
   </div>
-  <button class="accommodiq-button" type="submit">Sign up</button>
+  <div>
+    <span class="p-float-label p-input-icon-left">
+          <i class="pi pi-shield"></i>
+          <input pInputText id="repeat-password" name="repeat-password" type="password" [(ngModel)]="repeatPassword"  required/>
+          <label htmlFor="name">Repeat password</label>
+    </span>
+  </div>
+  <div>
+    <span class="p-float-label p-input-icon-left">
+          <i class="pi pi-user"></i>
+          <input pInputText id="first-name" name="first-name" type="text" [(ngModel)]="firstName"  required/>
+          <label htmlFor="name">Enter first name</label>
+    </span>
+  </div>
+  <div>
+    <span class="p-float-label p-input-icon-left">
+          <i class="pi pi-user"></i>
+          <input pInputText id="last-name" name="last-name" type="text" [(ngModel)]="lastName"  required/>
+          <label htmlFor="name">Enter last name</label>
+    </span>
+  </div>
+  <div>
+    <span class="p-float-label p-input-icon-left">
+          <i class="pi pi-id-card"></i>
+          <input pInputText id="address" name="address" type="text" [(ngModel)]="address"  required/>
+          <label htmlFor="name">Enter address</label>
+    </span>
+  </div>
+  <div>
+    <span class="p-float-label p-input-icon-left">
+          <i class="pi pi-phone"></i>
+          <input pInputText id="phone-number" name="phone-number" type="tel" [(ngModel)]="phoneNumber"  required/>
+          <label htmlFor="name">Enter phone number</label>
+    </span>
+  </div>
+
+  <div class="flex flex-wrap gap-3">
+
+    <div class="flex align-items-center">
+      <label class="radio-button-wrapper">
+      <p-radioButton name="host" value="host" [(ngModel)]="selectedRole" id="roleHost"></p-radioButton>
+      <span>Host</span>
+      </label>
+
+      <label class="radio-button-wrapper">
+        <p-radioButton name="guest" value="guest" [(ngModel)]="selectedRole" id="roleGuest"></p-radioButton>
+        <span>Guest</span>
+      </label>
+    </div>
+
+  </div>
+  <p-button label="Sign up" type="submit"></p-button>
   <p>Already have an account? <a routerLink="/login" class="link-with-underline">Sign In</a></p>
 </form>
