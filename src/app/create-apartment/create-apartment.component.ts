@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-interface RentalPeriod {
+interface RentalRange {
   startDate: Date;
   endDate: Date;
   price: number;
@@ -23,8 +23,8 @@ export class CreateApartmentComponent {
   apartmentTypes: string[] | undefined;
   pricePerGuest: boolean | undefined;
   automaticallyAcceptIncomingReservations: boolean | undefined;
-  availabilityPeriods: RentalPeriod[] = [];
-  currentAvailabilityPeriod: RentalPeriod = {
+  availabilityRanges: RentalRange[] = [];
+  currentAvailabilityRange: RentalRange = {
     startDate: new Date(),
     endDate: new Date(),
     price: 0
@@ -36,21 +36,6 @@ export class CreateApartmentComponent {
     console.log(this.apartmentTypes);
   }
 
-  addRentalPeriod() {
-    // Validate the input
-    if (this.currentAvailabilityPeriod.startDate && this.currentAvailabilityPeriod.endDate && this.currentAvailabilityPeriod.price) {
-      // Add the current period to the list
-      this.availabilityPeriods.push({...this.currentAvailabilityPeriod});
-
-      // Clear the current period
-      this.currentAvailabilityPeriod = {
-        startDate: new Date(),
-        endDate: new Date(),
-        price: 0
-      };
-    }
-  }
-
   onSubmit() {
     console.log(this.pickedDates);
   }
@@ -60,22 +45,22 @@ export class CreateApartmentComponent {
   }
 
   addRange() {
-    if (this.pickedDates && this.currentAvailabilityPeriod.price) {
-      const newPeriod : RentalPeriod = {
+    if (this.pickedDates && this.currentAvailabilityRange.price) {
+      const newRange : RentalRange = {
         startDate: this.pickedDates[0],
         endDate: this.pickedDates[1],
-        price: this.currentAvailabilityPeriod.price
+        price: this.currentAvailabilityRange.price
       };
 
-      this.availabilityPeriods.push(newPeriod);
+      this.availabilityRanges.push(newRange);
 
       // Clear input fields
       this.pickedDates = [];
-      this.currentAvailabilityPeriod.price = 0;
+      this.currentAvailabilityRange.price = 0;
     }
   }
 
   removeRange(index: number) {
-    this.availabilityPeriods.splice(index, 1);
+    this.availabilityRanges.splice(index, 1);
   }
 }
