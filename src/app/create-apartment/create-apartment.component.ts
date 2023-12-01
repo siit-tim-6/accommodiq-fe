@@ -29,7 +29,7 @@ export class CreateApartmentComponent {
     endDate: new Date(),
     price: 0
   };
-  pickedDates: Date[] =  [new Date(), new Date()];
+  pickedDates?: Date[];
 
   ngOnInit(): void {
     this.apartmentTypes = ['Entire apartment', 'Private room', 'Shared room', 'Hotel room'];
@@ -52,13 +52,30 @@ export class CreateApartmentComponent {
   }
 
   onSubmit() {
-    console.log(this.name + " " + this.address  + " " + this.description + " " + this.benefits + " "
-      + this.imageUrls + " " + this.minGuests + " " + this.maxGuests + " " + this.apartmentType + " " + this.pricePerGuest
-      + " " + this.automaticallyAcceptIncomingReservations + " " + this.availabilityPeriods + " " + this.currentAvailabilityPeriod.startDate + " "
-      + this.currentAvailabilityPeriod.endDate + " " + this.currentAvailabilityPeriod.price + " " + this.pickedDates);
+    console.log(this.pickedDates);
   }
 
   onUpload($event: any) {
     console.log("onUpload");
+  }
+
+  addRange() {
+    if (this.pickedDates && this.currentAvailabilityPeriod.price) {
+      const newPeriod : RentalPeriod = {
+        startDate: this.pickedDates[0],
+        endDate: this.pickedDates[1],
+        price: this.currentAvailabilityPeriod.price
+      };
+
+      this.availabilityPeriods.push(newPeriod);
+
+      // Clear input fields
+      this.pickedDates = [];
+      this.currentAvailabilityPeriod.price = 0;
+    }
+  }
+
+  removeRange(index: number) {
+    this.availabilityPeriods.splice(index, 1);
   }
 }

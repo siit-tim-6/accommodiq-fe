@@ -71,7 +71,7 @@
 }
 
 :host .min-max-input-wrapper {
-  width: 100px;
+  width: 105px;
 }
 
 :host .between-line {
@@ -90,3 +90,14 @@
   border-color: #007ad9;
   box-shadow: 0 0 0 0.25rem rgba(0, 122, 217, 0.25);
 }
+
+:host .calendar-wrapper {
+  width: 220px;
+}
+
+:host #price {
+  width: 90px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
