@@ -6,9 +6,13 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccommodationModule } from './accommodation/accommodation.module';
+import { NotificationCardComponent } from './notification/notification-card/notification-card.component';
+import { NotificationListComponent } from './notification/notification-list/notification-list.component';
+import {ButtonModule} from "primeng/button";
+import {RatingModule} from "primeng/rating";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, NotificationCardComponent, NotificationListComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -17,6 +21,8 @@ import { AccommodationModule } from './accommodation/accommodation.module';
     AccommodationModule,
     FormsModule,
     ReactiveFormsModule,
+    ButtonModule,
+    RatingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
