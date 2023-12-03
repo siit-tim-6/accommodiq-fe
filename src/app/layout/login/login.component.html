@@ -1,22 +1,28 @@
-<h1>Login</h1>
-<form (submit)="onSubmit()">
-  <div>
+<p-dialog [visible]="true" [closable]="false">
+  <h1>Login</h1>
+
+  <form (submit)="onSubmit()">
+    <div>
     <span class="p-float-label p-input-icon-left">
           <i class="pi pi-user"></i>
           <input pInputText id="username" name="username" type="text" [(ngModel)]="email"  required/>
           <label htmlFor="name">Enter email</label>
     </span>
-  </div>
-  <div>
+    </div>
+    <div>
     <span class="p-float-label p-input-icon-left">
           <i class="pi pi-shield"></i>
           <input pInputText id="password" name="password" type="password" [(ngModel)]="password"  required/>
           <label htmlFor="name">Enter password</label>
     </span>
-  </div>
+    </div>
+
+  </form>
+
   <p-button label="Login" type="submit" [routerLink]="['/update-account']"></p-button>
   <p>
     Don't have an account?
     <a routerLink="/registration" class="link-with-underline">Sign Up</a>
   </p>
-</form>
+</p-dialog>
+

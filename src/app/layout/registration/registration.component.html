@@ -1,70 +1,72 @@
-<h1>Registration</h1>
-<form (submit)="onSubmit()">
-  <div>
-    <span class="p-float-label p-input-icon-left">
-          <i class="pi pi-envelope"></i>
-          <input pInputText id="email" name="email" type="email" [(ngModel)]="email"  required/>
-          <label htmlFor="name">Enter email</label>
-    </span>
-  </div>
-  <div>
-    <span class="p-float-label p-input-icon-left">
-          <i class="pi pi-shield"></i>
-          <input pInputText id="password" name="password" type="password" [(ngModel)]="password"  required/>
-          <label htmlFor="name">Enter password</label>
-    </span>
-  </div>
-  <div>
-    <span class="p-float-label p-input-icon-left">
-          <i class="pi pi-shield"></i>
-          <input pInputText id="repeat-password" name="repeat-password" type="password" [(ngModel)]="repeatPassword"  required/>
-          <label htmlFor="name">Repeat password</label>
-    </span>
-  </div>
-  <div>
-    <span class="p-float-label p-input-icon-left">
-          <i class="pi pi-user"></i>
-          <input pInputText id="first-name" name="first-name" type="text" [(ngModel)]="firstName"  required/>
-          <label htmlFor="name">Enter first name</label>
-    </span>
-  </div>
-  <div>
-    <span class="p-float-label p-input-icon-left">
-          <i class="pi pi-user"></i>
-          <input pInputText id="last-name" name="last-name" type="text" [(ngModel)]="lastName"  required/>
-          <label htmlFor="name">Enter last name</label>
-    </span>
-  </div>
-  <div>
-    <span class="p-float-label p-input-icon-left">
-          <i class="pi pi-id-card"></i>
-          <input pInputText id="address" name="address" type="text" [(ngModel)]="address"  required/>
-          <label htmlFor="name">Enter address</label>
-    </span>
-  </div>
-  <div>
-    <span class="p-float-label p-input-icon-left">
-          <i class="pi pi-phone"></i>
-          <input pInputText id="phone-number" name="phone-number" type="tel" [(ngModel)]="phoneNumber"  required/>
-          <label htmlFor="name">Enter phone number</label>
-    </span>
-  </div>
-
-  <div class="flex flex-wrap gap-3">
-
-    <div class="flex align-items-center">
-      <label class="radio-button-wrapper">
-      <p-radioButton name="host" value="host" [(ngModel)]="selectedRole" id="roleHost"></p-radioButton>
-      <span>Host</span>
-      </label>
-
-      <label class="radio-button-wrapper">
-        <p-radioButton name="guest" value="guest" [(ngModel)]="selectedRole" id="roleGuest"></p-radioButton>
-        <span>Guest</span>
-      </label>
+<p-dialog [closable]="false" [visible]="true">
+  <h1>Registration</h1>
+  <form (submit)="onSubmit()">
+    <div>
+      <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-envelope"></i>
+            <input [(ngModel)]="email" id="email" name="email" pInputText required  type="email"/>
+            <label htmlFor="name">Enter email</label>
+      </span>
+    </div>
+    <div>
+      <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-shield"></i>
+            <input [(ngModel)]="password" id="password" name="password" pInputText required  type="password"/>
+            <label htmlFor="name">Enter password</label>
+      </span>
+    </div>
+    <div>
+      <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-shield"></i>
+            <input [(ngModel)]="repeatPassword" id="repeat-password" name="repeat-password" pInputText required  type="password"/>
+            <label htmlFor="name">Repeat password</label>
+      </span>
+    </div>
+    <div>
+      <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-user"></i>
+            <input [(ngModel)]="firstName" id="first-name" name="first-name" pInputText required  type="text"/>
+            <label htmlFor="name">Enter first name</label>
+      </span>
+    </div>
+    <div>
+      <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-user"></i>
+            <input [(ngModel)]="lastName" id="last-name" name="last-name" pInputText required  type="text"/>
+            <label htmlFor="name">Enter last name</label>
+      </span>
+    </div>
+    <div>
+      <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-id-card"></i>
+            <input [(ngModel)]="address" id="address" name="address" pInputText required  type="text"/>
+            <label htmlFor="name">Enter address</label>
+      </span>
+    </div>
+    <div>
+      <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-phone"></i>
+            <input [(ngModel)]="phoneNumber" id="phone-number" name="phone-number" pInputText required  type="tel"/>
+            <label htmlFor="name">Enter phone number</label>
+      </span>
     </div>
 
-  </div>
-  <p-button label="Sign up" type="submit"></p-button>
-  <p>Already have an account? <a routerLink="/login" class="link-with-underline">Sign In</a></p>
-</form>
+    <div class="flex flex-wrap gap-3">
+
+      <div class="flex align-items-center">
+        <label class="radio-button-wrapper">
+        <p-radioButton [(ngModel)]="selectedRole" id="roleHost" name="host" value="host"></p-radioButton>
+        <span>Host</span>
+        </label>
+
+        <label class="radio-button-wrapper">
+          <p-radioButton [(ngModel)]="selectedRole" id="roleGuest" name="guest" value="guest"></p-radioButton>
+          <span>Guest</span>
+        </label>
+      </div>
+
+    </div>
+    <p-button label="Sign up" type="submit"></p-button>
+    <p>Already have an account? <a class="link-with-underline" routerLink="/login">Sign In</a></p>
+  </form>
+</p-dialog>
