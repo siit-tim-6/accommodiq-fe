@@ -11,6 +11,7 @@ import { AccommodationDetailsComponent } from './accommodation-details/accommoda
 import { RouterModule } from '@angular/router';
 import { GalleriaModule } from 'primeng/galleria';
 import { CommentModule } from '../comment/comment.module';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CommentModule } from '../comment/comment.module';
     RouterModule,
     GalleriaModule,
     CommentModule,
+    FormsModule,
   ],
   exports: [
     AccommodationSearchComponent,
