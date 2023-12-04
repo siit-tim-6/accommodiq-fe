@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccommodationModule } from './accommodation/accommodation.module';
-import { CreateApartmentComponent } from './create-apartment/create-apartment.component';
+import { AccommodationCreateComponent } from './accommodation/accommodation-create/accommodation-create.component';
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {InputTextModule} from "primeng/inputtext";
 import {CheckboxModule} from "primeng/checkbox";
@@ -18,7 +18,7 @@ import {TableModule} from "primeng/table";
 import {DialogModule} from "primeng/dialog";
 
 @NgModule({
-  declarations: [AppComponent, CreateApartmentComponent],
+  declarations: [AppComponent, AccommodationCreateComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

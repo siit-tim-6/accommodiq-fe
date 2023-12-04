@@ -6,7 +6,7 @@ import { AccommodationListComponent } from './accommodation/accommodation-list/a
 import { AccommodationDetailsComponent } from './accommodation/accommodation-details/accommodation-details.component';
 import { AccountInfoComponent } from './layout/account-info/account-info.component';
 import { UpdateAccountComponent } from './layout/update-account/update-account.component';
-import {CreateApartmentComponent} from "./create-apartment/create-apartment.component";
+import { AccommodationCreateComponent } from "./accommodation/accommodation-create/accommodation-create.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -19,7 +19,7 @@ const routes: Routes = [
     component: AccommodationDetailsComponent,
   },
   { path: 'update-account', component: UpdateAccountComponent },
-  { path: 'create-apartment', component: CreateApartmentComponent}
+  { path: 'accommodation-create', component: AccommodationCreateComponent}
 ];
 
 @NgModule({

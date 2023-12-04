@@ -7,11 +7,11 @@ interface RentalRange {
 }
 
 @Component({
-  selector: 'app-create-apartment',
-  templateUrl: './create-apartment.component.html',
-  styleUrl: './create-apartment.component.css'
+  selector: 'app-accommodation-create',
+  templateUrl: './accommodation-create.component.html',
+  styleUrl: './accommodation-create.component.css'
 })
-export class CreateApartmentComponent {
+export class AccommodationCreateComponent {
   name?: string;
   address?: string;
   description?: string;
