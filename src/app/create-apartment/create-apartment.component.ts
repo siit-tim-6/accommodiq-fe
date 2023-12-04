@@ -24,11 +24,7 @@ export class CreateApartmentComponent {
   pricePerGuest: boolean | undefined;
   automaticallyAcceptIncomingReservations: boolean | undefined;
   availabilityRanges: RentalRange[] = [];
-  currentAvailabilityRange: RentalRange = {
-    startDate: new Date(),
-    endDate: new Date(),
-    price: 0
-  };
+  price: number | undefined;
   pickedDates?: Date[];
 
   ngOnInit(): void {
@@ -45,18 +41,18 @@ export class CreateApartmentComponent {
   }
 
   addRange() {
-    if (this.pickedDates && this.currentAvailabilityRange.price) {
+    if (this.pickedDates && this.price) {
       const newRange : RentalRange = {
         startDate: this.pickedDates[0],
         endDate: this.pickedDates[1],
-        price: this.currentAvailabilityRange.price
+        price: this.price
       };
 
       this.availabilityRanges.push(newRange);
 
       // Clear input fields
       this.pickedDates = [];
-      this.currentAvailabilityRange.price = 0;
+      this.price = undefined;
     }
   }
 
