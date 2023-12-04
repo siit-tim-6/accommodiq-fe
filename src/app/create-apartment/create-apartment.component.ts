@@ -12,19 +12,19 @@ interface RentalRange {
   styleUrl: './create-apartment.component.css'
 })
 export class CreateApartmentComponent {
-  name: string | undefined;
-  address: string | undefined;
-  description: string | undefined;
-  benefits: string[] | undefined;
+  name?: string;
+  address?: string;
+  description?: string;
+  benefits?: string[];
   imageUrls: File[] = [];
-  minGuests: number | undefined;
-  maxGuests: number | undefined;
-  apartmentType: string | undefined;
-  apartmentTypes: string[] | undefined;
-  pricePerGuest: boolean | undefined;
-  automaticallyAcceptIncomingReservations: boolean | undefined;
+  minGuests?: number;
+  maxGuests?: number;
+  apartmentType?: string;
+  apartmentTypes?: string[];
+  pricePerGuest?: boolean;
+  automaticallyAcceptIncomingReservations?: boolean;
   availabilityRanges: RentalRange[] = [];
-  price: number | undefined;
+  price?: number;
   pickedDates?: Date[];
 
   ngOnInit(): void {
