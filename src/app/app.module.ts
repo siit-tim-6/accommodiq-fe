@@ -15,6 +15,7 @@ import {InputNumberModule} from "primeng/inputnumber";
 import {DropdownModule} from "primeng/dropdown";
 import {CalendarModule} from "primeng/calendar";
 import {TableModule} from "primeng/table";
+import {DialogModule} from "primeng/dialog";
 
 @NgModule({
   declarations: [AppComponent, CreateApartmentComponent],
@@ -35,6 +36,7 @@ import {TableModule} from "primeng/table";
     CalendarModule,
     TableModule,
     ReactiveFormsModule,
+    DialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
