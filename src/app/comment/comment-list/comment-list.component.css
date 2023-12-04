@@ -1,0 +1,15 @@
+:host {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+:host > div {
+  width: 75%;
+  margin: 10px 0;
+}
+
+h1 {
+  align-self: flex-start;
+}

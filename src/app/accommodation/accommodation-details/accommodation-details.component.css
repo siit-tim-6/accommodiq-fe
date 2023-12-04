@@ -1,0 +1,122 @@
+:host {
+  display: flex;
+  flex-direction: row;
+}
+
+:host > :first-child {
+  padding: 30px;
+  width: 100%;
+  margin-right: 42rem;
+}
+
+.heading-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heading-row > h1 {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.heading-row p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.row > * {
+  margin-right: 15px;
+}
+
+.row > :last-child {
+  margin-right: 0px;
+}
+
+h3 {
+  font-weight: 400;
+}
+
+h4 {
+  margin-top: 0px;
+}
+
+.rating-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.rating-row > * {
+  margin-right: 15px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid #dfdfdf;
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+
+:host {
+  ::ng-deep .p-galleria-thumbnail-container {
+    background-color: white;
+  }
+
+  ::ng-deep span.p-calendar {
+    flex-direction: row-reverse;
+  }
+
+  ::ng-deep button.p-datepicker-trigger {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  ::ng-deep span.p-calendar > input  {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+}
+
+.icon-label {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon-label > :first-child {
+  margin-right: 8px;
+}
+
+.description {
+  width: 75%;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 15px;
+  text-align: justify;
+}
+
+.map {
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.map > img {
+  height: 100vh;
+  width: 42rem;
+  filter: grayscale(100%);
+}

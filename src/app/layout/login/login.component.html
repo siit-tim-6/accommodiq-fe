@@ -1,15 +1,28 @@
-<link rel="stylesheet"
-      href=
-        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<h2>Login</h2>
-<form (submit)="onSubmit()">
-  <div class="accommodiq-input-wrapper">
-    <i class="fa-solid fa-envelope"></i>
-    <input type="text" id="username" name="username" [(ngModel)]="email" placeholder="Enter email" required>
-  </div>
-  <div class="accommodiq-input-wrapper">
-    <i class="fa-solid fa-shield-halved"></i>
-    <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="Enter password" required>
-  </div>
-  <button class="accommodiq-button" type="submit">Login</button>
-</form>
+<p-dialog [visible]="true" [closable]="false">
+  <h1>Login</h1>
+
+  <form (submit)="onSubmit()">
+    <div>
+    <span class="p-float-label p-input-icon-left">
+          <i class="pi pi-user"></i>
+          <input pInputText id="username" name="username" type="text" [(ngModel)]="email"  required/>
+          <label htmlFor="name">Enter email</label>
+    </span>
+    </div>
+    <div>
+    <span class="p-float-label p-input-icon-left">
+          <i class="pi pi-shield"></i>
+          <input pInputText id="password" name="password" type="password" [(ngModel)]="password"  required/>
+          <label htmlFor="name">Enter password</label>
+    </span>
+    </div>
+
+  </form>
+
+  <p-button label="Login" type="submit" [routerLink]="['/update-account']"></p-button>
+  <p>
+    Don't have an account?
+    <a routerLink="/registration" class="link-with-underline">Sign Up</a>
+  </p>
+</p-dialog>
+

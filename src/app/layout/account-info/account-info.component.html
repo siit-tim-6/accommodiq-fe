@@ -1,0 +1,26 @@
+<div class="profile-container">
+  <div class="left-section">
+    <img [src]="imageUrl" alt="Profile Image" class="rounded-photo">
+  </div>
+  <div class="right-section">
+    <div class="top-row">
+      <span id="full-name">{{ firstName }} {{ lastName }}</span>
+      <i class="pi pi-id-card"></i>
+      <span>{{ address }}</span>
+      <p-button  *ngIf="role === 'Guest'" label="Report" id="report-btn" class="account-info-button" severity="danger" ></p-button>
+      <p-button *ngIf="role === 'Owner'" label="Edit" id="edit-btn" class="account-info-button"></p-button>
+    </div>
+    <div class="middle-row">
+      <i class="pi pi-user"></i>
+      <span>{{ role }}</span>
+    </div>
+    <div class="bottom-row">
+      <div class="rating">
+        <span *ngFor="let star of stars" [class]="star"></span>
+        <span class="rating-value">{{ rating }}</span>
+        <span class="num-ratings">{{ reviewCount }} ratings</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="line-separator"></div>

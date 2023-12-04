@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccommodationModule } from './accommodation/accommodation.module';
 import { CreateApartmentComponent } from './create-apartment/create-apartment.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {InputTextModule} from "primeng/inputtext";
 import {CheckboxModule} from "primeng/checkbox";
@@ -35,6 +34,7 @@ import {TableModule} from "primeng/table";
     DropdownModule,
     CalendarModule,
     TableModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

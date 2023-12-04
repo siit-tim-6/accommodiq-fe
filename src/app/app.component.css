@@ -3,6 +3,6 @@
   flex-direction: row;
 }
 
-app-accommodation-list {
-  padding: 30px;
+router-outlet {
+  margin-left: 105px;
 }
