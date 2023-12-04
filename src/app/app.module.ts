@@ -10,6 +10,7 @@ import { NotificationCardComponent } from './notification/notification-card/noti
 import { NotificationListComponent } from './notification/notification-list/notification-list.component';
 import {ButtonModule} from "primeng/button";
 import {RatingModule} from "primeng/rating";
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, NotificationCardComponent, NotificationListComponent],
@@ -23,6 +24,7 @@ import {RatingModule} from "primeng/rating";
     ReactiveFormsModule,
     ButtonModule,
     RatingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
