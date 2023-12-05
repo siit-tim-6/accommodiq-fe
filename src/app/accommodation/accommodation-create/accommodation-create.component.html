@@ -1,10 +1,10 @@
-<p-dialog [closable]="false" [visible]="true">
+<p-dialog [closable]="false" [visible]="true" [draggable]="false">
   <h2>Create new apartment</h2>
   <form (submit)="onSubmit()">
     <div class="inline-update-form">
       <div>
         <span class="p-float-label">
-            <input pInputText id="name" name="name" [(ngModel)]="name"/>
+            <input pInputText id="name" name="name" [(ngModel)]="name" placeholder="Name"/>
             <label htmlFor="name">Name</label>
         </span>
         <span class="p-float-label">

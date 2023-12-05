@@ -25,9 +25,6 @@
   font: 15px "Inter", sans-serif;
 }
 
-:host #description:focus {
-}
-
 :host input {
   width:100%;
 }
@@ -103,5 +100,9 @@
 
 :host form {
   margin-top: 20px;
+}
+
+:host span.p-float-label:not(:has(input[id="price"])) {
+  margin-bottom: 25px;
 }
 
