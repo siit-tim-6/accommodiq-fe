@@ -1,53 +1,46 @@
-<p-dialog [closable]="false" [visible]="true">
+<p-dialog [closable]="false" [visible]="true" [draggable]="false">
   <h1>Registration</h1>
   <form (submit)="onSubmit()">
     <div>
-      <span class="p-float-label p-input-icon-left">
+      <span class="p-input-icon-left">
             <i class="pi pi-envelope"></i>
-            <input [(ngModel)]="email" id="email" name="email" pInputText required  type="email"/>
-            <label htmlFor="name">Enter email</label>
+            <input [(ngModel)]="email" placeholder="Enter email" id="email" name="email" pInputText required  type="email"/>
       </span>
     </div>
     <div>
-      <span class="p-float-label p-input-icon-left">
+      <span class="p-input-icon-left">
             <i class="pi pi-shield"></i>
-            <input [(ngModel)]="password" id="password" name="password" pInputText required  type="password"/>
-            <label htmlFor="name">Enter password</label>
+            <input [(ngModel)]="password" placeholder="Enter password" id="password" name="password" pInputText required  type="password"/>
       </span>
     </div>
     <div>
-      <span class="p-float-label p-input-icon-left">
+      <span class="p-input-icon-left">
             <i class="pi pi-shield"></i>
-            <input [(ngModel)]="repeatPassword" id="repeat-password" name="repeat-password" pInputText required  type="password"/>
-            <label htmlFor="name">Repeat password</label>
+            <input [(ngModel)]="repeatPassword" placeholder="Repeat password" id="repeat-password" name="repeat-password" pInputText required  type="password"/>
       </span>
     </div>
     <div>
-      <span class="p-float-label p-input-icon-left">
+      <span class="p-input-icon-left">
             <i class="pi pi-user"></i>
-            <input [(ngModel)]="firstName" id="first-name" name="first-name" pInputText required  type="text"/>
-            <label htmlFor="name">Enter first name</label>
+            <input [(ngModel)]="firstName" placeholder="Enter first name" id="first-name" name="first-name" pInputText required  type="text"/>
       </span>
     </div>
     <div>
-      <span class="p-float-label p-input-icon-left">
+      <span class="p-input-icon-left">
             <i class="pi pi-user"></i>
-            <input [(ngModel)]="lastName" id="last-name" name="last-name" pInputText required  type="text"/>
-            <label htmlFor="name">Enter last name</label>
+            <input [(ngModel)]="lastName" placeholder="Enter last name" id="last-name" name="last-name" pInputText required  type="text"/>
       </span>
     </div>
     <div>
-      <span class="p-float-label p-input-icon-left">
+      <span class="p-input-icon-left">
             <i class="pi pi-id-card"></i>
-            <input [(ngModel)]="address" id="address" name="address" pInputText required  type="text"/>
-            <label htmlFor="name">Enter address</label>
+            <input [(ngModel)]="address" placeholder="Enter address" id="address" name="address" pInputText required  type="text"/>
       </span>
     </div>
     <div>
-      <span class="p-float-label p-input-icon-left">
+      <span class="p-input-icon-left">
             <i class="pi pi-phone"></i>
-            <input [(ngModel)]="phoneNumber" id="phone-number" name="phone-number" pInputText required  type="tel"/>
-            <label htmlFor="name">Enter phone number</label>
+            <input [(ngModel)]="phoneNumber" placeholder="Enter phone number" id="phone-number" name="phone-number" pInputText required  type="tel"/>
       </span>
     </div>
 
