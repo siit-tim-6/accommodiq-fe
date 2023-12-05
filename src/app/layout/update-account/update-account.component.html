@@ -1,4 +1,4 @@
-<p-dialog [closable]="false" [visible]="true">
+<p-dialog [closable]="false" [visible]="true" [draggable]="false">
 
 <h1>Update your account</h1>
 
@@ -8,38 +8,33 @@
       <h3>Update your personal data</h3>
       <form (submit)="onUpdatePersonalData()">
         <div>
-          <span class="p-float-label p-input-icon-left">
+          <span class="p-input-icon-left">
             <i class="pi pi-user"></i>
-            <input pInputText id="first-name" name="first-name" type="text" [(ngModel)]="firstName"  required/>
-            <label htmlFor="name">Enter first name</label>
+            <input pInputText placeholder="Enter first name" id="first-name" name="first-name" type="text" [(ngModel)]="firstName"  required/>
           </span>
         </div>
         <div>
-          <span class="p-float-label p-input-icon-left">
+          <span class="p-input-icon-left">
             <i class="pi pi-user"></i>
-            <input pInputText id="last-name" name="last-name" type="text" [(ngModel)]="lastName"  required/>
-            <label htmlFor="name">Enter last name</label>
+            <input pInputText placeholder="Enter last name" id="last-name" name="last-name" type="text" [(ngModel)]="lastName"  required/>
           </span>
         </div>
         <div>
-          <span class="p-float-label p-input-icon-left">
+          <span class="p-input-icon-left">
             <i class="pi pi-envelope"></i>
-            <input pInputText id="email" name="email" type="email" [(ngModel)]="email"  required/>
-            <label htmlFor="name">Enter email</label>
+            <input pInputText placeholder="Enter email" id="email" name="email" type="email" [(ngModel)]="email"  required/>
           </span>
         </div>
         <div>
-          <span class="p-float-label p-input-icon-left">
+          <span class="p-input-icon-left">
             <i class="pi pi-home"></i>
-            <input pInputText id="address" name="address" type="text" [(ngModel)]="address"  required/>
-            <label htmlFor="name">Enter address</label>
+            <input pInputText placeholder="Enter address" id="address" name="address" type="text" [(ngModel)]="address"  required/>
           </span>
         </div>
         <div>
-          <span class="p-float-label p-input-icon-left">
+          <span class="p-input-icon-left">
             <i class="pi pi-phone"></i>
-            <input pInputText id="phone-number" name="phone-number" type="tel" [(ngModel)]="phoneNumber"  required/>
-            <label htmlFor="name">Enter phone number</label>
+            <input pInputText placeholder="Enter phone number" id="phone-number" name="phone-number" type="tel" [(ngModel)]="phoneNumber"  required/>
           </span>
         </div>
         <p-button label="Update" type="submit"></p-button>
@@ -59,24 +54,21 @@
       <h3>Update your password</h3>
       <form (submit)="onUpdatePassword()">
         <div>
-          <span class="p-float-label p-input-icon-left">
+          <span class="p-input-icon-left">
             <i class="pi pi-shield"></i>
-            <input pInputText id="old-password" name="old-password" type="password" [(ngModel)]="oldPassword"  required/>
-            <label htmlFor="name">Enter old password</label>
+            <input pInputText placeholder="Enter old password" id="old-password" name="old-password" type="password" [(ngModel)]="oldPassword"  required/>
           </span>
         </div>
         <div>
-          <span class="p-float-label p-input-icon-left">
+          <span class="p-input-icon-left">
             <i class="pi pi-shield"></i>
-            <input pInputText id="new-password" name="new-password" type="password" [(ngModel)]="newPassword"  required/>
-            <label htmlFor="name">Enter new password</label>
+            <input pInputText placeholder="Enter new password" id="new-password" name="new-password" type="password" [(ngModel)]="newPassword"  required/>
           </span>
         </div>
         <div>
-          <span class="p-float-label p-input-icon-left">
+          <span class="p-input-icon-left">
             <i class="pi pi-shield"></i>
-            <input pInputText id="repeat-new-password" name="repeat-new-password" type="password" [(ngModel)]="repeatNewPassword"  required/>
-          <label htmlFor="name">Repeat new password</label>
+            <input pInputText placeholder="Repeat new password" id="repeat-new-password" name="repeat-new-password" type="password" [(ngModel)]="repeatNewPassword"  required/>
     </span>
         </div>
         <p-button label="Update" type="submit"></p-button>
