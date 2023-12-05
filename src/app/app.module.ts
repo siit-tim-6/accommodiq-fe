@@ -13,7 +13,6 @@ import { AccommodationModule } from './accommodation/accommodation.module';
     AppRoutingModule,
     LayoutModule,
     AccommodationModule,
-    AccommodationModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
