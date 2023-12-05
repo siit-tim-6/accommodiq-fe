@@ -18,6 +18,7 @@ import {CheckboxModule} from "primeng/checkbox";
 import {FileUploadModule} from "primeng/fileupload";
 import {DropdownModule} from "primeng/dropdown";
 import {TableModule} from "primeng/table";
+import {InputTextareaModule} from "primeng/inputtextarea";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {TableModule} from "primeng/table";
     CheckboxModule,
     FileUploadModule,
     DropdownModule,
-    TableModule
+    TableModule,
+    InputTextareaModule,
   ],
   exports: [
     AccommodationSearchComponent,
