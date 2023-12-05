@@ -102,7 +102,4 @@
   margin-top: 20px;
 }
 
-:host span.p-float-label:not(:has(input[id="price"])) {
-  margin-bottom: 25px;
-}
 

@@ -3,19 +3,22 @@
   <form (submit)="onSubmit()">
     <div class="inline-update-form">
       <div>
-        <span class="p-float-label">
-            <input pInputText id="name" name="name" [(ngModel)]="name" placeholder="Name"/>
-            <label htmlFor="name">Name</label>
-        </span>
-        <span class="p-float-label">
-          <textarea rows="5" cols="30" id="description" name="description" pInputTextarea
-                    [(ngModel)]="description"></textarea>
-          <label for="description">Description</label>
-        </span>
-        <span class="p-float-label">
-          <input pInputText id="address" name="address" [(ngModel)]="address"/>
-          <label htmlFor="address">Address</label>
-      </span>
+        <div>
+          <span>
+              <input pInputText id="name" name="name" [(ngModel)]="name" placeholder="Name"/>
+          </span>
+        </div>
+        <div>
+          <span>
+            <textarea rows="5" cols="30" id="description" name="description" pInputTextarea
+                      [(ngModel)]="description" placeholder="Description"></textarea>
+          </span>
+        </div>
+        <div>
+          <span>
+            <input pInputText id="address" name="address" [(ngModel)]="address" placeholder="Address"/>
+          </span>
+        </div>
 
         <div class="checkbox-group" ngModelGroup="benefits">
         <span class="checkbox-option">
@@ -90,10 +93,11 @@
           <div class="calendar-wrapper">
             <p-calendar [(ngModel)]="pickedDates" name="range" selectionMode="range" [readonlyInput]="true" placeholder="Select the Range"></p-calendar>
           </div>
-          <span class="p-float-label">
-            <input pInputText id="price" name="price" [(ngModel)]="price"/>
-            <label htmlFor="name">Price</label>
+          <div>
+          <span>
+            <input pInputText id="price" name="price" [(ngModel)]="price" placeholder="Price"/>
           </span>
+          </div>
           <div>
             <p-button label="Add" (click)="addRange()"></p-button>
           </div>
