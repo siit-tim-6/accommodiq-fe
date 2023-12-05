@@ -1,19 +1,17 @@
-<p-dialog [visible]="true" [closable]="false">
+<p-dialog [visible]="true" [closable]="false" [draggable]="false">
   <h1>Login</h1>
 
   <form (submit)="onSubmit()">
     <div>
-    <span class="p-float-label p-input-icon-left">
+    <span class="p-input-icon-left">
           <i class="pi pi-user"></i>
-          <input pInputText id="username" name="username" type="text" [(ngModel)]="email"  required/>
-          <label htmlFor="name">Enter email</label>
+          <input pInputText id="username" placeholder="Enter email" name="username" type="text" [(ngModel)]="email"  required/>
     </span>
     </div>
     <div>
-    <span class="p-float-label p-input-icon-left">
+    <span class="p-input-icon-left">
           <i class="pi pi-shield"></i>
-          <input pInputText id="password" name="password" type="password" [(ngModel)]="password"  required/>
-          <label htmlFor="name">Enter password</label>
+          <input pInputText id="password" placeholder="Enter password" name="password" type="password" [(ngModel)]="password"  required/>
     </span>
     </div>
 
