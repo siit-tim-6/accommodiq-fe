@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccommodationModule } from './accommodation/accommodation.module';
+import { NotificationModule } from "./notification/notification.module";
+import {ButtonModule} from "primeng/button";
+import {RatingModule} from "primeng/rating";
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +20,9 @@ import { AccommodationModule } from './accommodation/accommodation.module';
     AccommodationModule,
     FormsModule,
     ReactiveFormsModule,
+    ButtonModule,
+    RatingModule,
+    NotificationModule
   ],
   providers: [],
   bootstrap: [AppComponent],

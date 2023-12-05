@@ -1,0 +1,27 @@
+:host {
+  display: flex;
+  border-top: 1px solid #ced4da;
+}
+
+:host > * {
+  margin: 1.5rem;
+}
+
+.notification-author i {
+  margin-right: 0.4rem;
+}
+
+.notification-status {
+  display: flex;
+  align-items: center;
+}
+
+.notification-author p{
+  display: inline-flex;
+  align-items: center;
+  margin: 0 2rem 0 0;
+}
+
+.notification-author :first-child{
+  font-weight: bold;
+}

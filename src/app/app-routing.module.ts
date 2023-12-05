@@ -6,6 +6,9 @@ import { AccommodationListComponent } from './accommodation/accommodation-list/a
 import { AccommodationDetailsComponent } from './accommodation/accommodation-details/accommodation-details.component';
 import { AccountInfoComponent } from './layout/account-info/account-info.component';
 import { UpdateAccountComponent } from './layout/update-account/update-account.component';
+import {NotificationCardComponent} from "./notification/notification-card/notification-card.component";
+import {AccommodationCardComponent} from "./accommodation/accommodation-card/accommodation-card.component";
+import {NotificationListComponent} from "./notification/notification-list/notification-list.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -18,6 +21,7 @@ const routes: Routes = [
     component: AccommodationDetailsComponent,
   },
   { path: 'update-account', component: UpdateAccountComponent },
+  { path: 'notifications', component: NotificationListComponent },
 ];
 
 @NgModule({
