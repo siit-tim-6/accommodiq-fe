@@ -15,7 +15,6 @@ export class AccommodationListComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log("Pozivam")
     this.service.getAll().subscribe((accommodations: any[])=>{
       this.elements = accommodations;
     })

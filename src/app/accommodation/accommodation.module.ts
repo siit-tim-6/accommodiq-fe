@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { GalleriaModule } from 'primeng/galleria';
 import { CommentModule } from '../comment/comment.module';
 import {FormsModule} from "@angular/forms";
+import { HostsAccommodationListComponent } from './hosts-accommodation-list/hosts-accommodation-list.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {FormsModule} from "@angular/forms";
     AccommodationCardComponent,
     AccommodationListComponent,
     AccommodationDetailsComponent,
+    HostsAccommodationListComponent,
   ],
   imports: [
     CommonModule,
