@@ -1,36 +1,26 @@
-<h2>Login</h2>
-<form (submit)="onSubmit()">
-  <div class="accommodiq-input-wrapper">
-    <i class="pi pi-user"></i>
-    <input
-      type="text"
-      id="username"
-      name="username"
-      [(ngModel)]="email"
-      placeholder="Enter email"
-      required
-    />
-  </div>
-  <div class="accommodiq-input-wrapper">
-    <i class="pi pi-shield"></i>
-    <input
-      type="password"
-      id="password"
-      name="password"
-      [(ngModel)]="password"
-      placeholder="Enter password"
-      required
-    />
-  </div>
-  <button
-    [routerLink]="['/update-account']"
-    class="accommodiq-button"
-    type="submit"
-  >
-    Login
-  </button>
+<p-dialog [visible]="true" [closable]="false" [draggable]="false">
+  <h1>Login</h1>
+
+  <form (submit)="onSubmit()">
+    <div>
+    <span class="p-input-icon-left">
+          <i class="pi pi-user"></i>
+          <input pInputText id="username" placeholder="Enter email" name="username" type="text" [(ngModel)]="email"  required/>
+    </span>
+    </div>
+    <div>
+    <span class="p-input-icon-left">
+          <i class="pi pi-shield"></i>
+          <input pInputText id="password" placeholder="Enter password" name="password" type="password" [(ngModel)]="password"  required/>
+    </span>
+    </div>
+
+  </form>
+
+  <p-button label="Login" type="submit" [routerLink]="['/update-account']"></p-button>
   <p>
     Don't have an account?
     <a routerLink="/registration" class="link-with-underline">Sign Up</a>
   </p>
-</form>
+</p-dialog>
+

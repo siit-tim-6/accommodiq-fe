@@ -1,77 +1,50 @@
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-/>
-<h2>Update your account</h2>
+<p-dialog [closable]="false" [visible]="true" [draggable]="false">
+
+<h1>Update your account</h1>
 
 <div class="inline-update-form">
   <div>
     <div class="form-wrapper">
       <h3>Update your personal data</h3>
       <form (submit)="onUpdatePersonalData()">
-        <div class="accommodiq-input-wrapper">
-          <i class="pi pi-user"></i>
-          <input
-            type="text"
-            id="first-name"
-            name="first-name"
-            [(ngModel)]="firstName"
-            placeholder="Enter first name"
-            required
-          />
+        <div>
+          <span class="p-input-icon-left">
+            <i class="pi pi-user"></i>
+            <input pInputText placeholder="Enter first name" id="first-name" name="first-name" type="text" [(ngModel)]="firstName"  required/>
+          </span>
         </div>
-        <div class="accommodiq-input-wrapper">
-          <i class="pi pi-user"></i>
-          <input
-            type="text"
-            id="last-name"
-            name="last-name"
-            [(ngModel)]="lastName"
-            placeholder="Enter last name"
-            required
-          />
+        <div>
+          <span class="p-input-icon-left">
+            <i class="pi pi-user"></i>
+            <input pInputText placeholder="Enter last name" id="last-name" name="last-name" type="text" [(ngModel)]="lastName"  required/>
+          </span>
         </div>
-        <div class="accommodiq-input-wrapper">
-          <i class="pi pi-envelope"></i>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            [(ngModel)]="email"
-            placeholder="Enter email"
-            required
-          />
+        <div>
+          <span class="p-input-icon-left">
+            <i class="pi pi-envelope"></i>
+            <input pInputText placeholder="Enter email" id="email" name="email" type="email" [(ngModel)]="email"  required/>
+          </span>
         </div>
-        <div class="accommodiq-input-wrapper">
-          <i class="pi pi-home"></i>
-          <input
-            type="text"
-            id="address"
-            name="address"
-            [(ngModel)]="address"
-            placeholder="Enter address"
-            required
-          />
+        <div>
+          <span class="p-input-icon-left">
+            <i class="pi pi-home"></i>
+            <input pInputText placeholder="Enter address" id="address" name="address" type="text" [(ngModel)]="address"  required/>
+          </span>
         </div>
-        <div class="accommodiq-input-wrapper">
-          <i class="pi pi-phone"></i>
-          <input
-            type="tel"
-            id="phone-number"
-            name="phone-number"
-            [(ngModel)]="phoneNumber"
-            placeholder="Enter phone number"
-            required
-          />
+        <div>
+          <span class="p-input-icon-left">
+            <i class="pi pi-phone"></i>
+            <input pInputText placeholder="Enter phone number" id="phone-number" name="phone-number" type="tel" [(ngModel)]="phoneNumber"  required/>
+          </span>
         </div>
-        <button class="accommodiq-button" type="submit">Update</button>
+        <p-button label="Update" type="submit"></p-button>
       </form>
     </div>
 
     <div class="form-wrapper delete-from-wrapper">
       <h3>Delete your account</h3>
       <form (submit)="onDelete()">
-        <button class="accommodiq-button" type="submit">Delete</button>
+        <p-button label="Delete" type="submit"></p-button>
       </form>
     </div>
   </div>
@@ -80,41 +53,27 @@
     <div class="form-wrapper">
       <h3>Update your password</h3>
       <form (submit)="onUpdatePassword()">
-        <div class="accommodiq-input-wrapper">
-          <i class="pi pi-shield"></i>
-          <input
-            type="password"
-            id="old-password"
-            name="old-password"
-            [(ngModel)]="oldPassword"
-            placeholder="Enter old password"
-            required
-          />
+        <div>
+          <span class="p-input-icon-left">
+            <i class="pi pi-shield"></i>
+            <input pInputText placeholder="Enter old password" id="old-password" name="old-password" type="password" [(ngModel)]="oldPassword"  required/>
+          </span>
         </div>
-        <div class="accommodiq-input-wrapper">
-          <i class="pi pi-shield"></i>
-          <input
-            type="password"
-            id="new-password"
-            name="new-password"
-            [(ngModel)]="newPassword"
-            placeholder="Enter new password"
-            required
-          />
+        <div>
+          <span class="p-input-icon-left">
+            <i class="pi pi-shield"></i>
+            <input pInputText placeholder="Enter new password" id="new-password" name="new-password" type="password" [(ngModel)]="newPassword"  required/>
+          </span>
         </div>
-        <div class="accommodiq-input-wrapper">
-          <i class="pi pi-shield"></i>
-          <input
-            type="password"
-            id="repeat-new-password"
-            name="repeat-new-password"
-            [(ngModel)]="repeatNewPassword"
-            placeholder="Repeat new password"
-            required
-          />
+        <div>
+          <span class="p-input-icon-left">
+            <i class="pi pi-shield"></i>
+            <input pInputText placeholder="Repeat new password" id="repeat-new-password" name="repeat-new-password" type="password" [(ngModel)]="repeatNewPassword"  required/>
+    </span>
         </div>
-        <button class="accommodiq-button" type="submit">Update</button>
+        <p-button label="Update" type="submit"></p-button>
       </form>
     </div>
   </div>
 </div>
+</p-dialog>

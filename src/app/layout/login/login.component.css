@@ -1,13 +1,3 @@
-:host {
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
-  align-items: center;
-  width: fit-content;
-  box-sizing: border-box;
-  overflow-y: hidden;
-}
-
 :host :not(input) {
   text-align: center;
 }
