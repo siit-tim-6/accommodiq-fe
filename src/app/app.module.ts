@@ -4,11 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccommodationModule } from './accommodation/accommodation.module';
 import { NotificationModule } from "./notification/notification.module";
-import {ButtonModule} from "primeng/button";
-import {RatingModule} from "primeng/rating";
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,10 +15,6 @@ import {RatingModule} from "primeng/rating";
     AppRoutingModule,
     LayoutModule,
     AccommodationModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ButtonModule,
-    RatingModule,
     NotificationModule
   ],
   providers: [],

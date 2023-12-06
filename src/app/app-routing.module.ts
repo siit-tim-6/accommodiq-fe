@@ -6,6 +6,7 @@ import { AccommodationListComponent } from './accommodation/accommodation-list/a
 import { AccommodationDetailsComponent } from './accommodation/accommodation-details/accommodation-details.component';
 import { AccountInfoComponent } from './layout/account-info/account-info.component';
 import { UpdateAccountComponent } from './layout/update-account/update-account.component';
+import { AccommodationCreateComponent } from "./accommodation/accommodation-create/accommodation-create.component";
 import {NotificationCardComponent} from "./notification/notification-card/notification-card.component";
 import {AccommodationCardComponent} from "./accommodation/accommodation-card/accommodation-card.component";
 import {NotificationListComponent} from "./notification/notification-list/notification-list.component";
@@ -21,6 +22,7 @@ const routes: Routes = [
     component: AccommodationDetailsComponent,
   },
   { path: 'update-account', component: UpdateAccountComponent },
+  { path: 'accommodation-create', component: AccommodationCreateComponent},
   { path: 'notifications', component: NotificationListComponent },
 ];
 
