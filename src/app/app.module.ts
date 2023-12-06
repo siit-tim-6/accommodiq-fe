@@ -9,7 +9,7 @@ import { NotificationModule } from './notification/notification.module';
 import { ButtonModule } from 'primeng/button';
 import { RatingModule } from 'primeng/rating';
 import { HttpClientModule } from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,8 +19,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     AppRoutingModule,
     LayoutModule,
     AccommodationModule,
-    ButtonModule,
-    RatingModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     NotificationModule,
   ],
