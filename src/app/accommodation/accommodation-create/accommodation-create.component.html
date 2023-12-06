@@ -1,0 +1,136 @@
+<p-dialog [closable]="false" [visible]="true" [draggable]="false">
+  <h2>Create new apartment</h2>
+  <form (submit)="onSubmit()">
+    <div class="inline-update-form">
+      <div>
+        <div>
+          <span>
+              <input pInputText id="name" name="name" [(ngModel)]="name" placeholder="Name"/>
+          </span>
+        </div>
+        <div>
+          <span>
+            <textarea rows="5" cols="30" id="description" name="description" pInputTextarea
+                      [(ngModel)]="description" placeholder="Description"></textarea>
+          </span>
+        </div>
+        <div>
+          <span>
+            <input pInputText id="address" name="address" [(ngModel)]="address" placeholder="Address"/>
+          </span>
+        </div>
+
+        <div class="checkbox-group" ngModelGroup="benefits">
+        <span class="checkbox-option">
+            <p-checkbox name="benefits" value="wifi" label="Wi-Fi" [(ngModel)]="benefits"></p-checkbox>
+            <i class="pi pi-wifi"></i>
+        </span>
+          <span class="checkbox-option">
+            <p-checkbox name="benefits" value="kitchen" label="Kitchen" [(ngModel)]="benefits"></p-checkbox>
+            <i class="pi pi-home"></i>
+        </span>
+          <span class="checkbox-option">
+            <p-checkbox name="benefits" value="parking" label="Parking" [(ngModel)]="benefits"></p-checkbox>
+            <i class="pi pi-car"></i>
+        </span>
+          <span class="checkbox-option">
+            <p-checkbox name="benefits" value="ac" label="AC" [(ngModel)]="benefits"></p-checkbox>
+            <i class="pi pi-slack"></i>
+        </span>
+        </div>
+      </div>
+
+      <div class="column-wrapper">
+        <div class="file-upload-wrapper">
+        <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)"
+                      [multiple]="true" accept="image/*" [maxFileSize]=1000000>
+          <ng-template pTemplate="content">
+            <ul *ngIf="imageUrls.length">
+              <li *ngFor="let file of imageUrls">{{ file.name }} - {{ file.size }}</li>
+            </ul>
+          </ng-template>
+        </p-fileUpload>
+        </div>
+
+
+        <span class="label-text">Number of guests</span>
+        <div class="row-wrapper">
+          <div class="min-max-input-wrapper">
+            <span class="p-input-icon-left">
+            <i class="pi pi-users"></i>
+            <input type="number" id="min-guests" name="min-guests" pInputText [(ngModel)]="minGuests" placeholder="min"/>
+            </span>
+          </div>
+
+          <div class="between-line">
+          </div>
+
+          <div class="min-max-input-wrapper">
+            <span class="p-input-icon-left">
+              <i class="pi pi-users"></i>
+              <input type="number" id="max-guests" name="max-guests" pInputText [(ngModel)]="maxGuests" placeholder="max"/>
+            </span>
+          </div>
+        </div>
+
+        <div>
+        <p-dropdown id="apartment-type" name="apartment-type" [options]="apartmentTypes" [(ngModel)]="apartmentType" [showClear]="true" placeholder="Select a Type"></p-dropdown>
+        </div>
+
+        <div class="checkbox-group">
+          <span class="checkbox-option">
+            <p-checkbox [(ngModel)]="pricePerGuest" id="price-per-guests" name="price-per-guests"  label="Price per guest" [binary]="true"></p-checkbox>
+            </span>
+          <span class="checkbox-option">
+          <p-checkbox [(ngModel)]="automaticallyAcceptIncomingReservations"  id="accept-incoming-reservations" name="accept-incoming-reservations" label="Automatically accept incoming reservations" [binary]="true"></p-checkbox>
+            </span>
+        </div>
+
+      </div>
+
+      <div class="column-wrapper">
+        <div class="row-wrapper availability-wrapper">
+          <div class="calendar-wrapper">
+            <p-calendar [(ngModel)]="pickedDates" name="range" selectionMode="range" [readonlyInput]="true" placeholder="Select the Range"></p-calendar>
+          </div>
+          <div>
+          <span>
+            <input pInputText id="price" name="price" [(ngModel)]="price" placeholder="Price"/>
+          </span>
+          </div>
+          <div>
+            <p-button label="Add" (click)="addRange()"></p-button>
+          </div>
+        </div>
+
+        <div class="file-upload-wrapper">
+          <p-table
+            [value]="availabilityRanges"
+            [paginator]="true"
+            [rows]="4"
+            [showCurrentPageReport]="true"
+            [tableStyle]="{ 'width': '450px' }">
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="width:27%">Start Date</th>
+                <th style="width:27%">End Date</th>
+                <th style="width:27%">Price</th>
+                <th style="width:19%"></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-availabilityRange>
+              <tr>
+                <td>{{ availabilityRange.startDate | date: 'dd/MM/yyyy'}}</td>
+                <td>{{ availabilityRange.endDate | date: 'dd/MM/yyyy'}}</td>
+                <td>{{ availabilityRange.price }}</td>
+                <td><p-button label="X" (click)="removeRange(availabilityRange)"></p-button></td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+
+      </div>
+    </div>
+    <p-button label="Create" type="submit"></p-button>
+  </form>
+</p-dialog>

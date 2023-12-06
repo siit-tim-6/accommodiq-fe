@@ -11,8 +11,15 @@ import { AccommodationDetailsComponent } from './accommodation-details/accommoda
 import { RouterModule } from '@angular/router';
 import { GalleriaModule } from 'primeng/galleria';
 import { CommentModule } from '../comment/comment.module';
-import {FormsModule} from "@angular/forms";
 import { HostsAccommodationListComponent } from './hosts-accommodation-list/hosts-accommodation-list.component';
+import {DialogModule} from "primeng/dialog";
+import {AccommodationCreateComponent} from "./accommodation-create/accommodation-create.component";
+import {FormsModule} from "@angular/forms";
+import {CheckboxModule} from "primeng/checkbox";
+import {FileUploadModule} from "primeng/fileupload";
+import {DropdownModule} from "primeng/dropdown";
+import {TableModule} from "primeng/table";
+import {InputTextareaModule} from "primeng/inputtextarea";
 
 @NgModule({
   declarations: [
@@ -21,6 +28,7 @@ import { HostsAccommodationListComponent } from './hosts-accommodation-list/host
     AccommodationListComponent,
     AccommodationDetailsComponent,
     HostsAccommodationListComponent,
+    AccommodationCreateComponent,
   ],
   imports: [
     CommonModule,
@@ -32,6 +40,12 @@ import { HostsAccommodationListComponent } from './hosts-accommodation-list/host
     GalleriaModule,
     CommentModule,
     FormsModule,
+    DialogModule,
+    CheckboxModule,
+    FileUploadModule,
+    DropdownModule,
+    TableModule,
+    InputTextareaModule,
   ],
   exports: [
     AccommodationSearchComponent,
