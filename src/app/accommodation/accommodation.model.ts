@@ -7,4 +7,5 @@ export interface Accommodation {
   minPrice: number;
   minGuests: number;
   maxGuests: number;
+  accepted?: boolean;
 }

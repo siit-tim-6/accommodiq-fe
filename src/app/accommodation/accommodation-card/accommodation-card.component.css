@@ -25,7 +25,6 @@
 .first-line {
   display: inline-flex;
   flex-direction: row;
-  align-items: center;
   justify-content: space-between;
   width: 100%;
 }
@@ -54,5 +53,5 @@ img {
 }
 
 .accommodation-info h2 {
-  margin-top: 0px;
+  margin-top: 0;
 }

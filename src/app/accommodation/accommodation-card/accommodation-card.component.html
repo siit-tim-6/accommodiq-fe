@@ -6,7 +6,9 @@
 <div class="accommodation-info">
   <span class="first-line">
     <h2>{{accommodation.title}}</h2>
-    <p-button icon="pi pi-heart" [rounded]="true" severity="secondary" />
+    <p-button *ngIf="accommodation.accepted === undefined" icon="pi pi-heart" [rounded]="true" severity="secondary" />
+    <i *ngIf="accommodation.accepted === true" pTooltip="Accommodation is accepted" class="pi pi-check-circle" style="color: green; font-size: 2rem"></i>
+    <i *ngIf="accommodation.accepted === false" pTooltip="Accommodation is still not accepted" class="pi pi-times-circle" style="color: red; font-size: 2rem"></i>
   </span>
 
   <div class="row">
