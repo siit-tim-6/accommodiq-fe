@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Accommodation} from "../accommodation.model";
 
 @Component({
   selector: 'app-accommodation-card',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './accommodation-card.component.css'
 })
 export class AccommodationCardComponent {
-
+  @Input() accommodation!: Accommodation;
+  protected readonly Math = Math;
 }
