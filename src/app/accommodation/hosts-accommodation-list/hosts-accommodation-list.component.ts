@@ -15,7 +15,7 @@ export class HostsAccommodationListComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.service.getAll().subscribe((accommodations: any[])=>{
+    this.service.getHostsAccommodations().subscribe((accommodations: any[])=>{
       this.elements = accommodations;
     })
   }
