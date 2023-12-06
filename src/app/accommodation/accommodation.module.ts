@@ -21,6 +21,7 @@ import {FileUploadModule} from "primeng/fileupload";
 import {DropdownModule} from "primeng/dropdown";
 import {TableModule} from "primeng/table";
 import {InputTextareaModule} from "primeng/inputtextarea";
+import { AdminReviewListComponent } from './admin-review-list/admin-review-list.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {InputTextareaModule} from "primeng/inputtextarea";
     AccommodationDetailsComponent,
     HostsAccommodationListComponent,
     AccommodationCreateComponent,
+    AdminReviewListComponent,
   ],
   imports: [
     CommonModule,
