@@ -7,9 +7,9 @@ import { AccommodationDetailsComponent } from './accommodation/accommodation-det
 import { AccountInfoComponent } from './layout/account-info/account-info.component';
 import { UpdateAccountComponent } from './layout/update-account/update-account.component';
 import { AccommodationCreateComponent } from "./accommodation/accommodation-create/accommodation-create.component";
-import {NotificationCardComponent} from "./notification/notification-card/notification-card.component";
-import {AccommodationCardComponent} from "./accommodation/accommodation-card/accommodation-card.component";
 import {NotificationListComponent} from "./notification/notification-list/notification-list.component";
+import { HostsAccommodationListComponent } from "./accommodation/hosts-accommodation-list/hosts-accommodation-list.component";
+import {AdminReviewListComponent} from "./accommodation/admin-review-list/admin-review-list.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,6 +24,8 @@ const routes: Routes = [
   { path: 'update-account', component: UpdateAccountComponent },
   { path: 'accommodation-create', component: AccommodationCreateComponent},
   { path: 'notifications', component: NotificationListComponent },
+  { path: 'my-accommodations', component: HostsAccommodationListComponent },
+  { path: 'accommodations-review', component: AdminReviewListComponent },
 ];
 
 @NgModule({

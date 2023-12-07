@@ -5,7 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { AccommodationModule } from './accommodation/accommodation.module';
-import { NotificationModule } from "./notification/notification.module";
+import { NotificationModule } from './notification/notification.module';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +17,10 @@ import { NotificationModule } from "./notification/notification.module";
     AppRoutingModule,
     LayoutModule,
     AccommodationModule,
-    NotificationModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NotificationModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

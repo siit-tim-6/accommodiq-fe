@@ -5,25 +5,27 @@
 
 <div class="accommodation-info">
   <span class="first-line">
-    <h2>Dvosoban apartman u centru Novog Sada</h2>
-    <p-button icon="pi pi-heart" [rounded]="true" severity="secondary" />
+    <h2>{{accommodation.title}}</h2>
+    <p-button *ngIf="accommodation.accepted === undefined" icon="pi pi-heart" [rounded]="true" severity="secondary" />
+    <i *ngIf="accommodation.accepted === true" pTooltip="Accommodation is accepted" class="pi pi-check-circle" style="color: green; font-size: 2rem"></i>
+    <i *ngIf="accommodation.accepted === false" pTooltip="Accommodation is still not accepted" class="pi pi-times-circle" style="color: red; font-size: 2rem"></i>
   </span>
 
   <div class="row">
-    <p-rating [disabled]="true" [cancel]="false" />
-    <p class="bold">4.92</p>
-    <p>302 ratings</p>
+    <p-rating [ngModel]="Math.floor(accommodation.rating)" [disabled]="true" [cancel]="false" />
+    <p class="bold">{{accommodation.rating}}</p>
+    <p>{{accommodation.reviewCount}} ratings</p>
   </div>
 
   <div class="row">
     <span class="icon-label">
       <i class="pi pi-map-marker"></i>
-      <p>Novi Sad</p>
+      <p>{{accommodation.location}}</p>
     </span>
 
     <span class="icon-label">
       <i class="pi pi-users"></i>
-      <p>4 guests</p>
+      <p>{{accommodation.maxGuests}} guests</p>
     </span>
 
     <span class="icon-label">
@@ -31,6 +33,6 @@
       <p>Wi-Fi</p>
     </span>
 
-    <p><span class="bold">€540</span> EUR total</p>
+    <p><span class="bold">€{{accommodation.minPrice}}</span> EUR total</p>
   </div>
 </div>
