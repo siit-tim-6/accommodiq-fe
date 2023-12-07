@@ -37,11 +37,11 @@ export class AccommodationService {
     title: string
   ): Observable<Accommodation[]> {
     return this.httpClient.get<Accommodation[]>(
-      `${environment.apiHost}accommodations
-      ?${location != '' ? `location=${location}` : ''}
-      &${fromDate != 0 ? `availableFrom=${fromDate}` : ''}
-      &${toDate != 0 ? `availableTo=${toDate}` : ''}
-      &${title != '' ? `title=${title}` : ''}`
+      `${environment.apiHost}accommodations?${
+        location != '' ? `location=${location}` : ''
+      }${fromDate != 0 ? `&availableFrom=${fromDate}` : ''}${
+        toDate != 0 ? `&availableTo=${toDate}` : ''
+      }${title != '' ? `&title=${title}` : ''}`
     );
   }
 }
