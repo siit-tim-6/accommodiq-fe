@@ -6,10 +6,20 @@
     <i class="pi top-offset">
       <img src="../../../assets/images/location-icon.svg" alt="location icon" />
     </i>
-    <input type="text" pInputText placeholder="Location" />
+    <input
+      type="text"
+      pInputText
+      placeholder="Location"
+      [(ngModel)]="location"
+    />
   </span>
 
-  <p-calendar selectionMode="range" placeholder="Date" [showIcon]="true" />
+  <p-calendar
+    selectionMode="range"
+    placeholder="Date"
+    [showIcon]="true"
+    [(ngModel)]="rangeDates"
+  />
 
   <span class="p-input-icon-left">
     <i class="pi pi-dollar"></i>
@@ -22,9 +32,9 @@
 <div class="row">
   <span class="p-input-icon-left search-input">
     <i class="pi pi-search"></i>
-    <input type="text" pInputText placeholder="Search" />
+    <input type="text" pInputText placeholder="Search" [(ngModel)]="title" />
   </span>
 
-  <p-button severity="secondary" label="Clear" />
-  <p-button label="Search" />
+  <p-button severity="secondary" label="Clear" (onClick)="clear()" />
+  <p-button label="Search" (onClick)="search()" />
 </div>
