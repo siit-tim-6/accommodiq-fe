@@ -1,7 +1,10 @@
 <div class="main-content">
-  <app-accommodation-search />
+  <app-accommodation-search (onSearch)="search($event)" (onClear)="clear()" />
   <div *ngFor="let el of elements">
-    <app-accommodation-card [accommodation]="el" [routerLink]="['/accommodation', 1]" />
+    <app-accommodation-card
+      [accommodation]="el"
+      [routerLink]="['/accommodation', 1]"
+    />
   </div>
 </div>
 <div class="map">
