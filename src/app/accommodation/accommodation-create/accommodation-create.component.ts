@@ -1,10 +1,7 @@
 import {Component} from '@angular/core';
+import {AccommodationCreateDto, AvailabilityDto, PricingType} from "../accommodation.model";
+import {AccommodationService} from "../accommodation.service";
 
-interface RentalRange {
-  startDate: Date;
-  endDate: Date;
-  price: number;
-}
 
 @Component({
   selector: 'app-accommodation-create',
@@ -23,9 +20,11 @@ export class AccommodationCreateComponent {
   apartmentTypes?: string[];
   pricePerGuest?: boolean;
   automaticallyAcceptIncomingReservations?: boolean;
-  availabilityRanges: RentalRange[] = [];
+  availabilityRanges: AvailabilityDto[] = [];
   price?: number;
   pickedDates?: Date[];
+
+  constructor(private accommodationService: AccommodationService) {}
 
   ngOnInit(): void {
     this.apartmentTypes = ['Entire apartment', 'Private room', 'Shared room', 'Hotel room'];
@@ -33,7 +32,28 @@ export class AccommodationCreateComponent {
   }
 
   onSubmit() {
-    console.log(this.pickedDates);
+    const hostId = 1; // TODO: get from JWT
+
+    const accommodationData: AccommodationCreateDto = {
+      title: this.name || '',
+      description: this.description || '',
+      location: this.address || '',
+      minGuests: this.minGuests || 1,
+      maxGuests: this.maxGuests || 1,
+      available: this.availabilityRanges,
+      pricingType: this.pricePerGuest ? PricingType.PerGuest : PricingType.PerNight,
+      automaticAcceptance: this.automaticallyAcceptIncomingReservations || false,
+    };
+
+    this.accommodationService.createNewAccommodation(hostId, accommodationData)
+      .subscribe({
+        next: (accommodationDetails) => {
+          console.log(accommodationDetails);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
   }
 
   onUpload($event: any) {
@@ -42,7 +62,7 @@ export class AccommodationCreateComponent {
 
   addRange() {
     if (this.pickedDates && this.price) {
-      const newRange : RentalRange = {
+      const newRange : AvailabilityDto = {
         startDate: this.pickedDates[0],
         endDate: this.pickedDates[1],
         price: this.price

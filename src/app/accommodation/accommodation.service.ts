@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../env/env";
-import {Accommodation} from "./accommodation.model";
+import {Accommodation, AccommodationCreateDto, AccommodationDetailsDto} from "./accommodation.model";
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +23,9 @@ export class AccommodationService {
 
   getHostsAccommodations(): Observable<Accommodation[]> {
     return this.httpClient.get<Accommodation[]>(environment.apiHost + 'hosts/' + 1 + "/accommodations") // change later with JWT
+  }
+
+  createNewAccommodation(hostId: number, data: AccommodationCreateDto): Observable<AccommodationDetailsDto> {
+    return this.httpClient.post<AccommodationDetailsDto>(environment.apiHost + 'hosts/' + 1 + "/accommodations", data) // change later with JWT
   }
 }
