@@ -63,8 +63,8 @@ export class AccommodationCreateComponent {
   addRange() {
     if (this.pickedDates && this.price) {
       const newRange : AvailabilityDto = {
-        startDate: this.pickedDates[0],
-        endDate: this.pickedDates[1],
+        startDate: this.pickedDates[0].getMilliseconds(),
+        endDate: this.pickedDates[1].getMilliseconds(),
         price: this.price
       };
 

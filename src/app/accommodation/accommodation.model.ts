@@ -36,8 +36,8 @@ export interface AccommodationDetailsDto {
   reviews: AccommodationDetailsReviewDto[];
 }
 export interface AvailabilityDto {
-  startDate: Date;
-  endDate: Date;
+  startDate: number;
+  endDate: number;
   price: number;
 }
 
