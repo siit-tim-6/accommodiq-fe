@@ -42,15 +42,24 @@ export interface AvailabilityDto {
 }
 
 export interface AccommodationDetailsHostDto {
-  // Define the structure for AccommodationDetailsHostDto
+  id: number;
+  name: string;
+  rating: number;
+  reviewCount: number;
 }
 
 export interface Availability {
-  // Define the structure for Availability
+  id: number;
+  fromDate: number;
+  toDate: number;
+  price: number;
 }
 
 export interface AccommodationDetailsReviewDto {
-  // Define the structure for AccommodationDetailsReviewDto
+  id: number;
+  name: string;
+  rating: number;
+  reviewCount: number;
 }
 
 export enum PricingType {
