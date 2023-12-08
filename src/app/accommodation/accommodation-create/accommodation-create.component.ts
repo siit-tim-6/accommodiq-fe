@@ -45,6 +45,8 @@ export class AccommodationCreateComponent {
       automaticAcceptance: this.automaticallyAcceptIncomingReservations || false,
     };
 
+    console.log(accommodationData);
+
     this.accommodationService.createNewAccommodation(hostId, accommodationData)
       .subscribe({
         next: (accommodationDetails) => {
@@ -63,8 +65,8 @@ export class AccommodationCreateComponent {
   addRange() {
     if (this.pickedDates && this.price) {
       const newRange : AvailabilityDto = {
-        startDate: this.pickedDates[0].getMilliseconds(),
-        endDate: this.pickedDates[1].getMilliseconds(),
+        startDate: this.pickedDates[0].getTime(),
+        endDate: this.pickedDates[1].getTime(),
         price: this.price
       };
 
