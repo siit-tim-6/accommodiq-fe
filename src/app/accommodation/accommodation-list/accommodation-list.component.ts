@@ -14,7 +14,7 @@ export class AccommodationListComponent implements OnInit {
   constructor(private service: AccommodationService) {}
 
   ngOnInit(): void {
-    this.service.getAll().subscribe((accommodations: any[]) => {
+    this.service.getAll().subscribe((accommodations: Accommodation[]) => {
       this.elements = accommodations;
     });
   }
