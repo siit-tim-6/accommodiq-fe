@@ -45,8 +45,8 @@
         <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)"
                       [multiple]="true" accept="image/*" [maxFileSize]=1000000>
           <ng-template pTemplate="content">
-            <ul *ngIf="imageUrls.length">
-              <li *ngFor="let file of imageUrls">{{ file.name }} - {{ file.size }}</li>
+            <ul *ngIf="images.length">
+              <li *ngFor="let file of images">{{ file.name }} - {{ file.size }}</li>
             </ul>
           </ng-template>
         </p-fileUpload>

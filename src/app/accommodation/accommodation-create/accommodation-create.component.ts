@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {AccommodationCreateDto, AvailabilityDto, PricingType} from "../accommodation.model";
 import {AccommodationService} from "../accommodation.service";
 import {
-  FormArray,
   FormBuilder,
   FormGroup,
   Validators
@@ -17,15 +16,17 @@ import {FormValidators, FormUtils} from '../../utils/form-utils';
 })
 export class AccommodationCreateComponent {
   apartmentTypes: string[] = ['Entire apartment', 'Private room', 'Shared room', 'Hotel room'];
-  imageUrls: File[] = [];
+  images: File[];
   availabilityRanges: AvailabilityDto[] = [];
   formGroup!: FormGroup;
 
   constructor(private accommodationService: AccommodationService, private formBuilder: FormBuilder) {
+    this.images = [];
     this.initializeFormGroup();
   }
 
   onSubmit(): void {
+    console.log(this.formGroup.value.images)
     if (this.formGroup.valid) {
       const hostId = 1; // TODO: get from JWT
 
@@ -60,7 +61,12 @@ export class AccommodationCreateComponent {
   }
 
   onUpload($event: any): void {
-    console.log("onUpload");
+    if($event.files && $event.files.length > 0) {
+      for(let file of $event.files) {
+        this.formGroup.value.images.push(file);
+      }
+    }
+
   }
 
   addRange() : void {
@@ -97,7 +103,8 @@ export class AccommodationCreateComponent {
         ac: [false]
       }),
       pickedDates: [null],
-      price: [null]
+      price: [null],
+      images: [this.images]
     }, {validators: FormValidators.compareMinMaxGuestsValidator()});
   }
 
