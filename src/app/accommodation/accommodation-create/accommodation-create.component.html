@@ -120,8 +120,8 @@
             </ng-template>
             <ng-template pTemplate="body" let-availabilityRange>
               <tr>
-                <td>{{ availabilityRange.startDate | date: 'dd/MM/yyyy'}}</td>
-                <td>{{ availabilityRange.endDate | date: 'dd/MM/yyyy'}}</td>
+                <td>{{ availabilityRange.fromDate | date: 'dd/MM/yyyy'}}</td>
+                <td>{{ availabilityRange.toDate | date: 'dd/MM/yyyy'}}</td>
                 <td>{{ availabilityRange.price }}</td>
                 <td><p-button label="X" (click)="removeRange(availabilityRange)"></p-button></td>
               </tr>
