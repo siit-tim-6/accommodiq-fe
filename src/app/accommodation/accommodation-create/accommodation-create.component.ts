@@ -1,7 +1,15 @@
 import {Component} from '@angular/core';
 import {AccommodationCreateDto, AvailabilityDto, PricingType} from "../accommodation.model";
 import {AccommodationService} from "../accommodation.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators
+} from "@angular/forms";
 
 
 @Component({
@@ -10,8 +18,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   styleUrl: './accommodation-create.component.css'
 })
 export class AccommodationCreateComponent {
+  apartmentTypes: string[] = ['Entire place', 'Private room', 'Shared room'];
   imageUrls: File[] = [];
-  apartmentTypes?: string[];
   availabilityRanges: AvailabilityDto[] = [];
   formGroup: FormGroup;
 
@@ -20,7 +28,7 @@ export class AccommodationCreateComponent {
       name: ['', Validators.required],
       location: ['', Validators.required],
       description: ['', Validators.required],
-      minGuests: ['', Validators.required],
+      minGuests: ['', Validators.required, [Validators.min(1)]],
       maxGuests: ['', Validators.required],
       apartmentType: ['', Validators.required],
       pricePerGuest: [false],
@@ -33,12 +41,7 @@ export class AccommodationCreateComponent {
       }),
       pickedDates: [null],
       price: [null]
-    })
-  }
-
-  ngOnInit(): void {
-    this.apartmentTypes = ['Entire apartment', 'Private room', 'Shared room', 'Hotel room'];
-    console.log(this.apartmentTypes);
+    }, {validators: this.compareMinMaxGuestsValidator});
   }
 
   onSubmit() {
@@ -71,6 +74,7 @@ export class AccommodationCreateComponent {
           }
         })
     }else {
+      this.markAllAsTouched(this.formGroup);
       console.log("Invalid form");
     }
   }
@@ -82,7 +86,7 @@ export class AccommodationCreateComponent {
   addRange() {
     const formData = this.formGroup.value;
 
-    if (formData.pickedDates && formData.price) {
+    if (this.areDatesValid(formData.pickedDates) && this.isPriceValid(formData.price)) {
       const newRange : AvailabilityDto = {
         fromDate: formData.pickedDates[0].getTime(),
         toDate: formData.pickedDates[1].getTime(),
@@ -92,12 +96,46 @@ export class AccommodationCreateComponent {
       this.availabilityRanges.push(newRange);
 
       // Clear input fields
-      formData.pickedDates = [];
-      formData.price = null;
+      this.formGroup.patchValue({
+        pickedDates: null,
+        price: null
+      });
+
     }
   }
 
   removeRange(index: number) {
     this.availabilityRanges.splice(index, 1);
+  }
+
+  compareMinMaxGuestsValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+    const minGuests = group.get('minGuests')?.value;
+    const maxGuests = group.get('maxGuests')?.value;
+
+    return  (minGuests>0 && maxGuests >= minGuests) ? null : { guestsInvalid: true };
+  };
+
+  areDatesValid(dates: Date[]): boolean {
+    if (!dates || dates.length !== 2) {
+      return false;
+    }
+    const fromDate = new Date(dates[0]);
+    const toDate = new Date(dates[1]);
+    const now = new Date();
+    return fromDate >= now && toDate >= now && fromDate < toDate;
+  }
+
+  isPriceValid(price: number): boolean {
+    return price !== null && !isNaN(price) && price >= 0;
+  }
+
+  markAllAsTouched(group: FormGroup | FormArray) {
+    Object.values(group.controls).forEach(control => {
+      if (control instanceof FormGroup || control instanceof FormArray) {
+        this.markAllAsTouched(control);
+      } else {
+        control.markAsTouched();
+      }
+    });
   }
 }
