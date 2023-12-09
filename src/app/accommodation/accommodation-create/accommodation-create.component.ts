@@ -66,7 +66,20 @@ export class AccommodationCreateComponent {
   addRange() : void {
     const formData = this.formGroup.value;
 
-    if (FormValidators.areDatesValid(formData.pickedDates) && FormValidators.isPriceValid(formData.price)) {
+    const datesValid = FormValidators.areDatesValid(formData.pickedDates);
+    const priceValid = FormValidators.isPriceValid(formData.price);
+
+    if (!datesValid) {
+      this.formGroup.get('pickedDates')?.markAsTouched();
+      this.formGroup.get('pickedDates')?.setErrors({ invalidDates: true });
+    }
+
+    if (!priceValid) {
+      this.formGroup.get('price')?.markAsTouched();
+      this.formGroup.get('price')?.setErrors({ invalidPrice: true });
+    }
+
+    if (datesValid && priceValid) {
       const newRange: AvailabilityDto = {
         fromDate: formData.pickedDates[0].getTime(),
         toDate: formData.pickedDates[1].getTime(),
