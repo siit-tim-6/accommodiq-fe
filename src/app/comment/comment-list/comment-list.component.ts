@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {IComment} from "../comment.model";
+import { IComment } from '../comment.model';
 
 @Component({
   selector: 'app-comment-list',
   templateUrl: './comment-list.component.html',
-  styleUrl: './comment-list.component.css'
+  styleUrl: './comment-list.component.css',
 })
-export class CommentListComponent implements OnInit{
+export class CommentListComponent implements OnInit {
   comments: IComment[] = [];
   canAddComment: boolean = true;
 
@@ -23,7 +23,7 @@ export class CommentListComponent implements OnInit{
             or long walks. I highly recommend this apartment to anyone
             looking for comfortable accommodation
             in the city center.`,
-        rating: randomRating
+        rating: randomRating,
       };
       this.comments.push(comment);
     }

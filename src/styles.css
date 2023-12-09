@@ -3,18 +3,26 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
 
 @font-face {
-  font-family: 'Inter';
-  src: url('./assets/fonts/Inter-VariableFont_slnt,wght.ttf');
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter-VariableFont_slnt,wght.ttf");
 }
 
-h1, h2, h3, h4, h5, h6, p, a {
-  font-family: 'Inter', serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a {
+  font-family: "Inter", serif;
 }
 
 .accommodiq-button {
@@ -38,17 +46,17 @@ h1, h2, h3, h4, h5, h6, p, a {
   cursor: text;
 }
 
-.accommodiq-input-wrapper>input {
+.accommodiq-input-wrapper > input {
   border: none;
   text-align: left;
 }
 
-.accommodiq-input-wrapper>input:focus {
+.accommodiq-input-wrapper > input:focus {
   outline: none;
   border: none;
 }
 
-.accommodiq-input-wrapper>input:focus::placeholder {
+.accommodiq-input-wrapper > input:focus::placeholder {
   color: transparent;
 }
 
@@ -94,17 +102,17 @@ h4 {
   cursor: text;
 }
 
-.accommodiq-input-wrapper>input {
+.accommodiq-input-wrapper > input {
   border: none;
   text-align: left;
 }
 
-.accommodiq-input-wrapper>input:focus {
+.accommodiq-input-wrapper > input:focus {
   outline: none;
   border: none;
 }
 
-.accommodiq-input-wrapper>input:focus::placeholder {
+.accommodiq-input-wrapper > input:focus::placeholder {
   color: transparent;
 }
 
