@@ -132,6 +132,6 @@ export class AccommodationCreateComponent {
       toDate: dates[1].getTime(),
       price: price
     };
-    this.availabilityRanges.push(newRange);
+    this.availabilityRanges = [...this.availabilityRanges, newRange];
   }
 }
