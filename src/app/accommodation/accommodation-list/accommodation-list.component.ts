@@ -32,7 +32,7 @@ export class AccommodationListComponent implements OnInit {
   }
 
   clear() {
-    this.service.getAll().subscribe((accommodations: any[]) => {
+    this.service.getAll().subscribe((accommodations: Accommodation[]) => {
       this.elements = accommodations;
     });
   }
