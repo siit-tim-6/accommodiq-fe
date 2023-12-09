@@ -11,7 +11,7 @@ import { SearchParams } from '../search-params.model';
 export class AccommodationListComponent implements OnInit {
   elements: Accommodation[] = [];
 
-  test: String = "asjkfhajklfhjklfhfjklasdhfsdjklhfsdjklfhasdjklfhasdjklfhasdjklfhasdjklfasdhlfjkhasdjklfhasdljkfhasdjklfhasdjklfasdhjk";
+  test: String = "asjkfhajklfhjklfhfjklasdhfsdjklhfsdjklfhasdjklfhasdjklfhasdjklfhasdjklfasdhlfjkhasdjklfhasdljkfhasdjklfhasdjkhjklhljklfasdhjk";
 
   constructor(private service: AccommodationService) {}
 
