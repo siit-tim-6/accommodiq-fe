@@ -66,35 +66,14 @@ export class AccommodationCreateComponent {
   addRange() : void {
     const formData = this.formGroup.value;
 
-    const datesValid = FormValidators.areDatesValid(formData.pickedDates);
-    const priceValid = FormValidators.isPriceValid(formData.price);
-
-    if (!datesValid) {
-      this.formGroup.get('pickedDates')?.markAsTouched();
-      this.formGroup.get('pickedDates')?.setErrors({ invalidDates: true });
+    if (!this.validateDates(formData.pickedDates) || !this.validatePrice(formData.price)) {
+      return;
     }
 
-    if (!priceValid) {
-      this.formGroup.get('price')?.markAsTouched();
-      this.formGroup.get('price')?.setErrors({ invalidPrice: true });
-    }
+    this.addNewRange(formData.pickedDates, formData.price);
 
-    if (datesValid && priceValid) {
-      const newRange: AvailabilityDto = {
-        fromDate: formData.pickedDates[0].getTime(),
-        toDate: formData.pickedDates[1].getTime(),
-        price: formData.price
-      };
-
-      this.availabilityRanges.push(newRange);
-
-      // Clear input fields
-      this.formGroup.patchValue({
-        pickedDates: null,
-        price: null
-      });
-
-    }
+    // Clear input fields
+    this.formGroup.patchValue({ pickedDates: null, price: null });
   }
 
   removeRange(index: number) : void {
@@ -120,5 +99,32 @@ export class AccommodationCreateComponent {
       pickedDates: [null],
       price: [null]
     }, {validators: FormValidators.compareMinMaxGuestsValidator()});
+  }
+
+  private validateDates(dates: Date[]): boolean {
+    if (!FormValidators.areDatesValid(dates)) {
+      this.formGroup.get('pickedDates')?.markAsTouched();
+      this.formGroup.get('pickedDates')?.setErrors({ invalidDates: true });
+      return false;
+    }
+    return true;
+  }
+
+  private validatePrice(price: number): boolean {
+    if (!FormValidators.isPriceValid(price)) {
+      this.formGroup.get('price')?.markAsTouched();
+      this.formGroup.get('price')?.setErrors({ invalidPrice: true });
+      return false;
+    }
+    return true;
+  }
+
+  private addNewRange(dates: Date[], price: number): void {
+    const newRange: AvailabilityDto = {
+      fromDate: dates[0].getTime(),
+      toDate: dates[1].getTime(),
+      price: price
+    };
+    this.availabilityRanges.push(newRange);
   }
 }
