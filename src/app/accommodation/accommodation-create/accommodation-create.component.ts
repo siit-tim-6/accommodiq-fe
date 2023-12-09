@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {AccommodationCreateDto, AvailabilityDto, PricingType} from "../accommodation.model";
 import {AccommodationService} from "../accommodation.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -9,22 +10,31 @@ import {AccommodationService} from "../accommodation.service";
   styleUrl: './accommodation-create.component.css'
 })
 export class AccommodationCreateComponent {
-  name?: string;
-  address?: string;
-  description?: string;
-  benefits?: string[];
   imageUrls: File[] = [];
-  minGuests?: number;
-  maxGuests?: number;
-  apartmentType?: string;
   apartmentTypes?: string[];
-  pricePerGuest?: boolean;
-  automaticallyAcceptIncomingReservations?: boolean;
   availabilityRanges: AvailabilityDto[] = [];
-  price?: number;
-  pickedDates?: Date[];
+  formGroup: FormGroup;
 
-  constructor(private accommodationService: AccommodationService) {}
+  constructor(private accommodationService: AccommodationService, private formBuilder: FormBuilder) {
+    this.formGroup = this.formBuilder.group({
+      name: ['', Validators.required],
+      location: ['', Validators.required],
+      description: ['', Validators.required],
+      minGuests: ['', Validators.required],
+      maxGuests: ['', Validators.required],
+      apartmentType: ['', Validators.required],
+      pricePerGuest: [false],
+      automaticallyAcceptIncomingReservations: [false],
+      benefits: this.formBuilder.group({
+        wifi: [false],
+        kitchen: [false],
+        parking: [false],
+        ac: [false]
+      }),
+      pickedDates: [null],
+      price: [null]
+    })
+  }
 
   ngOnInit(): void {
     this.apartmentTypes = ['Entire apartment', 'Private room', 'Shared room', 'Hotel room'];
@@ -32,30 +42,37 @@ export class AccommodationCreateComponent {
   }
 
   onSubmit() {
-    const hostId = 1; // TODO: get from JWT
+    if (this.formGroup.valid) {
 
-    const accommodationData: AccommodationCreateDto = {
-      title: this.name || '',
-      description: this.description || '',
-      location: this.address || '',
-      minGuests: this.minGuests || 1,
-      maxGuests: this.maxGuests || 1,
-      available: this.availabilityRanges,
-      pricingType: this.pricePerGuest ? PricingType.PerGuest : PricingType.PerNight,
-      automaticAcceptance: this.automaticallyAcceptIncomingReservations || false,
-    };
+      const hostId = 1; // TODO: get from JWT
 
-    console.log(accommodationData);
+      const formData = this.formGroup.value;
 
-    this.accommodationService.createNewAccommodation(hostId, accommodationData)
-      .subscribe({
-        next: (accommodationDetails) => {
-          console.log(accommodationDetails);
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      })
+      const accommodationData: AccommodationCreateDto = {
+        title: formData.name,
+        description: formData.description,
+        location: formData.location,
+        minGuests: formData.minGuests,
+        maxGuests: formData.maxGuests,
+        available: this.availabilityRanges,
+        pricingType: formData.pricePerGuest ? PricingType.PerGuest : PricingType.PerNight,
+        automaticAcceptance: formData.automaticallyAcceptIncomingReservations
+      };
+
+      console.log(accommodationData);
+
+      this.accommodationService.createNewAccommodation(hostId, accommodationData)
+        .subscribe({
+          next: (accommodationDetails) => {
+            console.log("Accommodation Created:" + accommodationDetails);
+          },
+          error: (error) => {
+            console.log("Error creating accommodation:" + error);
+          }
+        })
+    }else {
+      console.log("Invalid form");
+    }
   }
 
   onUpload($event: any) {
@@ -63,18 +80,20 @@ export class AccommodationCreateComponent {
   }
 
   addRange() {
-    if (this.pickedDates && this.price) {
+    const formData = this.formGroup.value;
+
+    if (formData.pickedDates && formData.price) {
       const newRange : AvailabilityDto = {
-        fromDate: this.pickedDates[0].getTime(),
-        toDate: this.pickedDates[1].getTime(),
-        price: this.price
+        fromDate: formData.pickedDates[0].getTime(),
+        toDate: formData.pickedDates[1].getTime(),
+        price: formData.price
       };
 
       this.availabilityRanges.push(newRange);
 
       // Clear input fields
-      this.pickedDates = [];
-      this.price = undefined;
+      formData.pickedDates = [];
+      formData.price = null;
     }
   }
 

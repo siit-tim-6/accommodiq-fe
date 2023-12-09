@@ -1,40 +1,40 @@
 <p-dialog [closable]="false" [visible]="true" [draggable]="false">
   <h2>Create new apartment</h2>
-  <form (submit)="onSubmit()">
+  <form [formGroup]="formGroup" (submit)="onSubmit()">
     <div class="inline-update-form">
       <div>
         <div>
           <span>
-              <input pInputText id="name" name="name" [(ngModel)]="name" placeholder="Name"/>
+              <input pInputText [required]="true" type="text" id="name" name="name" formControlName="name" placeholder="Name"/>
           </span>
         </div>
         <div>
           <span>
             <textarea rows="5" cols="30" id="description" name="description" pInputTextarea
-                      [(ngModel)]="description" placeholder="Description"></textarea>
+                      formControlName="description" placeholder="Description"></textarea>
           </span>
         </div>
         <div>
           <span>
-            <input pInputText id="address" name="address" [(ngModel)]="address" placeholder="Address"/>
+            <input pInputText id="address" name="address" formControlName="location" placeholder="Address"/>
           </span>
         </div>
 
-        <div class="checkbox-group" ngModelGroup="benefits">
+        <div class="checkbox-group" formGroupName="benefits">
         <span class="checkbox-option">
-            <p-checkbox name="benefits" value="wifi" label="Wi-Fi" [(ngModel)]="benefits"></p-checkbox>
+            <p-checkbox name="benefits" value="wifi" label="Wi-Fi" formControlName="wifi"></p-checkbox>
             <i class="pi pi-wifi"></i>
         </span>
           <span class="checkbox-option">
-            <p-checkbox name="benefits" value="kitchen" label="Kitchen" [(ngModel)]="benefits"></p-checkbox>
+            <p-checkbox name="benefits" value="kitchen" label="Kitchen" formControlName="kitchen"></p-checkbox>
             <i class="pi pi-home"></i>
         </span>
           <span class="checkbox-option">
-            <p-checkbox name="benefits" value="parking" label="Parking" [(ngModel)]="benefits"></p-checkbox>
+            <p-checkbox name="benefits" value="parking" label="Parking" formControlName="parking"></p-checkbox>
             <i class="pi pi-car"></i>
         </span>
           <span class="checkbox-option">
-            <p-checkbox name="benefits" value="ac" label="AC" [(ngModel)]="benefits"></p-checkbox>
+            <p-checkbox name="benefits" value="ac" label="AC" formControlName="ac"></p-checkbox>
             <i class="pi pi-slack"></i>
         </span>
         </div>
@@ -58,7 +58,7 @@
           <div class="min-max-input-wrapper">
             <span class="p-input-icon-left">
             <i class="pi pi-users"></i>
-            <input type="number" id="min-guests" name="min-guests" pInputText [(ngModel)]="minGuests" placeholder="min"/>
+            <input type="number" id="min-guests" name="min-guests" pInputText formControlName="minGuests" placeholder="min"/>
             </span>
           </div>
 
@@ -68,21 +68,21 @@
           <div class="min-max-input-wrapper">
             <span class="p-input-icon-left">
               <i class="pi pi-users"></i>
-              <input type="number" id="max-guests" name="max-guests" pInputText [(ngModel)]="maxGuests" placeholder="max"/>
+              <input type="number" id="max-guests" name="max-guests" pInputText formControlName="maxGuests" placeholder="max"/>
             </span>
           </div>
         </div>
 
         <div>
-        <p-dropdown id="apartment-type" name="apartment-type" [options]="apartmentTypes" [(ngModel)]="apartmentType" [showClear]="true" placeholder="Select a Type"></p-dropdown>
+        <p-dropdown id="apartment-type" name="apartment-type" [options]="apartmentTypes" formControlName="apartmentType" [showClear]="true" placeholder="Select a Type"></p-dropdown>
         </div>
 
         <div class="checkbox-group">
           <span class="checkbox-option">
-            <p-checkbox [(ngModel)]="pricePerGuest" id="price-per-guests" name="price-per-guests"  label="Price per guest" [binary]="true"></p-checkbox>
+            <p-checkbox formControlName="pricePerGuest" id="price-per-guests" name="price-per-guests"  label="Price per guest" [binary]="true"></p-checkbox>
             </span>
           <span class="checkbox-option">
-          <p-checkbox [(ngModel)]="automaticallyAcceptIncomingReservations"  id="accept-incoming-reservations" name="accept-incoming-reservations" label="Automatically accept incoming reservations" [binary]="true"></p-checkbox>
+          <p-checkbox formControlName="automaticallyAcceptIncomingReservations"  id="accept-incoming-reservations" name="accept-incoming-reservations" label="Automatically accept incoming reservations" [binary]="true"></p-checkbox>
             </span>
         </div>
 
@@ -91,11 +91,11 @@
       <div class="column-wrapper">
         <div class="row-wrapper availability-wrapper">
           <div class="calendar-wrapper">
-            <p-calendar [(ngModel)]="pickedDates" name="range" selectionMode="range" [readonlyInput]="true" placeholder="Select the Range"></p-calendar>
+            <p-calendar formControlName="pickedDates" name="range" selectionMode="range" [readonlyInput]="true" placeholder="Select the Range"></p-calendar>
           </div>
           <div>
           <span>
-            <input pInputText id="price" name="price" [(ngModel)]="price" placeholder="Price"/>
+            <input pInputText id="price" name="price" formControlName="price" placeholder="Price"/>
           </span>
           </div>
           <div>

@@ -22,6 +22,7 @@ import {DropdownModule} from "primeng/dropdown";
 import {TableModule} from "primeng/table";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import { AdminReviewListComponent } from './admin-review-list/admin-review-list.component';
+import { ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { AdminReviewListComponent } from './admin-review-list/admin-review-list.
     TableModule,
     DockModule,
     InputTextareaModule,
+    ReactiveFormsModule,
   ],
   exports: [
     AccommodationSearchComponent,
