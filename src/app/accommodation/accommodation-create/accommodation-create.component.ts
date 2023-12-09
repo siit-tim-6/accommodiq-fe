@@ -7,7 +7,7 @@ import {
   FormGroup,
   Validators
 } from "@angular/forms";
-import {FormValidators} from '../../utils/form-utils';
+import {FormValidators, FormUtils} from '../../utils/form-utils';
 
 
 @Component({
@@ -27,7 +27,6 @@ export class AccommodationCreateComponent {
 
   onSubmit(): void {
     if (this.formGroup.valid) {
-
       const hostId = 1; // TODO: get from JWT
 
       const formData = this.formGroup.value;
@@ -55,7 +54,7 @@ export class AccommodationCreateComponent {
           }
         })
     } else {
-      this.markAllAsTouched(this.formGroup);
+      FormUtils.markAllAsTouched(this.formGroup);
       console.log("Invalid form");
     }
   }
@@ -64,7 +63,7 @@ export class AccommodationCreateComponent {
     console.log("onUpload");
   }
 
-  addRange() {
+  addRange() : void {
     const formData = this.formGroup.value;
 
     if (FormValidators.areDatesValid(formData.pickedDates) && FormValidators.isPriceValid(formData.price)) {
@@ -85,21 +84,11 @@ export class AccommodationCreateComponent {
     }
   }
 
-  removeRange(index: number) {
+  removeRange(index: number) : void {
     this.availabilityRanges.splice(index, 1);
   }
 
-  markAllAsTouched(group: FormGroup | FormArray) {
-    Object.values(group.controls).forEach(control => {
-      if (control instanceof FormGroup || control instanceof FormArray) {
-        this.markAllAsTouched(control);
-      } else {
-        control.markAsTouched();
-      }
-    });
-  }
-
-  private initializeFormGroup() {
+  private initializeFormGroup() : void {
     this.formGroup = this.formBuilder.group({
       name: ['', Validators.required],
       location: ['', Validators.required],

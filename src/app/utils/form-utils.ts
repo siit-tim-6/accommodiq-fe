@@ -1,4 +1,16 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import {AbstractControl, FormArray, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
+
+export class FormUtils {
+  static markAllAsTouched(group: FormGroup | FormArray): void {
+    Object.values(group.controls).forEach(control => {
+      if (control instanceof FormGroup || control instanceof FormArray) {
+        FormUtils.markAllAsTouched(control);
+      } else {
+        control.markAsTouched();
+      }
+    });
+  }
+}
 
 export class FormValidators {
   static compareMinMaxGuestsValidator(): ValidatorFn {
