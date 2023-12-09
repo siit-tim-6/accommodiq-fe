@@ -11,9 +11,6 @@ import { SearchParams } from '../search-params.model';
 export class AccommodationListComponent implements OnInit {
   elements: Accommodation[] = [];
 
-  test: String =
-    'asjkfhajklfhjklfhfjklasdhfsdjklhfsdjklfhasdjklfhasdjklhjgkghjfhasdjklfhasdjklfasdhlfjkhasdjklfhasdljkfhasdjklfhasdjkhjklhljklfasdhjk';
-
   constructor(private service: AccommodationService) {}
 
   ngOnInit(): void {
