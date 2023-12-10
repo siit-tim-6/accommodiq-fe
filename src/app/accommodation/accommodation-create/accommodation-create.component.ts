@@ -30,8 +30,8 @@ export class AccommodationCreateComponent {
     this.submitAttempted = true;
     const hostId = 1; // TODO: get from JWT
 
-    if (this.formGroup.valid && this.availabilityRanges.length > 0 && this.images.length > 0) {
-      this.accommodationService.createAccommodationWithImages(hostId, this.formGroup.value, this.availabilityRanges, this.images)
+    if (this.isValidSubmission()) {
+      this.accommodationService.createAccommodation(hostId, this.formGroup.value, this.availabilityRanges, this.images)
         .subscribe({
           next: (accommodationDetails) => {
             console.log("Accommodation Created:", accommodationDetails);
@@ -79,6 +79,15 @@ export class AccommodationCreateComponent {
     this.availabilityRanges.splice(index, 1);
   }
 
+  private addNewRange(dates: Date[], price: number): void {
+    const newRange: AvailabilityDto = {
+      fromDate: dates[0].getTime(),
+      toDate: dates[1].getTime(),
+      price: price
+    };
+    this.availabilityRanges = [...this.availabilityRanges, newRange];
+  }
+
   private initializeFormGroup() : void {
     this.formGroup = this.formBuilder.group({
       name: ['', Validators.required],
@@ -89,18 +98,21 @@ export class AccommodationCreateComponent {
       apartmentType: ['', Validators.required],
       pricePerGuest: [false],
       automaticallyAcceptIncomingReservations: [false],
-      benefits: this.formBuilder.group({
-        wifi: [false],
-        kitchen: [false],
-        parking: [false],
-        ac: [false]
-      }),
+      benefits: this.createBenefitsGroup(),
       pickedDates: [null],
       price: [null],
       images: [this.images]
     }, {validators: FormValidators.compareMinMaxGuestsValidator()});
   }
 
+  private createBenefitsGroup(): FormGroup {
+    return this.formBuilder.group({
+      wifi: [false],
+      kitchen: [false],
+      parking: [false],
+      ac: [false]
+    });
+  }
 
 
   private validateDates(dates: Date[]): boolean {
@@ -121,12 +133,7 @@ export class AccommodationCreateComponent {
     return true;
   }
 
-  private addNewRange(dates: Date[], price: number): void {
-    const newRange: AvailabilityDto = {
-      fromDate: dates[0].getTime(),
-      toDate: dates[1].getTime(),
-      price: price
-    };
-    this.availabilityRanges = [...this.availabilityRanges, newRange];
+  private isValidSubmission(): boolean {
+    return this.formGroup.valid && this.availabilityRanges.length > 0 && this.images.length > 0;
   }
 }

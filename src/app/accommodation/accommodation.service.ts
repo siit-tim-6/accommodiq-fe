@@ -31,7 +31,7 @@ export class AccommodationService {
     return this.httpClient.get<Accommodation[]>(environment.apiHost + 'hosts/' + 1 + "/accommodations") // change later with JWT
   }
 
-  createAccommodationWithImages(hostId: number,
+  createAccommodation(hostId: number,
                                 formData: AccommodationFormData,
                                 availabilityRanges: AvailabilityDto[],
                                 images: File[]): Observable<AccommodationDetailsDto> {
@@ -48,19 +48,13 @@ export class AccommodationService {
           automaticAcceptance: formData.automaticallyAcceptIncomingReservations,
           images: uploadedImagePaths
         };
-        return this.createNewAccommodation(hostId, accommodationData);
+        return this.httpClient.post<AccommodationDetailsDto>(environment.apiHost + 'hosts/' + 1 + "/accommodations", accommodationData) // change later with JWT
       }),
       catchError(error => {
-        // Handle errors here or rethrow to be handled in component
         console.error('Error in accommodation creation process:', error);
         return throwError(error);
       })
     );
-  }
-
-
-  createNewAccommodation(hostId: number, data: AccommodationCreateDto): Observable<AccommodationDetailsDto> {
-    return this.httpClient.post<AccommodationDetailsDto>(environment.apiHost + 'hosts/' + 1 + "/accommodations", data) // change later with JWT
   }
 
   uploadImages(files: File[]): Observable<string[]> {
