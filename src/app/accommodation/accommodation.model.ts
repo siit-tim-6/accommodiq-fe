@@ -67,3 +67,13 @@ export enum PricingType {
   PerGuest = 'PER_GUEST',
   PerNight = 'PER_NIGHT',
 }
+
+export interface AccommodationFormData {
+  name: string;
+  description: string;
+  location: string;
+  minGuests: number;
+  maxGuests: number;
+  pricePerGuest: boolean;
+  automaticallyAcceptIncomingReservations: boolean;
+}

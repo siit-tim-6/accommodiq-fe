@@ -27,41 +27,24 @@ export class AccommodationCreateComponent {
   }
 
   onSubmit(): void {
-    //TODO: refactor this
     this.submitAttempted = true;
-    console.log(this.formGroup.value.images)
-    if (this.formGroup.valid && this.availabilityRanges.length > 0 && this.formGroup.value.images.length > 0) {
-      const hostId = 1; // TODO: get from JWT
-      const formData = this.formGroup.value;
-      this.accommodationService.uploadImages(this.formGroup.value.images).subscribe(
-        (uploadedImagePaths: string[]) => {
-          const accommodationData: AccommodationCreateDto = {
-            title: formData.name,
-            description: formData.description,
-            location: formData.location,
-            minGuests: formData.minGuests,
-            maxGuests: formData.maxGuests,
-            available: this.availabilityRanges,
-            pricingType: formData.pricePerGuest ? PricingType.PerGuest : PricingType.PerNight,
-            automaticAcceptance: formData.automaticallyAcceptIncomingReservations,
-            images: uploadedImagePaths
-          };
-          console.log("Accommodation Image:" + accommodationData);
+    const hostId = 1; // TODO: get from JWT
 
-          this.accommodationService.createNewAccommodation(hostId, accommodationData)
-            .subscribe({
-              next: (accommodationDetails) => {
-                console.log("Accommodation Created:" + accommodationDetails);
-              },
-              error: (error) => {
-                console.log("Error creating accommodation:" + error);
-              }
-            });
+    if (this.formGroup.valid && this.availabilityRanges.length > 0 && this.images.length > 0) {
+      this.accommodationService.createAccommodationWithImages(hostId, this.formGroup.value, this.availabilityRanges, this.images)
+        .subscribe({
+          next: (accommodationDetails) => {
+            console.log("Accommodation Created:", accommodationDetails);
+            // Handle successful creation (e.g., navigate to another page or show success message)
+          },
+          error: (error) => {
+            console.error("Error during accommodation creation:", error);
+            // Handle error (e.g., show error message)
           }
-      );
+        });
     } else {
       FormUtils.markAllAsTouched(this.formGroup);
-      console.log("Invalid form");
+      console.error("Invalid form, no availability ranges added, or no images uploaded");
     }
   }
 
