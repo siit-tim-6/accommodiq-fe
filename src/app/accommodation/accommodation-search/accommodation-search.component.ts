@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { SearchParams } from '../search-params.model';
+import { Dropdown } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-accommodation-search',
@@ -22,6 +23,7 @@ export class AccommodationSearchComponent {
   location: string = '';
   title: string = '';
   rangeDates: Date[] | undefined;
+  accommodationType: string = '';
 
   @Output()
   onSearch = new EventEmitter<SearchParams>();
@@ -42,5 +44,10 @@ export class AccommodationSearchComponent {
     this.title = '';
     this.rangeDates = undefined;
     this.onClear.emit();
+  }
+
+  clearDropdown(dropdown: Dropdown, event: Event) {
+    this.accommodationType = '';
+    dropdown.clear(event);
   }
 }
