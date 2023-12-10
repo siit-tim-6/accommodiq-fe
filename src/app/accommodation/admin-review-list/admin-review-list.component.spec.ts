@@ -8,10 +8,9 @@ describe('AdminReviewListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AdminReviewListComponent]
-    })
-    .compileComponents();
-    
+      declarations: [AdminReviewListComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(AdminReviewListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

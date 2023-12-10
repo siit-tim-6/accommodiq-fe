@@ -35,7 +35,7 @@ export class RegistrationComponent {
           ' ' +
           this.phoneNumber +
           ' ' +
-          this.selectedRole
+          this.selectedRole,
       );
     }
   }

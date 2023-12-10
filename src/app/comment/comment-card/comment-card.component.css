@@ -15,7 +15,8 @@
   padding: 15px;
 }
 
-:host h2, p {
+:host h2,
+p {
   margin: 5px 5px;
 }
 

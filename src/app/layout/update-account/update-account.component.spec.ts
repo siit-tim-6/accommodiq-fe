@@ -8,10 +8,9 @@ describe('UpdateAccountComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UpdateAccountComponent]
-    })
-    .compileComponents();
-    
+      declarations: [UpdateAccountComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(UpdateAccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

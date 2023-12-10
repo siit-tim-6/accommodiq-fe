@@ -85,7 +85,7 @@ h4 {
     border-bottom-right-radius: 0px;
   }
 
-  ::ng-deep span.p-calendar > input  {
+  ::ng-deep span.p-calendar > input {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
   }
