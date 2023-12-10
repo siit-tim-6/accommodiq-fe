@@ -22,6 +22,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AdminReviewListComponent } from './admin-review-list/admin-review-list.component';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { KeyFilterModule } from 'primeng/keyfilter';
 import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
@@ -51,6 +53,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
     TableModule,
     DockModule,
     InputTextareaModule,
+    OverlayPanelModule,
+    KeyFilterModule,
     InputNumberModule,
   ],
   exports: [

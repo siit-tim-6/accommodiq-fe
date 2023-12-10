@@ -21,9 +21,20 @@
     [(ngModel)]="rangeDates"
   />
 
-  <p-inputNumber mode="decimal" placeholder="Guests" [min]="0" />
+  <span class="p-input-icon-left">
+    <i class="pi pi-users"></i>
+    <input type="text" pInputText placeholder="Guests" />
+  </span>
 
-  <p-button icon="pi pi-filter" label="More filters" severity="secondary" />
+  <p-button (onClick)="op.toggle($event)" icon="pi pi-filter" label="More filters" severity="secondary" />
+  <p-overlayPanel #op>
+    <div class="filter-panel">
+      <div class="row">
+        <p-inputNumber mode="currency" currency="EUR" placeholder="Min Price"/>
+        <p-inputNumber [ngStyle]="{marginRight: '0px'}" mode="currency" currency="EUR" placeholder="Max Price"/>
+      </div>
+    </div>
+  </p-overlayPanel>
 </div>
 
 <div class="row">
