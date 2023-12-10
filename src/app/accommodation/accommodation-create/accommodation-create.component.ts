@@ -26,6 +26,7 @@ export class AccommodationCreateComponent {
   }
 
   onSubmit(): void {
+    //TODO: refactor this
     console.log(this.formGroup.value.images)
     if (this.formGroup.valid) {
       const hostId = 1; // TODO: get from JWT
@@ -62,7 +63,7 @@ export class AccommodationCreateComponent {
     }
   }
 
-  onUpload($event: any): void {
+  onFileSelect($event: any): void {
     if($event.files && $event.files.length > 0) {
       for(let file of $event.files) {
         this.formGroup.value.images.push(file);

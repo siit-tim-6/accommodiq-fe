@@ -42,8 +42,8 @@
 
       <div class="column-wrapper">
         <div class="file-upload-wrapper">
-        <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)"
-                      [multiple]="true" accept="image/*" [maxFileSize]=1000000>
+        <p-fileUpload name="demo[]" (onSelect)="onFileSelect($event)"
+                      [multiple]="true" accept="image/*" [maxFileSize]=1000000 [auto]="true" chooseLabel="Select Images">
           <ng-template pTemplate="content">
             <ul *ngIf="images.length">
               <li *ngFor="let file of images">{{ file.name }} - {{ file.size }}</li>
