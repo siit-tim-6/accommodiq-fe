@@ -33,6 +33,9 @@
         <p-inputNumber mode="currency" currency="EUR" placeholder="Min Price"/>
         <p-inputNumber [ngStyle]="{marginRight: '0px'}" mode="currency" currency="EUR" placeholder="Max Price"/>
       </div>
+      <div class="row">
+        <p-dropdown [options]="accommodationTypes" [showClear]="true" placeholder="Select type"/>
+      </div>
     </div>
   </p-overlayPanel>
 </div>
