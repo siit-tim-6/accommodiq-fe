@@ -41,8 +41,13 @@
       </div>
 
       <div class="column-wrapper">
+
+        <div *ngIf="submitAttempted && images.length === 0" class="empty-message">
+          Please add at least one image.
+        </div>
+
         <div class="file-upload-wrapper">
-        <p-fileUpload name="demo[]" (onSelect)="onFileSelect($event)"
+        <p-fileUpload name="demo[]" (onSelect)="onFileSelect($event)" (onRemove)="onFileRemove($event)"
                       [multiple]="true" accept="image/*" [maxFileSize]=1000000 [auto]="true" chooseLabel="Select Images">
           <ng-template pTemplate="content">
             <ul *ngIf="images.length">
@@ -101,6 +106,10 @@
           <div>
             <p-button label="Add" (click)="addRange()"></p-button>
           </div>
+        </div>
+
+        <div *ngIf="submitAttempted && availabilityRanges.length === 0" class="empty-message">
+          Please add at least one availability range.
         </div>
 
         <div class="file-upload-wrapper">

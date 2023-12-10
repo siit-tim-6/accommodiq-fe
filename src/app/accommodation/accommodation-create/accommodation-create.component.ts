@@ -19,6 +19,7 @@ export class AccommodationCreateComponent {
   images: File[];
   availabilityRanges: AvailabilityDto[] = [];
   formGroup!: FormGroup;
+  submitAttempted = false;
 
   constructor(private accommodationService: AccommodationService, private formBuilder: FormBuilder) {
     this.images = [];
@@ -27,8 +28,9 @@ export class AccommodationCreateComponent {
 
   onSubmit(): void {
     //TODO: refactor this
+    this.submitAttempted = true;
     console.log(this.formGroup.value.images)
-    if (this.formGroup.valid) {
+    if (this.formGroup.valid && this.availabilityRanges.length > 0 && this.formGroup.value.images.length > 0) {
       const hostId = 1; // TODO: get from JWT
       const formData = this.formGroup.value;
       this.accommodationService.uploadImages(this.formGroup.value.images).subscribe(
@@ -69,7 +71,12 @@ export class AccommodationCreateComponent {
         this.formGroup.value.images.push(file);
       }
     }
+  }
 
+  onFileRemove(event: any): void {
+    const fileToRemove: File = event.file;
+    this.images = this.images.filter(file => file.name !== fileToRemove.name || file.size !== fileToRemove.size);
+    this.formGroup.patchValue({ images: this.images });
   }
 
   addRange() : void {
@@ -110,6 +117,8 @@ export class AccommodationCreateComponent {
       images: [this.images]
     }, {validators: FormValidators.compareMinMaxGuestsValidator()});
   }
+
+
 
   private validateDates(dates: Date[]): boolean {
     if (!FormValidators.areDatesValid(dates)) {

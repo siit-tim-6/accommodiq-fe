@@ -108,3 +108,9 @@ textarea.ng-invalid.ng-touched {
   border: 1px solid red;
 }
 
+.empty-message {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: red;
+  /* Add more styling as needed */
+}
