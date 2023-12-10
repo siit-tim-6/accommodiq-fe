@@ -26,7 +26,7 @@
     <input type="text" pInputText placeholder="Guests" />
   </span>
 
-  <p-button (onClick)="op.toggle($event)" icon="pi pi-filter" label="More filters" severity="secondary" />
+  <p-button (onClick)="op.toggle($event)" icon="pi pi-filter" label="More filters" severity="secondary" [ngStyle]="{marginRight: '0px'}"/>
   <p-overlayPanel #op>
     <div class="filter-panel">
       <div class="row">
