@@ -25,6 +25,7 @@ import { AdminReviewListComponent } from './admin-review-list/admin-review-list.
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     OverlayPanelModule,
     KeyFilterModule,
     InputNumberModule,
+    MultiSelectModule,
   ],
   exports: [
     AccommodationSearchComponent,

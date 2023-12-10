@@ -34,8 +34,9 @@
         <p-inputNumber [ngStyle]="{marginRight: '0px'}" mode="currency" currency="EUR" placeholder="Max Price"/>
       </div>
       <div class="row">
-        <p-dropdown #typeDropdown [options]="accommodationTypes" [(ngModel)]="accommodationType" placeholder="Select type" />
-        <p-button *ngIf="accommodationType !== ''" icon="pi pi-times-circle" (onClick)="clearDropdown(typeDropdown, $event)" />
+        <p-dropdown #typeDropdown [options]="accommodationTypes" [(ngModel)]="selectedAccommodationType" placeholder="Select Type" />
+        <p-button *ngIf="selectedAccommodationType !== ''" icon="pi pi-times-circle" (onClick)="clearDropdown(typeDropdown, $event)" />
+        <p-multiSelect [options]="benefits" [(ngModel)]="selectedBenefits" [filter]="false" placeholder="Select Benefits" />
       </div>
     </div>
   </p-overlayPanel>

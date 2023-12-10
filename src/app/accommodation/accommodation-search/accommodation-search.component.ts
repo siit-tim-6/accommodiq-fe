@@ -20,10 +20,23 @@ export class AccommodationSearchComponent {
     'Treehouse Retreat',
     'Floating Houseboat',
   ];
+  benefits: String[] = [
+    'Free Wi-Fi',
+    'Air Conditioning',
+    'Fully Equipped Kitchen',
+    'Complimentary Breakfast',
+    'Private Balcony',
+    'Spa Facilities',
+    'On-site Gym',
+    'Scenic Views',
+    'Pet-friendly',
+    '24/7 Concierge Service',
+  ];
   location: string = '';
   title: string = '';
   rangeDates: Date[] | undefined;
-  accommodationType: string = '';
+  selectedAccommodationType: string = '';
+  selectedBenefits!: string[];
 
   @Output()
   onSearch = new EventEmitter<SearchParams>();
@@ -47,7 +60,7 @@ export class AccommodationSearchComponent {
   }
 
   clearDropdown(dropdown: Dropdown, event: Event) {
-    this.accommodationType = '';
+    this.selectedAccommodationType = '';
     dropdown.clear(event);
   }
 }
