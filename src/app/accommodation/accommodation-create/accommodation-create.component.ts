@@ -29,31 +29,33 @@ export class AccommodationCreateComponent {
     console.log(this.formGroup.value.images)
     if (this.formGroup.valid) {
       const hostId = 1; // TODO: get from JWT
-
       const formData = this.formGroup.value;
+      this.accommodationService.uploadImages(this.formGroup.value.images).subscribe(
+        (uploadedImagePaths: string[]) => {
+          const accommodationData: AccommodationCreateDto = {
+            title: formData.name,
+            description: formData.description,
+            location: formData.location,
+            minGuests: formData.minGuests,
+            maxGuests: formData.maxGuests,
+            available: this.availabilityRanges,
+            pricingType: formData.pricePerGuest ? PricingType.PerGuest : PricingType.PerNight,
+            automaticAcceptance: formData.automaticallyAcceptIncomingReservations,
+            images: uploadedImagePaths
+          };
+          console.log("Accommodation Image:" + accommodationData);
 
-      const accommodationData: AccommodationCreateDto = {
-        title: formData.name,
-        description: formData.description,
-        location: formData.location,
-        minGuests: formData.minGuests,
-        maxGuests: formData.maxGuests,
-        available: this.availabilityRanges,
-        pricingType: formData.pricePerGuest ? PricingType.PerGuest : PricingType.PerNight,
-        automaticAcceptance: formData.automaticallyAcceptIncomingReservations
-      };
-
-      console.log(accommodationData);
-
-      this.accommodationService.createNewAccommodation(hostId, accommodationData)
-        .subscribe({
-          next: (accommodationDetails) => {
-            console.log("Accommodation Created:" + accommodationDetails);
-          },
-          error: (error) => {
-            console.log("Error creating accommodation:" + error);
+          this.accommodationService.createNewAccommodation(hostId, accommodationData)
+            .subscribe({
+              next: (accommodationDetails) => {
+                console.log("Accommodation Created:" + accommodationDetails);
+              },
+              error: (error) => {
+                console.log("Error creating accommodation:" + error);
+              }
+            });
           }
-        })
+      );
     } else {
       FormUtils.markAllAsTouched(this.formGroup);
       console.log("Invalid form");

@@ -28,4 +28,10 @@ export class AccommodationService {
   createNewAccommodation(hostId: number, data: AccommodationCreateDto): Observable<AccommodationDetailsDto> {
     return this.httpClient.post<AccommodationDetailsDto>(environment.apiHost + 'hosts/' + 1 + "/accommodations", data) // change later with JWT
   }
+
+  uploadImages(files: File[]): Observable<string[]> {
+    const formData = new FormData();
+    files.forEach(file => formData.append('images', file));
+    return this.httpClient.post<string[]>(environment.apiHost + 'images/upload', formData);
+  }
 }

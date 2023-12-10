@@ -19,6 +19,7 @@ export interface AccommodationCreateDto {
   available: AvailabilityDto[];
   pricingType: PricingType;
   automaticAcceptance: boolean;
+  images: String[];
 }
 
 export interface AccommodationDetailsDto {
