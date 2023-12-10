@@ -21,10 +21,8 @@
     [(ngModel)]="rangeDates"
   />
 
-  <span class="p-input-icon-left">
-    <i class="pi pi-dollar"></i>
-    <input type="text" pInputText placeholder="Price" />
-  </span>
+  <p-inputNumber mode="currency" currency="EUR" placeholder="Min Price" [min]="0" />
+  <p-inputNumber mode="currency" currency="EUR" placeholder="Max Price" [min]="0"/>
 
   <p-button icon="pi pi-filter" label="More filters" severity="secondary" />
 </div>

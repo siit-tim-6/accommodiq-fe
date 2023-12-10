@@ -38,8 +38,16 @@ h4:first-of-type {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
   }
+
+  ::ng-deep p-inputnumber * {
+    width: 110px;
+  }
 }
 
 .search-input, .search-input input {
   width: 100%;
+}
+
+p-inputnumber {
+  width: 110px;
 }
