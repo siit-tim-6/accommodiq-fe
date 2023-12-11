@@ -9,25 +9,25 @@ import { Dropdown } from 'primeng/dropdown';
 })
 export class AccommodationSearchComponent {
   accommodationTypes: string[] = [
+    'Apartment',
+    'House',
+    'Loft',
+    'Cabin',
     'Luxurious Hotel Suite',
-    'Cozy Mountain Cabin',
     'Beachfront Villa',
-    'Trendy Urban Loft',
     'Quaint Bed and Breakfast',
-    'Modern City Apartment',
     'Rustic Country Cottage',
-    'Boutique Guesthouse',
     'Treehouse Retreat',
     'Floating Houseboat',
   ];
   benefits: string[] = [
     'Air Conditioning',
-    'Fully Equipped Kitchen',
-    'Complimentary Breakfast',
+    'Free Wi-Fi',
+    'Fitness Center',
+    'Free Parking',
+    'Swimming Pool',
     'Private Balcony',
     'Spa Facilities',
-    'On-site Gym',
-    'Scenic Views',
     'Pet-friendly',
     '24/7 Concierge Service',
   ];
@@ -37,8 +37,8 @@ export class AccommodationSearchComponent {
   rangeDates: Date[] | undefined;
   guests: string | number | undefined;
   title: string = '';
-  minPrice!: number;
-  maxPrice!: number;
+  minPrice: number | undefined;
+  maxPrice: number | undefined;
   selectedAccommodationType: string = '';
   selectedBenefits: string[] = [];
 
@@ -63,8 +63,13 @@ export class AccommodationSearchComponent {
 
   clear() {
     this.location = '';
-    this.title = '';
     this.rangeDates = undefined;
+    this.title = '';
+    this.guests = undefined;
+    this.minPrice = undefined;
+    this.maxPrice = undefined;
+    this.selectedAccommodationType = '';
+    this.selectedBenefits = [];
     this.onClear.emit();
   }
 
