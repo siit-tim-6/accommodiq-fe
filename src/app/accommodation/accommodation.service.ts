@@ -4,10 +4,12 @@ import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { environment } from '../../env/env';
 import {
   Accommodation,
+  AccommodationAvailabilityPricingDto,
   AccommodationCreateDto,
   AccommodationDetailsDto,
   AccommodationFormData,
   AvailabilityDto,
+  AvailabilityRangeReservationsStatusDto,
   PricingType,
 } from './accommodation.model';
 
@@ -91,6 +93,29 @@ export class AccommodationService {
     return this.httpClient.post<string[]>(
       environment.apiHost + 'images/upload',
       formData,
+    );
+  }
+
+  checkAvailabilityRange(
+    accommodationId: number,
+    fromDate: number,
+    toDate: number,
+  ): Observable<AvailabilityRangeReservationsStatusDto> {
+    return this.httpClient.get<AvailabilityRangeReservationsStatusDto>(
+      `${environment.apiHost}accommodations/${accommodationId}/availabilities?fromDate=${fromDate}&toDate=${toDate}`,
+    );
+  }
+
+  updateAccommodationAvailabilityPricing(
+    accommodationId: number,
+    accommodationData: AccommodationAvailabilityPricingDto,
+  ): Observable<AccommodationDetailsDto> {
+    return this.httpClient.put<AccommodationDetailsDto>(
+      'environment.apiHost' +
+        'accommodations/' +
+        accommodationId +
+        '/availability-pricing',
+      accommodationData,
     );
   }
 }

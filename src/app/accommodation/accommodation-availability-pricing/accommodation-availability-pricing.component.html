@@ -58,6 +58,10 @@
         </div>
       </div>
 
+      <div *ngIf="overlappingReservations" class="empty-message">
+        This range overlaps with existing reservation. Can't be deleted.
+      </div>
+
       <div *ngIf="overlappingRanges" class="empty-message">
         New range overlaps with existing ranges
       </div>

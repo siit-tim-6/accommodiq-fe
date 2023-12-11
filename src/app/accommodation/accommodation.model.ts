@@ -78,3 +78,13 @@ export interface AccommodationFormData {
   pricePerGuest: boolean;
   automaticallyAcceptIncomingReservations: boolean;
 }
+
+export interface AccommodationAvailabilityPricingDto {
+  cancellationDeadline: number;
+  pricePerGuest: boolean;
+  availabilityRanges: AvailabilityDto[];
+}
+
+export interface AvailabilityRangeReservationsStatusDto {
+  hasReservations: boolean;
+}
