@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AccommodationService } from '../accommodation.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AvailabilityDto } from '../accommodation.model';
+import { FormValidators } from '../../utils/form-utils';
 
 @Component({
   selector: 'app-accommodation-availability-pricing',
@@ -53,6 +54,14 @@ export class AccommodationAvailabilityPricingComponent {
   }
 
   addRange(): void {
+    if (
+      !this.validateDates(
+        this.formGroup.value.pickedDates ||
+          !this.validatePrice(this.formGroup.value.price),
+      )
+    ) {
+      return;
+    }
     const pickedDates: Date[] = this.formGroup.get('pickedDates')?.value;
     const price: number = this.formGroup.get('price')?.value;
 
@@ -73,5 +82,23 @@ export class AccommodationAvailabilityPricingComponent {
 
   removeRange(index: number): void {
     this.availabilityRangesFormArray.removeAt(index);
+  }
+
+  private validateDates(dates: Date[]): boolean {
+    if (!FormValidators.areDatesValid(dates)) {
+      this.formGroup.get('pickedDates')?.markAsTouched();
+      this.formGroup.get('pickedDates')?.setErrors({ invalidDates: true });
+      return false;
+    }
+    return true;
+  }
+
+  private validatePrice(price: number): boolean {
+    if (!FormValidators.isPriceValid(price)) {
+      this.formGroup.get('price')?.markAsTouched();
+      this.formGroup.get('price')?.setErrors({ invalidPrice: true });
+      return false;
+    }
+    return true;
   }
 }
