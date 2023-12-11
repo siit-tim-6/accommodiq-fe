@@ -50,7 +50,7 @@ export class AccommodationService {
         +guests != -1 ? `&guests=${guests}` : ''
       }${minPrice != -1 ? `&priceFrom=${minPrice}` : ''}${
         maxPrice != -1 ? `&priceTo=${maxPrice}` : ''
-      }${type != '' ? `&type=${type}` : ''}${
+      }${type != '' && type != null ? `&type=${type}` : ''}${
         benefits.length > 0 ? `&benefits=${benefits.join(',')}` : ''
       }`
     );
