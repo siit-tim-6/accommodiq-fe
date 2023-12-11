@@ -6,10 +6,10 @@ import { AccommodationListComponent } from './accommodation/accommodation-list/a
 import { AccommodationDetailsComponent } from './accommodation/accommodation-details/accommodation-details.component';
 import { AccountInfoComponent } from './layout/account-info/account-info.component';
 import { UpdateAccountComponent } from './layout/update-account/update-account.component';
-import { AccommodationCreateComponent } from "./accommodation/accommodation-create/accommodation-create.component";
-import {NotificationListComponent} from "./notification/notification-list/notification-list.component";
-import { HostsAccommodationListComponent } from "./accommodation/hosts-accommodation-list/hosts-accommodation-list.component";
-import {AdminReviewListComponent} from "./accommodation/admin-review-list/admin-review-list.component";
+import { AccommodationCreateComponent } from './accommodation/accommodation-create/accommodation-create.component';
+import { NotificationListComponent } from './notification/notification-list/notification-list.component';
+import { HostsAccommodationListComponent } from './accommodation/hosts-accommodation-list/hosts-accommodation-list.component';
+import { AdminReviewListComponent } from './accommodation/admin-review-list/admin-review-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -22,7 +22,7 @@ const routes: Routes = [
     component: AccommodationDetailsComponent,
   },
   { path: 'update-account', component: UpdateAccountComponent },
-  { path: 'accommodation-create', component: AccommodationCreateComponent},
+  { path: 'accommodation-create', component: AccommodationCreateComponent },
   { path: 'notifications', component: NotificationListComponent },
   { path: 'my-accommodations', component: HostsAccommodationListComponent },
   { path: 'accommodations-review', component: AdminReviewListComponent },

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 interface RentalRange {
   startDate: Date;
@@ -9,7 +9,7 @@ interface RentalRange {
 @Component({
   selector: 'app-accommodation-create',
   templateUrl: './accommodation-create.component.html',
-  styleUrl: './accommodation-create.component.css'
+  styleUrl: './accommodation-create.component.css',
 })
 export class AccommodationCreateComponent {
   name?: string;
@@ -28,7 +28,12 @@ export class AccommodationCreateComponent {
   pickedDates?: Date[];
 
   ngOnInit(): void {
-    this.apartmentTypes = ['Entire apartment', 'Private room', 'Shared room', 'Hotel room'];
+    this.apartmentTypes = [
+      'Entire apartment',
+      'Private room',
+      'Shared room',
+      'Hotel room',
+    ];
     console.log(this.apartmentTypes);
   }
 
@@ -37,15 +42,15 @@ export class AccommodationCreateComponent {
   }
 
   onUpload($event: any) {
-    console.log("onUpload");
+    console.log('onUpload');
   }
 
   addRange() {
     if (this.pickedDates && this.price) {
-      const newRange : RentalRange = {
+      const newRange: RentalRange = {
         startDate: this.pickedDates[0],
         endDate: this.pickedDates[1],
-        price: this.price
+        price: this.price,
       };
 
       this.availabilityRanges.push(newRange);

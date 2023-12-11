@@ -32,7 +32,9 @@
   font-size: x-large;
 }
 
-:host .top-row, .middle-row, .bottom-row {
+:host .top-row,
+.middle-row,
+.bottom-row {
   margin-bottom: 25px;
   font-size: x-large;
 }
@@ -45,7 +47,7 @@
 :host .rating-value {
   font-weight: bold;
   margin-right: 15px;
-  margin-left: 10px
+  margin-left: 10px;
 }
 
 :host .num-ratings {
@@ -67,4 +69,3 @@
   font-size: medium;
   font-weight: bold;
 }
-

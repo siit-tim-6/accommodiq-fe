@@ -8,10 +8,9 @@ describe('NotificationCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [NotificationCardComponent]
-    })
-    .compileComponents();
-    
+      declarations: [NotificationCardComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(NotificationCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

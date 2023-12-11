@@ -34,13 +34,14 @@ h4:first-of-type {
     border-bottom-right-radius: 0px;
   }
 
-  ::ng-deep span.p-calendar > input  {
+  ::ng-deep span.p-calendar > input {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
   }
 }
 
-.search-input, .search-input input {
+.search-input,
+.search-input input {
   width: 100%;
 }
 

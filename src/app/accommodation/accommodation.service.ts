@@ -14,19 +14,19 @@ export class AccommodationService {
 
   getAll(): Observable<Accommodation[]> {
     return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'accommodations'
+      environment.apiHost + 'accommodations',
     );
   }
 
   getAccommodation(id: number): Observable<Accommodation> {
     return this.httpClient.get<Accommodation>(
-      environment.apiHost + 'accommodations/' + id
+      environment.apiHost + 'accommodations/' + id,
     );
   }
 
   getHostsAccommodations(): Observable<Accommodation[]> {
     return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'hosts/' + 1 + '/accommodations'
+      environment.apiHost + 'hosts/' + 1 + '/accommodations',
     ); // change later with JWT
   }
 
