@@ -1,0 +1,97 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  align-items: center;
+  width: fit-content;
+  box-sizing: border-box;
+  overflow-y: hidden;
+}
+
+:host :not(input) {
+  text-align: center;
+}
+
+:host div {
+  margin-bottom: 20px;
+}
+
+:host #cancellation-deadline {
+  width: 200px;
+  text-align: left;
+  margin-left: 10px;
+  font:
+    15px "Inter",
+    sans-serif;
+}
+
+:host input {
+  width: 100%;
+}
+
+:host .checkbox-group {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+:host .checkbox-option {
+  margin-bottom: 10px;
+}
+
+:host .inline-update-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+:host .column-wrapper {
+  margin-left: 40px;
+}
+
+:host .row-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+:host .min-max-input-wrapper {
+  width: 105px;
+}
+
+:host .between-line {
+  height: 2px;
+  background-color: black;
+  width: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+:host .calendar-wrapper {
+  width: 220px;
+}
+
+:host #price {
+  width: 90px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+:host form {
+  margin-top: 20px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.empty-message {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: red;
+  /* Add more styling as needed */
+}

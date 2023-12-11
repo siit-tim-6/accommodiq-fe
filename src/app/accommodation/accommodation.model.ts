@@ -9,3 +9,9 @@ export interface Accommodation {
   maxGuests: number;
   accepted?: boolean;
 }
+
+export interface AvailabilityDto {
+  fromDate: number;
+  toDate: number;
+  price: number;
+}

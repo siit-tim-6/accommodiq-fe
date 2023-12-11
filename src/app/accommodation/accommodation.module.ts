@@ -11,7 +11,7 @@ import { AccommodationDetailsComponent } from './accommodation-details/accommoda
 import { RouterModule } from '@angular/router';
 import { GalleriaModule } from 'primeng/galleria';
 import { CommentModule } from '../comment/comment.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HostsAccommodationListComponent } from './hosts-accommodation-list/hosts-accommodation-list.component';
 import { DockModule } from 'primeng/dock';
 import { DialogModule } from 'primeng/dialog';
@@ -52,6 +52,7 @@ import { AccommodationAvailabilityPricingComponent } from './accommodation-avail
     TableModule,
     DockModule,
     InputTextareaModule,
+    ReactiveFormsModule,
   ],
   exports: [
     AccommodationSearchComponent,

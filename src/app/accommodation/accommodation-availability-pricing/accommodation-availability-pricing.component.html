@@ -1,1 +1,117 @@
-<p>accommodation-availability-pricing works!</p>
+<p-dialog [closable]="false" [visible]="true" [draggable]="false">
+  <h2>Update availability of your apartment</h2>
+  <form [formGroup]="formGroup" (submit)="onSubmit()">
+    <div>
+      <div>
+        <div>
+          <span>
+            <span>Cancellation deadline:</span>
+            <input
+              pInputText
+              [required]="true"
+              type="number"
+              id="cancellation-deadline"
+              name="cancellation-deadline"
+              formControlName="cancellationDeadline"
+              placeholder="in days"
+            />
+          </span>
+        </div>
+
+        <div class="checkbox-group">
+          <span class="checkbox-option">
+            <p-checkbox
+              formControlName="pricePerGuest"
+              id="price-per-guests"
+              name="price-per-guests"
+              label="Price per guest"
+              [binary]="true"
+            ></p-checkbox>
+          </span>
+        </div>
+      </div>
+
+      <div class="column-wrapper">
+        <div class="row-wrapper availability-wrapper">
+          <div class="calendar-wrapper">
+            <p-calendar
+              formControlName="pickedDates"
+              name="range"
+              selectionMode="range"
+              [readonlyInput]="true"
+              placeholder="Select the Range"
+            ></p-calendar>
+          </div>
+          <div>
+            <span>
+              <input
+                pInputText
+                id="price"
+                name="price"
+                formControlName="price"
+                placeholder="Price"
+              />
+            </span>
+          </div>
+          <div>
+            <p-button label="Add" (click)="addRange()"></p-button>
+          </div>
+        </div>
+
+        <div
+          *ngIf="submitAttempted && availabilityRangesFormArray.length === 0"
+          class="empty-message"
+        >
+          Please add at least one availability range.
+        </div>
+
+        <div class="file-upload-wrapper">
+          <p-table
+            [value]="availabilityRangesFormArray.controls"
+            [paginator]="true"
+            [rows]="4"
+            [showCurrentPageReport]="true"
+            [tableStyle]="{ width: '450px' }"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="width: 27%">Start Date</th>
+                <th style="width: 27%">End Date</th>
+                <th style="width: 27%">Price</th>
+                <th style="width: 19%"></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-range="item" let-i="index">
+              <tr
+                *ngFor="
+                  let range of availabilityRangesFormArray.controls;
+                  let i = index
+                "
+              >
+                <td>
+                  {{
+                    availabilityRangesFormArray.at(i).get("fromDate")?.value
+                      | date: "dd/MM/yyyy"
+                  }}
+                </td>
+                <td>
+                  {{
+                    availabilityRangesFormArray.at(i).get("toDate")?.value
+                      | date: "dd/MM/yyyy"
+                  }}
+                </td>
+                <td>
+                  {{ availabilityRangesFormArray.at(i).get("price")?.value }}
+                </td>
+                <td>
+                  <p-button label="X" (click)="removeRange(i)"></p-button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+    <p-button label="Update" type="submit"></p-button>
+  </form>
+</p-dialog>
