@@ -8,7 +8,7 @@ import { Dropdown } from 'primeng/dropdown';
   styleUrl: './accommodation-search.component.css',
 })
 export class AccommodationSearchComponent {
-  accommodationTypes: String[] = [
+  accommodationTypes: string[] = [
     'Luxurious Hotel Suite',
     'Cozy Mountain Cabin',
     'Beachfront Villa',
@@ -20,8 +20,7 @@ export class AccommodationSearchComponent {
     'Treehouse Retreat',
     'Floating Houseboat',
   ];
-  benefits: String[] = [
-    'Free Wi-Fi',
+  benefits: string[] = [
     'Air Conditioning',
     'Fully Equipped Kitchen',
     'Complimentary Breakfast',
