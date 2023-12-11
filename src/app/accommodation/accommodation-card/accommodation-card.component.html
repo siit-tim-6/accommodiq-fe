@@ -55,7 +55,15 @@
     </span>
 
     <p>
-      <span class="bold">€{{ accommodation.minPrice }}</span> EUR total
+      <span *ngIf="accommodation.totalPrice !== 0">
+        <span class="bold">€{{ accommodation.totalPrice }} </span>
+        EUR total
+      </span>
+      <span *ngIf="accommodation.totalPrice === 0">
+        from
+        <span class="bold"> €{{ accommodation.minPrice }} </span>
+        EUR / night
+      </span>
     </p>
   </div>
 </div>
