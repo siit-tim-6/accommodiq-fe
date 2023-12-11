@@ -31,9 +31,13 @@ export class AccommodationSearchComponent {
     'Pet-friendly',
     '24/7 Concierge Service',
   ];
+
   location: string = '';
-  title: string = '';
   rangeDates: Date[] | undefined;
+  guests!: number;
+  title: string = '';
+  minPrice!: number;
+  maxPrice!: number;
   selectedAccommodationType: string = '';
   selectedBenefits!: string[];
 
@@ -45,9 +49,14 @@ export class AccommodationSearchComponent {
 
   search() {
     this.onSearch.emit({
-      title: this.title,
       location: this.location,
       rangeDates: this.rangeDates,
+      guests: this.guests,
+      title: this.title,
+      minPrice: this.minPrice,
+      maxPrice: this.maxPrice,
+      type: this.selectedAccommodationType,
+      benefits: this.selectedBenefits,
     });
   }
 
