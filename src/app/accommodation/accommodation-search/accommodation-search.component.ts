@@ -31,10 +31,11 @@ export class AccommodationSearchComponent {
     'Pet-friendly',
     '24/7 Concierge Service',
   ];
+  positiveInteger: RegExp = /^[1-9]\d*$/;
 
   location: string = '';
   rangeDates: Date[] | undefined;
-  guests!: number;
+  guests: string | number | undefined;
   title: string = '';
   minPrice!: number;
   maxPrice!: number;
