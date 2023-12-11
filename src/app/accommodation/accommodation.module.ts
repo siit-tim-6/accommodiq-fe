@@ -22,6 +22,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AdminReviewListComponent } from './admin-review-list/admin-review-list.component';
+import { AccommodationAvailabilityPricingComponent } from './accommodation-availability-pricing/accommodation-availability-pricing.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AdminReviewListComponent } from './admin-review-list/admin-review-list.
     HostsAccommodationListComponent,
     AccommodationCreateComponent,
     AdminReviewListComponent,
+    AccommodationAvailabilityPricingComponent,
   ],
   imports: [
     CommonModule,
