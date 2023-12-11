@@ -41,15 +41,6 @@
   margin-bottom: 10px;
 }
 
-:host .inline-update-form {
-  display: flex;
-  justify-content: space-between;
-}
-
-:host .column-wrapper {
-  margin-left: 40px;
-}
-
 :host .row-wrapper {
   display: flex;
   flex-direction: row;
@@ -57,18 +48,6 @@
   justify-content: center;
   margin-top: 5px;
   margin-bottom: 20px;
-}
-
-:host .min-max-input-wrapper {
-  width: 105px;
-}
-
-:host .between-line {
-  height: 2px;
-  background-color: black;
-  width: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
 }
 
 :host .calendar-wrapper {
@@ -81,10 +60,6 @@
   margin-right: 5px;
 }
 
-:host form {
-  margin-top: 20px;
-}
-
 input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
@@ -94,4 +69,8 @@ input.ng-invalid.ng-touched {
   font-weight: bold;
   color: red;
   /* Add more styling as needed */
+}
+
+:host p-button {
+  margin-top: 30px;
 }

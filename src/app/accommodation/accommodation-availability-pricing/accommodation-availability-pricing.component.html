@@ -31,85 +31,74 @@
         </div>
       </div>
 
-      <div class="column-wrapper">
-        <div class="row-wrapper availability-wrapper">
-          <div class="calendar-wrapper">
-            <p-calendar
-              formControlName="pickedDates"
-              name="range"
-              selectionMode="range"
-              [readonlyInput]="true"
-              placeholder="Select the Range"
-            ></p-calendar>
-          </div>
-          <div>
-            <span>
-              <input
-                pInputText
-                id="price"
-                name="price"
-                formControlName="price"
-                placeholder="Price"
-              />
-            </span>
-          </div>
-          <div>
-            <p-button label="Add" (click)="addRange()"></p-button>
-          </div>
+      <div class="row-wrapper availability-wrapper">
+        <div class="calendar-wrapper">
+          <p-calendar
+            formControlName="pickedDates"
+            name="range"
+            selectionMode="range"
+            [readonlyInput]="true"
+            placeholder="Select the Range"
+            appendTo="body"
+          ></p-calendar>
         </div>
+        <div>
+          <span>
+            <input
+              pInputText
+              id="price"
+              name="price"
+              formControlName="price"
+              placeholder="Price"
+            />
+          </span>
+        </div>
+        <div>
+          <p-button label="Add" (click)="addRange()"></p-button>
+        </div>
+      </div>
 
-        <div
-          *ngIf="submitAttempted && availabilityRangesFormArray.length === 0"
-          class="empty-message"
+      <div *ngIf="overlappingRanges" class="empty-message">
+        New range overlaps with existing ranges
+      </div>
+
+      <div
+        *ngIf="submitAttempted && availabilityRanges.length === 0"
+        class="empty-message"
+      >
+        Please add at least one availability range.
+      </div>
+
+      <div class="file-upload-wrapper">
+        <p-table
+          [value]="availabilityRanges"
+          [paginator]="true"
+          [rows]="4"
+          [showCurrentPageReport]="true"
+          [tableStyle]="{ width: '450px' }"
         >
-          Please add at least one availability range.
-        </div>
-
-        <div class="file-upload-wrapper">
-          <p-table
-            [value]="availabilityRangesFormArray.controls"
-            [paginator]="true"
-            [rows]="4"
-            [showCurrentPageReport]="true"
-            [tableStyle]="{ width: '450px' }"
-          >
-            <ng-template pTemplate="header">
-              <tr>
-                <th style="width: 27%">Start Date</th>
-                <th style="width: 27%">End Date</th>
-                <th style="width: 27%">Price</th>
-                <th style="width: 19%"></th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-range="item" let-i="index">
-              <tr
-                *ngFor="
-                  let range of availabilityRangesFormArray.controls;
-                  let i = index
-                "
-              >
-                <td>
-                  {{
-                    availabilityRangesFormArray.at(i).get("fromDate")?.value
-                      | date: "dd/MM/yyyy"
-                  }}
-                </td>
-                <td>
-                  {{
-                    availabilityRangesFormArray.at(i).get("toDate")?.value
-                      | date: "dd/MM/yyyy"
-                  }}
-                </td>
-                <td>
-                  {{ availabilityRangesFormArray.at(i).get("price")?.value }}
-                </td>
-                <td>
-                  <p-button label="X" (click)="removeRange(i)"></p-button>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 27%">Start Date</th>
+              <th style="width: 27%">End Date</th>
+              <th style="width: 27%">Price</th>
+              <th style="width: 19%"></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-availabilityRange>
+            <tr>
+              <td>{{ availabilityRange.fromDate | date: "dd/MM/yyyy" }}</td>
+              <td>{{ availabilityRange.toDate | date: "dd/MM/yyyy" }}</td>
+              <td>{{ availabilityRange.price }}</td>
+              <td>
+                <p-button
+                  label="X"
+                  (click)="removeRange(availabilityRange)"
+                ></p-button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
     </div>
     <p-button label="Update" type="submit"></p-button>

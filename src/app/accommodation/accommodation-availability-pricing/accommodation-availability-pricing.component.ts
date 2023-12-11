@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { AccommodationService } from '../accommodation.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AvailabilityDto } from '../accommodation.model';
@@ -11,18 +11,15 @@ import { FormValidators } from '../../utils/form-utils';
 })
 export class AccommodationAvailabilityPricingComponent {
   formGroup!: FormGroup;
+  availabilityRanges: AvailabilityDto[] = [];
   submitAttempted: boolean = false;
+  overlappingRanges: boolean = false;
 
   constructor(
     private accommodationService: AccommodationService,
     private formBuilder: FormBuilder,
   ) {
     this.initializeFormGroup();
-    this.initializeAvailabilityRanges([]);
-  }
-
-  get availabilityRangesFormArray() {
-    return this.formGroup.get('availabilityRanges') as FormArray;
   }
 
   private initializeFormGroup() {
@@ -31,57 +28,49 @@ export class AccommodationAvailabilityPricingComponent {
       pricePerGuest: [false],
       pickedDates: [null],
       price: [null],
-      availabilityRanges: this.formBuilder.array([]),
+      availabilityRanges: [this.availabilityRanges],
     });
   }
 
-  private initializeAvailabilityRanges(ranges: AvailabilityDto[]): void {
-    const formGroups = ranges.map((range) =>
-      this.formBuilder.group({
-        fromDate: [new Date(range.fromDate), Validators.required],
-        toDate: [new Date(range.toDate), Validators.required],
-        price: [range.price, Validators.required],
-      }),
-    );
-    this.availabilityRangesFormArray.clear();
-    formGroups.forEach((fg) => this.availabilityRangesFormArray.push(fg));
-  }
-
-  onSubmit(): void {
-    if (this.formGroup.valid) {
-      const formData = this.formGroup.value;
-    }
-  }
+  onSubmit(): void {}
 
   addRange(): void {
+    this.overlappingRanges = false;
+
     if (
-      !this.validateDates(
-        this.formGroup.value.pickedDates ||
-          !this.validatePrice(this.formGroup.value.price),
-      )
+      !this.validateDates(this.formGroup.value.pickedDates) ||
+      !this.validatePrice(this.formGroup.value.price)
     ) {
+      console.log('invalid');
       return;
     }
+
     const pickedDates: Date[] = this.formGroup.get('pickedDates')?.value;
     const price: number = this.formGroup.get('price')?.value;
+    const existingRanges: Date[][] = this.getExistingDateRanges();
 
-    if (pickedDates && pickedDates.length === 2 && price) {
-      const newRange = this.formBuilder.group({
-        fromDate: [new Date(pickedDates[0]), Validators.required],
-        toDate: [new Date(pickedDates[1]), Validators.required],
-        price: [price, Validators.required],
-      });
-      this.availabilityRangesFormArray.push(newRange);
-    } else {
-      console.error('Invalid range or price');
+    if (this.isOverlapping(pickedDates, existingRanges)) {
+      this.overlappingRanges = true;
+      console.error('New range overlaps with existing ranges');
+      return;
     }
-    console.log(this.formGroup.value);
-    console.log(this.availabilityRangesFormArray.value);
+
+    this.addNewRange(pickedDates, price);
+
     this.formGroup.patchValue({ pickedDates: null, price: null });
   }
 
+  private addNewRange(dates: Date[], price: number): void {
+    const newRange: AvailabilityDto = {
+      fromDate: dates[0].getTime(),
+      toDate: dates[1].getTime(),
+      price: price,
+    };
+    this.availabilityRanges = [...this.availabilityRanges, newRange];
+  }
+
   removeRange(index: number): void {
-    this.availabilityRangesFormArray.removeAt(index);
+    this.availabilityRanges.splice(index, 1);
   }
 
   private validateDates(dates: Date[]): boolean {
@@ -100,5 +89,21 @@ export class AccommodationAvailabilityPricingComponent {
       return false;
     }
     return true;
+  }
+
+  private isOverlapping(newRange: Date[], existingRanges: Date[][]): boolean {
+    for (let range of existingRanges) {
+      if (newRange[0] < range[1] && newRange[1] > range[0]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private getExistingDateRanges(): Date[][] {
+    return this.availabilityRanges.map((range) => [
+      new Date(range.fromDate),
+      new Date(range.toDate),
+    ]);
   }
 }
