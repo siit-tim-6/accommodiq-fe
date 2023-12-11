@@ -40,7 +40,7 @@ export class AccommodationSearchComponent {
   minPrice!: number;
   maxPrice!: number;
   selectedAccommodationType: string = '';
-  selectedBenefits!: string[];
+  selectedBenefits: string[] = [];
 
   @Output()
   onSearch = new EventEmitter<SearchParams>();

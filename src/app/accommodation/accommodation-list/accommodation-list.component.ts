@@ -19,13 +19,13 @@ export class AccommodationListComponent implements OnInit {
     });
   }
 
-  search({ title, location, rangeDates }: SearchParams) {
+  search(searchParams: SearchParams) {
     let fromDate: number =
-      rangeDates === undefined ? 0 : rangeDates[0].valueOf();
-    let toDate: number = rangeDates === undefined ? 0 : rangeDates[1].valueOf();
+      searchParams.rangeDates === undefined ? 0 : searchParams.rangeDates[0].valueOf();
+    let toDate: number = searchParams.rangeDates === undefined ? 0 : searchParams.rangeDates[1].valueOf();
 
     this.service
-      .findByFilter(location, fromDate, toDate, title)
+      .findByFilter(searchParams.location, fromDate, toDate, searchParams.title, searchParams.guests ?? -1, searchParams.minPrice ?? -1, searchParams.maxPrice ?? -1, searchParams.type, searchParams.benefits)
       .subscribe((accommodations: Accommodation[]) => {
         this.elements = accommodations;
       });
