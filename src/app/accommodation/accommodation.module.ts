@@ -22,6 +22,10 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AdminReviewListComponent } from './admin-review-list/admin-review-list.component';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [
@@ -50,6 +54,10 @@ import { AdminReviewListComponent } from './admin-review-list/admin-review-list.
     TableModule,
     DockModule,
     InputTextareaModule,
+    OverlayPanelModule,
+    KeyFilterModule,
+    InputNumberModule,
+    MultiSelectModule,
   ],
   exports: [
     AccommodationSearchComponent,

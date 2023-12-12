@@ -35,13 +35,24 @@ export class AccommodationService {
     fromDate: number,
     toDate: number,
     title: string,
+    guests: number | string,
+    minPrice: number,
+    maxPrice: number,
+    type: string,
+    benefits: string[]
   ): Observable<Accommodation[]> {
     return this.httpClient.get<Accommodation[]>(
       `${environment.apiHost}accommodations?${
         location != '' ? `location=${location}` : ''
       }${fromDate != 0 ? `&availableFrom=${fromDate}` : ''}${
         toDate != 0 ? `&availableTo=${toDate}` : ''
-      }${title != '' ? `&title=${title}` : ''}`,
+      }${title != '' ? `&title=${title}` : ''}${
+        +guests != -1 ? `&guests=${guests}` : ''
+      }${minPrice != -1 ? `&priceFrom=${minPrice}` : ''}${
+        maxPrice != -1 ? `&priceTo=${maxPrice}` : ''
+      }${type != '' && type != null ? `&type=${type}` : ''}${
+        benefits.length > 0 ? `&benefits=${benefits.join(',')}` : ''
+      }`
     );
   }
 }

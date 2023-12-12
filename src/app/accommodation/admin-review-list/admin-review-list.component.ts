@@ -14,8 +14,10 @@ export class AdminReviewListComponent implements OnInit {
   constructor(private service: AccommodationService) {}
 
   ngOnInit(): void {
-    this.service.getHostsAccommodations().subscribe((accommodations: any[]) => {
-      this.elements = accommodations;
-    });
+    this.service
+      .getHostsAccommodations()
+      .subscribe((accommodations: Accommodation[]) => {
+        this.elements = accommodations;
+      });
   }
 }
