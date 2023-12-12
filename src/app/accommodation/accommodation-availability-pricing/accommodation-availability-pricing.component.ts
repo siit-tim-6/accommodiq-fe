@@ -2,14 +2,11 @@ import { Component } from '@angular/core';
 import { AccommodationService } from '../accommodation.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
-  Accommodation,
-  AccommodationAvailabilityPricingDto,
   AccommodationBookingDetailFormDto,
   AccommodationBookingDetailsDto,
   AccommodationDetailsDto,
   Availability,
   AvailabilityDto,
-  AvailabilityRangeReservationsStatusDto,
   PricingType,
 } from '../accommodation.model';
 import { FormUtils, FormValidators } from '../../utils/form-utils';
@@ -31,13 +28,12 @@ export class AccommodationAvailabilityPricingComponent {
   constructor(
     private accommodationService: AccommodationService,
     private formBuilder: FormBuilder,
-  ) {
-    this.initializeBookingDetailsForm();
-    this.initializeAvailabilityForm();
-  }
+  ) {}
 
   ngOnInit(): void {
     const accommodationId: number = 1; //will be changed later
+    this.initializeBookingDetailsForm();
+    this.initializeAvailabilityForm();
     this.loadAccommodationDetails(accommodationId);
   }
 
@@ -58,30 +54,6 @@ export class AccommodationAvailabilityPricingComponent {
       });
   }
 
-  private updateForms(details: AccommodationBookingDetailFormDto): void {
-    this.bookingDetailsForm.patchValue({
-      cancellationDeadline: details.cancellationDeadline,
-      pricePerGuest: details.pricePerGuest,
-    });
-
-    this.availabilityRanges = details.available;
-  }
-
-  private initializeBookingDetailsForm() {
-    this.bookingDetailsForm = this.formBuilder.group({
-      cancellationDeadline: ['', [Validators.required, Validators.min(0)]],
-      pricePerGuest: [false],
-    });
-  }
-
-  private initializeAvailabilityForm() {
-    this.availabilityForm = this.formBuilder.group({
-      pickedDates: [null],
-      price: [null],
-      availabilityRanges: [this.availabilityRanges],
-    });
-  }
-
   onSubmit(): void {
     const accommodationId: number = 1; //will be changed later
     this.submitAttempted = true;
@@ -94,14 +66,17 @@ export class AccommodationAvailabilityPricingComponent {
           ? PricingType.PerGuest
           : PricingType.PerNight,
       };
-
+      console.log(
+        'accommodationBookingDetailsData',
+        accommodationBookingDetailsData,
+      );
       this.accommodationService
         .updateAccommodationBookingDetails(
           accommodationId,
           accommodationBookingDetailsData,
         )
         .subscribe({
-          next: (accommodationDetails: AccommodationDetailsDto) => {
+          next: (accommodationDetails: AccommodationBookingDetailsDto) => {
             console.log(
               'Accommodation booking details updated successfully.',
               accommodationDetails,
@@ -212,6 +187,31 @@ export class AccommodationAvailabilityPricingComponent {
           }
         },
       });
+  }
+
+  private updateForms(details: AccommodationBookingDetailFormDto): void {
+    this.bookingDetailsForm.patchValue({
+      cancellationDeadline: details.cancellationDeadline,
+      pricePerGuest: details.pricePerGuest == 'PER_GUEST',
+    });
+    console.log(this.bookingDetailsForm.value);
+    console.log(details);
+    this.availabilityRanges = details.available;
+  }
+
+  private initializeBookingDetailsForm() {
+    this.bookingDetailsForm = this.formBuilder.group({
+      cancellationDeadline: ['', [Validators.required, Validators.min(0)]],
+      pricePerGuest: [false],
+    });
+  }
+
+  private initializeAvailabilityForm() {
+    this.availabilityForm = this.formBuilder.group({
+      pickedDates: [null],
+      price: [null],
+      availabilityRanges: [this.availabilityRanges],
+    });
   }
 
   private validateDates(dates: Date[]): boolean {

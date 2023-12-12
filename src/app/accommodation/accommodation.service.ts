@@ -111,9 +111,9 @@ export class AccommodationService {
   updateAccommodationBookingDetails(
     accommodationId: number,
     accommodationData: AccommodationBookingDetailsDto,
-  ): Observable<AccommodationDetailsDto> {
-    return this.httpClient.put<AccommodationDetailsDto>(
-      'environment.apiHost' +
+  ): Observable<AccommodationBookingDetailsDto> {
+    return this.httpClient.put<AccommodationBookingDetailsDto>(
+      environment.apiHost +
         'accommodations/' +
         accommodationId +
         '/booking-details',

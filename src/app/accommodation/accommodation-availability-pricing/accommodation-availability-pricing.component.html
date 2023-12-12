@@ -1,6 +1,6 @@
 <p-dialog [closable]="false" [visible]="true" [draggable]="false">
   <h2>Update availability of your apartment</h2>
-  <form [formGroup]="bookingDetailsForm" (submit)="onSubmit()">
+  <form [formGroup]="bookingDetailsForm">
     <div>
       <div>
         <div>
@@ -30,7 +30,7 @@
           </span>
         </div>
       </div>
-      <p-button label="Update" type="submit"></p-button>
+      <p-button label="Update" type="submit" (click)="onSubmit()"></p-button>
     </div>
   </form>
 

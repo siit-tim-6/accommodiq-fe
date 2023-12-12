@@ -96,7 +96,7 @@ export interface AccommodationBookingDetailsDto {
 
 export interface AccommodationBookingDetailFormDto {
   cancellationDeadline: number;
-  pricePerGuest: boolean;
+  pricePerGuest: PricingType;
   available: Availability[];
 }
 
