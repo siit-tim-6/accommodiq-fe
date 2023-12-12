@@ -5,11 +5,15 @@ import { environment } from '../../env/env';
 import {
   Accommodation,
   AccommodationAvailabilityPricingDto,
+  AccommodationBookingDetailFormDto,
+  AccommodationBookingDetailsDto,
   AccommodationCreateDto,
   AccommodationDetailsDto,
   AccommodationFormData,
+  Availability,
   AvailabilityDto,
   AvailabilityRangeReservationsStatusDto,
+  MessageDto,
   PricingType,
 } from './accommodation.model';
 
@@ -96,26 +100,43 @@ export class AccommodationService {
     );
   }
 
-  checkAvailabilityRange(
+  getAccommodationBookingDetails(
     accommodationId: number,
-    fromDate: number,
-    toDate: number,
-  ): Observable<AvailabilityRangeReservationsStatusDto> {
-    return this.httpClient.get<AvailabilityRangeReservationsStatusDto>(
-      `${environment.apiHost}accommodations/${accommodationId}/availabilities?fromDate=${fromDate}&toDate=${toDate}`,
+  ): Observable<AccommodationBookingDetailFormDto> {
+    return this.httpClient.get<AccommodationBookingDetailFormDto>(
+      `${environment.apiHost}accommodations/${accommodationId}/booking-details`,
     );
   }
 
-  updateAccommodationAvailabilityPricing(
+  updateAccommodationBookingDetails(
     accommodationId: number,
-    accommodationData: AccommodationAvailabilityPricingDto,
+    accommodationData: AccommodationBookingDetailsDto,
   ): Observable<AccommodationDetailsDto> {
     return this.httpClient.put<AccommodationDetailsDto>(
       'environment.apiHost' +
         'accommodations/' +
         accommodationId +
-        '/availability-pricing',
+        '/booking-details',
       accommodationData,
+    );
+  }
+
+  addAccommodationAvailability(
+    accommodationId: number,
+    availabilityData: AvailabilityDto,
+  ): Observable<Availability[]> {
+    return this.httpClient.post<Availability[]>(
+      `${environment.apiHost}accommodations/${accommodationId}/availabilities`,
+      availabilityData,
+    );
+  }
+
+  removeAccommodationAvailability(
+    accommodationId: number,
+    availabilityId: number,
+  ): Observable<MessageDto> {
+    return this.httpClient.delete<MessageDto>(
+      `${environment.apiHost}accommodations/${accommodationId}/availabilities/${availabilityId}`,
     );
   }
 }

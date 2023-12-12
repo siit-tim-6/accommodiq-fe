@@ -2,9 +2,15 @@ import { Component } from '@angular/core';
 import { AccommodationService } from '../accommodation.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
+  Accommodation,
   AccommodationAvailabilityPricingDto,
+  AccommodationBookingDetailFormDto,
+  AccommodationBookingDetailsDto,
+  AccommodationDetailsDto,
+  Availability,
   AvailabilityDto,
   AvailabilityRangeReservationsStatusDto,
+  PricingType,
 } from '../accommodation.model';
 import { FormUtils, FormValidators } from '../../utils/form-utils';
 
@@ -14,8 +20,10 @@ import { FormUtils, FormValidators } from '../../utils/form-utils';
   styleUrl: './accommodation-availability-pricing.component.css',
 })
 export class AccommodationAvailabilityPricingComponent {
-  formGroup!: FormGroup;
-  availabilityRanges: AvailabilityDto[] = [];
+  bookingDetailsForm!: FormGroup;
+  availabilityForm!: FormGroup;
+  availabilityRanges: Availability[] = [];
+  accommodationDetails!: AccommodationBookingDetailFormDto;
   submitAttempted: boolean = false;
   overlappingRanges: boolean = false;
   overlappingReservations: boolean = false;
@@ -24,13 +32,50 @@ export class AccommodationAvailabilityPricingComponent {
     private accommodationService: AccommodationService,
     private formBuilder: FormBuilder,
   ) {
-    this.initializeFormGroup();
+    this.initializeBookingDetailsForm();
+    this.initializeAvailabilityForm();
   }
 
-  private initializeFormGroup() {
-    this.formGroup = this.formBuilder.group({
+  ngOnInit(): void {
+    const accommodationId: number = 1; //will be changed later
+    this.loadAccommodationDetails(accommodationId);
+  }
+
+  loadAccommodationDetails(accommodationId: number): void {
+    this.accommodationService
+      .getAccommodationBookingDetails(accommodationId)
+      .subscribe({
+        next: (details) => {
+          this.accommodationDetails = details;
+          this.updateForms(details);
+        },
+        error: (error) => {
+          console.error('Error fetching accommodation booking details', error);
+          alert(
+            'Error fetching accommodation booking details. Please try again later.',
+          );
+        },
+      });
+  }
+
+  private updateForms(details: AccommodationBookingDetailFormDto): void {
+    this.bookingDetailsForm.patchValue({
+      cancellationDeadline: details.cancellationDeadline,
+      pricePerGuest: details.pricePerGuest,
+    });
+
+    this.availabilityRanges = details.available;
+  }
+
+  private initializeBookingDetailsForm() {
+    this.bookingDetailsForm = this.formBuilder.group({
       cancellationDeadline: ['', [Validators.required, Validators.min(0)]],
       pricePerGuest: [false],
+    });
+  }
+
+  private initializeAvailabilityForm() {
+    this.availabilityForm = this.formBuilder.group({
       pickedDates: [null],
       price: [null],
       availabilityRanges: [this.availabilityRanges],
@@ -41,36 +86,40 @@ export class AccommodationAvailabilityPricingComponent {
     const accommodationId: number = 1; //will be changed later
     this.submitAttempted = true;
 
-    if (this.isFormValid()) {
-      const accommodationData: AccommodationAvailabilityPricingDto = {
-        cancellationDeadline: this.formGroup.value.cancellationDeadline,
-        pricePerGuest: this.formGroup.value.pricePerGuest,
-        availabilityRanges: this.availabilityRanges,
+    if (this.bookingDetailsForm.valid) {
+      const accommodationBookingDetailsData: AccommodationBookingDetailsDto = {
+        cancellationDeadline:
+          this.bookingDetailsForm.value.cancellationDeadline,
+        pricePerGuest: this.bookingDetailsForm.value.pricePerGuest
+          ? PricingType.PerGuest
+          : PricingType.PerNight,
       };
 
       this.accommodationService
-        .updateAccommodationAvailabilityPricing(
+        .updateAccommodationBookingDetails(
           accommodationId,
-          accommodationData,
+          accommodationBookingDetailsData,
         )
         .subscribe({
-          next: (accommodationDetails) => {
+          next: (accommodationDetails: AccommodationDetailsDto) => {
             console.log(
-              'Accommodation availability and pricing updated successfully.',
+              'Accommodation booking details updated successfully.',
               accommodationDetails,
             );
             // You might want to navigate the user to another page or show a success message
           },
           error: (error) => {
             console.error(
-              'Error updating accommodation availability and pricing',
+              'Error updating accommodation booking details',
               error,
             );
-            // Show an error message to the user
+            alert(
+              'Error updating accommodation booking details. Please try again later.',
+            );
           },
         });
     } else {
-      FormUtils.markAllAsTouched(this.formGroup);
+      FormUtils.markAllAsTouched(this.bookingDetailsForm);
       console.error('Form is invalid. Please check the entered data.');
     }
   }
@@ -79,15 +128,15 @@ export class AccommodationAvailabilityPricingComponent {
     this.overlappingRanges = false;
 
     if (
-      !this.validateDates(this.formGroup.value.pickedDates) ||
-      !this.validatePrice(this.formGroup.value.price)
+      !this.validateDates(this.availabilityForm.value.pickedDates) ||
+      !this.validatePrice(this.availabilityForm.value.price)
     ) {
       console.log('invalid');
       return;
     }
 
-    const pickedDates: Date[] = this.formGroup.get('pickedDates')?.value;
-    const price: number = this.formGroup.get('price')?.value;
+    const pickedDates: Date[] = this.availabilityForm.get('pickedDates')?.value;
+    const price: number = this.availabilityForm.get('price')?.value;
     const existingRanges: Date[][] = this.getExistingDateRanges();
 
     if (this.isOverlapping(pickedDates, existingRanges)) {
@@ -97,50 +146,80 @@ export class AccommodationAvailabilityPricingComponent {
     }
 
     this.addNewRange(pickedDates, price);
-    this.formGroup.patchValue({ pickedDates: null, price: null });
+    this.availabilityForm.patchValue({ pickedDates: null, price: null });
   }
 
   private addNewRange(dates: Date[], price: number): void {
-    const newRange: AvailabilityDto = {
-      fromDate: dates[0].getTime(),
-      toDate: dates[1].getTime(),
-      price: price,
+    const accommodationId = 1; // Replace with actual accommodation ID
+    const availabilityData: AvailabilityDto = {
+      fromDate: this.availabilityForm.value.pickedDates[0].getTime(),
+      toDate: this.availabilityForm.value.pickedDates[1].getTime(),
+      price: this.availabilityForm.value.price,
     };
-    this.availabilityRanges = [...this.availabilityRanges, newRange];
-  }
 
-  removeRange(rangeToRemove: AvailabilityDto): void {
-    this.overlappingReservations = false;
-    const index: number = this.availabilityRanges.indexOf(rangeToRemove);
-    console.log('index', index);
-    console.log('rangeToRemove', rangeToRemove);
     this.accommodationService
-      .checkAvailabilityRange(1, rangeToRemove.fromDate, rangeToRemove.toDate)
+      .addAccommodationAvailability(accommodationId, availabilityData)
       .subscribe({
-        next: (response: AvailabilityRangeReservationsStatusDto) => {
-          if (!response.hasReservations) {
-            this.availabilityRanges.splice(index, 1);
-          } else {
-            this.overlappingReservations = true;
-            console.error('Range has reservations. Cannot delete.');
-          }
+        next: (updatedAvailabilities) => {
+          console.log('Availability added successfully');
+          this.availabilityRanges = updatedAvailabilities;
         },
         error: (error) => {
-          console.error(
-            'Error checking availability range for reservations:',
-            error,
-          );
-          alert(
-            'Error checking availability range for reservations. Please try again later.',
-          );
+          if (error.status === 409) {
+            // Handle the overlapping availability scenario
+            alert(
+              'The specified availability period overlaps with an existing one. Please choose a different range.',
+            );
+          } else {
+            // Handle other errors
+            console.error('Error adding availability', error);
+            alert('Error adding availability. Please try again later.');
+          }
+        },
+      });
+  }
+
+  removeRange(rangeToRemove: Availability): void {
+    this.overlappingReservations = false;
+    const index: number = this.availabilityRanges.indexOf(rangeToRemove);
+
+    if (index === -1) {
+      console.error('Range not found');
+      return;
+    }
+
+    console.log('index', index);
+    console.log('rangeToRemove', rangeToRemove);
+
+    this.accommodationService
+      .removeAccommodationAvailability(1, rangeToRemove.id)
+      .subscribe({
+        next: (response) => {
+          this.availabilityRanges.splice(index, 1);
+        },
+        error: (error) => {
+          if (error.status === 400) {
+            console.error('Error removing availability range', error);
+            alert(
+              'Cannot remove this availability range as there are active reservations.',
+            );
+          } else if (error.status === 404) {
+            console.error('Availability range not found', error);
+            alert('The availability range was not found.');
+          } else {
+            console.error('Error removing availability range', error);
+            alert('Error removing availability range. Please try again later.');
+          }
         },
       });
   }
 
   private validateDates(dates: Date[]): boolean {
     if (!FormValidators.areDatesValid(dates)) {
-      this.formGroup.get('pickedDates')?.markAsTouched();
-      this.formGroup.get('pickedDates')?.setErrors({ invalidDates: true });
+      this.availabilityForm.get('pickedDates')?.markAsTouched();
+      this.availabilityForm
+        .get('pickedDates')
+        ?.setErrors({ invalidDates: true });
       return false;
     }
     return true;
@@ -148,8 +227,8 @@ export class AccommodationAvailabilityPricingComponent {
 
   private validatePrice(price: number): boolean {
     if (!FormValidators.isPriceValid(price)) {
-      this.formGroup.get('price')?.markAsTouched();
-      this.formGroup.get('price')?.setErrors({ invalidPrice: true });
+      this.availabilityForm.get('price')?.markAsTouched();
+      this.availabilityForm.get('price')?.setErrors({ invalidPrice: true });
       return false;
     }
     return true;
@@ -169,9 +248,5 @@ export class AccommodationAvailabilityPricingComponent {
       new Date(range.fromDate),
       new Date(range.toDate),
     ]);
-  }
-
-  private isFormValid(): boolean {
-    return this.formGroup.valid && this.availabilityRanges.length > 0;
   }
 }
