@@ -14,4 +14,5 @@ export type AccommodationDetails = {
   description: string;
   reviews: AccommodationReview[];
   benefits: string[];
+  type: string;
 };
