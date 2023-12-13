@@ -1,5 +1,6 @@
-export interface IComment {
+export interface Comment {
   rating: number;
   author: string;
-  content: string;
+  comment: string;
+  date: Date;
 }
