@@ -28,7 +28,7 @@ export class LoginComponent {
       response => {
         const jwt = response.jwt;
 
-        localStorage.setItem('jwt', jwt);
+        localStorage.setItem('user', jwt);
 
         this.router.navigate(['/search'])
       }
