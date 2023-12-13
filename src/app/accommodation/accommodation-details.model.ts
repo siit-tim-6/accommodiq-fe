@@ -13,4 +13,5 @@ export type AccommodationDetails = {
   maxGuests: number;
   description: string;
   reviews: AccommodationReview[];
+  benefits: string[];
 };
