@@ -4,13 +4,13 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { UpdateAccountComponent } from './update-account/update-account.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
-import {FormsModule} from "@angular/forms";
-import {RouterLink} from "@angular/router";
-import {AccountInfoComponent} from "./account-info/account-info.component";
-import {ButtonModule} from "primeng/button";
-import {InputTextModule} from "primeng/inputtext";
-import {RadioButtonModule} from "primeng/radiobutton";
-import {DialogModule} from "primeng/dialog";
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { AccountInfoComponent } from './account-info/account-info.component';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,15 @@ import {DialogModule} from "primeng/dialog";
     UpdateAccountComponent,
     AccountInfoComponent,
   ],
-  imports: [CommonModule, FormsModule, RouterLink, ButtonModule, InputTextModule, RadioButtonModule, DialogModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterLink,
+    ButtonModule,
+    InputTextModule,
+    RadioButtonModule,
+    DialogModule,
+  ],
   exports: [
     NavBarComponent,
     LoginComponent,

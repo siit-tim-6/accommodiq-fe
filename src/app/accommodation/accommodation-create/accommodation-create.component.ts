@@ -1,27 +1,34 @@
-import {Component} from '@angular/core';
-import {AccommodationCreateDto, AvailabilityDto, PricingType} from "../accommodation.model";
-import {AccommodationService} from "../accommodation.service";
+import { Component } from '@angular/core';
 import {
-  FormBuilder,
-  FormGroup,
-  Validators
-} from "@angular/forms";
-import {FormValidators, FormUtils} from '../../utils/form-utils';
-
+  AccommodationCreateDto,
+  AvailabilityDto,
+  PricingType,
+} from '../accommodation.model';
+import { AccommodationService } from '../accommodation.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormValidators, FormUtils } from '../../utils/form-utils';
 
 @Component({
   selector: 'app-accommodation-create',
   templateUrl: './accommodation-create.component.html',
-  styleUrl: './accommodation-create.component.css'
+  styleUrl: './accommodation-create.component.css',
 })
 export class AccommodationCreateComponent {
-  apartmentTypes: string[] = ['Entire apartment', 'Private room', 'Shared room', 'Hotel room'];
+  apartmentTypes: string[] = [
+    'Entire apartment',
+    'Private room',
+    'Shared room',
+    'Hotel room',
+  ];
   images: File[];
   availabilityRanges: AvailabilityDto[] = [];
   formGroup!: FormGroup;
   submitAttempted = false;
 
-  constructor(private accommodationService: AccommodationService, private formBuilder: FormBuilder) {
+  constructor(
+    private accommodationService: AccommodationService,
+    private formBuilder: FormBuilder,
+  ) {
     this.images = [];
     this.initializeFormGroup();
   }
@@ -31,26 +38,34 @@ export class AccommodationCreateComponent {
     const hostId = 1; // TODO: get from JWT
 
     if (this.isValidSubmission()) {
-      this.accommodationService.createAccommodation(hostId, this.formGroup.value, this.availabilityRanges, this.images)
+      this.accommodationService
+        .createAccommodation(
+          hostId,
+          this.formGroup.value,
+          this.availabilityRanges,
+          this.images,
+        )
         .subscribe({
           next: (accommodationDetails) => {
-            console.log("Accommodation Created:", accommodationDetails);
+            console.log('Accommodation Created:', accommodationDetails);
             // Handle successful creation (e.g., navigate to another page or show success message)
           },
           error: (error) => {
-            console.error("Error during accommodation creation:", error);
+            console.error('Error during accommodation creation:', error);
             // Handle error (e.g., show error message)
-          }
+          },
         });
     } else {
       FormUtils.markAllAsTouched(this.formGroup);
-      console.error("Invalid form, no availability ranges added, or no images uploaded");
+      console.error(
+        'Invalid form, no availability ranges added, or no images uploaded',
+      );
     }
   }
 
   onFileSelect($event: any): void {
-    if($event.files && $event.files.length > 0) {
-      for(let file of $event.files) {
+    if ($event.files && $event.files.length > 0) {
+      for (let file of $event.files) {
         this.formGroup.value.images.push(file);
       }
     }
@@ -58,14 +73,20 @@ export class AccommodationCreateComponent {
 
   onFileRemove(event: any): void {
     const fileToRemove: File = event.file;
-    this.images = this.images.filter(file => file.name !== fileToRemove.name || file.size !== fileToRemove.size);
+    this.images = this.images.filter(
+      (file) =>
+        file.name !== fileToRemove.name || file.size !== fileToRemove.size,
+    );
     this.formGroup.patchValue({ images: this.images });
   }
 
-  addRange() : void {
+  addRange(): void {
     const formData = this.formGroup.value;
 
-    if (!this.validateDates(formData.pickedDates) || !this.validatePrice(formData.price)) {
+    if (
+      !this.validateDates(formData.pickedDates) ||
+      !this.validatePrice(formData.price)
+    ) {
       return;
     }
 
@@ -75,7 +96,7 @@ export class AccommodationCreateComponent {
     this.formGroup.patchValue({ pickedDates: null, price: null });
   }
 
-  removeRange(index: number) : void {
+  removeRange(index: number): void {
     this.availabilityRanges.splice(index, 1);
   }
 
@@ -83,26 +104,29 @@ export class AccommodationCreateComponent {
     const newRange: AvailabilityDto = {
       fromDate: dates[0].getTime(),
       toDate: dates[1].getTime(),
-      price: price
+      price: price,
     };
     this.availabilityRanges = [...this.availabilityRanges, newRange];
   }
 
-  private initializeFormGroup() : void {
-    this.formGroup = this.formBuilder.group({
-      name: ['', Validators.required],
-      location: ['', Validators.required],
-      description: ['', Validators.required],
-      minGuests: ['', [Validators.required, Validators.min(1)]],
-      maxGuests: ['', Validators.required],
-      apartmentType: ['', Validators.required],
-      pricePerGuest: [false],
-      automaticallyAcceptIncomingReservations: [false],
-      benefits: this.createBenefitsGroup(),
-      pickedDates: [null],
-      price: [null],
-      images: [this.images]
-    }, {validators: FormValidators.compareMinMaxGuestsValidator()});
+  private initializeFormGroup(): void {
+    this.formGroup = this.formBuilder.group(
+      {
+        name: ['', Validators.required],
+        location: ['', Validators.required],
+        description: ['', Validators.required],
+        minGuests: ['', [Validators.required, Validators.min(1)]],
+        maxGuests: ['', Validators.required],
+        apartmentType: ['', Validators.required],
+        pricePerGuest: [false],
+        automaticallyAcceptIncomingReservations: [false],
+        benefits: this.createBenefitsGroup(),
+        pickedDates: [null],
+        price: [null],
+        images: [this.images],
+      },
+      { validators: FormValidators.compareMinMaxGuestsValidator() },
+    );
   }
 
   private createBenefitsGroup(): FormGroup {
@@ -110,10 +134,9 @@ export class AccommodationCreateComponent {
       wifi: [false],
       kitchen: [false],
       parking: [false],
-      ac: [false]
+      ac: [false],
     });
   }
-
 
   private validateDates(dates: Date[]): boolean {
     if (!FormValidators.areDatesValid(dates)) {
@@ -134,6 +157,10 @@ export class AccommodationCreateComponent {
   }
 
   private isValidSubmission(): boolean {
-    return this.formGroup.valid && this.availabilityRanges.length > 0 && this.images.length > 0;
+    return (
+      this.formGroup.valid &&
+      this.availabilityRanges.length > 0 &&
+      this.images.length > 0
+    );
   }
 }

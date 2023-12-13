@@ -11,18 +11,22 @@ import { AccommodationDetailsComponent } from './accommodation-details/accommoda
 import { RouterModule } from '@angular/router';
 import { GalleriaModule } from 'primeng/galleria';
 import { CommentModule } from '../comment/comment.module';
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from '@angular/forms';
 import { HostsAccommodationListComponent } from './hosts-accommodation-list/hosts-accommodation-list.component';
-import {DockModule} from "primeng/dock";
-import {DialogModule} from "primeng/dialog";
-import {AccommodationCreateComponent} from "./accommodation-create/accommodation-create.component";
-import {CheckboxModule} from "primeng/checkbox";
-import {FileUploadModule} from "primeng/fileupload";
-import {DropdownModule} from "primeng/dropdown";
-import {TableModule} from "primeng/table";
-import {InputTextareaModule} from "primeng/inputtextarea";
+import { DockModule } from 'primeng/dock';
+import { DialogModule } from 'primeng/dialog';
+import { AccommodationCreateComponent } from './accommodation-create/accommodation-create.component';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FileUploadModule } from 'primeng/fileupload';
+import { DropdownModule } from 'primeng/dropdown';
+import { TableModule } from 'primeng/table';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AdminReviewListComponent } from './admin-review-list/admin-review-list.component';
-import { ReactiveFormsModule} from "@angular/forms";
+import { ReactiveFormsModule } from '@angular/forms';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [
@@ -52,6 +56,10 @@ import { ReactiveFormsModule} from "@angular/forms";
     DockModule,
     InputTextareaModule,
     ReactiveFormsModule,
+    OverlayPanelModule,
+    KeyFilterModule,
+    InputNumberModule,
+    MultiSelectModule,
   ],
   exports: [
     AccommodationSearchComponent,

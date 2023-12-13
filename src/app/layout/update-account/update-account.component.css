@@ -16,7 +16,7 @@
   margin-bottom: 20px;
 }
 
-:host .inline-update-form{
+:host .inline-update-form {
   display: flex;
   justify-content: space-between;
 }
@@ -28,4 +28,3 @@
 :host .delete-from-wrapper {
   margin-top: 50px;
 }
-
