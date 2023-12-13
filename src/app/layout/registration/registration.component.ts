@@ -6,14 +6,15 @@ import { Component } from '@angular/core';
   styleUrl: './registration.component.css',
 })
 export class RegistrationComponent {
-  email: string | undefined;
-  password: string | undefined;
-  repeatPassword: string | undefined;
-  firstName: string | undefined;
-  lastName: string | undefined;
-  address: string | undefined;
-  phoneNumber: string | undefined;
-  selectedRole: string | undefined;
+  email: string = '';
+  password: string = '';
+  repeatPassword: string = '';
+  firstName: string = '';
+  lastName: string = '';
+  address: string = '';
+  phoneNumber: string = '';
+  selectedRole: string = '';
+  isFormSubmitted: boolean = false;
 
   onSubmit() {
     if (this.password != this.repeatPassword) {

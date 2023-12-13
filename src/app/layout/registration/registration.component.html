@@ -1,6 +1,6 @@
 <p-dialog [closable]="false" [visible]="true" [draggable]="false">
   <h1>Registration</h1>
-  <form (submit)="onSubmit()">
+  <form (ngSubmit)="onSubmit()" #registrationForm="ngForm">
     <div>
       <span class="p-input-icon-left">
         <i class="pi pi-envelope"></i>
@@ -12,8 +12,15 @@
           pInputText
           required
           type="email"
+          #emailInput="ngModel"
         />
       </span>
+      <!-- Display an error message if the email field is empty -->
+      <div
+        *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
+      >
+        <small class="p-error">Email is required.</small>
+      </div>
     </div>
     <div>
       <span class="p-input-icon-left">
@@ -26,8 +33,18 @@
           pInputText
           required
           type="password"
+          #passwordInput="ngModel"
         />
       </span>
+      <!-- Display an error message if the password field is empty -->
+      <div
+        *ngIf="
+          passwordInput.invalid &&
+          (passwordInput.dirty || passwordInput.touched)
+        "
+      >
+        <small class="p-error">Password is required.</small>
+      </div>
     </div>
     <div>
       <span class="p-input-icon-left">
@@ -40,8 +57,18 @@
           pInputText
           required
           type="password"
+          #repeatPasswordInput="ngModel"
         />
       </span>
+      <!-- Display an error message if the password field is empty -->
+      <div
+        *ngIf="
+          repeatPasswordInput.invalid &&
+          (repeatPasswordInput.dirty || repeatPasswordInput.touched)
+        "
+      >
+        <small class="p-error">Repeat password is required.</small>
+      </div>
     </div>
     <div>
       <span class="p-input-icon-left">
@@ -54,8 +81,18 @@
           pInputText
           required
           type="text"
+          #firstNameInput="ngModel"
         />
       </span>
+      <!-- Display an error message if the first name field is empty -->
+      <div
+        *ngIf="
+          firstNameInput.invalid &&
+          (firstNameInput.dirty || firstNameInput.touched)
+        "
+      >
+        <small class="p-error">First name is required.</small>
+      </div>
     </div>
     <div>
       <span class="p-input-icon-left">
@@ -68,8 +105,18 @@
           pInputText
           required
           type="text"
+          #lastNameInput="ngModel"
         />
       </span>
+      <!-- Display an error message if the last name field is empty -->
+      <div
+        *ngIf="
+          lastNameInput.invalid &&
+          (lastNameInput.dirty || lastNameInput.touched)
+        "
+      >
+        <small class="p-error">Last name is required.</small>
+      </div>
     </div>
     <div>
       <span class="p-input-icon-left">
@@ -82,8 +129,16 @@
           pInputText
           required
           type="text"
+          #addressInput="ngModel"
         />
       </span>
+      <div
+        *ngIf="
+          addressInput.invalid && (addressInput.dirty || addressInput.touched)
+        "
+      >
+        <small class="p-error">Address is required.</small>
+      </div>
     </div>
     <div>
       <span class="p-input-icon-left">
@@ -96,7 +151,16 @@
           pInputText
           required
           type="tel"
+          #phoneNumberInput="ngModel"
         />
+        <div
+          *ngIf="
+            phoneNumberInput.invalid &&
+            (phoneNumberInput.dirty || phoneNumberInput.touched)
+          "
+        >
+          <small class="p-error">Phone number is required.</small>
+        </div>
       </span>
     </div>
 
@@ -106,8 +170,9 @@
           <p-radioButton
             [(ngModel)]="selectedRole"
             id="roleHost"
-            name="host"
+            name="role"
             value="host"
+            #roleInput="ngModel"
           ></p-radioButton>
           <span>Host</span>
         </label>
@@ -116,11 +181,15 @@
           <p-radioButton
             [(ngModel)]="selectedRole"
             id="roleGuest"
-            name="guest"
+            name="role"
             value="guest"
+            #roleInput="ngModel"
           ></p-radioButton>
           <span>Guest</span>
         </label>
+      </div>
+      <div *ngIf="selectedRole == '' && isFormSubmitted">
+        <small class="p-error">Please select a role.</small>
       </div>
     </div>
     <p-button label="Sign up" type="submit"></p-button>
