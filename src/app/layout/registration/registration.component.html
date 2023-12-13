@@ -21,6 +21,9 @@
       >
         <small class="p-error">Email is required.</small>
       </div>
+      <div *ngIf="!isEmailFormat && (emailInput.dirty || emailInput.touched)">
+        <small class="p-error">Invalid email format.</small>
+      </div>
     </div>
     <div>
       <span class="p-input-icon-left">
@@ -68,6 +71,9 @@
         "
       >
         <small class="p-error">Repeat password is required.</small>
+      </div>
+      <div *ngIf="!isPasswordMatch() && isFormSubmitted">
+        <small class="p-error">Passwords do not match.</small>
       </div>
     </div>
     <div>
@@ -171,7 +177,7 @@
             [(ngModel)]="selectedRole"
             id="roleHost"
             name="role"
-            value="host"
+            value="HOST"
             #roleInput="ngModel"
           ></p-radioButton>
           <span>Host</span>
@@ -182,7 +188,7 @@
             [(ngModel)]="selectedRole"
             id="roleGuest"
             name="role"
-            value="guest"
+            value="GUEST"
             #roleInput="ngModel"
           ></p-radioButton>
           <span>Guest</span>
