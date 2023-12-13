@@ -91,12 +91,12 @@ export interface AvailabilityRangeReservationsStatusDto {
 
 export interface AccommodationBookingDetailsDto {
   cancellationDeadline: number;
-  pricePerGuest: PricingType;
+  pricingType: string;
 }
 
 export interface AccommodationBookingDetailFormDto {
   cancellationDeadline: number;
-  pricePerGuest: PricingType;
+  pricingType: string;
   available: Availability[];
 }
 

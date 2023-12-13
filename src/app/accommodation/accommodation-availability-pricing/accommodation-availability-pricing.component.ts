@@ -31,7 +31,7 @@ export class AccommodationAvailabilityPricingComponent {
   ) {}
 
   ngOnInit(): void {
-    const accommodationId: number = 1; //will be changed later
+    const accommodationId: number = 3; //will be changed later
     this.initializeBookingDetailsForm();
     this.initializeAvailabilityForm();
     this.loadAccommodationDetails(accommodationId);
@@ -55,14 +55,14 @@ export class AccommodationAvailabilityPricingComponent {
   }
 
   onSubmit(): void {
-    const accommodationId: number = 1; //will be changed later
+    const accommodationId: number = 3; //will be changed later
     this.submitAttempted = true;
 
     if (this.bookingDetailsForm.valid) {
       const accommodationBookingDetailsData: AccommodationBookingDetailsDto = {
         cancellationDeadline:
           this.bookingDetailsForm.value.cancellationDeadline,
-        pricePerGuest: this.bookingDetailsForm.value.pricePerGuest
+        pricingType: this.bookingDetailsForm.value.pricePerGuest
           ? PricingType.PerGuest
           : PricingType.PerNight,
       };
@@ -192,10 +192,11 @@ export class AccommodationAvailabilityPricingComponent {
   private updateForms(details: AccommodationBookingDetailFormDto): void {
     this.bookingDetailsForm.patchValue({
       cancellationDeadline: details.cancellationDeadline,
-      pricePerGuest: details.pricePerGuest == 'PER_GUEST',
+      pricePerGuest: details.pricingType == 'PER_GUEST',
     });
-    console.log(this.bookingDetailsForm.value);
-    console.log(details);
+    console.log('BOOKING DETAILS FORM', this.bookingDetailsForm.value);
+    console.log('DETAILS', details);
+    console.log('IZRAZ', details.pricingType == 'PER_GUEST');
     this.availabilityRanges = details.available;
   }
 
