@@ -83,7 +83,9 @@ export class AccommodationService {
             : PricingType.PerNight,
           automaticAcceptance: formData.automaticallyAcceptIncomingReservations,
           images: uploadedImagePaths,
+          type: formData.apartmentType,
         };
+        console.log(accommodationData);
         return this.httpClient.post<AccommodationDetailsDto>(
           environment.apiHost + 'hosts/' + 1 + '/accommodations',
           accommodationData,

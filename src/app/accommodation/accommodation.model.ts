@@ -18,9 +18,10 @@ export interface AccommodationCreateDto {
   minGuests: number;
   maxGuests: number;
   available: AvailabilityDto[];
-  pricingType: PricingType;
+  pricingType: string;
   automaticAcceptance: boolean;
   images: String[];
+  type: string;
 }
 
 export interface AccommodationDetailsDto {
@@ -70,11 +71,12 @@ export enum PricingType {
 }
 
 export interface AccommodationFormData {
+  apartmentType: string;
   name: string;
   description: string;
   location: string;
   minGuests: number;
   maxGuests: number;
-  pricePerGuest: boolean;
+  pricePerGuest: string;
   automaticallyAcceptIncomingReservations: boolean;
 }
