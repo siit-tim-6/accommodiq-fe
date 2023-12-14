@@ -1,3 +1,7 @@
+export enum AccommodationStatus {
+  ACCEPTED = "ACCEPTED", DENIED = "DENIED", PENDING = "PENDING"
+}
+
 export interface Accommodation {
   id: number;
   title: string;
@@ -8,5 +12,5 @@ export interface Accommodation {
   totalPrice: number;
   minGuests: number;
   maxGuests: number;
-  accepted?: boolean;
+  status?: AccommodationStatus;
 }

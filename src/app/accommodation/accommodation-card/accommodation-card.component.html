@@ -7,22 +7,28 @@
   <span class="first-line">
     <h2>{{ accommodation.title }}</h2>
     <p-button
-      *ngIf="accommodation.accepted === undefined"
+      *ngIf="accommodation.status === undefined"
       icon="pi pi-heart"
       [rounded]="true"
       severity="secondary"
     />
     <i
-      *ngIf="accommodation.accepted === true"
+      *ngIf="accommodation.status === AccommodationStatus.ACCEPTED"
       pTooltip="Accommodation is accepted"
       class="pi pi-check-circle"
       style="color: green; font-size: 2rem"
     ></i>
     <i
-      *ngIf="accommodation.accepted === false"
-      pTooltip="Accommodation is still not accepted"
+      *ngIf="accommodation.status === AccommodationStatus.DENIED"
+      pTooltip="Accommodation is denied"
       class="pi pi-times-circle"
       style="color: red; font-size: 2rem"
+    ></i>
+    <i
+      *ngIf="accommodation.status === AccommodationStatus.PENDING"
+      pTooltip="Accommodation is pending"
+      class="pi pi-question-circle"
+      style="color: orange; font-size: 2rem"
     ></i>
   </span>
 

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Accommodation } from '../accommodation.model';
+import {Accommodation, AccommodationStatus} from '../accommodation.model';
 
 @Component({
   selector: 'app-accommodation-card',
@@ -9,4 +9,5 @@ import { Accommodation } from '../accommodation.model';
 export class AccommodationCardComponent {
   @Input() accommodation!: Accommodation;
   protected readonly Math = Math;
+  protected readonly AccommodationStatus = AccommodationStatus;
 }

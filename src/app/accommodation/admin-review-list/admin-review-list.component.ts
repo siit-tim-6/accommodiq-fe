@@ -15,7 +15,7 @@ export class AdminReviewListComponent implements OnInit {
 
   ngOnInit(): void {
     this.service
-      .getHostsAccommodations()
+      .getPendingAccommodations()
       .subscribe((accommodations: Accommodation[]) => {
         this.elements = accommodations;
       });
