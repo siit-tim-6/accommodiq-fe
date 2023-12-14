@@ -34,6 +34,10 @@
     </div>
   </form>
 
+  <div *ngIf="isNewRangeEmpty" class="empty-message">
+    You need to choose dates and price.
+  </div>
+
   <form [formGroup]="availabilityForm">
     <div>
       <div class="row-wrapper availability-wrapper">
@@ -45,6 +49,7 @@
             [readonlyInput]="true"
             placeholder="Select the Range"
             appendTo="body"
+            dateFormat="dd/mm/yy"
           ></p-calendar>
         </div>
         <div>

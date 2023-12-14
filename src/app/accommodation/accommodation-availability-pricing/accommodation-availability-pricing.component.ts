@@ -10,6 +10,7 @@ import {
   PricingType,
 } from '../accommodation.model';
 import { FormUtils, FormValidators } from '../../utils/form-utils';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-accommodation-availability-pricing',
@@ -20,21 +21,37 @@ export class AccommodationAvailabilityPricingComponent {
   bookingDetailsForm!: FormGroup;
   availabilityForm!: FormGroup;
   availabilityRanges: Availability[] = [];
-  accommodationDetails!: AccommodationBookingDetailFormDto;
   submitAttempted: boolean = false;
   overlappingRanges: boolean = false;
   overlappingReservations: boolean = false;
+  isNewRangeEmpty: boolean = false;
+  accommodationId!: number;
 
   constructor(
     private accommodationService: AccommodationService,
     private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
-    const accommodationId: number = 1; //will be changed later
     this.initializeBookingDetailsForm();
     this.initializeAvailabilityForm();
-    this.loadAccommodationDetails(accommodationId);
+
+    this.route.paramMap.subscribe((params) => {
+      const accommodationIdParam: string | null = params.get('accommodationId');
+      if (accommodationIdParam) {
+        const accommodationId: number = +accommodationIdParam;
+        if (!isNaN(accommodationId) && accommodationId > 0) {
+          this.accommodationId = accommodationId;
+          this.loadAccommodationDetails(this.accommodationId);
+        } else {
+          this.handleInvalidAccommodationId();
+        }
+      } else {
+        this.handleInvalidAccommodationId();
+      }
+    });
   }
 
   loadAccommodationDetails(accommodationId: number): void {
@@ -42,7 +59,6 @@ export class AccommodationAvailabilityPricingComponent {
       .getAccommodationBookingDetails(accommodationId)
       .subscribe({
         next: (details) => {
-          this.accommodationDetails = details;
           this.updateForms(details);
         },
         error: (error) => {
@@ -55,7 +71,6 @@ export class AccommodationAvailabilityPricingComponent {
   }
 
   onSubmit(): void {
-    const accommodationId: number = 1; //will be changed later
     this.submitAttempted = true;
 
     if (this.bookingDetailsForm.valid) {
@@ -72,7 +87,7 @@ export class AccommodationAvailabilityPricingComponent {
       );
       this.accommodationService
         .updateAccommodationBookingDetails(
-          accommodationId,
+          this.accommodationId,
           accommodationBookingDetailsData,
         )
         .subscribe({
@@ -101,12 +116,14 @@ export class AccommodationAvailabilityPricingComponent {
 
   addRange(): void {
     this.overlappingRanges = false;
+    this.isNewRangeEmpty = false;
 
     if (
       !this.validateDates(this.availabilityForm.value.pickedDates) ||
       !this.validatePrice(this.availabilityForm.value.price)
     ) {
       console.log('invalid');
+      this.isNewRangeEmpty = true;
       return;
     }
 
@@ -125,7 +142,6 @@ export class AccommodationAvailabilityPricingComponent {
   }
 
   private addNewRange(dates: Date[], price: number): void {
-    const accommodationId = 1; // Replace with actual accommodation ID
     const availabilityData: AvailabilityDto = {
       fromDate: this.availabilityForm.value.pickedDates[0].getTime(),
       toDate: this.availabilityForm.value.pickedDates[1].getTime(),
@@ -133,7 +149,7 @@ export class AccommodationAvailabilityPricingComponent {
     };
 
     this.accommodationService
-      .addAccommodationAvailability(accommodationId, availabilityData)
+      .addAccommodationAvailability(this.accommodationId, availabilityData)
       .subscribe({
         next: (updatedAvailabilities) => {
           console.log('Availability added successfully');
@@ -163,11 +179,8 @@ export class AccommodationAvailabilityPricingComponent {
       return;
     }
 
-    console.log('index', index);
-    console.log('rangeToRemove', rangeToRemove);
-
     this.accommodationService
-      .removeAccommodationAvailability(1, rangeToRemove.id)
+      .removeAccommodationAvailability(this.accommodationId, rangeToRemove.id)
       .subscribe({
         next: (response) => {
           this.availabilityRanges.splice(index, 1);
@@ -194,9 +207,7 @@ export class AccommodationAvailabilityPricingComponent {
       cancellationDeadline: details.cancellationDeadline,
       pricePerGuest: details.pricingType == 'PER_GUEST',
     });
-    console.log('BOOKING DETAILS FORM', this.bookingDetailsForm.value);
-    console.log('DETAILS', details);
-    console.log('IZRAZ', details.pricingType == 'PER_GUEST');
+
     this.availabilityRanges = details.available;
   }
 
@@ -209,8 +220,8 @@ export class AccommodationAvailabilityPricingComponent {
 
   private initializeAvailabilityForm() {
     this.availabilityForm = this.formBuilder.group({
-      pickedDates: [null],
-      price: [null],
+      pickedDates: [null, Validators.required],
+      price: [null, Validators.required],
       availabilityRanges: [this.availabilityRanges],
     });
   }
@@ -249,5 +260,11 @@ export class AccommodationAvailabilityPricingComponent {
       new Date(range.fromDate),
       new Date(range.toDate),
     ]);
+  }
+
+  private handleInvalidAccommodationId(): void {
+    console.error('Invalid or missing accommodationId');
+    alert('Invalid or missing accommodationId');
+    this.router.navigate(['/accommodation/' + this.accommodationId]);
   }
 }

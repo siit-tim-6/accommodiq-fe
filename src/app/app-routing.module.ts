@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'my-accommodations', component: HostsAccommodationListComponent },
   { path: 'accommodations-review', component: AdminReviewListComponent },
   {
-    path: 'accommodation-availability-pricing',
+    path: 'accommodation-availability-pricing/:accommodationId',
     component: AccommodationAvailabilityPricingComponent,
   },
 ];
