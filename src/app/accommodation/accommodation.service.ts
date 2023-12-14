@@ -8,8 +8,10 @@ import {
   PricingType,
 } from './accommodation.model';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../env/env';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AccommodationDetails } from './accommodation-details.model';
+import { useAnimation } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root',
@@ -25,16 +27,17 @@ export class AccommodationService {
     );
   }
 
-  getAccommodation(id: number): Observable<Accommodation> {
-    return this.httpClient.get<Accommodation>(
+  getAccommodation(id: number): Observable<AccommodationDetails> {
+    return this.httpClient.get<AccommodationDetails>(
       environment.apiHost + 'accommodations/' + id,
     );
   }
 
   getHostsAccommodations(): Observable<Accommodation[]> {
+    console.log('TU SAM');
     return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'hosts/' + 1 + '/accommodations',
-    ); // change later with JWT
+      environment.apiHost + 'hosts/accommodations',
+    );
   }
 
   findByFilter(

@@ -1,20 +1,30 @@
 <div class="main">
   <div class="heading-row">
-    <h1>Dvosoban stan u centru Novog Sada</h1>
+    <h1>{{ accommodationDetails.title }}</h1>
     <div class="rating-row">
-      <p-rating [cancel]="false" [readonly]="true" />
-      <p class="bold">4.92</p>
-      <p>302 reviews</p>
+      <p-rating
+        [ngModel]="accommodationDetails.rating"
+        [cancel]="false"
+        [readonly]="true"
+      />
+      <p class="bold">{{ accommodationDetails.rating }}</p>
+      <p>{{ accommodationDetails.reviewCount }} reviews</p>
     </div>
   </div>
 
-  <h4>Mileticeva 23, 21000 Novi Sad, Srbija</h4>
+  <h4>{{ accommodationDetails.location }}</h4>
 
   <div class="row">
-    <h3>Hosted by <span class="bold">John Doe</span></h3>
-    <p-rating [cancel]="false" [readonly]="true" />
-    <p class="bold">4.92</p>
-    <p>302 reviews</p>
+    <h3>
+      Hosted by <span class="bold">{{ accommodationDetails.host.name }}</span>
+    </h3>
+    <p-rating
+      [ngModel]="accommodationDetails.host.rating"
+      [cancel]="false"
+      [readonly]="true"
+    />
+    <p class="bold">{{ accommodationDetails.host.rating }}</p>
+    <p>{{ accommodationDetails.host.reviewCount }} reviews</p>
   </div>
 
   <div class="main-content">
@@ -38,21 +48,19 @@
     </p-galleria>
 
     <div class="row" style="margin-bottom: 25px">
+      <p>{{ accommodationDetails.type }}</p>
       <span class="icon-label">
         <i class="pi pi-users"></i>
-        <p>2-6 guests</p>
+        <p>
+          {{ accommodationDetails.minGuests }}-{{
+            accommodationDetails.maxGuests
+          }}
+          guests
+        </p>
       </span>
       <span class="icon-label">
-        <i class="pi pi-wifi"></i>
-        <p>Wi-Fi</p>
-      </span>
-      <span class="icon-label">
-        <i class="pi pi-car"></i>
-        <p>AC</p>
-      </span>
-      <span class="icon-label">
-        <i class="pi pi-car"></i>
-        <p>Free parking</p>
+        <i class="pi pi-thumbs-up-fill"></i>
+        <p>{{ accommodationDetails.benefits.join(", ") }}</p>
       </span>
     </div>
 
@@ -67,14 +75,11 @@
     </div>
 
     <p class="description">
-      Dvosoban stan u centru Novog Sada je udoban i moderno uređen prostor koji
-      nudi savremen životni stil u srcu ovog šarmantnog grada. Stan se nalazi u
-      blizini svih glavnih atrakcija i pogodnosti, čineći ga idealnim izborom za
-      turiste i one koji traže praktičan smeštaj.
+      {{ accommodationDetails.description }}
     </p>
   </div>
 
-  <app-comment-list />
+  <app-comment-list [comments]="accommodationDetails.reviews" />
 </div>
 
 <div class="map">
