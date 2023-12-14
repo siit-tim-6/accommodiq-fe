@@ -34,9 +34,14 @@ export class AccommodationService {
   }
 
   getHostsAccommodations(): Observable<Accommodation[]> {
-    console.log('TU SAM');
     return this.httpClient.get<Accommodation[]>(
       environment.apiHost + 'hosts/accommodations',
+    );
+  }
+
+  getPendingAccommodations(): Observable<Accommodation[]> {
+    return this.httpClient.get<Accommodation[]>(
+      environment.apiHost + 'accommodations/pending',
     );
   }
 
