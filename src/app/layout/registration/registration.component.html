@@ -21,7 +21,7 @@
       >
         <small class="p-error">Email is required.</small>
       </div>
-      <div *ngIf="!isEmailFormat && (emailInput.dirty || emailInput.touched)">
+      <div *ngIf="!isEmailValid() && (emailInput.dirty || emailInput.touched)">
         <small class="p-error">Invalid email format.</small>
       </div>
     </div>
@@ -166,6 +166,9 @@
           "
         >
           <small class="p-error">Phone number is required.</small>
+        </div>
+        <div *ngIf="!isPhoneValid() && isFormSubmitted">
+          <small class="p-error">Phone field contains only numbers.</small>
         </div>
       </span>
     </div>

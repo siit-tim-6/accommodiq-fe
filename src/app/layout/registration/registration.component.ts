@@ -18,7 +18,6 @@ export class RegistrationComponent {
   phoneNumber: string = '';
   selectedRole: string = '';
   isFormSubmitted: boolean = false;
-  isEmailFormat: boolean = false;
 
   constructor(
     private registrationService: RegistrationService,
@@ -66,8 +65,12 @@ export class RegistrationComponent {
 
   isEmailValid(): boolean {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    this.isEmailFormat = emailRegex.test(this.email.trim());
-    return this.isEmailFormat;
+    return emailRegex.test(this.email.trim());
+  }
+
+  isPhoneValid(): boolean {
+    const phoneRegex = /^\d+$/;
+    return phoneRegex.test(this.phoneNumber.trim());
   }
 
   isValidForm(): boolean {
@@ -83,7 +86,8 @@ export class RegistrationComponent {
       this.address.trim() !== '' &&
       this.phoneNumber.trim() !== '' &&
       this.selectedRole.trim() !== '' &&
-      this.isPasswordMatch()
+      this.isPasswordMatch() &&
+      this.isPhoneValid()
     );
   }
 }
