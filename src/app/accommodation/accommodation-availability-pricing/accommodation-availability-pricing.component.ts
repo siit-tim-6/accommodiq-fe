@@ -31,7 +31,7 @@ export class AccommodationAvailabilityPricingComponent {
   ) {}
 
   ngOnInit(): void {
-    const accommodationId: number = 3; //will be changed later
+    const accommodationId: number = 1; //will be changed later
     this.initializeBookingDetailsForm();
     this.initializeAvailabilityForm();
     this.loadAccommodationDetails(accommodationId);
@@ -55,7 +55,7 @@ export class AccommodationAvailabilityPricingComponent {
   }
 
   onSubmit(): void {
-    const accommodationId: number = 3; //will be changed later
+    const accommodationId: number = 1; //will be changed later
     this.submitAttempted = true;
 
     if (this.bookingDetailsForm.valid) {
