@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {LoginService} from "./login.service";
-import {LoginRequest} from "./login.model";
-import {Router} from "@angular/router";
+import { LoginService } from './login.service';
+import { LoginRequest } from './login.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,36 +9,33 @@ import {Router} from "@angular/router";
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  email: string = "";
-  password: string = "";
+  email: string = '';
+  password: string = '';
 
-  constructor(private loginService: LoginService, private router: Router) {
-  }
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+  ) {}
 
   onSubmit() {
-    if (!this.isFormValid())
-      return;
+    if (!this.isFormValid()) return;
 
     let loginRequest: LoginRequest = {
       email: this.email!,
-      password: this.password!
+      password: this.password!,
     };
 
-    this.loginService.login(loginRequest).subscribe(
-      response => {
-        const jwt = response.jwt;
+    this.loginService.login(loginRequest).subscribe((response) => {
+      const jwt = response.jwt;
 
-        localStorage.setItem('jwt', jwt);
+      localStorage.setItem('user', jwt);
 
-        this.router.navigate(['/search'])
-      }
-    );
+      this.router.navigate(['/search']);
+    });
   }
 
   isFormValid(): boolean {
-    if (this.email.trim() === "") return false;
-    return this.password.trim() !== "";
-
-
+    if (this.email.trim() === '') return false;
+    return this.password.trim() !== '';
   }
 }

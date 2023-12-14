@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../env/env';
 import { Accommodation } from './accommodation.model';
 import { AccommodationDetails } from './accommodation-details.model';
+import { useAnimation } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root',
@@ -26,9 +27,10 @@ export class AccommodationService {
   }
 
   getHostsAccommodations(): Observable<Accommodation[]> {
+    console.log('TU SAM');
     return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'hosts/' + 1 + '/accommodations',
-    ); // change later with JWT
+      environment.apiHost + 'hosts/accommodations',
+    );
   }
 
   findByFilter(
