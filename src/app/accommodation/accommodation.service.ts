@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../env/env';
 import { Accommodation } from './accommodation.model';
+import { AccommodationDetails } from './accommodation-details.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,8 +19,8 @@ export class AccommodationService {
     );
   }
 
-  getAccommodation(id: number): Observable<Accommodation> {
-    return this.httpClient.get<Accommodation>(
+  getAccommodation(id: number): Observable<AccommodationDetails> {
+    return this.httpClient.get<AccommodationDetails>(
       environment.apiHost + 'accommodations/' + id,
     );
   }
@@ -39,7 +40,7 @@ export class AccommodationService {
     minPrice: number,
     maxPrice: number,
     type: string,
-    benefits: string[]
+    benefits: string[],
   ): Observable<Accommodation[]> {
     return this.httpClient.get<Accommodation[]>(
       `${environment.apiHost}accommodations?${
@@ -52,7 +53,7 @@ export class AccommodationService {
         maxPrice != -1 ? `&priceTo=${maxPrice}` : ''
       }${type != '' && type != null ? `&type=${type}` : ''}${
         benefits.length > 0 ? `&benefits=${benefits.join(',')}` : ''
-      }`
+      }`,
     );
   }
 }
