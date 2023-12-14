@@ -44,3 +44,8 @@ h4:first-of-type {
 .search-input input {
   width: 100%;
 }
+
+.filter-panel {
+  display: flex;
+  flex-direction: column;
+}

@@ -4,7 +4,6 @@ import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { environment } from '../../env/env';
 import {
   Accommodation,
-  AccommodationAvailabilityPricingDto,
   AccommodationBookingDetailFormDto,
   AccommodationBookingDetailsDto,
   AccommodationCreateDto,
@@ -12,10 +11,10 @@ import {
   AccommodationFormData,
   Availability,
   AvailabilityDto,
-  AvailabilityRangeReservationsStatusDto,
   MessageDto,
   PricingType,
 } from './accommodation.model';
+import { AccommodationDetails } from './accommodation-details.model';
 
 @Injectable({
   providedIn: 'root',
@@ -31,16 +30,17 @@ export class AccommodationService {
     );
   }
 
-  getAccommodation(id: number): Observable<Accommodation> {
-    return this.httpClient.get<Accommodation>(
+  getAccommodation(id: number): Observable<AccommodationDetails> {
+    return this.httpClient.get<AccommodationDetails>(
       environment.apiHost + 'accommodations/' + id,
     );
   }
 
   getHostsAccommodations(): Observable<Accommodation[]> {
+    console.log('TU SAM');
     return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'hosts/' + 1 + '/accommodations',
-    ); // change later with JWT
+      environment.apiHost + 'hosts/accommodations',
+    );
   }
 
   findByFilter(
@@ -48,13 +48,24 @@ export class AccommodationService {
     fromDate: number,
     toDate: number,
     title: string,
+    guests: number | string,
+    minPrice: number,
+    maxPrice: number,
+    type: string,
+    benefits: string[],
   ): Observable<Accommodation[]> {
     return this.httpClient.get<Accommodation[]>(
       `${environment.apiHost}accommodations?${
         location != '' ? `location=${location}` : ''
       }${fromDate != 0 ? `&availableFrom=${fromDate}` : ''}${
         toDate != 0 ? `&availableTo=${toDate}` : ''
-      }${title != '' ? `&title=${title}` : ''}`,
+      }${title != '' ? `&title=${title}` : ''}${
+        +guests != -1 ? `&guests=${guests}` : ''
+      }${minPrice != -1 ? `&priceFrom=${minPrice}` : ''}${
+        maxPrice != -1 ? `&priceTo=${maxPrice}` : ''
+      }${type != '' && type != null ? `&type=${type}` : ''}${
+        benefits.length > 0 ? `&benefits=${benefits.join(',')}` : ''
+      }`,
     );
   }
 

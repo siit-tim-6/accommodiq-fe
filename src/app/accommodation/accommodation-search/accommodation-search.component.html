@@ -22,11 +22,62 @@
   />
 
   <span class="p-input-icon-left">
-    <i class="pi pi-dollar"></i>
-    <input type="text" pInputText placeholder="Price" />
+    <i class="pi pi-users"></i>
+    <input
+      type="number"
+      [min]="1"
+      pInputText
+      [(ngModel)]="guests"
+      [pKeyFilter]="positiveInteger"
+      placeholder="Guests"
+    />
   </span>
 
-  <p-button icon="pi pi-filter" label="More filters" severity="secondary" />
+  <p-button
+    (onClick)="op.toggle($event)"
+    icon="pi pi-filter"
+    label="More filters"
+    severity="secondary"
+    [ngStyle]="{ marginRight: '0px' }"
+  />
+  <p-overlayPanel #op>
+    <div class="filter-panel">
+      <div class="row">
+        <p-inputNumber
+          mode="currency"
+          currency="EUR"
+          placeholder="Min Price"
+          [(ngModel)]="minPrice"
+        />
+        <p-inputNumber
+          [ngStyle]="{ marginRight: '0px' }"
+          mode="currency"
+          currency="EUR"
+          placeholder="Max Price"
+          [(ngModel)]="maxPrice"
+        />
+      </div>
+      <div class="row">
+        <p-dropdown
+          #typeDropdown
+          [options]="accommodationTypes"
+          [(ngModel)]="selectedAccommodationType"
+          placeholder="Select Type"
+        />
+        <p-button
+          *ngIf="selectedAccommodationType !== ''"
+          icon="pi pi-times-circle"
+          (onClick)="clearDropdown(typeDropdown, $event)"
+        />
+        <p-multiSelect
+          [options]="benefits"
+          [(ngModel)]="selectedBenefits"
+          [filter]="false"
+          placeholder="Select Benefits"
+        />
+      </div>
+    </div>
+  </p-overlayPanel>
 </div>
 
 <div class="row">

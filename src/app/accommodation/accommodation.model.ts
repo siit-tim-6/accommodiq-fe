@@ -5,6 +5,7 @@ export interface Accommodation {
   reviewCount: number;
   location: string;
   minPrice: number;
+  totalPrice: number;
   minGuests: number;
   maxGuests: number;
   accepted?: boolean;

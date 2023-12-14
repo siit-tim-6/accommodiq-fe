@@ -1,7 +1,7 @@
 <p-dialog [visible]="true" [closable]="false" [draggable]="false">
   <h1>Login</h1>
 
-  <form (submit)="onSubmit()">
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
     <div>
       <span class="p-input-icon-left">
         <i class="pi pi-user"></i>
@@ -13,8 +13,18 @@
           type="text"
           [(ngModel)]="email"
           required
+          #usernameInput="ngModel"
         />
       </span>
+      <!-- Display an error message if the username field is empty -->
+      <div
+        *ngIf="
+          usernameInput.invalid &&
+          (usernameInput.dirty || usernameInput.touched)
+        "
+      >
+        <small class="p-error">Username is required.</small>
+      </div>
     </div>
     <div>
       <span class="p-input-icon-left">
@@ -27,16 +37,22 @@
           type="password"
           [(ngModel)]="password"
           required
+          #passwordInput="ngModel"
         />
       </span>
+      <!-- Display an error message if the password field is empty -->
+      <div
+        *ngIf="
+          passwordInput.invalid &&
+          (passwordInput.dirty || passwordInput.touched)
+        "
+      >
+        <small class="p-error">Password is required.</small>
+      </div>
     </div>
+    <p-button label="Login" type="submit"></p-button>
   </form>
 
-  <p-button
-    label="Login"
-    type="submit"
-    [routerLink]="['/update-account']"
-  ></p-button>
   <p>
     Don't have an account?
     <a routerLink="/registration" class="link-with-underline">Sign Up</a>

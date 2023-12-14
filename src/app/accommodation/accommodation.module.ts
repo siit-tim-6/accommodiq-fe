@@ -23,6 +23,10 @@ import { TableModule } from 'primeng/table';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AdminReviewListComponent } from './admin-review-list/admin-review-list.component';
 import { AccommodationAvailabilityPricingComponent } from './accommodation-availability-pricing/accommodation-availability-pricing.component';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [
@@ -53,6 +57,10 @@ import { AccommodationAvailabilityPricingComponent } from './accommodation-avail
     DockModule,
     InputTextareaModule,
     ReactiveFormsModule,
+    OverlayPanelModule,
+    KeyFilterModule,
+    InputNumberModule,
+    MultiSelectModule,
   ],
   exports: [
     AccommodationSearchComponent,

@@ -44,7 +44,9 @@
 
     <span class="icon-label">
       <i class="pi pi-users"></i>
-      <p>{{ accommodation.maxGuests }} guests</p>
+      <p>
+        {{ accommodation.minGuests }} - {{ accommodation.maxGuests }} guests
+      </p>
     </span>
 
     <span class="icon-label">
@@ -53,7 +55,15 @@
     </span>
 
     <p>
-      <span class="bold">€{{ accommodation.minPrice }}</span> EUR total
+      <span *ngIf="accommodation.totalPrice !== 0">
+        <span class="bold">€{{ accommodation.totalPrice }} </span>
+        EUR total
+      </span>
+      <span *ngIf="accommodation.totalPrice === 0">
+        From
+        <span class="bold"> €{{ accommodation.minPrice }} </span>
+        / night
+      </span>
     </p>
   </div>
 </div>
