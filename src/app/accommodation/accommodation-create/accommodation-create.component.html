@@ -45,38 +45,38 @@
           <span class="checkbox-option">
             <p-checkbox
               name="benefits"
-              value="wifi"
-              label="Wi-Fi"
-              formControlName="wifi"
+              value="balcony"
+              label="balcony"
+              (onChange)="onBenefitChange($event.checked, 'Private Balcony')"
             ></p-checkbox>
-            <i class="pi pi-wifi"></i>
           </span>
           <span class="checkbox-option">
             <p-checkbox
               name="benefits"
               value="kitchen"
               label="Kitchen"
-              formControlName="kitchen"
+              (onChange)="
+                onBenefitChange($event.checked, 'Fully Equipped Kitchen')
+              "
             ></p-checkbox>
-            <i class="pi pi-home"></i>
           </span>
           <span class="checkbox-option">
             <p-checkbox
               name="benefits"
-              value="parking"
-              label="Parking"
-              formControlName="parking"
+              value="breakfast"
+              label="breakfast"
+              (onChange)="
+                onBenefitChange($event.checked, 'Complimentary Breakfast')
+              "
             ></p-checkbox>
-            <i class="pi pi-car"></i>
           </span>
           <span class="checkbox-option">
             <p-checkbox
               name="benefits"
               value="ac"
               label="AC"
-              formControlName="ac"
+              (onChange)="onBenefitChange($event.checked, 'Air Conditioning')"
             ></p-checkbox>
-            <i class="pi pi-slack"></i>
           </span>
         </div>
       </div>

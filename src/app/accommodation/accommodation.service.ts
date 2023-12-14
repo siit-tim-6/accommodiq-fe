@@ -69,6 +69,7 @@ export class AccommodationService {
     availabilityRanges: AvailabilityDto[],
     images: File[],
   ): Observable<AccommodationDetailsDto> {
+    console.log(formData);
     return this.uploadImages(images).pipe(
       switchMap((uploadedImagePaths: string[]) => {
         const accommodationData: AccommodationCreateDto = {
@@ -84,10 +85,11 @@ export class AccommodationService {
           automaticAcceptance: formData.automaticallyAcceptIncomingReservations,
           images: uploadedImagePaths,
           type: formData.apartmentType,
+          benefits: formData.benefits,
         };
-        console.log(accommodationData);
+        console.log(accommodationData.benefits);
         return this.httpClient.post<AccommodationDetailsDto>(
-          environment.apiHost + 'hosts/' + 1 + '/accommodations',
+          environment.apiHost + 'hosts/' + hostId + '/accommodations',
           accommodationData,
         ); // change later with JWT
       }),

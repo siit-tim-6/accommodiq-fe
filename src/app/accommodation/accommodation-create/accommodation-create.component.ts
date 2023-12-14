@@ -5,7 +5,13 @@ import {
   PricingType,
 } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { FormValidators, FormUtils } from '../../utils/form-utils';
 
 @Component({
@@ -25,6 +31,8 @@ export class AccommodationCreateComponent {
   formGroup!: FormGroup;
   submitAttempted = false;
 
+  hostId: number = 1; // TODO: get from JWT
+
   constructor(
     private accommodationService: AccommodationService,
     private formBuilder: FormBuilder,
@@ -35,12 +43,11 @@ export class AccommodationCreateComponent {
 
   onSubmit(): void {
     this.submitAttempted = true;
-    const hostId = 1; // TODO: get from JWT
 
     if (this.isValidSubmission()) {
       this.accommodationService
         .createAccommodation(
-          hostId,
+          this.hostId,
           this.formGroup.value,
           this.availabilityRanges,
           this.images,
@@ -100,6 +107,21 @@ export class AccommodationCreateComponent {
     this.availabilityRanges.splice(index, 1);
   }
 
+  onBenefitChange(checked: boolean, benefit: string): void {
+    const benefitsArray = this.formGroup.get('benefits') as FormArray;
+
+    if (checked) {
+      benefitsArray.push(new FormControl(benefit));
+    } else {
+      const index = benefitsArray.controls.findIndex(
+        (x) => x.value === benefit,
+      );
+      if (index !== -1) {
+        benefitsArray.removeAt(index);
+      }
+    }
+  }
+
   private addNewRange(dates: Date[], price: number): void {
     const newRange: AvailabilityDto = {
       fromDate: dates[0].getTime(),
@@ -120,22 +142,13 @@ export class AccommodationCreateComponent {
         apartmentType: ['', Validators.required],
         pricePerGuest: [false],
         automaticallyAcceptIncomingReservations: [false],
-        benefits: this.createBenefitsGroup(),
+        benefits: this.formBuilder.array([]),
         pickedDates: [null],
         price: [null],
         images: [this.images],
       },
       { validators: FormValidators.compareMinMaxGuestsValidator() },
     );
-  }
-
-  private createBenefitsGroup(): FormGroup {
-    return this.formBuilder.group({
-      wifi: [false],
-      kitchen: [false],
-      parking: [false],
-      ac: [false],
-    });
   }
 
   private validateDates(dates: Date[]): boolean {

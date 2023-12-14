@@ -22,6 +22,7 @@ export interface AccommodationCreateDto {
   automaticAcceptance: boolean;
   images: String[];
   type: string;
+  benefits: string[];
 }
 
 export interface AccommodationDetailsDto {
@@ -79,4 +80,5 @@ export interface AccommodationFormData {
   maxGuests: number;
   pricePerGuest: string;
   automaticallyAcceptIncomingReservations: boolean;
+  benefits: string[];
 }
