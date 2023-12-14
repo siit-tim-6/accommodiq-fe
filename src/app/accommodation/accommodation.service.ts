@@ -67,7 +67,6 @@ export class AccommodationService {
   }
 
   createAccommodation(
-    hostId: number,
     formData: AccommodationFormData,
     availabilityRanges: AvailabilityDto[],
     images: File[],
@@ -92,7 +91,7 @@ export class AccommodationService {
         };
         console.log(accommodationData.benefits);
         return this.httpClient.post<AccommodationDetailsDto>(
-          environment.apiHost + 'hosts/' + hostId + '/accommodations',
+          environment.apiHost + 'hosts/' + 'accommodations',
           accommodationData,
         ); // change later with JWT
       }),
@@ -107,7 +106,7 @@ export class AccommodationService {
     const formData = new FormData();
     files.forEach((file) => formData.append('images', file));
     return this.httpClient.post<string[]>(
-      environment.apiHost + 'images/upload',
+      environment.apiHost + 'images',
       formData,
     );
   }

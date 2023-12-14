@@ -47,7 +47,6 @@ export class AccommodationCreateComponent {
     if (this.isValidSubmission()) {
       this.accommodationService
         .createAccommodation(
-          this.hostId,
           this.formGroup.value,
           this.availabilityRanges,
           this.images,
