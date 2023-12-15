@@ -9,7 +9,7 @@ import { AccommodationService } from '../accommodation.service';
     '../hosts-accommodation-list/hosts-accommodation-list.component.css',
 })
 export class AdminReviewListComponent implements OnInit {
-  elements: Accommodation[] = [];
+  accommodations: Accommodation[] = [];
 
   constructor(private service: AccommodationService) {}
 
@@ -17,7 +17,11 @@ export class AdminReviewListComponent implements OnInit {
     this.service
       .getPendingAccommodations()
       .subscribe((accommodations: Accommodation[]) => {
-        this.elements = accommodations;
+        this.accommodations = accommodations;
       });
+  }
+
+  onModifiedSuccessfully(id: number) {
+    this.accommodations = this.accommodations.filter(acc => acc.id !== id);
   }
 }
