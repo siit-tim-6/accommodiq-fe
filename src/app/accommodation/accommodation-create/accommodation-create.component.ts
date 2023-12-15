@@ -26,6 +26,20 @@ export class AccommodationCreateComponent {
     'Shared room',
     'Hotel room',
   ];
+  benefitOptions = [
+    { value: 'breakfast', label: 'Breakfast', benefitName: 'Private Balcony' },
+    {
+      value: 'kitchen',
+      label: 'Kitchen',
+      benefitName: 'Fully Equipped Kitchen',
+    },
+    {
+      value: 'parking',
+      label: 'Parking',
+      benefitName: 'Complimentary Breakfast',
+    },
+    { value: 'ac', label: 'AC', benefitName: 'Air Conditioning' },
+  ];
   images: File[];
   availabilityRanges: AvailabilityDto[] = [];
   formGroup!: FormGroup;

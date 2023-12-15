@@ -42,42 +42,14 @@
         </div>
 
         <div class="checkbox-group" formGroupName="benefits">
-          <span class="checkbox-option">
+          <div *ngFor="let benefit of benefitOptions" class="checkbox-option">
             <p-checkbox
               name="benefits"
-              value="balcony"
-              label="Balcony"
-              (onChange)="onBenefitChange($event.checked, 'Private Balcony')"
+              [value]="benefit.value"
+              [label]="benefit.label"
+              (onChange)="onBenefitChange($event.checked, benefit.benefitName)"
             ></p-checkbox>
-          </span>
-          <span class="checkbox-option">
-            <p-checkbox
-              name="benefits"
-              value="kitchen"
-              label="Kitchen"
-              (onChange)="
-                onBenefitChange($event.checked, 'Fully Equipped Kitchen')
-              "
-            ></p-checkbox>
-          </span>
-          <span class="checkbox-option">
-            <p-checkbox
-              name="benefits"
-              value="breakfast"
-              label="Breakfast"
-              (onChange)="
-                onBenefitChange($event.checked, 'Complimentary Breakfast')
-              "
-            ></p-checkbox>
-          </span>
-          <span class="checkbox-option">
-            <p-checkbox
-              name="benefits"
-              value="ac"
-              label="AC"
-              (onChange)="onBenefitChange($event.checked, 'Air Conditioning')"
-            ></p-checkbox>
-          </span>
+          </div>
         </div>
       </div>
 
