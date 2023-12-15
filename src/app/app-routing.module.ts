@@ -10,6 +10,7 @@ import { AccommodationCreateComponent } from './accommodation/accommodation-crea
 import { NotificationListComponent } from './notification/notification-list/notification-list.component';
 import { HostsAccommodationListComponent } from './accommodation/hosts-accommodation-list/hosts-accommodation-list.component';
 import { AdminReviewListComponent } from './accommodation/admin-review-list/admin-review-list.component';
+import {CanActivateAdmin} from "./guards/admin.guard";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -25,7 +26,7 @@ const routes: Routes = [
   { path: 'accommodation-create', component: AccommodationCreateComponent },
   { path: 'notifications', component: NotificationListComponent },
   { path: 'my-accommodations', component: HostsAccommodationListComponent },
-  { path: 'accommodations-review', component: AdminReviewListComponent },
+  { path: 'accommodations-review', component: AdminReviewListComponent, canActivate: [CanActivateAdmin] },
 ];
 
 @NgModule({
