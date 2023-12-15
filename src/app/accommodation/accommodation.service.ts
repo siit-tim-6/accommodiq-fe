@@ -10,38 +10,41 @@ import {
 import { Injectable } from '@angular/core';
 import { environment } from '../../env/env';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
+import { AccommodationStatus } from './accommodation.model';
 import { AccommodationDetails } from './accommodation-details.model';
-import { useAnimation } from '@angular/animations';
+import { TemplateService } from '../services/template.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccommodationService {
-  private accommodationList: Accommodation[] = [];
-
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private templateService: TemplateService,
+  ) {}
 
   getAll(): Observable<Accommodation[]> {
-    return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'accommodations',
+    return this.templateService.getObservable<Accommodation[]>(
+      'accommodations',
     );
   }
 
   getAccommodation(id: number): Observable<AccommodationDetails> {
-    return this.httpClient.get<AccommodationDetails>(
-      environment.apiHost + 'accommodations/' + id,
+    return this.templateService.getObservable<AccommodationDetails>(
+      'accommodations/' + id,
     );
   }
 
   getHostsAccommodations(): Observable<Accommodation[]> {
-    return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'hosts/accommodations',
+    return this.templateService.getObservable<Accommodation[]>(
+      'hosts/accommodations',
     );
   }
 
   getPendingAccommodations(): Observable<Accommodation[]> {
-    return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'accommodations/pending',
+    return this.templateService.getObservable<Accommodation[]>(
+      'accommodations/pending',
     );
   }
 
@@ -113,6 +116,16 @@ export class AccommodationService {
     return this.httpClient.post<string[]>(
       environment.apiHost + 'images',
       formData,
+    );
+  }
+
+  changeAccommodationStatus(
+    id: number,
+    status: AccommodationStatus,
+  ): Observable<HttpResponse<AccommodationDetails>> {
+    return this.templateService.putObservable<AccommodationDetails>(
+      `accommodations/${id}/status`,
+      { status: status },
     );
   }
 }
