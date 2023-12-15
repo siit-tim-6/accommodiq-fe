@@ -4,7 +4,6 @@ import {LoginRequest, LoginResponse} from './login.model';
 import {Observable} from 'rxjs';
 import {environment} from '../../../env/env';
 import {AccountRole} from "../account-info/account.model";
-import {AccommodationService} from "../../accommodation/accommodation.service";
 
 @Injectable({
   providedIn: 'root',
