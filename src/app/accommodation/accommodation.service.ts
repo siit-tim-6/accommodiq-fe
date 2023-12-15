@@ -1,41 +1,31 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../env/env';
-import { Accommodation } from './accommodation.model';
+import {Accommodation, AccommodationStatus} from './accommodation.model';
 import { AccommodationDetails } from './accommodation-details.model';
-import { useAnimation } from '@angular/animations';
+import {TemplateService} from "../services/template.service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccommodationService {
-  private accommodationList: Accommodation[] = [];
-
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private templateService: TemplateService) {}
 
   getAll(): Observable<Accommodation[]> {
-    return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'accommodations',
-    );
+    return this.templateService.getObservable<Accommodation[]>('accommodations');
   }
 
   getAccommodation(id: number): Observable<AccommodationDetails> {
-    return this.httpClient.get<AccommodationDetails>(
-      environment.apiHost + 'accommodations/' + id,
-    );
+    return this.templateService.getObservable<AccommodationDetails>('accommodations/' + id);
   }
 
   getHostsAccommodations(): Observable<Accommodation[]> {
-    return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'hosts/accommodations',
-    );
+    return this.templateService.getObservable<Accommodation[]>('hosts/accommodations');
   }
 
   getPendingAccommodations(): Observable<Accommodation[]> {
-    return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'accommodations/pending',
-    );
+    return this.templateService.getObservable<Accommodation[]>('accommodations/pending');
   }
 
   findByFilter(
@@ -62,5 +52,9 @@ export class AccommodationService {
         benefits.length > 0 ? `&benefits=${benefits.join(',')}` : ''
       }`,
     );
+  }
+
+  changeAccommodationStatus(id: number, status: AccommodationStatus): Observable<HttpResponse<AccommodationDetails>> {
+    return this.templateService.putObservable<AccommodationDetails>(`accommodations/${id}/status`, {"status": status});
   }
 }
