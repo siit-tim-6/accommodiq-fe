@@ -1,11 +1,11 @@
-import {AccountRole} from "../account-info/account.model";
+import { AccountRole } from '../account-info/account.model';
 
 export interface LoginResponse {
-  jwt: string,
-  role: AccountRole
+  jwt: string;
+  role: AccountRole;
 }
 
 export interface LoginRequest {
-  email: string,
-  password: string
+  email: string;
+  password: string;
 }

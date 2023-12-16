@@ -1,15 +1,17 @@
 <p-dialog [closable]="false" [visible]="true" [draggable]="false">
   <h2>Create new apartment</h2>
-  <form (submit)="onSubmit()">
+  <form [formGroup]="formGroup" (submit)="onSubmit()">
     <div class="inline-update-form">
       <div>
         <div>
           <span>
             <input
               pInputText
+              [required]="true"
+              type="text"
               id="name"
               name="name"
-              [(ngModel)]="name"
+              formControlName="name"
               placeholder="Name"
             />
           </span>
@@ -22,7 +24,7 @@
               id="description"
               name="description"
               pInputTextarea
-              [(ngModel)]="description"
+              formControlName="description"
               placeholder="Description"
             ></textarea>
           </span>
@@ -33,65 +35,46 @@
               pInputText
               id="address"
               name="address"
-              [(ngModel)]="address"
+              formControlName="location"
               placeholder="Address"
             />
           </span>
         </div>
 
-        <div class="checkbox-group" ngModelGroup="benefits">
-          <span class="checkbox-option">
+        <div class="checkbox-group" formGroupName="benefits">
+          <div *ngFor="let benefit of benefitOptions" class="checkbox-option">
             <p-checkbox
               name="benefits"
-              value="wifi"
-              label="Wi-Fi"
-              [(ngModel)]="benefits"
+              [value]="benefit.value"
+              [label]="benefit.label"
+              (onChange)="onBenefitChange($event.checked, benefit.benefitName)"
             ></p-checkbox>
-            <i class="pi pi-wifi"></i>
-          </span>
-          <span class="checkbox-option">
-            <p-checkbox
-              name="benefits"
-              value="kitchen"
-              label="Kitchen"
-              [(ngModel)]="benefits"
-            ></p-checkbox>
-            <i class="pi pi-home"></i>
-          </span>
-          <span class="checkbox-option">
-            <p-checkbox
-              name="benefits"
-              value="parking"
-              label="Parking"
-              [(ngModel)]="benefits"
-            ></p-checkbox>
-            <i class="pi pi-car"></i>
-          </span>
-          <span class="checkbox-option">
-            <p-checkbox
-              name="benefits"
-              value="ac"
-              label="AC"
-              [(ngModel)]="benefits"
-            ></p-checkbox>
-            <i class="pi pi-slack"></i>
-          </span>
+          </div>
         </div>
       </div>
 
       <div class="column-wrapper">
+        <div
+          *ngIf="submitAttempted && images.length === 0"
+          class="empty-message"
+        >
+          Please add at least one image.
+        </div>
+
         <div class="file-upload-wrapper">
           <p-fileUpload
             name="demo[]"
-            url="https://www.primefaces.org/cdn/api/upload.php"
-            (onUpload)="onUpload($event)"
+            (onSelect)="onFileSelect($event)"
+            (onRemove)="onFileRemove($event)"
             [multiple]="true"
             accept="image/*"
             [maxFileSize]="1000000"
+            [auto]="true"
+            chooseLabel="Select Images"
           >
             <ng-template pTemplate="content">
-              <ul *ngIf="imageUrls.length">
-                <li *ngFor="let file of imageUrls">
+              <ul *ngIf="images.length">
+                <li *ngFor="let file of images">
                   {{ file.name }} - {{ file.size }}
                 </li>
               </ul>
@@ -109,7 +92,7 @@
                 id="min-guests"
                 name="min-guests"
                 pInputText
-                [(ngModel)]="minGuests"
+                formControlName="minGuests"
                 placeholder="min"
               />
             </span>
@@ -125,7 +108,7 @@
                 id="max-guests"
                 name="max-guests"
                 pInputText
-                [(ngModel)]="maxGuests"
+                formControlName="maxGuests"
                 placeholder="max"
               />
             </span>
@@ -137,7 +120,7 @@
             id="apartment-type"
             name="apartment-type"
             [options]="apartmentTypes"
-            [(ngModel)]="apartmentType"
+            formControlName="apartmentType"
             [showClear]="true"
             placeholder="Select a Type"
           ></p-dropdown>
@@ -146,7 +129,7 @@
         <div class="checkbox-group">
           <span class="checkbox-option">
             <p-checkbox
-              [(ngModel)]="pricePerGuest"
+              formControlName="pricePerGuest"
               id="price-per-guests"
               name="price-per-guests"
               label="Price per guest"
@@ -155,7 +138,7 @@
           </span>
           <span class="checkbox-option">
             <p-checkbox
-              [(ngModel)]="automaticallyAcceptIncomingReservations"
+              formControlName="automaticallyAcceptIncomingReservations"
               id="accept-incoming-reservations"
               name="accept-incoming-reservations"
               label="Automatically accept incoming reservations"
@@ -169,7 +152,7 @@
         <div class="row-wrapper availability-wrapper">
           <div class="calendar-wrapper">
             <p-calendar
-              [(ngModel)]="pickedDates"
+              formControlName="pickedDates"
               name="range"
               selectionMode="range"
               [readonlyInput]="true"
@@ -182,7 +165,7 @@
                 pInputText
                 id="price"
                 name="price"
-                [(ngModel)]="price"
+                formControlName="price"
                 placeholder="Price"
               />
             </span>
@@ -190,6 +173,13 @@
           <div>
             <p-button label="Add" (click)="addRange()"></p-button>
           </div>
+        </div>
+
+        <div
+          *ngIf="submitAttempted && availabilityRanges.length === 0"
+          class="empty-message"
+        >
+          Please add at least one availability range.
         </div>
 
         <div class="file-upload-wrapper">
@@ -210,8 +200,8 @@
             </ng-template>
             <ng-template pTemplate="body" let-availabilityRange>
               <tr>
-                <td>{{ availabilityRange.startDate | date: "dd/MM/yyyy" }}</td>
-                <td>{{ availabilityRange.endDate | date: "dd/MM/yyyy" }}</td>
+                <td>{{ availabilityRange.fromDate | date: "dd/MM/yyyy" }}</td>
+                <td>{{ availabilityRange.toDate | date: "dd/MM/yyyy" }}</td>
                 <td>{{ availabilityRange.price }}</td>
                 <td>
                   <p-button

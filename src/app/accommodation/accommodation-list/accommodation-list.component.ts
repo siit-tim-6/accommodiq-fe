@@ -21,11 +21,26 @@ export class AccommodationListComponent implements OnInit {
 
   search(searchParams: SearchParams) {
     let fromDate: number =
-      (searchParams.rangeDates === undefined || searchParams.rangeDates === null) ? 0 : searchParams.rangeDates[0].valueOf() / 1000;
-    let toDate: number = (searchParams.rangeDates === undefined || searchParams.rangeDates === null) ? 0 : searchParams.rangeDates[1].valueOf() / 1000;
+      searchParams.rangeDates === undefined || searchParams.rangeDates === null
+        ? 0
+        : searchParams.rangeDates[0].valueOf() / 1000;
+    let toDate: number =
+      searchParams.rangeDates === undefined || searchParams.rangeDates === null
+        ? 0
+        : searchParams.rangeDates[1].valueOf() / 1000;
 
     this.service
-      .findByFilter(searchParams.location, fromDate, toDate, searchParams.title, searchParams.guests ?? -1, searchParams.minPrice ?? -1, searchParams.maxPrice ?? -1, searchParams.type, searchParams.benefits)
+      .findByFilter(
+        searchParams.location,
+        fromDate,
+        toDate,
+        searchParams.title,
+        searchParams.guests ?? -1,
+        searchParams.minPrice ?? -1,
+        searchParams.maxPrice ?? -1,
+        searchParams.type,
+        searchParams.benefits,
+      )
       .subscribe((accommodations: Accommodation[]) => {
         this.elements = accommodations;
       });

@@ -22,6 +22,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AdminReviewListComponent } from './admin-review-list/admin-review-list.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -54,6 +55,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     TableModule,
     DockModule,
     InputTextareaModule,
+    ReactiveFormsModule,
     OverlayPanelModule,
     KeyFilterModule,
     InputNumberModule,
