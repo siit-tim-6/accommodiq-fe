@@ -167,7 +167,6 @@ export class AccommodationCreateComponent {
   private validateDates(dates: Date[]): boolean {
     if (!FormValidators.areDatesValid(dates)) {
       this.formGroup.get('pickedDates')?.markAsTouched();
-      this.formGroup.get('pickedDates')?.setErrors({ invalidDates: true });
       return false;
     }
     return true;
@@ -176,7 +175,6 @@ export class AccommodationCreateComponent {
   private validatePrice(price: number): boolean {
     if (!FormValidators.isPriceValid(price)) {
       this.formGroup.get('price')?.markAsTouched();
-      this.formGroup.get('price')?.setErrors({ invalidPrice: true });
       return false;
     }
     return true;
