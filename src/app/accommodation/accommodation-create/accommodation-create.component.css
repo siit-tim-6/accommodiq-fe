@@ -103,3 +103,17 @@
 :host form {
   margin-top: 20px;
 }
+
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched,
+p-dropdown.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.empty-message {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: red;
+  /* Add more styling as needed */
+}

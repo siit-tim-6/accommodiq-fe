@@ -1,3 +1,5 @@
 export enum AccountRole {
-  HOST = "HOST", GUEST = "GUEST", ADMIN = "ADMIN"
+  HOST = 'HOST',
+  GUEST = 'GUEST',
+  ADMIN = 'ADMIN',
 }
