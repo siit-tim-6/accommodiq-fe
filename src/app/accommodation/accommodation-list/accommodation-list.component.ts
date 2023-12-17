@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Accommodation, SearchParams } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
+import { getTimestampSeconds } from '../../utils/date.utils';
 
 @Component({
   selector: 'app-accommodation-list',
@@ -27,11 +28,11 @@ export class AccommodationListComponent implements OnInit {
     let fromDate: number =
       searchParams.rangeDates === undefined || searchParams.rangeDates === null
         ? 0
-        : searchParams.rangeDates[0].valueOf() / 1000;
+        : getTimestampSeconds(searchParams.rangeDates[0]);
     let toDate: number =
       searchParams.rangeDates === undefined || searchParams.rangeDates === null
         ? 0
-        : searchParams.rangeDates[1].valueOf() / 1000;
+        : getTimestampSeconds(searchParams.rangeDates[1]);
 
     this.service
       .findByFilter(
