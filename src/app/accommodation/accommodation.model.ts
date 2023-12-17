@@ -84,16 +84,6 @@ export interface AccommodationFormData {
   benefits: string[];
 }
 
-export interface AccommodationAvailabilityPricingDto {
-  cancellationDeadline: number;
-  pricePerGuest: PricingType;
-  availabilityRanges: AvailabilityDto[];
-}
-
-export interface AvailabilityRangeReservationsStatusDto {
-  hasReservations: boolean;
-}
-
 export interface AccommodationBookingDetailsDto {
   cancellationDeadline: number;
   pricingType: string;
