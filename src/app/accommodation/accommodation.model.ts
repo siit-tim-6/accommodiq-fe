@@ -123,6 +123,8 @@ export type AccommodationDetails = {
   reviews: AccommodationReview[];
   benefits: string[];
   type: string;
+  minPrice: number;
+  pricingType: string;
 };
 
 export type AccommodationTotalPrice = {
