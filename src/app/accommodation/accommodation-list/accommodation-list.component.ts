@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Accommodation } from '../accommodation.model';
+import { Accommodation, SearchParams } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
-import { SearchParams } from '../search-params.model';
 
 @Component({
   selector: 'app-accommodation-list',

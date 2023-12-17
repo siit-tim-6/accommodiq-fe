@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AccommodationDetails } from '../accommodation-details.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AccommodationService } from '../accommodation.service';
+import { AccommodationDetails } from '../accommodation.model';
 
 @Component({
   selector: 'app-accommodation-details',

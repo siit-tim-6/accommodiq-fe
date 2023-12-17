@@ -8,6 +8,7 @@ import {
 import {
   Accommodation,
   AccommodationCreateDto,
+  AccommodationDetails,
   AccommodationDetailsDto,
   AccommodationFormData,
   AvailabilityDto,
@@ -16,7 +17,6 @@ import {
 import { Injectable } from '@angular/core';
 import { environment } from '../../env/env';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AccommodationDetails } from './accommodation-details.model';
 import { useAnimation } from '@angular/animations';
 
 @Injectable({

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { SearchParams } from '../search-params.model';
 import { Dropdown } from 'primeng/dropdown';
 import { AccommodationService } from '../accommodation.service';
+import { SearchParams } from '../accommodation.model';
 
 @Component({
   selector: 'app-accommodation-search',

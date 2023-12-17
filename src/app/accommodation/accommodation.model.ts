@@ -82,3 +82,44 @@ export interface AccommodationFormData {
   automaticallyAcceptIncomingReservations: boolean;
   benefits: string[];
 }
+
+export type SearchParams = {
+  location: string;
+  rangeDates: Date[] | undefined;
+  guests: string | number | undefined;
+  title: string;
+  minPrice: number | undefined;
+  maxPrice: number | undefined;
+  type: string;
+  benefits: string[];
+};
+
+export type AccommodationHost = {
+  id: number;
+  name: string;
+  rating: number;
+  reviewCount: number;
+};
+
+export type AccommodationReview = {
+  author: string;
+  comment: string;
+  rating: number;
+  date: Date;
+};
+
+export type AccommodationDetails = {
+  id: number;
+  title: string;
+  rating: number;
+  reviewCount: number;
+  location: string;
+  host: AccommodationHost;
+  image: string;
+  minGuests: number;
+  maxGuests: number;
+  description: string;
+  reviews: AccommodationReview[];
+  benefits: string[];
+  type: string;
+};
