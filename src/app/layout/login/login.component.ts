@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LoginService } from './login.service';
 import { LoginRequest } from './login.model';
 import { Router } from '@angular/router';
+import {RoleService} from "../../services/role.service";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,11 @@ export class LoginComponent {
   constructor(
     private loginService: LoginService,
     private router: Router,
-  ) {}
+    private roleService: RoleService
+  ) {
+    if (this.loginService.getRole() !== null)
+      this.router.navigate(["/search"])
+  }
 
   onSubmit() {
     if (!this.isFormValid()) return;
@@ -29,6 +34,7 @@ export class LoginComponent {
       const jwt = response.jwt;
 
       localStorage.setItem('user', jwt);
+      this.roleService.updateRole(this.loginService.getRole());
 
       this.router.navigate(['/search']);
     });

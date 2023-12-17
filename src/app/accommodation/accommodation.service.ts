@@ -6,21 +6,18 @@ import {
   AccommodationFormData,
   AvailabilityDto,
   PricingType,
+  AccommodationStatus,
 } from './accommodation.model';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from '../../env/env';
-import { HttpClient } from '@angular/common/http';
-import { HttpResponse } from '@angular/common/http';
-import { AccommodationStatus } from './accommodation.model';
 import { AccommodationDetails } from './accommodation-details.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccommodationService {
-  constructor(
-    private httpClient: HttpClient,
-  ) {}
+  constructor(private httpClient: HttpClient) {}
 
   getAll(): Observable<Accommodation[]> {
     return this.httpClient.get<Accommodation[]>(
@@ -123,6 +120,7 @@ export class AccommodationService {
   ): Observable<HttpResponse<AccommodationDetails>> {
     return this.httpClient.put<HttpResponse<AccommodationDetails>>(
       `${environment.apiHost}accommodations/${id}/status`,
-      { status: status });
+      { status: status },
+    );
   }
 }
