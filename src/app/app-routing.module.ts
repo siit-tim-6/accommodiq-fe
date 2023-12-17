@@ -14,6 +14,7 @@ import {
 import {AdminReviewListComponent} from './accommodation/admin-review-list/admin-review-list.component';
 import {CanActivateRole} from "./guards/role.guard";
 import {AccountRole} from "./layout/account-info/account.model";
+import {AccommodationUpdateComponent} from "./accommodation/accommodation-update/accommodation-update.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'notifications', component: NotificationListComponent },
   { path: 'my-accommodations', component: HostsAccommodationListComponent },
   { path: 'accommodations-review', component: AdminReviewListComponent, canActivate: [() => CanActivateRole(AccountRole.ADMIN)] },
+  { path: 'accommodation-update/:accommodationId', component: AccommodationUpdateComponent, canActivate: [() => CanActivateRole(AccountRole.HOST)] },
 ];
 
 @NgModule({

@@ -15,4 +15,5 @@ export type AccommodationDetails = {
   reviews: AccommodationReview[];
   benefits: string[];
   type: string;
+  price: number
 };

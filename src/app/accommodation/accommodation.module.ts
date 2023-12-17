@@ -27,6 +27,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { AccommodationUpdateComponent } from './accommodation-update/accommodation-update.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     HostsAccommodationListComponent,
     AccommodationCreateComponent,
     AdminReviewListComponent,
+    AccommodationUpdateComponent,
   ],
   imports: [
     CommonModule,

@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {
-  AccommodationCreateDto,
   AvailabilityDto,
-  PricingType,
 } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
 import {
@@ -13,18 +11,22 @@ import {
   Validators,
 } from '@angular/forms';
 import { FormValidators, FormUtils } from '../../utils/form-utils';
+import {AccommodationDetails} from "../accommodation-details.model";
 
 @Component({
   selector: 'app-accommodation-create',
   templateUrl: './accommodation-create.component.html',
   styleUrl: './accommodation-create.component.css',
 })
-export class AccommodationCreateComponent {
+export class AccommodationCreateComponent implements OnInit{
+  @Input() accommodationToUpdate: AccommodationDetails | undefined;
+
   apartmentTypes: string[] = [
     'Entire apartment',
     'Private room',
     'Shared room',
     'Hotel room',
+    'Apartment',
   ];
   benefitOptions = [
     { value: 'breakfast', label: 'Breakfast', benefitName: 'Private Balcony' },
@@ -40,7 +42,7 @@ export class AccommodationCreateComponent {
     },
     { value: 'ac', label: 'AC', benefitName: 'Air Conditioning' },
   ];
-  images: File[];
+  images: File[] = [];
   availabilityRanges: AvailabilityDto[] = [];
   formGroup!: FormGroup;
   submitAttempted = false;
@@ -50,10 +52,7 @@ export class AccommodationCreateComponent {
   constructor(
     private accommodationService: AccommodationService,
     private formBuilder: FormBuilder,
-  ) {
-    this.images = [];
-    this.initializeFormGroup();
-  }
+  ) {}
 
   onSubmit(): void {
     this.submitAttempted = true;
@@ -147,18 +146,18 @@ export class AccommodationCreateComponent {
   private initializeFormGroup(): void {
     this.formGroup = this.formBuilder.group(
       {
-        name: ['', Validators.required],
-        location: ['', Validators.required],
-        description: ['', Validators.required],
-        minGuests: ['', [Validators.required, Validators.min(1)]],
-        maxGuests: ['', Validators.required],
-        apartmentType: ['', Validators.required],
+        name: [this.accommodationToUpdate?.title, Validators.required],
+        location: [this.accommodationToUpdate?.location, Validators.required],
+        description: [this.accommodationToUpdate?.description, Validators.required],
+        minGuests: [this.accommodationToUpdate?.minGuests, [Validators.required, Validators.min(1)]],
+        maxGuests: [this.accommodationToUpdate?.maxGuests, Validators.required],
+        apartmentType: [this.accommodationToUpdate?.type, Validators.required],
         pricePerGuest: [false],
         automaticallyAcceptIncomingReservations: [false],
-        benefits: this.formBuilder.array([]),
+        benefits: this.formBuilder.array(this.accommodationToUpdate?.benefits ?? []),
         pickedDates: [null],
-        price: [null],
-        images: [this.images],
+        price: [this.accommodationToUpdate?.price],
+        images: [this.images], // TODO
       },
       { validators: FormValidators.compareMinMaxGuestsValidator() },
     );
@@ -186,5 +185,10 @@ export class AccommodationCreateComponent {
       this.availabilityRanges.length > 0 &&
       this.images.length > 0
     );
+  }
+
+  ngOnInit() {
+    this.images = []
+    this.initializeFormGroup()
   }
 }
