@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { environment } from '../../env/env';
 import {
@@ -15,6 +14,8 @@ import {
   PricingType,
 } from './accommodation.model';
 import { AccommodationDetails } from './accommodation-details.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { useAnimation } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root',
@@ -70,11 +71,11 @@ export class AccommodationService {
   }
 
   createAccommodation(
-    hostId: number,
     formData: AccommodationFormData,
     availabilityRanges: AvailabilityDto[],
     images: File[],
   ): Observable<AccommodationDetailsDto> {
+    console.log(formData);
     return this.uploadImages(images).pipe(
       switchMap((uploadedImagePaths: string[]) => {
         const accommodationData: AccommodationCreateDto = {
@@ -89,11 +90,14 @@ export class AccommodationService {
             : PricingType.PerNight,
           automaticAcceptance: formData.automaticallyAcceptIncomingReservations,
           images: uploadedImagePaths,
+          type: formData.apartmentType,
+          benefits: formData.benefits,
         };
+        console.log(accommodationData.benefits);
         return this.httpClient.post<AccommodationDetailsDto>(
-          environment.apiHost + 'hosts/' + 1 + '/accommodations',
+          environment.apiHost + 'hosts/' + 'accommodations',
           accommodationData,
-        ); // change later with JWT
+        );
       }),
       catchError((error) => {
         console.error('Error in accommodation creation process:', error);
@@ -106,7 +110,7 @@ export class AccommodationService {
     const formData = new FormData();
     files.forEach((file) => formData.append('images', file));
     return this.httpClient.post<string[]>(
-      environment.apiHost + 'images/upload',
+      environment.apiHost + 'images',
       formData,
     );
   }
