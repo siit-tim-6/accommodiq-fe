@@ -11,6 +11,7 @@ import {
   AccommodationDetails,
   AccommodationDetailsDto,
   AccommodationFormData,
+  AccommodationTotalPrice,
   AvailabilityDto,
   PricingType,
 } from './accommodation.model';
@@ -124,6 +125,17 @@ export class AccommodationService {
       environment.apiHost + 'images',
       formData,
     );
+  }
+
+  getTotalPrice(
+    id: number,
+    dateFrom: number,
+    dateTo: number,
+    guests: number,
+  ): Observable<AccommodationTotalPrice> {
+    return this.httpClient.get<AccommodationTotalPrice>(`
+    ${environment.apiHost}accommodations/${id}?dateFrom=${dateFrom}&dateTo=${dateTo}&guests${guests}
+    `);
   }
 
   updateRangeDatesSearch(rangeDates: Date[] | undefined) {

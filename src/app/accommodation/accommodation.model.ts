@@ -124,3 +124,7 @@ export type AccommodationDetails = {
   benefits: string[];
   type: string;
 };
+
+export type AccommodationTotalPrice = {
+  totalPrice: number;
+};
