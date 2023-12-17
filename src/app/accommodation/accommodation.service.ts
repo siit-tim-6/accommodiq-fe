@@ -13,7 +13,6 @@ import { HttpClient } from '@angular/common/http';
 import { HttpResponse } from '@angular/common/http';
 import { AccommodationStatus } from './accommodation.model';
 import { AccommodationDetails } from './accommodation-details.model';
-import {RestService} from "../services/rest.service";
 
 @Injectable({
   providedIn: 'root',
@@ -21,30 +20,29 @@ import {RestService} from "../services/rest.service";
 export class AccommodationService {
   constructor(
     private httpClient: HttpClient,
-    private restService: RestService,
   ) {}
 
   getAll(): Observable<Accommodation[]> {
-    return this.restService.get<Accommodation[]>(
-      'accommodations',
+    return this.httpClient.get<Accommodation[]>(
+      `${environment.apiHost}accommodations`,
     );
   }
 
   getAccommodation(id: number): Observable<AccommodationDetails> {
-    return this.restService.get<AccommodationDetails>(
-      'accommodations/' + id,
+    return this.httpClient.get<AccommodationDetails>(
+      `${environment.apiHost}'accommodations/${id}`,
     );
   }
 
   getHostsAccommodations(): Observable<Accommodation[]> {
-    return this.restService.get<Accommodation[]>(
-      'hosts/accommodations',
+    return this.httpClient.get<Accommodation[]>(
+      `${environment.apiHost}hosts/accommodations`,
     );
   }
 
   getPendingAccommodations(): Observable<Accommodation[]> {
-    return this.restService.get<Accommodation[]>(
-      'accommodations/pending',
+    return this.httpClient.get<Accommodation[]>(
+      `${environment.apiHost}accommodations/pending`,
     );
   }
 
@@ -123,9 +121,8 @@ export class AccommodationService {
     id: number,
     status: AccommodationStatus,
   ): Observable<HttpResponse<AccommodationDetails>> {
-    return this.restService.put<AccommodationDetails>(
-      `accommodations/${id}/status`,
-      { status: status },
-    );
+    return this.httpClient.put<HttpResponse<AccommodationDetails>>(
+      `${environment.apiHost}accommodations/${id}/status`,
+      { status: status });
   }
 }
