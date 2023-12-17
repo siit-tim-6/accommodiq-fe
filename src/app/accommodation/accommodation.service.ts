@@ -6,34 +6,41 @@ import {
   AccommodationFormData,
   AvailabilityDto,
   PricingType,
-  AccommodationStatus
+  AccommodationStatus,
 } from './accommodation.model';
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from '../../env/env';
 import { AccommodationDetails } from './accommodation-details.model';
-import {TemplateService} from "../services/template.service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccommodationService {
-  constructor(private httpClient: HttpClient, private templateService: TemplateService) {}
+  constructor(private httpClient: HttpClient) {}
 
   getAll(): Observable<Accommodation[]> {
-    return this.templateService.getObservable<Accommodation[]>('accommodations');
+    return this.httpClient.get<Accommodation[]>(
+      `${environment.apiHost}accommodations`,
+    );
   }
 
   getAccommodation(id: number): Observable<AccommodationDetails> {
-    return this.templateService.getObservable<AccommodationDetails>('accommodations/' + id);
+    return this.httpClient.get<AccommodationDetails>(
+      `${environment.apiHost}'accommodations/${id}`,
+    );
   }
 
   getHostsAccommodations(): Observable<Accommodation[]> {
-    return this.templateService.getObservable<Accommodation[]>('hosts/accommodations');
+    return this.httpClient.get<Accommodation[]>(
+      `${environment.apiHost}hosts/accommodations`,
+    );
   }
 
   getPendingAccommodations(): Observable<Accommodation[]> {
-    return this.templateService.getObservable<Accommodation[]>('accommodations/pending');
+    return this.httpClient.get<Accommodation[]>(
+      `${environment.apiHost}accommodations/pending`,
+    );
   }
 
   findByFilter(
@@ -62,10 +69,6 @@ export class AccommodationService {
     );
   }
 
-  changeAccommodationStatus(id: number, status: AccommodationStatus): Observable<HttpResponse<AccommodationDetails>> {
-    return this.templateService.putObservable<AccommodationDetails>(`accommodations/${id}/status`, {"status": status});
-  }
-  
   createAccommodation(
     formData: AccommodationFormData,
     availabilityRanges: AvailabilityDto[],
@@ -108,6 +111,16 @@ export class AccommodationService {
     return this.httpClient.post<string[]>(
       environment.apiHost + 'images',
       formData,
+    );
+  }
+
+  changeAccommodationStatus(
+    id: number,
+    status: AccommodationStatus,
+  ): Observable<HttpResponse<AccommodationDetails>> {
+    return this.httpClient.put<HttpResponse<AccommodationDetails>>(
+      `${environment.apiHost}accommodations/${id}/status`,
+      { status: status },
     );
   }
 }
