@@ -25,7 +25,15 @@ export class AccommodationDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private accommodationService: AccommodationService,
-  ) {}
+  ) {
+    accommodationService.rangeDatesSearch.subscribe((rangeDates) => {
+      this.rangeDates = rangeDates;
+    });
+
+    accommodationService.guestsSearch.subscribe((guests) => {
+      this.guests = guests;
+    });
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {

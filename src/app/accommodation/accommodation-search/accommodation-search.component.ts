@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SearchParams } from '../search-params.model';
 import { Dropdown } from 'primeng/dropdown';
+import { AccommodationService } from '../accommodation.service';
 
 @Component({
   selector: 'app-accommodation-search',
   templateUrl: './accommodation-search.component.html',
   styleUrl: './accommodation-search.component.css',
 })
-export class AccommodationSearchComponent {
+export class AccommodationSearchComponent implements OnInit {
   accommodationTypes: string[] = [
     'Apartment',
     'House',
@@ -42,11 +43,18 @@ export class AccommodationSearchComponent {
   selectedAccommodationType: string = '';
   selectedBenefits: string[] = [];
 
+  constructor(private accommodationService: AccommodationService) {}
+
   @Output()
   onSearch = new EventEmitter<SearchParams>();
 
   @Output()
   onClear = new EventEmitter<never>();
+
+  ngOnInit(): void {
+    this.accommodationService.updateRangeDatesSearch(this.rangeDates);
+    this.accommodationService.updateGuestsSearch(this.guests);
+  }
 
   search() {
     this.onSearch.emit({
@@ -59,6 +67,9 @@ export class AccommodationSearchComponent {
       type: this.selectedAccommodationType,
       benefits: this.selectedBenefits,
     });
+
+    this.accommodationService.updateRangeDatesSearch(this.rangeDates);
+    this.accommodationService.updateGuestsSearch(this.guests);
   }
 
   clear() {
@@ -71,6 +82,9 @@ export class AccommodationSearchComponent {
     this.selectedAccommodationType = '';
     this.selectedBenefits = [];
     this.onClear.emit();
+
+    this.accommodationService.updateRangeDatesSearch(this.rangeDates);
+    this.accommodationService.updateGuestsSearch(this.guests);
   }
 
   clearDropdown(dropdown: Dropdown, event: Event) {
