@@ -10,6 +10,8 @@ import { SearchParams } from '../search-params.model';
 })
 export class AccommodationListComponent implements OnInit {
   elements: Accommodation[] = [];
+  dateRangeSearched: Date[] | undefined;
+  guestsSearched: string | number | undefined;
 
   constructor(private service: AccommodationService) {}
 
@@ -20,6 +22,9 @@ export class AccommodationListComponent implements OnInit {
   }
 
   search(searchParams: SearchParams) {
+    this.dateRangeSearched = searchParams.rangeDates;
+    this.guestsSearched = searchParams.guests;
+
     let fromDate: number =
       searchParams.rangeDates === undefined || searchParams.rangeDates === null
         ? 0
@@ -49,6 +54,8 @@ export class AccommodationListComponent implements OnInit {
   clear() {
     this.service.getAll().subscribe((accommodations: Accommodation[]) => {
       this.elements = accommodations;
+      this.dateRangeSearched = undefined;
+      this.guestsSearched = undefined;
     });
   }
 }
