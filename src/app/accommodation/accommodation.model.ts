@@ -9,6 +9,7 @@ export interface Accommodation {
   minGuests: number;
   maxGuests: number;
   accepted?: boolean;
+  pricingType: string;
 }
 
 export interface AccommodationCreateDto {
