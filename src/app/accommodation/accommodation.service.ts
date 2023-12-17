@@ -9,34 +9,40 @@ import {
 } from './accommodation.model';
 import { Injectable } from '@angular/core';
 import { environment } from '../../env/env';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
+import { AccommodationStatus } from './accommodation.model';
 import { AccommodationDetails } from './accommodation-details.model';
-import { useAnimation } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccommodationService {
-  private accommodationList: Accommodation[] = [];
-
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+  ) {}
 
   getAll(): Observable<Accommodation[]> {
     return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'accommodations',
+      `${environment.apiHost}accommodations`,
     );
   }
 
   getAccommodation(id: number): Observable<AccommodationDetails> {
     return this.httpClient.get<AccommodationDetails>(
-      environment.apiHost + 'accommodations/' + id,
+      `${environment.apiHost}'accommodations/${id}`,
     );
   }
 
   getHostsAccommodations(): Observable<Accommodation[]> {
-    console.log('TU SAM');
     return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'hosts/accommodations',
+      `${environment.apiHost}hosts/accommodations`,
+    );
+  }
+
+  getPendingAccommodations(): Observable<Accommodation[]> {
+    return this.httpClient.get<Accommodation[]>(
+      `${environment.apiHost}accommodations/pending`,
     );
   }
 
@@ -109,5 +115,14 @@ export class AccommodationService {
       environment.apiHost + 'images',
       formData,
     );
+  }
+
+  changeAccommodationStatus(
+    id: number,
+    status: AccommodationStatus,
+  ): Observable<HttpResponse<AccommodationDetails>> {
+    return this.httpClient.put<HttpResponse<AccommodationDetails>>(
+      `${environment.apiHost}accommodations/${id}/status`,
+      { status: status });
   }
 }

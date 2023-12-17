@@ -1,10 +1,11 @@
 <div class="main-content">
-  <h1>{{ elements.length }} Accommodation change requests</h1>
+  <h1>{{ accommodations.length }} Accommodation change requests</h1>
   <h4>Review, approve or deny accommodations</h4>
-  <div *ngFor="let el of elements">
+  <div *ngFor="let accommodation of accommodations">
     <app-accommodation-card
-      [accommodation]="el"
-      [routerLink]="['/accommodation', 1]"
+      [showAcceptanceButtons]="true"
+      [accommodation]="accommodation"
+      (modifiedSuccessfully)="onModifiedSuccessfully($event)"
     />
   </div>
 </div>
