@@ -13,7 +13,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpResponse } from '@angular/common/http';
 import { AccommodationStatus } from './accommodation.model';
 import { AccommodationDetails } from './accommodation-details.model';
-import { TemplateService } from '../services/template.service';
+import {RestService} from "../services/rest.service";
 
 @Injectable({
   providedIn: 'root',
@@ -21,29 +21,29 @@ import { TemplateService } from '../services/template.service';
 export class AccommodationService {
   constructor(
     private httpClient: HttpClient,
-    private templateService: TemplateService,
+    private restService: RestService,
   ) {}
 
   getAll(): Observable<Accommodation[]> {
-    return this.templateService.getObservable<Accommodation[]>(
+    return this.restService.get<Accommodation[]>(
       'accommodations',
     );
   }
 
   getAccommodation(id: number): Observable<AccommodationDetails> {
-    return this.templateService.getObservable<AccommodationDetails>(
+    return this.restService.get<AccommodationDetails>(
       'accommodations/' + id,
     );
   }
 
   getHostsAccommodations(): Observable<Accommodation[]> {
-    return this.templateService.getObservable<Accommodation[]>(
+    return this.restService.get<Accommodation[]>(
       'hosts/accommodations',
     );
   }
 
   getPendingAccommodations(): Observable<Accommodation[]> {
-    return this.templateService.getObservable<Accommodation[]>(
+    return this.restService.get<Accommodation[]>(
       'accommodations/pending',
     );
   }
@@ -123,7 +123,7 @@ export class AccommodationService {
     id: number,
     status: AccommodationStatus,
   ): Observable<HttpResponse<AccommodationDetails>> {
-    return this.templateService.putObservable<AccommodationDetails>(
+    return this.restService.put<AccommodationDetails>(
       `accommodations/${id}/status`,
       { status: status },
     );
