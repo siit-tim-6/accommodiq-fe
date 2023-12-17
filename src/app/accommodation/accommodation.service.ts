@@ -9,7 +9,7 @@ import {
 } from './accommodation.model';
 import { Injectable } from '@angular/core';
 import { environment } from '../../env/env';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { HttpResponse } from '@angular/common/http';
 import { AccommodationStatus } from './accommodation.model';
 import { AccommodationDetails } from './accommodation-details.model';
