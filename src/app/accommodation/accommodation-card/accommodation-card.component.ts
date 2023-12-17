@@ -8,5 +8,7 @@ import { Accommodation } from '../accommodation.model';
 })
 export class AccommodationCardComponent {
   @Input() accommodation!: Accommodation;
+  @Input() dateRange: Date[] | undefined;
+  @Input() guests: number | string | undefined;
   protected readonly Math = Math;
 }
