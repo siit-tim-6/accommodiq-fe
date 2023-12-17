@@ -9,7 +9,7 @@ import {
   AvailabilityDto,
   PricingType,
 } from '../accommodation.model';
-import { FormUtils, FormValidators } from '../../utils/form-utils';
+import { FormUtils, FormValidators } from '../../utils/form.utils';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
