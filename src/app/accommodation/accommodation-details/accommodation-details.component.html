@@ -65,10 +65,20 @@
     </div>
 
     <div class="row" style="margin-bottom: 25px">
-      <p-calendar selectionMode="range" placeholder="Date" [showIcon]="true" />
+      <p-calendar
+        [(ngModel)]="rangeDates"
+        selectionMode="range"
+        placeholder="Date"
+        [showIcon]="true"
+      />
       <span class="p-input-icon-left">
         <i class="pi pi-users"></i>
-        <input type="text" pInputText placeholder="Guests" />
+        <input
+          [(ngModel)]="guests"
+          type="text"
+          pInputText
+          placeholder="Guests"
+        />
       </span>
       <p><span class="bold">€540</span> EUR total</p>
       <p-button label="Reserve"></p-button>

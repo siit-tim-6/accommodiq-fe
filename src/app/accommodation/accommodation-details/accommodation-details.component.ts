@@ -19,6 +19,9 @@ export class AccommodationDetailsComponent implements OnInit {
     '../../../assets/images/accommodation-image.png',
   ];
 
+  rangeDates: Date[] | undefined;
+  guests: number | string | undefined;
+
   constructor(
     private route: ActivatedRoute,
     private accommodationService: AccommodationService,
