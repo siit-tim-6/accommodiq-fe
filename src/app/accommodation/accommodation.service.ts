@@ -131,7 +131,7 @@ export class AccommodationService {
     id: number,
     dateFrom: number,
     dateTo: number,
-    guests: number,
+    guests: number | string,
   ): Observable<AccommodationTotalPrice> {
     return this.httpClient.get<AccommodationTotalPrice>(`
     ${environment.apiHost}accommodations/${id}?dateFrom=${dateFrom}&dateTo=${dateTo}&guests${guests}
