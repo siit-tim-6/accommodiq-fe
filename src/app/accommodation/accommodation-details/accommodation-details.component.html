@@ -80,7 +80,16 @@
           placeholder="Guests"
         />
       </span>
-      <p><span class="bold">€540</span> EUR total</p>
+      <p *ngIf="totalPrice !== undefined">
+        <span class="bold">€{{ totalPrice }}</span> EUR total
+      </p>
+      <p *ngIf="totalPrice === undefined">
+        From <span class="bold">€{{ accommodationDetails.minPrice }}</span
+        ><span *ngIf="accommodationDetails.pricingType === 'PER_GUEST'">
+          / guest</span
+        >
+        / night
+      </p>
       <p-button label="Reserve"></p-button>
     </div>
 
