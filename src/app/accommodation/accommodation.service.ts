@@ -1,4 +1,10 @@
-import { catchError, Observable, switchMap, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  Observable,
+  switchMap,
+  throwError,
+} from 'rxjs';
 import {
   Accommodation,
   AccommodationCreateDto,
@@ -18,6 +24,15 @@ import { useAnimation } from '@angular/animations';
 })
 export class AccommodationService {
   private accommodationList: Accommodation[] = [];
+  private rangeDatesSearchSubject$ = new BehaviorSubject<Date[] | undefined>(
+    undefined,
+  );
+  private guestsSearchSubject$ = new BehaviorSubject<
+    number | string | undefined
+  >(undefined);
+
+  rangeDatesSearch = this.rangeDatesSearchSubject$.asObservable();
+  guestsSearch = this.guestsSearchSubject$.asObservable();
 
   constructor(private httpClient: HttpClient) {}
 
@@ -109,5 +124,13 @@ export class AccommodationService {
       environment.apiHost + 'images',
       formData,
     );
+  }
+
+  updateRangeDatesSearch(rangeDates: Date[] | undefined) {
+    this.rangeDatesSearchSubject$.next(rangeDates);
+  }
+
+  updateGuestsSearch(guests: string | number | undefined) {
+    this.guestsSearchSubject$.next(guests);
   }
 }
