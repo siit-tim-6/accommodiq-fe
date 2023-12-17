@@ -11,6 +11,8 @@ import { NotificationListComponent } from './notification/notification-list/noti
 import { HostsAccommodationListComponent } from './accommodation/hosts-accommodation-list/hosts-accommodation-list.component';
 import { AdminReviewListComponent } from './accommodation/admin-review-list/admin-review-list.component';
 import { AccommodationAvailabilityPricingComponent } from './accommodation/accommodation-availability-pricing/accommodation-availability-pricing.component';
+import { CanActivateRole } from './guards/role.guard';
+import { AccountRole } from './layout/account-info/account.model';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -30,6 +32,11 @@ const routes: Routes = [
   {
     path: 'accommodation-availability-pricing/:accommodationId',
     component: AccommodationAvailabilityPricingComponent,
+  },
+  {
+    path: 'accommodations-review',
+    component: AdminReviewListComponent,
+    canActivate: [() => CanActivateRole(AccountRole.ADMIN)],
   },
 ];
 

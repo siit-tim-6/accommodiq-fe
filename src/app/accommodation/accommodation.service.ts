@@ -12,35 +12,38 @@ import {
   AvailabilityDto,
   MessageDto,
   PricingType,
+  AccommodationStatus,
 } from './accommodation.model';
 import { AccommodationDetails } from './accommodation-details.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { useAnimation } from '@angular/animations';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccommodationService {
-  private accommodationList: Accommodation[] = [];
-
   constructor(private httpClient: HttpClient) {}
 
   getAll(): Observable<Accommodation[]> {
     return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'accommodations',
+      `${environment.apiHost}accommodations`,
     );
   }
 
   getAccommodation(id: number): Observable<AccommodationDetails> {
     return this.httpClient.get<AccommodationDetails>(
-      environment.apiHost + 'accommodations/' + id,
+      `${environment.apiHost}'accommodations/${id}`,
     );
   }
 
   getHostsAccommodations(): Observable<Accommodation[]> {
-    console.log('TU SAM');
     return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'hosts/accommodations',
+      `${environment.apiHost}hosts/accommodations`,
+    );
+  }
+
+  getPendingAccommodations(): Observable<Accommodation[]> {
+    return this.httpClient.get<Accommodation[]>(
+      `${environment.apiHost}accommodations/pending`,
     );
   }
 
@@ -152,6 +155,16 @@ export class AccommodationService {
   ): Observable<MessageDto> {
     return this.httpClient.delete<MessageDto>(
       `${environment.apiHost}accommodations/${accommodationId}/availabilities/${availabilityId}`,
+    );
+  }
+
+  changeAccommodationStatus(
+    id: number,
+    status: AccommodationStatus,
+  ): Observable<HttpResponse<AccommodationDetails>> {
+    return this.httpClient.put<HttpResponse<AccommodationDetails>>(
+      `${environment.apiHost}accommodations/${id}/status`,
+      { status: status },
     );
   }
 }
