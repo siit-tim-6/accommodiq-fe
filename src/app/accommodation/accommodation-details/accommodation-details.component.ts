@@ -30,6 +30,8 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   guests: number | string | undefined;
   totalPrice: number | undefined;
 
+  today: Date = new Date();
+
   constructor(
     private route: ActivatedRoute,
     private accommodationService: AccommodationService,
