@@ -1,5 +1,7 @@
 export enum AccommodationStatus {
-  ACCEPTED = "ACCEPTED", DENIED = "DENIED", PENDING = "PENDING"
+  ACCEPTED = 'ACCEPTED',
+  DENIED = 'DENIED',
+  PENDING = 'PENDING',
 }
 
 export interface Accommodation {
@@ -57,7 +59,7 @@ export interface AccommodationDetailsHostDto {
 }
 
 export interface Availability {
-  id: number;
+  id?: number;
   fromDate: number;
   toDate: number;
   price: number;

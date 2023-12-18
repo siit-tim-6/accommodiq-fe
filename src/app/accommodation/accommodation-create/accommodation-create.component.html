@@ -1,5 +1,7 @@
 <p-dialog [closable]="false" [visible]="true" [draggable]="false">
-  <h2>Create new apartment</h2>
+  <h2 *ngIf="accommodationToUpdate === undefined">Create new apartment</h2>
+  <h2 *ngIf="accommodationToUpdate !== undefined">Update apartment</h2>
+
   <form [formGroup]="formGroup" (submit)="onSubmit()">
     <div class="inline-update-form">
       <div>
@@ -47,7 +49,10 @@
               name="benefits"
               [value]="benefit.value"
               [label]="benefit.label"
+              [binary]="true"
               (onChange)="onBenefitChange($event.checked, benefit.benefitName)"
+              [ngModel]="benefit.isChecked"
+              [ngModelOptions]="{ standalone: true }"
             ></p-checkbox>
           </div>
         </div>
@@ -215,6 +220,15 @@
         </div>
       </div>
     </div>
-    <p-button label="Create" type="submit"></p-button>
+    <p-button
+      *ngIf="accommodationToUpdate === undefined"
+      label="Create"
+      type="submit"
+    ></p-button>
+    <p-button
+      *ngIf="accommodationToUpdate !== undefined"
+      label="Update"
+      type="submit"
+    ></p-button>
   </form>
 </p-dialog>

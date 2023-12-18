@@ -6,34 +6,45 @@ import {
   AccommodationFormData,
   AvailabilityDto,
   PricingType,
-  AccommodationStatus
+  AccommodationStatus,
 } from './accommodation.model';
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from '../../env/env';
 import { AccommodationDetails } from './accommodation-details.model';
-import {TemplateService} from "../services/template.service";
+import { TemplateService } from '../services/template.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccommodationService {
-  constructor(private httpClient: HttpClient, private templateService: TemplateService) {}
+  constructor(
+    private httpClient: HttpClient,
+    private templateService: TemplateService,
+  ) {}
 
   getAll(): Observable<Accommodation[]> {
-    return this.templateService.getObservable<Accommodation[]>('accommodations');
+    return this.templateService.getObservable<Accommodation[]>(
+      'accommodations',
+    );
   }
 
   getAccommodation(id: number): Observable<AccommodationDetails> {
-    return this.templateService.getObservable<AccommodationDetails>('accommodations/' + id);
+    return this.templateService.getObservable<AccommodationDetails>(
+      'accommodations/' + id,
+    );
   }
 
   getHostsAccommodations(): Observable<Accommodation[]> {
-    return this.templateService.getObservable<Accommodation[]>('hosts/accommodations');
+    return this.templateService.getObservable<Accommodation[]>(
+      'hosts/accommodations',
+    );
   }
 
   getPendingAccommodations(): Observable<Accommodation[]> {
-    return this.templateService.getObservable<Accommodation[]>('accommodations/pending');
+    return this.templateService.getObservable<Accommodation[]>(
+      'accommodations/pending',
+    );
   }
 
   findByFilter(
@@ -62,10 +73,16 @@ export class AccommodationService {
     );
   }
 
-  changeAccommodationStatus(id: number, status: AccommodationStatus): Observable<HttpResponse<AccommodationDetails>> {
-    return this.templateService.putObservable<AccommodationDetails>(`accommodations/${id}/status`, {"status": status});
+  changeAccommodationStatus(
+    id: number,
+    status: AccommodationStatus,
+  ): Observable<HttpResponse<AccommodationDetails>> {
+    return this.templateService.putObservable<AccommodationDetails>(
+      `accommodations/${id}/status`,
+      { status: status },
+    );
   }
-  
+
   createAccommodation(
     formData: AccommodationFormData,
     availabilityRanges: AvailabilityDto[],
@@ -97,6 +114,41 @@ export class AccommodationService {
       }),
       catchError((error) => {
         console.error('Error in accommodation creation process:', error);
+        return throwError(error);
+      }),
+    );
+  }
+
+  updateAccommodation(
+    formData: AccommodationFormData,
+    availabilityRanges: AvailabilityDto[],
+    images: File[],
+    accommodationId: number,
+  ): Observable<AccommodationDetailsDto> {
+    return this.uploadImages(images).pipe(
+      switchMap((uploadedImagePaths: string[]) => {
+        const accommodationData: AccommodationCreateDto = {
+          title: formData.name,
+          description: formData.description,
+          location: formData.location,
+          minGuests: formData.minGuests,
+          maxGuests: formData.maxGuests,
+          available: availabilityRanges,
+          pricingType: formData.pricePerGuest
+            ? PricingType.PerGuest
+            : PricingType.PerNight,
+          automaticAcceptance: formData.automaticallyAcceptIncomingReservations,
+          images: uploadedImagePaths,
+          type: formData.apartmentType,
+          benefits: formData.benefits,
+        };
+
+        return this.httpClient.put<AccommodationDetailsDto>(
+          environment.apiHost + 'hosts/' + 'accommodations/' + accommodationId,
+          accommodationData,
+        );
+      }),
+      catchError((error) => {
         return throwError(error);
       }),
     );

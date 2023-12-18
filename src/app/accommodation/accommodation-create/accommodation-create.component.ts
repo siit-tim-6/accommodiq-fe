@@ -1,7 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {
-  AvailabilityDto,
-} from '../accommodation.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { AvailabilityDto } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
 import {
   FormArray,
@@ -11,14 +9,15 @@ import {
   Validators,
 } from '@angular/forms';
 import { FormValidators, FormUtils } from '../../utils/form-utils';
-import {AccommodationDetails} from "../accommodation-details.model";
+import { AccommodationDetails } from '../accommodation-details.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accommodation-create',
   templateUrl: './accommodation-create.component.html',
   styleUrl: './accommodation-create.component.css',
 })
-export class AccommodationCreateComponent implements OnInit{
+export class AccommodationCreateComponent implements OnInit {
   @Input() accommodationToUpdate: AccommodationDetails | undefined;
 
   apartmentTypes: string[] = [
@@ -28,36 +27,65 @@ export class AccommodationCreateComponent implements OnInit{
     'Hotel room',
     'Apartment',
   ];
+
   benefitOptions = [
-    { value: 'breakfast', label: 'Breakfast', benefitName: 'Private Balcony' },
+    {
+      value: 'breakfast',
+      label: 'Breakfast',
+      benefitName: 'Private Balcony',
+      isChecked: false,
+    },
     {
       value: 'kitchen',
       label: 'Kitchen',
       benefitName: 'Fully Equipped Kitchen',
+      isChecked: false,
     },
     {
       value: 'parking',
       label: 'Parking',
       benefitName: 'Complimentary Breakfast',
+      isChecked: false,
     },
-    { value: 'ac', label: 'AC', benefitName: 'Air Conditioning' },
+    {
+      value: 'ac',
+      label: 'AC',
+      benefitName: 'Air Conditioning',
+      isChecked: false,
+    },
   ];
+
   images: File[] = [];
   availabilityRanges: AvailabilityDto[] = [];
   formGroup!: FormGroup;
   submitAttempted = false;
 
-  hostId: number = 1; // TODO: get from JWT
-
   constructor(
     private accommodationService: AccommodationService,
     private formBuilder: FormBuilder,
+    private router: Router,
   ) {}
 
   onSubmit(): void {
     this.submitAttempted = true;
 
     if (this.isValidSubmission()) {
+      if (this.accommodationToUpdate !== undefined) {
+        this.accommodationService
+          .updateAccommodation(
+            this.formGroup.value,
+            this.availabilityRanges,
+            this.images,
+            this.accommodationToUpdate.id,
+          )
+          .subscribe({
+            next: (accommodationDetails) => {
+              this.router.navigate(['my-accommodations']); // Add snackbar maybe?
+            },
+          });
+        return;
+      }
+
       this.accommodationService
         .createAccommodation(
           this.formGroup.value,
@@ -66,19 +94,11 @@ export class AccommodationCreateComponent implements OnInit{
         )
         .subscribe({
           next: (accommodationDetails) => {
-            console.log('Accommodation Created:', accommodationDetails);
-            // Handle successful creation (e.g., navigate to another page or show success message)
-          },
-          error: (error) => {
-            console.error('Error during accommodation creation:', error);
-            // Handle error (e.g., show error message)
+            this.router.navigate(['my-accommodations']); // Add snackbar maybe?
           },
         });
     } else {
       FormUtils.markAllAsTouched(this.formGroup);
-      console.error(
-        'Invalid form, no availability ranges added, or no images uploaded',
-      );
     }
   }
 
@@ -132,6 +152,9 @@ export class AccommodationCreateComponent implements OnInit{
         benefitsArray.removeAt(index);
       }
     }
+
+    this.benefitOptions.find((b) => b.benefitName === benefit)!.isChecked =
+      checked;
   }
 
   private addNewRange(dates: Date[], price: number): void {
@@ -148,19 +171,51 @@ export class AccommodationCreateComponent implements OnInit{
       {
         name: [this.accommodationToUpdate?.title, Validators.required],
         location: [this.accommodationToUpdate?.location, Validators.required],
-        description: [this.accommodationToUpdate?.description, Validators.required],
-        minGuests: [this.accommodationToUpdate?.minGuests, [Validators.required, Validators.min(1)]],
+        description: [
+          this.accommodationToUpdate?.description,
+          Validators.required,
+        ],
+        minGuests: [
+          this.accommodationToUpdate?.minGuests,
+          [Validators.required, Validators.min(1)],
+        ],
         maxGuests: [this.accommodationToUpdate?.maxGuests, Validators.required],
         apartmentType: [this.accommodationToUpdate?.type, Validators.required],
-        pricePerGuest: [false],
-        automaticallyAcceptIncomingReservations: [false],
-        benefits: this.formBuilder.array(this.accommodationToUpdate?.benefits ?? []),
+        pricePerGuest: [this.accommodationToUpdate?.pricePerGuest],
+        automaticallyAcceptIncomingReservations: [
+          this.accommodationToUpdate?.automaticallyAcceptIncomingReservations,
+        ],
+        benefits: this.formBuilder.array([]),
         pickedDates: [null],
         price: [this.accommodationToUpdate?.price],
         images: [this.images], // TODO
       },
       { validators: FormValidators.compareMinMaxGuestsValidator() },
     );
+    this.initializeBenefits();
+  }
+
+  private initializeBenefits() {
+    if (this.accommodationToUpdate === undefined) return;
+    this.accommodationToUpdate.benefits.forEach((accommodationBenefit) => {
+      let benefitName = this.benefitOptions.find(
+        (b) => b.value === accommodationBenefit,
+      )?.benefitName;
+      if (benefitName !== undefined) {
+        this.onBenefitChange(true, benefitName);
+      }
+    });
+  }
+
+  initializeRanges(): void {
+    if (this.accommodationToUpdate === undefined) return;
+    const formData = this.formGroup.value;
+    this.accommodationToUpdate.available.forEach((availability) => {
+      this.addNewRange(
+        [new Date(availability.fromDate), new Date(availability.toDate)],
+        availability.price,
+      );
+    });
   }
 
   private validateDates(dates: Date[]): boolean {
@@ -188,7 +243,18 @@ export class AccommodationCreateComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.images = []
-    this.initializeFormGroup()
+    this.images = [];
+    this.accommodationToUpdate!.available = [
+      {
+        fromDate: Date.now(),
+        toDate: Date.now() + 78 * 60 * 60 * 1000,
+        price: 1245,
+      },
+    ];
+    this.accommodationToUpdate!.benefits = ['breakfast', 'kitchen'];
+    this.accommodationToUpdate!.pricePerGuest = true;
+
+    this.initializeFormGroup();
+    this.initializeRanges();
   }
 }
