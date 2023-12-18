@@ -12,16 +12,18 @@ export class AccommodationListComponent implements OnInit {
   elements: Accommodation[] = [];
   dateRangeSearched: Date[] | undefined;
   guestsSearched: string | number | undefined;
+  savedSearchTriggered: boolean = false;
 
   constructor(private service: AccommodationService) {}
 
   ngOnInit(): void {
     this.service.getAll().subscribe((accommodations: Accommodation[]) => {
-      this.elements = accommodations;
+      if (!this.savedSearchTriggered) this.elements = accommodations;
     });
   }
 
   search(searchParams: SearchParams) {
+    this.savedSearchTriggered = true;
     this.dateRangeSearched = searchParams.rangeDates;
     this.guestsSearched = searchParams.guests;
 

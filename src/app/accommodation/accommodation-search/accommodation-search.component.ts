@@ -52,8 +52,6 @@ export class AccommodationSearchComponent implements OnInit {
   onClear = new EventEmitter<never>();
 
   ngOnInit(): void {
-    console.log('usao on init');
-
     let sessionRangeDates = sessionStorage.getItem('lastSearchedRangeDates');
     let sessionGuests = sessionStorage.getItem('lastSearchedGuests');
 
