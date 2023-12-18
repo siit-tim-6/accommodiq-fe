@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AccommodationService } from '../accommodation.service';
 import {
   AccommodationDetails,
   AccommodationTotalPrice,
 } from '../accommodation.model';
 import { getTimestampSeconds } from '../../utils/date.utils';
+import { of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-accommodation-details',
@@ -13,6 +14,7 @@ import { getTimestampSeconds } from '../../utils/date.utils';
   styleUrl: './accommodation-details.component.css',
 })
 export class AccommodationDetailsComponent implements OnInit {
+  accommodationId: number;
   accommodationDetails: AccommodationDetails;
 
   images: string[] = [
@@ -31,6 +33,7 @@ export class AccommodationDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private accommodationService: AccommodationService,
   ) {
+    this.accommodationId = 0;
     this.accommodationDetails = {
       id: 0,
       title: '',
@@ -56,66 +59,61 @@ export class AccommodationDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      const accommodationId = +params['accommodationId'];
-      this.accommodationService
-        .getAccommodation(accommodationId)
-        .subscribe((accommodationDetails: AccommodationDetails) => {
-          this.accommodationDetails = accommodationDetails;
-        });
-    });
-
-    this.accommodationService.rangeDatesSearch.subscribe((rangeDates) => {
-      this.rangeDates = rangeDates;
-
-      if (
-        this.rangeDates !== undefined &&
-        this.accommodationDetails.pricingType === 'PER_NIGHT'
-      ) {
-        this.updateTotalPrice(
-          getTimestampSeconds(this.rangeDates[0]),
-          getTimestampSeconds(this.rangeDates[1]),
-          0,
-        );
-      } else if (
-        this.rangeDates !== undefined &&
-        this.guests !== undefined &&
-        this.accommodationDetails.pricingType === 'PER_GUEST'
-      ) {
-        this.updateTotalPrice(
-          getTimestampSeconds(this.rangeDates[0]),
-          getTimestampSeconds(this.rangeDates[1]),
-          this.guests,
-        );
-      }
-    });
-
-    this.accommodationService.guestsSearch.subscribe((guests) => {
-      this.guests = guests;
-
-      if (
-        this.rangeDates !== undefined &&
-        this.guests !== undefined &&
-        this.accommodationDetails.pricingType === 'PER_GUEST'
-      ) {
-        this.updateTotalPrice(
-          getTimestampSeconds(this.rangeDates[0]),
-          getTimestampSeconds(this.rangeDates[1]),
-          this.guests,
-        );
-      }
-    });
-  }
-
-  private updateTotalPrice(
-    fromDate: number,
-    toDate: number,
-    guests: number | string,
-  ) {
-    this.accommodationService
-      .getTotalPrice(this.accommodationDetails.id, fromDate, toDate, guests)
+    this.route.params
+      .pipe(
+        switchMap((params) => {
+          return of(+params['accommodationId']);
+        }),
+        switchMap((id: number) => {
+          this.accommodationId = id;
+          return this.accommodationService.getAccommodation(
+            this.accommodationId,
+          );
+        }),
+        switchMap((accommodation: AccommodationDetails) => {
+          this.accommodationDetails = accommodation;
+          return this.accommodationService.rangeDatesSearch;
+        }),
+        switchMap((rangeDates: Date[] | undefined) => {
+          this.rangeDates = rangeDates;
+          return this.accommodationService.guestsSearch;
+        }),
+        switchMap((guests: string | number | undefined) => {
+          this.guests = guests;
+          if (
+            this.rangeDates !== undefined &&
+            this.accommodationDetails.pricingType === 'PER_NIGHT'
+          )
+            return this.accommodationService.getTotalPrice(
+              this.accommodationDetails.id,
+              getTimestampSeconds(this.rangeDates[0]),
+              getTimestampSeconds(this.rangeDates[1]),
+              0,
+            );
+          else if (
+            this.rangeDates !== undefined &&
+            this.guests !== undefined &&
+            this.accommodationDetails.pricingType === 'PER_GUEST'
+          ) {
+            return this.accommodationService.getTotalPrice(
+              this.accommodationDetails.id,
+              getTimestampSeconds(this.rangeDates[0]),
+              getTimestampSeconds(this.rangeDates[1]),
+              this.guests,
+            );
+          } else {
+            return of({
+              totalPrice: -1,
+            });
+          }
+        }),
+      )
       .subscribe((accommodationTotalPrice: AccommodationTotalPrice) => {
-        this.totalPrice = accommodationTotalPrice.totalPrice;
+        console.log(accommodationTotalPrice);
+        if (accommodationTotalPrice.totalPrice != -1) {
+          this.totalPrice = accommodationTotalPrice.totalPrice;
+        }
+        console.log('stigao kraj');
       });
   }
 }
