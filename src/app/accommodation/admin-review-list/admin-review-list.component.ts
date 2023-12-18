@@ -22,6 +22,6 @@ export class AdminReviewListComponent implements OnInit {
   }
 
   onModifiedSuccessfully(id: number) {
-    this.accommodations = this.accommodations.filter(acc => acc.id !== id);
+    this.accommodations = this.accommodations.filter((acc) => acc.id !== id);
   }
 }

@@ -11,7 +11,7 @@ import { AccommodationDetailsComponent } from './accommodation-details/accommoda
 import { RouterModule } from '@angular/router';
 import { GalleriaModule } from 'primeng/galleria';
 import { CommentModule } from '../comment/comment.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HostsAccommodationListComponent } from './hosts-accommodation-list/hosts-accommodation-list.component';
 import { DockModule } from 'primeng/dock';
 import { DialogModule } from 'primeng/dialog';
@@ -22,7 +22,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AdminReviewListComponent } from './admin-review-list/admin-review-list.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { AccommodationAvailabilityPricingComponent } from './accommodation-availability-pricing/accommodation-availability-pricing.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -37,6 +37,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     HostsAccommodationListComponent,
     AccommodationCreateComponent,
     AdminReviewListComponent,
+    AccommodationAvailabilityPricingComponent,
   ],
   imports: [
     CommonModule,

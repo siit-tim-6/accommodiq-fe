@@ -1,5 +1,7 @@
 export enum AccommodationStatus {
-  ACCEPTED = "ACCEPTED", DENIED = "DENIED", PENDING = "PENDING"
+  ACCEPTED = 'ACCEPTED',
+  DENIED = 'DENIED',
+  PENDING = 'PENDING',
 }
 
 export interface Accommodation {
@@ -43,6 +45,7 @@ export interface AccommodationDetailsDto {
   description: string;
   reviews: AccommodationDetailsReviewDto[];
 }
+
 export interface AvailabilityDto {
   fromDate: number;
   toDate: number;
@@ -85,4 +88,19 @@ export interface AccommodationFormData {
   pricePerGuest: string;
   automaticallyAcceptIncomingReservations: boolean;
   benefits: string[];
+}
+
+export interface AccommodationBookingDetailsDto {
+  cancellationDeadline: number;
+  pricingType: string;
+}
+
+export interface AccommodationBookingDetailFormDto {
+  cancellationDeadline: number;
+  pricingType: string;
+  available: Availability[];
+}
+
+export interface MessageDto {
+  message: string;
 }

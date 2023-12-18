@@ -13,7 +13,7 @@
   left: 0;
 }
 
-:host > img{
+:host > img {
   height: 36px;
   width: 36px;
   margin-top: 10px;
@@ -34,5 +34,5 @@
   cursor: pointer;
 
   color: red;
-  font-size: 30px
+  font-size: 30px;
 }

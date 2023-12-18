@@ -12,7 +12,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { FormValidators, FormUtils } from '../../utils/form-utils';
+import { FormValidators, FormUtils } from '../../utils/form.utils';
 
 @Component({
   selector: 'app-accommodation-create',
