@@ -19,15 +19,17 @@ export class AccommodationUpdateComponent {
   ) {
     this.route.params.subscribe((params: Params) => {
       const accommodationId = +params['accommodationId'];
-      this.accommodationService.getAccommodation(accommodationId).subscribe({
-        next: (accommodationDetails: AccommodationDetails) => {
-          this.accommodation = accommodationDetails;
-          this.accommodationLoaded = Promise.resolve(true);
-        },
-        error: (_) => {
-          this.router.navigate(['search']);
-        },
-      });
+      this.accommodationService
+        .getAccommodationAdvancedDetails(accommodationId)
+        .subscribe({
+          next: (accommodationDetails: AccommodationDetails) => {
+            this.accommodation = accommodationDetails;
+            this.accommodationLoaded = Promise.resolve(true);
+          },
+          error: (_) => {
+            this.router.navigate(['search']);
+          },
+        });
     });
   }
 

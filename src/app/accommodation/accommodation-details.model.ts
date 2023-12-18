@@ -1,9 +1,9 @@
 import { AccommodationReview } from './accommodation-review.model';
 import { AccommodationHost } from './accommodation-host.model';
-import { Availability } from './accommodation.model';
+import { AvailabilityDto, PricingType } from './accommodation.model';
 
 export type AccommodationDetails = {
-  available: [Availability];
+  available: AvailabilityDto[];
   id: number;
   title: string;
   rating: number;
@@ -18,6 +18,6 @@ export type AccommodationDetails = {
   benefits: string[];
   type: string;
   price: number;
-  pricePerGuest: boolean;
-  automaticallyAcceptIncomingReservations: boolean;
+  pricingType: PricingType;
+  automaticAcceptance: boolean;
 };

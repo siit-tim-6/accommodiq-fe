@@ -35,6 +35,14 @@ export class AccommodationService {
     );
   }
 
+  getAccommodationAdvancedDetails(
+    id: number,
+  ): Observable<AccommodationDetails> {
+    return this.templateService.getObservable<AccommodationDetails>(
+      'accommodations/' + id + '/advanced',
+    );
+  }
+
   getHostsAccommodations(): Observable<Accommodation[]> {
     return this.templateService.getObservable<Accommodation[]>(
       'hosts/accommodations',
@@ -124,10 +132,11 @@ export class AccommodationService {
     availabilityRanges: AvailabilityDto[],
     images: File[],
     accommodationId: number,
-  ): Observable<AccommodationDetailsDto> {
+  ): Observable<HttpResponse<AccommodationDetailsDto>> {
     return this.uploadImages(images).pipe(
       switchMap((uploadedImagePaths: string[]) => {
         const accommodationData: AccommodationCreateDto = {
+          id: accommodationId,
           title: formData.name,
           description: formData.description,
           location: formData.location,
@@ -143,8 +152,8 @@ export class AccommodationService {
           benefits: formData.benefits,
         };
 
-        return this.httpClient.put<AccommodationDetailsDto>(
-          environment.apiHost + 'hosts/' + 'accommodations/' + accommodationId,
+        return this.httpClient.put<HttpResponse<AccommodationDetailsDto>>(
+          environment.apiHost + 'accommodations',
           accommodationData,
         );
       }),

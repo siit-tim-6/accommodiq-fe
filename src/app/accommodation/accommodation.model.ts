@@ -18,6 +18,7 @@ export interface Accommodation {
 }
 
 export interface AccommodationCreateDto {
+  id?: number;
   title: string;
   description: string;
   location: string;

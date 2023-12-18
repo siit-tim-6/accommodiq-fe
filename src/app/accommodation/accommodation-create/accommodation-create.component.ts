@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AvailabilityDto } from '../accommodation.model';
+import { AvailabilityDto, PricingType } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
 import {
   FormArray,
@@ -8,7 +8,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { FormValidators, FormUtils } from '../../utils/form-utils';
+import { FormUtils, FormValidators } from '../../utils/form-utils';
 import { AccommodationDetails } from '../accommodation-details.model';
 import { Router } from '@angular/router';
 
@@ -181,9 +181,11 @@ export class AccommodationCreateComponent implements OnInit {
         ],
         maxGuests: [this.accommodationToUpdate?.maxGuests, Validators.required],
         apartmentType: [this.accommodationToUpdate?.type, Validators.required],
-        pricePerGuest: [this.accommodationToUpdate?.pricePerGuest],
+        pricePerGuest: [
+          this.accommodationToUpdate?.pricingType === PricingType.PerGuest,
+        ],
         automaticallyAcceptIncomingReservations: [
-          this.accommodationToUpdate?.automaticallyAcceptIncomingReservations,
+          this.accommodationToUpdate?.automaticAcceptance,
         ],
         benefits: this.formBuilder.array([]),
         pickedDates: [null],
@@ -199,7 +201,7 @@ export class AccommodationCreateComponent implements OnInit {
     if (this.accommodationToUpdate === undefined) return;
     this.accommodationToUpdate.benefits.forEach((accommodationBenefit) => {
       let benefitName = this.benefitOptions.find(
-        (b) => b.value === accommodationBenefit,
+        (b) => b.benefitName === accommodationBenefit,
       )?.benefitName;
       if (benefitName !== undefined) {
         this.onBenefitChange(true, benefitName);
@@ -244,16 +246,6 @@ export class AccommodationCreateComponent implements OnInit {
 
   ngOnInit() {
     this.images = [];
-    this.accommodationToUpdate!.available = [
-      {
-        fromDate: Date.now(),
-        toDate: Date.now() + 78 * 60 * 60 * 1000,
-        price: 1245,
-      },
-    ];
-    this.accommodationToUpdate!.benefits = ['breakfast', 'kitchen'];
-    this.accommodationToUpdate!.pricePerGuest = true;
-
     this.initializeFormGroup();
     this.initializeRanges();
   }
