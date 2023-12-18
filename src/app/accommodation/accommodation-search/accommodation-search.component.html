@@ -17,6 +17,8 @@
   <p-calendar
     selectionMode="range"
     placeholder="Date"
+    [minDate]="today"
+    [readonlyInput]="true"
     [showIcon]="true"
     [(ngModel)]="rangeDates"
   />

@@ -43,6 +43,8 @@ export class AccommodationSearchComponent implements OnInit {
   selectedAccommodationType: string = '';
   selectedBenefits: string[] = [];
 
+  today: Date = new Date();
+
   constructor(private accommodationService: AccommodationService) {}
 
   @Output()
