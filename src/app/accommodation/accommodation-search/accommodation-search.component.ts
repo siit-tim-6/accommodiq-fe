@@ -52,8 +52,35 @@ export class AccommodationSearchComponent implements OnInit {
   onClear = new EventEmitter<never>();
 
   ngOnInit(): void {
+    console.log('usao on init');
+
+    let sessionRangeDates = sessionStorage.getItem('lastSearchedRangeDates');
+    let sessionGuests = sessionStorage.getItem('lastSearchedGuests');
+
+    if (sessionRangeDates) {
+      let dates = sessionRangeDates.split(',');
+      this.rangeDates = [new Date(dates[0]), new Date(dates[1])];
+    }
+
+    if (sessionGuests) {
+      this.guests = sessionGuests;
+    }
+
     this.accommodationService.updateRangeDatesSearch(this.rangeDates);
     this.accommodationService.updateGuestsSearch(this.guests);
+
+    if (sessionRangeDates || sessionGuests) {
+      this.onSearch.emit({
+        location: this.location,
+        rangeDates: this.rangeDates,
+        guests: this.guests,
+        title: this.title,
+        minPrice: this.minPrice,
+        maxPrice: this.maxPrice,
+        type: this.selectedAccommodationType,
+        benefits: this.selectedBenefits,
+      });
+    }
   }
 
   search() {
@@ -70,6 +97,14 @@ export class AccommodationSearchComponent implements OnInit {
 
     this.accommodationService.updateRangeDatesSearch(this.rangeDates);
     this.accommodationService.updateGuestsSearch(this.guests);
+
+    if (this.rangeDates !== undefined)
+      sessionStorage.setItem(
+        'lastSearchedRangeDates',
+        this.rangeDates?.toString(),
+      );
+    if (this.guests !== undefined)
+      sessionStorage.setItem('lastSearchedGuests', this.guests.toString());
   }
 
   clear() {
@@ -85,6 +120,11 @@ export class AccommodationSearchComponent implements OnInit {
 
     this.accommodationService.updateRangeDatesSearch(this.rangeDates);
     this.accommodationService.updateGuestsSearch(this.guests);
+
+    if (sessionStorage.getItem('lastSearchedRangeDates'))
+      sessionStorage.removeItem('lastSearchedRangeDates');
+    if (sessionStorage.getItem('lastSearchedGuests'))
+      sessionStorage.removeItem('lastSearchedGuests');
   }
 
   clearDropdown(dropdown: Dropdown, event: Event) {
