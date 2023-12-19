@@ -1,25 +1,24 @@
-import {
-  BehaviorSubject,
-  catchError,
-  Observable,
-  switchMap,
-  throwError,
-} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import {
   Accommodation,
+  AccommodationBookingDetailFormDto,
   AccommodationAvailability,
+  AccommodationBookingDetailsDto,
   AccommodationCreateDto,
   AccommodationDetails,
   AccommodationDetailsDto,
   AccommodationFormData,
   AccommodationTotalPrice,
+  Availability,
   AvailabilityDto,
+  MessageDto,
   PricingType,
+  AccommodationStatus,
 } from './accommodation.model';
 import { Injectable } from '@angular/core';
 import { environment } from '../../env/env';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { useAnimation } from '@angular/animations';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -40,20 +39,25 @@ export class AccommodationService {
 
   getAll(): Observable<Accommodation[]> {
     return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'accommodations',
+      `${environment.apiHost}accommodations`,
     );
   }
 
   getAccommodation(id: number): Observable<AccommodationDetails> {
     return this.httpClient.get<AccommodationDetails>(
-      environment.apiHost + 'accommodations/' + id,
+      `${environment.apiHost}'accommodations/${id}`,
     );
   }
 
   getHostsAccommodations(): Observable<Accommodation[]> {
-    console.log('TU SAM');
     return this.httpClient.get<Accommodation[]>(
-      environment.apiHost + 'hosts/accommodations',
+      `${environment.apiHost}hosts/accommodations`,
+    );
+  }
+
+  getPendingAccommodations(): Observable<Accommodation[]> {
+    return this.httpClient.get<Accommodation[]>(
+      `${environment.apiHost}accommodations/pending`,
     );
   }
 
@@ -110,7 +114,7 @@ export class AccommodationService {
         return this.httpClient.post<AccommodationDetailsDto>(
           environment.apiHost + 'hosts/' + 'accommodations',
           accommodationData,
-        ); // change later with JWT
+        );
       }),
       catchError((error) => {
         console.error('Error in accommodation creation process:', error);
@@ -155,5 +159,55 @@ export class AccommodationService {
 
   updateGuestsSearch(guests: string | number | undefined) {
     this.guestsSearchSubject$.next(guests);
+  }
+
+  getAccommodationBookingDetails(
+    accommodationId: number,
+  ): Observable<AccommodationBookingDetailFormDto> {
+    return this.httpClient.get<AccommodationBookingDetailFormDto>(
+      `${environment.apiHost}accommodations/${accommodationId}/booking-details`,
+    );
+  }
+
+  updateAccommodationBookingDetails(
+    accommodationId: number,
+    accommodationData: AccommodationBookingDetailsDto,
+  ): Observable<AccommodationBookingDetailsDto> {
+    return this.httpClient.put<AccommodationBookingDetailsDto>(
+      environment.apiHost +
+        'accommodations/' +
+        accommodationId +
+        '/booking-details',
+      accommodationData,
+    );
+  }
+
+  addAccommodationAvailability(
+    accommodationId: number,
+    availabilityData: AvailabilityDto,
+  ): Observable<Availability[]> {
+    return this.httpClient.post<Availability[]>(
+      `${environment.apiHost}accommodations/${accommodationId}/availabilities`,
+      availabilityData,
+    );
+  }
+
+  removeAccommodationAvailability(
+    accommodationId: number,
+    availabilityId: number,
+  ): Observable<MessageDto> {
+    return this.httpClient.delete<MessageDto>(
+      `${environment.apiHost}accommodations/${accommodationId}/availabilities/${availabilityId}`,
+    );
+  }
+
+  changeAccommodationStatus(
+    id: number,
+    status: AccommodationStatus,
+  ): Observable<HttpResponse<AccommodationDetails>> {
+    return this.httpClient.put<HttpResponse<AccommodationDetails>>(
+      `${environment.apiHost}accommodations/${id}/status`,
+      { status: status },
+    );
   }
 }

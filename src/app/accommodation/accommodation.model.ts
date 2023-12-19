@@ -1,3 +1,9 @@
+export enum AccommodationStatus {
+  ACCEPTED = 'ACCEPTED',
+  DENIED = 'DENIED',
+  PENDING = 'PENDING',
+}
+
 export interface Accommodation {
   id: number;
   title: string;
@@ -10,6 +16,7 @@ export interface Accommodation {
   maxGuests: number;
   accepted?: boolean;
   pricingType: string;
+  status?: AccommodationStatus;
 }
 
 export interface AccommodationCreateDto {
@@ -40,6 +47,7 @@ export interface AccommodationDetailsDto {
   description: string;
   reviews: AccommodationDetailsReviewDto[];
 }
+
 export interface AvailabilityDto {
   fromDate: number;
   toDate: number;
@@ -134,3 +142,17 @@ export type AccommodationTotalPrice = {
 export type AccommodationAvailability = {
   available: boolean;
 };
+export interface AccommodationBookingDetailsDto {
+  cancellationDeadline: number;
+  pricingType: string;
+}
+
+export interface AccommodationBookingDetailFormDto {
+  cancellationDeadline: number;
+  pricingType: string;
+  available: Availability[];
+}
+
+export interface MessageDto {
+  message: string;
+}

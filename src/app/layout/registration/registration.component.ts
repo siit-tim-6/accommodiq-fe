@@ -51,7 +51,14 @@ export class RegistrationComponent {
         },
         error: (error) => {
           console.error('Registration failed', error);
-          alert('Registration failed');
+          if (
+            error.error &&
+            error.error.message === 'Email is already in use'
+          ) {
+            alert('Registration failed: Email is already in use');
+          } else {
+            alert('Registration failed');
+          }
         },
       });
     } else {

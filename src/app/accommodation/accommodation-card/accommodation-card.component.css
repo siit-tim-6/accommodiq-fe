@@ -35,7 +35,6 @@
   padding-top: 20px;
   margin-bottom: 20px;
   border-top: 1px solid #ced4da;
-  cursor: pointer;
 }
 
 img {
@@ -43,6 +42,7 @@ img {
   border-radius: 15px;
   width: 270px;
   height: 200px;
+  cursor: pointer;
 }
 
 .accommodation-info {
@@ -54,4 +54,10 @@ img {
 
 .accommodation-info h2 {
   margin-top: 0;
+  cursor: pointer;
+}
+
+.acceptance-div i {
+  padding: 0 0.5rem;
+  cursor: pointer;
 }
