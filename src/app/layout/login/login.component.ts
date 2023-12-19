@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { LoginService } from './login.service';
 import { LoginRequest } from './login.model';
 import { Router } from '@angular/router';
-import {RoleService} from "../../services/role.service";
+import { RoleService } from '../../services/role.service';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +16,9 @@ export class LoginComponent {
   constructor(
     private loginService: LoginService,
     private router: Router,
-    private roleService: RoleService
+    private roleService: RoleService,
   ) {
-    if (this.loginService.getRole() !== null)
-      this.router.navigate(["/search"])
+    if (this.loginService.getRole() !== null) this.router.navigate(['/search']);
   }
 
   onSubmit() {

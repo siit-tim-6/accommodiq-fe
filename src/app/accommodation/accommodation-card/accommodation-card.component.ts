@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Accommodation, AccommodationStatus} from '../accommodation.model';
-import {AccommodationService} from "../accommodation.service";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Accommodation, AccommodationStatus } from '../accommodation.model';
+import { AccommodationService } from '../accommodation.service';
 
 @Component({
   selector: 'app-accommodation-card',
@@ -14,16 +14,16 @@ export class AccommodationCardComponent {
   protected readonly Math = Math;
   protected readonly AccommodationStatus = AccommodationStatus;
 
-  constructor(private accommodationService: AccommodationService) {
-  }
+  constructor(private accommodationService: AccommodationService) {}
 
   onClick(status: AccommodationStatus) {
-    this.accommodationService.changeAccommodationStatus(this.accommodation.id, status)
+    this.accommodationService
+      .changeAccommodationStatus(this.accommodation.id, status)
       .subscribe({
         next: (_) => {
-            this.modifiedSuccessfully.emit(this.accommodation.id)
+          this.modifiedSuccessfully.emit(this.accommodation.id);
         },
-        error: (error) => console.log(error) // Snackbar later
+        error: (error) => console.log(error), // Snackbar later
       });
   }
 }

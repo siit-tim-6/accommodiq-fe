@@ -1,17 +1,21 @@
+import { Injectable } from '@angular/core';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
+import { environment } from '../../env/env';
 import {
   Accommodation,
+  AccommodationBookingDetailFormDto,
+  AccommodationBookingDetailsDto,
   AccommodationCreateDto,
   AccommodationDetailsDto,
   AccommodationFormData,
+  Availability,
   AvailabilityDto,
+  MessageDto,
   PricingType,
   AccommodationStatus,
 } from './accommodation.model';
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { environment } from '../../env/env';
 import { AccommodationDetails } from './accommodation-details.model';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -96,7 +100,7 @@ export class AccommodationService {
         return this.httpClient.post<AccommodationDetailsDto>(
           environment.apiHost + 'hosts/' + 'accommodations',
           accommodationData,
-        ); // change later with JWT
+        );
       }),
       catchError((error) => {
         console.error('Error in accommodation creation process:', error);
@@ -147,6 +151,46 @@ export class AccommodationService {
     return this.httpClient.post<string[]>(
       environment.apiHost + 'images',
       formData,
+    );
+  }
+
+  getAccommodationBookingDetails(
+    accommodationId: number,
+  ): Observable<AccommodationBookingDetailFormDto> {
+    return this.httpClient.get<AccommodationBookingDetailFormDto>(
+      `${environment.apiHost}accommodations/${accommodationId}/booking-details`,
+    );
+  }
+
+  updateAccommodationBookingDetails(
+    accommodationId: number,
+    accommodationData: AccommodationBookingDetailsDto,
+  ): Observable<AccommodationBookingDetailsDto> {
+    return this.httpClient.put<AccommodationBookingDetailsDto>(
+      environment.apiHost +
+        'accommodations/' +
+        accommodationId +
+        '/booking-details',
+      accommodationData,
+    );
+  }
+
+  addAccommodationAvailability(
+    accommodationId: number,
+    availabilityData: AvailabilityDto,
+  ): Observable<Availability[]> {
+    return this.httpClient.post<Availability[]>(
+      `${environment.apiHost}accommodations/${accommodationId}/availabilities`,
+      availabilityData,
+    );
+  }
+
+  removeAccommodationAvailability(
+    accommodationId: number,
+    availabilityId: number,
+  ): Observable<MessageDto> {
+    return this.httpClient.delete<MessageDto>(
+      `${environment.apiHost}accommodations/${accommodationId}/availabilities/${availabilityId}`,
     );
   }
 

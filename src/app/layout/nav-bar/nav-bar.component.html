@@ -8,24 +8,24 @@
   src="../../../assets/images/search-icon.svg"
   alt="search-icon"
 />
-<img *ngIf="role === AccountRole.HOST"
+<img
+  *ngIf="role === AccountRole.HOST"
   [routerLink]="['/my-accommodations']"
   src="../../../assets/images/my-accommodations.svg"
   alt="my-accommodations-icon"
 />
-<img *ngIf="role === AccountRole.ADMIN"
+<img
+  *ngIf="role === AccountRole.ADMIN"
   [routerLink]="['/accommodations-review']"
   src="../../../assets/images/accommodations-review.svg"
   alt="accommodations-review-icon"
 />
 
-<img *ngIf="role === null"
-     [routerLink]="['/login']"
-     src="../../../assets/images/account-icon.svg"
-     alt="account-icon"
+<img
+  *ngIf="role === null"
+  [routerLink]="['/login']"
+  src="../../../assets/images/account-icon.svg"
+  alt="account-icon"
 />
 
-<i *ngIf="role !== null"
-   class="pi pi-sign-out"
-   (click)="signOut()">
-</i>
+<i *ngIf="role !== null" class="pi pi-sign-out" (click)="signOut()"> </i>

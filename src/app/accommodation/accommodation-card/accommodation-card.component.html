@@ -6,7 +6,9 @@
 
 <div class="accommodation-info">
   <span class="first-line">
-    <h2 [routerLink]="['/accommodation', accommodation.id]">{{ accommodation.title }}</h2>
+    <h2 [routerLink]="['/accommodation', accommodation.id]">
+      {{ accommodation.title }}
+    </h2>
 
     <div class="icon-container" *ngIf="!showAcceptanceButtons">
 
@@ -47,7 +49,7 @@
       <i (click)="onClick(AccommodationStatus.ACCEPTED)" class="pi pi-check-circle" style="color: green; font-size: 2.5rem"></i>
       <i (click)="onClick(AccommodationStatus.DENIED)" class="pi pi-times-circle" style="color: red; font-size: 2.5rem"></i>
     </div>
-</span>
+  </span>
 
   <div class="row">
     <p-rating

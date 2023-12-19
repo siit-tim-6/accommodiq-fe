@@ -1,8 +1,14 @@
-import {AbstractControl, FormArray, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 
 export class FormUtils {
   static markAllAsTouched(group: FormGroup | FormArray): void {
-    Object.values(group.controls).forEach(control => {
+    Object.values(group.controls).forEach((control) => {
       if (control instanceof FormGroup || control instanceof FormArray) {
         FormUtils.markAllAsTouched(control);
       } else {
@@ -17,7 +23,9 @@ export class FormValidators {
     return (group: AbstractControl): ValidationErrors | null => {
       const minGuests = group.get('minGuests')?.value;
       const maxGuests = group.get('maxGuests')?.value;
-      return (minGuests > 0 && maxGuests >= minGuests) ? null : { guestsInvalid: true };
+      return minGuests > 0 && maxGuests >= minGuests
+        ? null
+        : { guestsInvalid: true };
     };
   }
 

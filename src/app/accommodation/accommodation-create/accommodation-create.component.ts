@@ -12,6 +12,7 @@ import { FormUtils, FormValidators } from '../../utils/form-utils';
 import { AccommodationDetails } from '../accommodation-details.model';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-accommodation-create',
   templateUrl: './accommodation-create.component.html',
