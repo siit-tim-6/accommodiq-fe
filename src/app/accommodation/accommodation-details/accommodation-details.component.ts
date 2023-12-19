@@ -6,7 +6,7 @@ import {
   AccommodationTotalPrice,
 } from '../accommodation.model';
 import { getTimestampSeconds } from '../../utils/date.utils';
-import { Subscription, of, switchMap } from 'rxjs';
+import { EMPTY, Subscription, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-accommodation-details',
@@ -32,6 +32,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
 
   today: Date = new Date();
   positiveInteger: RegExp = /^[1-9]\d*$/;
+  accommodationAvailable: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -129,16 +130,10 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
       this.isRangeDatesValid() &&
       this.accommodationDetails.pricingType === 'PER_NIGHT'
     ) {
-      this.accommodationService
-        .getTotalPrice(
-          this.accommodationDetails.id,
-          getTimestampSeconds(this.rangeDates[0]),
-          getTimestampSeconds(this.rangeDates[1]),
-          0,
-        )
-        .subscribe((accommodationTotalPrice) => {
+      this.getPriceObservable().subscribe((accommodationTotalPrice) => {
+        if (accommodationTotalPrice !== undefined)
           this.totalPrice = accommodationTotalPrice.totalPrice;
-        });
+      });
     } else if (
       this.rangeDates !== undefined &&
       this.isRangeDatesValid() &&
@@ -146,16 +141,10 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
       this.guests !== undefined &&
       this.isGuestsValid()
     ) {
-      this.accommodationService
-        .getTotalPrice(
-          this.accommodationDetails.id,
-          getTimestampSeconds(this.rangeDates[0]),
-          getTimestampSeconds(this.rangeDates[1]),
-          this.guests,
-        )
-        .subscribe((accommodationTotalPrice) => {
+      this.getPriceObservable().subscribe((accommodationTotalPrice) => {
+        if (accommodationTotalPrice !== undefined)
           this.totalPrice = accommodationTotalPrice.totalPrice;
-        });
+      });
     }
   }
 
@@ -166,16 +155,10 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
       this.guests !== undefined &&
       this.isGuestsValid()
     ) {
-      this.accommodationService
-        .getTotalPrice(
-          this.accommodationDetails.id,
-          getTimestampSeconds(this.rangeDates[0]),
-          getTimestampSeconds(this.rangeDates[1]),
-          this.guests,
-        )
-        .subscribe((accommodationTotalPrice) => {
+      this.getPriceObservable().subscribe((accommodationTotalPrice) => {
+        if (accommodationTotalPrice !== undefined)
           this.totalPrice = accommodationTotalPrice.totalPrice;
-        });
+      });
     }
   }
 
@@ -199,6 +182,42 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   }
 
   areFieldsValid() {
-    return this.isGuestsValid() && this.isRangeDatesValid();
+    return (
+      this.isGuestsValid() &&
+      this.isRangeDatesValid() &&
+      this.accommodationAvailable
+    );
+  }
+
+  private getPriceObservable() {
+    return this.accommodationService
+      .getIsAvailable(
+        this.accommodationDetails.id,
+        getTimestampSeconds(
+          this.rangeDates === undefined ? new Date() : this.rangeDates[0],
+        ),
+        getTimestampSeconds(
+          this.rangeDates === undefined ? new Date() : this.rangeDates[1],
+        ),
+      )
+      .pipe(
+        switchMap((accommodationAvailability) => {
+          this.accommodationAvailable = accommodationAvailability.available;
+          if (this.accommodationAvailable) {
+            return this.accommodationService.getTotalPrice(
+              this.accommodationDetails.id,
+              getTimestampSeconds(
+                this.rangeDates === undefined ? new Date() : this.rangeDates[0],
+              ),
+              getTimestampSeconds(
+                this.rangeDates === undefined ? new Date() : this.rangeDates[1],
+              ),
+              this.guests === undefined ? 0 : this.guests,
+            );
+          } else {
+            return EMPTY;
+          }
+        }),
+      );
   }
 }
