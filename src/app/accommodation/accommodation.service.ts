@@ -7,6 +7,7 @@ import {
 } from 'rxjs';
 import {
   Accommodation,
+  AccommodationAvailability,
   AccommodationCreateDto,
   AccommodationDetails,
   AccommodationDetailsDto,
@@ -136,6 +137,16 @@ export class AccommodationService {
     return this.httpClient.get<AccommodationTotalPrice>(`
     ${environment.apiHost}accommodations/${id}/total-price?dateFrom=${dateFrom}&dateTo=${dateTo}&guests=${guests}
     `);
+  }
+
+  getIsAvailbale(
+    id: number,
+    dateFrom: number,
+    dateTo: number,
+  ): Observable<AccommodationAvailability> {
+    return this.httpClient.get<AccommodationAvailability>(
+      `${environment.apiHost}accommodations/${id}/is-available?dateFrom=${dateFrom}&dateTo=${dateTo}`,
+    );
   }
 
   updateRangeDatesSearch(rangeDates: Date[] | undefined) {

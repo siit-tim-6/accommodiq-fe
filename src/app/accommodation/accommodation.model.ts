@@ -130,3 +130,7 @@ export type AccommodationDetails = {
 export type AccommodationTotalPrice = {
   totalPrice: number;
 };
+
+export type AccommodationAvailability = {
+  isAvailable: boolean;
+};
