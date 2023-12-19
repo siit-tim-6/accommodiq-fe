@@ -102,6 +102,7 @@
       <p-button
         label="Reserve"
         [disabled]="areFieldsValid() !== true"
+        (onClick)="makeReservation()"
       ></p-button>
     </div>
 

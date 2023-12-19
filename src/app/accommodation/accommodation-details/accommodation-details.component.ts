@@ -220,4 +220,9 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
         }),
       );
   }
+
+  makeReservation() {
+    console.log('a');
+    // code to make a reservation (api call)
+  }
 }
