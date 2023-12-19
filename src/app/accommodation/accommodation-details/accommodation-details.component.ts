@@ -7,6 +7,7 @@ import {
 } from '../accommodation.model';
 import { getTimestampSeconds } from '../../utils/date.utils';
 import { EMPTY, Subscription, of, switchMap } from 'rxjs';
+import { AccountRole } from '../../layout/account-info/account.model';
 
 @Component({
   selector: 'app-accommodation-details',
@@ -224,5 +225,26 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   makeReservation() {
     console.log('a');
     // code to make a reservation (api call)
+  }
+
+  // will get removed when we make infrastructure module
+  private extractToken(token: string) {
+    let jwtData = token.split('.')[1];
+    let decodedJwtJsonData = window.atob(jwtData);
+    return JSON.parse(decodedJwtJsonData);
+  }
+
+  getRole(): AccountRole | null {
+    let token = localStorage.getItem('user');
+    if (token == null) return null;
+
+    let decodedJwtData = this.extractToken(token);
+
+    if (Date.now() >= decodedJwtData.exp * 1000) {
+      localStorage.removeItem('user');
+      return null;
+    }
+
+    return decodedJwtData.role.toUpperCase() as AccountRole;
   }
 }
