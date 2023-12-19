@@ -139,7 +139,7 @@ export class AccommodationService {
     `);
   }
 
-  getIsAvailbale(
+  getIsAvailable(
     id: number,
     dateFrom: number,
     dateTo: number,
