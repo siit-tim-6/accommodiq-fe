@@ -45,7 +45,7 @@ export class AccommodationService {
 
   getAccommodation(id: number): Observable<AccommodationDetails> {
     return this.httpClient.get<AccommodationDetails>(
-      `${environment.apiHost}'accommodations/${id}`,
+      `${environment.apiHost}accommodations/${id}`,
     );
   }
 
