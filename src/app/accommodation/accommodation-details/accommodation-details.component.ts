@@ -31,6 +31,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   totalPrice: number | undefined;
 
   today: Date = new Date();
+  positiveInteger: RegExp = /^[1-9]\d*$/;
 
   constructor(
     private route: ActivatedRoute,
@@ -120,5 +121,84 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+  }
+
+  calendarBlur() {
+    if (
+      this.rangeDates !== undefined &&
+      this.isRangeDatesValid() &&
+      this.accommodationDetails.pricingType === 'PER_NIGHT'
+    ) {
+      this.accommodationService
+        .getTotalPrice(
+          this.accommodationDetails.id,
+          getTimestampSeconds(this.rangeDates[0]),
+          getTimestampSeconds(this.rangeDates[1]),
+          0,
+        )
+        .subscribe((accommodationTotalPrice) => {
+          this.totalPrice = accommodationTotalPrice.totalPrice;
+        });
+    } else if (
+      this.rangeDates !== undefined &&
+      this.isRangeDatesValid() &&
+      this.accommodationDetails.pricingType === 'PER_GUEST' &&
+      this.guests !== undefined &&
+      this.isGuestsValid()
+    ) {
+      this.accommodationService
+        .getTotalPrice(
+          this.accommodationDetails.id,
+          getTimestampSeconds(this.rangeDates[0]),
+          getTimestampSeconds(this.rangeDates[1]),
+          this.guests,
+        )
+        .subscribe((accommodationTotalPrice) => {
+          this.totalPrice = accommodationTotalPrice.totalPrice;
+        });
+    }
+  }
+
+  guestsChange() {
+    if (
+      this.rangeDates !== undefined &&
+      this.isRangeDatesValid() &&
+      this.guests !== undefined &&
+      this.isGuestsValid()
+    ) {
+      this.accommodationService
+        .getTotalPrice(
+          this.accommodationDetails.id,
+          getTimestampSeconds(this.rangeDates[0]),
+          getTimestampSeconds(this.rangeDates[1]),
+          this.guests,
+        )
+        .subscribe((accommodationTotalPrice) => {
+          this.totalPrice = accommodationTotalPrice.totalPrice;
+        });
+    }
+  }
+
+  private isGuestsValid() {
+    if (this.guests !== undefined)
+      return (
+        +this.guests >= this.accommodationDetails.minGuests &&
+        +this.guests <= this.accommodationDetails.maxGuests
+      );
+    return false;
+  }
+
+  private isRangeDatesValid() {
+    if (this.rangeDates !== undefined)
+      return (
+        this.rangeDates.length === 2 &&
+        this.rangeDates[0] != null &&
+        this.rangeDates[1] !== null
+      );
+    return false;
+  }
+
+  areFieldsValid() {
+    return this.isGuestsValid() && this.isRangeDatesValid();
   }
 }

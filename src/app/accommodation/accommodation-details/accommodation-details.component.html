@@ -72,14 +72,21 @@
         [showIcon]="true"
         placeholder="Date"
         [minDate]="today"
+        [required]="true"
+        (onBlur)="calendarBlur()"
       />
       <span class="p-input-icon-left">
         <i class="pi pi-users"></i>
         <input
           [(ngModel)]="guests"
-          type="text"
+          type="number"
           pInputText
           placeholder="Guests"
+          [pKeyFilter]="positiveInteger"
+          [min]="accommodationDetails.minGuests"
+          [max]="accommodationDetails.maxGuests"
+          required
+          (change)="guestsChange()"
         />
       </span>
       <p *ngIf="totalPrice !== undefined">
@@ -92,7 +99,10 @@
         >
         / night
       </p>
-      <p-button label="Reserve"></p-button>
+      <p-button
+        label="Reserve"
+        [disabled]="areFieldsValid() !== true"
+      ></p-button>
     </div>
 
     <p class="description">
