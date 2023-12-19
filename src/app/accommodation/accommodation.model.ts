@@ -132,5 +132,5 @@ export type AccommodationTotalPrice = {
 };
 
 export type AccommodationAvailability = {
-  isAvailable: boolean;
+  available: boolean;
 };
