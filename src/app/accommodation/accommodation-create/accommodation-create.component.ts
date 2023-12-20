@@ -31,26 +31,18 @@ export class AccommodationCreateComponent implements OnInit {
 
   benefitOptions = [
     {
-      value: 'breakfast',
-      label: 'Breakfast',
       benefitName: 'Private Balcony',
       isChecked: false,
     },
     {
-      value: 'kitchen',
-      label: 'Kitchen',
       benefitName: 'Fully Equipped Kitchen',
       isChecked: false,
     },
     {
-      value: 'parking',
-      label: 'Parking',
       benefitName: 'Complimentary Breakfast',
       isChecked: false,
     },
     {
-      value: 'ac',
-      label: 'AC',
       benefitName: 'Air Conditioning',
       isChecked: false,
     },
@@ -207,5 +199,5 @@ export class AccommodationCreateComponent implements OnInit {
       },
     );
     this.initializeFormGroup();
-  }
+  } 
 }
