@@ -10,7 +10,7 @@ import { AccommodationAdvancedDetails } from '../accommodation-details.model';
 })
 export class AccommodationUpdateComponent {
   accommodation!: AccommodationAdvancedDetails;
-  accommodationLoaded: Promise<boolean> = Promise.resolve(false);
+  isLoaded: boolean = false;
 
   constructor(
     private accommodationService: AccommodationService,
@@ -24,7 +24,7 @@ export class AccommodationUpdateComponent {
         .subscribe({
           next: (accommodationDetails) => {
             this.accommodation = accommodationDetails;
-            this.accommodationLoaded = Promise.resolve(true);
+            this.isLoaded = true;
           },
           error: (_) => {
             this.router.navigate(['search']);
