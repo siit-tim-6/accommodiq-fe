@@ -10,7 +10,21 @@
       {{ accommodation.title }}
     </h2>
 
-    <div *ngIf="!showAcceptanceButtons">
+    <div class="icon-container" *ngIf="!showAcceptanceButtons">
+      <i
+        *ngIf="accommodation.status !== undefined"
+        class="pi pi-calendar-plus"
+        style="color: dodgerblue; font-size: 2rem"
+        [routerLink]="['/accommodation-availability-pricing', accommodation.id]"
+      ></i>
+
+      <i
+        *ngIf="accommodation.status !== undefined"
+        class="pi pi-wrench"
+        style="color: dodgerblue; font-size: 2rem"
+        [routerLink]="['/accommodation-update', accommodation.id]"
+      ></i>
+
       <p-button
         *ngIf="accommodation.status === undefined"
         icon="pi pi-heart"
@@ -37,7 +51,7 @@
       ></i>
     </div>
 
-    <div class="acceptance-div" *ngIf="showAcceptanceButtons">
+    <div class="icon-container" *ngIf="showAcceptanceButtons">
       <i
         (click)="onClick(AccommodationStatus.ACCEPTED)"
         class="pi pi-check-circle"

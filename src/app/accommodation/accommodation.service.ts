@@ -1,21 +1,23 @@
-import { Injectable } from '@angular/core';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
-import { environment } from '../../env/env';
 import {
   Accommodation,
   AccommodationBookingDetailFormDto,
   AccommodationBookingDetailsDto,
-  AccommodationCreateDto,
+  AccommodationModifyDto,
   AccommodationDetailsDto,
   AccommodationFormData,
   Availability,
   AvailabilityDto,
   MessageDto,
-  PricingType,
   AccommodationStatus,
 } from './accommodation.model';
-import { AccommodationDetails } from './accommodation-details.model';
 import { HttpClient, HttpResponse } from '@angular/common/http';
+import { environment } from '../../env/env';
+import {
+  AccommodationAdvancedDetails,
+  AccommodationDetails,
+} from './accommodation-details.model';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -75,28 +77,22 @@ export class AccommodationService {
 
   createAccommodation(
     formData: AccommodationFormData,
-    availabilityRanges: AvailabilityDto[],
     images: File[],
   ): Observable<AccommodationDetailsDto> {
     console.log(formData);
     return this.uploadImages(images).pipe(
       switchMap((uploadedImagePaths: string[]) => {
-        const accommodationData: AccommodationCreateDto = {
+        const accommodationData: AccommodationModifyDto = {
           title: formData.name,
           description: formData.description,
           location: formData.location,
           minGuests: formData.minGuests,
           maxGuests: formData.maxGuests,
-          available: availabilityRanges,
-          pricingType: formData.pricePerGuest
-            ? PricingType.PerGuest
-            : PricingType.PerNight,
           automaticAcceptance: formData.automaticallyAcceptIncomingReservations,
           images: uploadedImagePaths,
           type: formData.apartmentType,
           benefits: formData.benefits,
         };
-        console.log(accommodationData.benefits);
         return this.httpClient.post<AccommodationDetailsDto>(
           environment.apiHost + 'hosts/' + 'accommodations',
           accommodationData,
@@ -109,6 +105,37 @@ export class AccommodationService {
     );
   }
 
+  updateAccommodation(
+    formData: AccommodationFormData,
+    images: File[],
+    accommodationId: number,
+  ): Observable<HttpResponse<AccommodationDetailsDto>> {
+    return this.uploadImages(images).pipe(
+      switchMap((uploadedImagePaths: string[]) => {
+        const accommodationData: AccommodationModifyDto = {
+          id: accommodationId,
+          title: formData.name,
+          description: formData.description,
+          location: formData.location,
+          minGuests: formData.minGuests,
+          maxGuests: formData.maxGuests,
+          automaticAcceptance: formData.automaticallyAcceptIncomingReservations,
+          images: uploadedImagePaths,
+          type: formData.apartmentType,
+          benefits: formData.benefits,
+        };
+
+        return this.httpClient.put<HttpResponse<AccommodationDetailsDto>>(
+          environment.apiHost + 'accommodations',
+          accommodationData,
+        );
+      }),
+      catchError((error) => {
+        return throwError(error);
+      }),
+    );
+  }
+
   uploadImages(files: File[]): Observable<string[]> {
     const formData = new FormData();
     files.forEach((file) => formData.append('images', file));
@@ -116,6 +143,12 @@ export class AccommodationService {
       environment.apiHost + 'images',
       formData,
     );
+  }
+
+  getImage(filename: string): Observable<Blob> {
+    return this.httpClient.get(`${environment.apiHost}images/${filename}`, {
+      responseType: 'blob',
+    });
   }
 
   getAccommodationBookingDetails(
@@ -165,6 +198,14 @@ export class AccommodationService {
     return this.httpClient.put<HttpResponse<AccommodationDetails>>(
       `${environment.apiHost}accommodations/${id}/status`,
       { status: status },
+    );
+  }
+
+  getAccommodationAdvancedDetails(
+    id: number,
+  ): Observable<AccommodationAdvancedDetails> {
+    return this.httpClient.get<AccommodationAdvancedDetails>(
+      `${environment.apiHost}accommodations/${id}/advanced`,
     );
   }
 }

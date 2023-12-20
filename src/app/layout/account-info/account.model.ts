@@ -3,3 +3,11 @@ export enum AccountRole {
   GUEST = 'GUEST',
   ADMIN = 'ADMIN',
 }
+
+export interface AccountDetails {
+  firstName: string;
+  lastName: string;
+  email: string;
+  address: string;
+  phoneNumber: string;
+}

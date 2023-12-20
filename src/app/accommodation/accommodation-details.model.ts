@@ -16,3 +16,16 @@ export type AccommodationDetails = {
   benefits: string[];
   type: string;
 };
+
+export type AccommodationAdvancedDetails = {
+  id: number;
+  title: string;
+  description: string;
+  location: string;
+  minGuests: number;
+  maxGuests: number;
+  automaticAcceptance: boolean;
+  type: string;
+  images: string[];
+  benefits: string[];
+};
