@@ -8,8 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { FormUtils, FormValidators } from '../../utils/form.utils';
-import { AccommodationAdvancedDetails } from '../accommodation-details.model';
 import { Router } from '@angular/router';
+import { AccommodationAdvancedDetails } from '../accommodation.model';
 
 @Component({
   selector: 'app-accommodation-create',
