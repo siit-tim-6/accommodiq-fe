@@ -213,6 +213,8 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   }
 
   private getPriceObservable() {
+    this.accommodationAvailable = false;
+
     return this.accommodationService
       .getIsAvailable(
         this.accommodationDetails.id,
