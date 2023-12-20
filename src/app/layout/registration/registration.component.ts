@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RegistrationService } from './registration.service';
 import { Account, User } from './registration.model';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-registration',
@@ -22,6 +23,7 @@ export class RegistrationComponent {
   constructor(
     private registrationService: RegistrationService,
     private router: Router,
+    private messageService: MessageService,
   ) {}
 
   onSubmit() {
@@ -46,23 +48,37 @@ export class RegistrationComponent {
       this.registrationService.registerUser(account).subscribe({
         next: (response) => {
           console.log('Registration successful', response);
-          alert('Registration successful. Verify your email');
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Registration Successful',
+            detail: 'Registration successful. Verify your email',
+          });
           this.router.navigate(['/login']);
         },
         error: (error) => {
           console.error('Registration failed', error);
+          let detailMessage = 'Registration failed';
           if (
             error.error &&
             error.error.message === 'Email is already in use'
           ) {
-            alert('Registration failed: Email is already in use');
-          } else {
-            alert('Registration failed');
+            detailMessage = 'Registration failed: Email is already in use';
           }
+
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Registration Failed',
+            detail: detailMessage,
+          });
         },
       });
     } else {
       console.log('Invalid form');
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Invalid Form',
+        detail: 'Please fill out the form correctly.',
+      });
     }
   }
 
