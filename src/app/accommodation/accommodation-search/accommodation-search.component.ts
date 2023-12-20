@@ -54,22 +54,17 @@ export class AccommodationSearchComponent implements OnInit {
   onClear = new EventEmitter<never>();
 
   ngOnInit(): void {
-    let sessionRangeDates = sessionStorage.getItem('lastSearchedRangeDates');
-    let sessionGuests = sessionStorage.getItem('lastSearchedGuests');
+    let sessionLastSearched = sessionStorage.getItem('lastSearched');
 
-    if (sessionRangeDates) {
-      let dates = sessionRangeDates.split(',');
-      this.rangeDates = [new Date(dates[0]), new Date(dates[1])];
-    }
-
-    if (sessionGuests) {
-      this.guests = sessionGuests;
+    if (sessionLastSearched) {
+      let lastSearched = JSON.parse(sessionLastSearched);
+      this.populateSearchParams(lastSearched);
     }
 
     this.accommodationService.updateRangeDatesSearch(this.rangeDates);
     this.accommodationService.updateGuestsSearch(this.guests);
 
-    if (sessionRangeDates || sessionGuests) {
+    if (sessionLastSearched) {
       this.onSearch.emit({
         location: this.location,
         rangeDates: this.rangeDates,
@@ -84,7 +79,7 @@ export class AccommodationSearchComponent implements OnInit {
   }
 
   search() {
-    this.onSearch.emit({
+    let searchParams: SearchParams = {
       location: this.location,
       rangeDates: this.rangeDates,
       guests: this.guests,
@@ -93,18 +88,14 @@ export class AccommodationSearchComponent implements OnInit {
       maxPrice: this.maxPrice,
       type: this.selectedAccommodationType,
       benefits: this.selectedBenefits,
-    });
+    };
+
+    this.onSearch.emit(searchParams);
 
     this.accommodationService.updateRangeDatesSearch(this.rangeDates);
     this.accommodationService.updateGuestsSearch(this.guests);
 
-    if (this.rangeDates !== undefined)
-      sessionStorage.setItem(
-        'lastSearchedRangeDates',
-        this.rangeDates?.toString(),
-      );
-    if (this.guests !== undefined)
-      sessionStorage.setItem('lastSearchedGuests', this.guests.toString());
+    sessionStorage.setItem('lastSearched', JSON.stringify(searchParams));
   }
 
   clear() {
@@ -130,5 +121,16 @@ export class AccommodationSearchComponent implements OnInit {
   clearDropdown(dropdown: Dropdown, event: Event) {
     this.selectedAccommodationType = '';
     dropdown.clear(event);
+  }
+
+  private populateSearchParams(searchParams: SearchParams) {
+    this.location = searchParams.location;
+    this.rangeDates = searchParams.rangeDates;
+    this.title = searchParams.title;
+    this.guests = searchParams.guests;
+    this.minPrice = searchParams.minPrice;
+    this.maxPrice = searchParams.maxPrice;
+    this.selectedAccommodationType = searchParams.type;
+    this.selectedBenefits = searchParams.benefits;
   }
 }
