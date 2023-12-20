@@ -17,6 +17,7 @@ export interface Accommodation {
   accepted?: boolean;
   pricingType: string;
   status?: AccommodationStatus;
+  image: string;
 }
 
 export interface AccommodationModifyDto {

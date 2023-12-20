@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Accommodation, AccommodationStatus } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
+import { environment } from '../../../env/env';
 
 @Component({
   selector: 'app-accommodation-card',
@@ -13,6 +14,7 @@ export class AccommodationCardComponent {
   @Output() modifiedSuccessfully = new EventEmitter<number>();
   protected readonly Math = Math;
   protected readonly AccommodationStatus = AccommodationStatus;
+  protected readonly imageBase = environment.imageBase;
 
   constructor(private accommodationService: AccommodationService) {}
 
