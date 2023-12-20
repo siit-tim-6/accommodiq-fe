@@ -125,7 +125,12 @@ export class AccommodationSearchComponent implements OnInit {
 
   private populateSearchParams(searchParams: SearchParams) {
     this.location = searchParams.location;
-    this.rangeDates = searchParams.rangeDates;
+    if (searchParams.rangeDates)
+      this.rangeDates = [
+        new Date(searchParams.rangeDates[0]),
+        new Date(searchParams.rangeDates[1]),
+      ];
+    else this.rangeDates = undefined;
     this.title = searchParams.title;
     this.guests = searchParams.guests;
     this.minPrice = searchParams.minPrice;
