@@ -223,8 +223,23 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   }
 
   makeReservation() {
-    console.log('a');
-    // code to make a reservation (api call)
+    let userId = this.getUserId();
+    if (
+      userId !== null &&
+      this.rangeDates !== undefined &&
+      this.guests !== undefined
+    ) {
+      this.accommodationService
+        .createReservation(userId, {
+          accommodationId: this.accommodationId,
+          startDate: getTimestampSeconds(this.rangeDates[0]),
+          endDate: getTimestampSeconds(this.rangeDates[1]),
+          numberOfGuests: +this.guests,
+        })
+        .subscribe(() => {
+          alert('Reservation created successfully.');
+        });
+    }
   }
 
   // will get removed when we make infrastructure module
@@ -248,7 +263,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
     return decodedJwtData.role.toUpperCase() as AccountRole;
   }
 
-  private getId(): number | null {
+  private getUserId(): number | null {
     let token = localStorage.getItem('user');
     if (token == null) return null;
 
