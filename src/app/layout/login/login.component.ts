@@ -38,17 +38,10 @@ export class LoginComponent {
         localStorage.setItem('user', jwt);
         this.roleService.updateRole(this.loginService.getRole());
 
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Login Successful',
-          detail: 'You have successfully logged in',
-        });
-
         this.router.navigate(['/search']);
       },
       error: (err) => {
-        let errorMessage = 'An error occurred. Please try again.';
-        let severity = 'error';
+        let errorMessage: string = 'An error occurred. Please try again.';
 
         if (err.status === 401) {
           // The backend returns 401 for both disabled accounts and bad credentials
@@ -60,7 +53,7 @@ export class LoginComponent {
         }
 
         this.messageService.add({
-          severity: severity,
+          severity: 'error',
           summary: 'Login Failed',
           detail: errorMessage,
         });

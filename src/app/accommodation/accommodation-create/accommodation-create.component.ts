@@ -97,12 +97,14 @@ export class AccommodationCreateComponent implements OnInit {
         .createAccommodation(this.formGroup.value, this.images)
         .subscribe({
           next: (_) => {
-            this.router.navigate(['my-accommodations']); // Add snackbar maybe?
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
               detail: 'Accommodation created successfully!',
             });
+            setTimeout(() => {
+              this.router.navigate(['my-accommodations']);
+            }, 2000); // 2000 milliseconds delay (2 seconds)
           },
           error: (error) => {
             this.messageService.add({

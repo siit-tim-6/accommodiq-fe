@@ -53,7 +53,9 @@ export class RegistrationComponent {
             summary: 'Registration Successful',
             detail: 'Registration successful. Verify your email',
           });
-          this.router.navigate(['/login']);
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 3000); // 2000 milliseconds delay (2 seconds)
         },
         error: (error) => {
           console.error('Registration failed', error);
