@@ -47,8 +47,7 @@
           <div *ngFor="let benefit of benefitOptions" class="checkbox-option">
             <p-checkbox
               name="benefits"
-              [value]="benefit.value"
-              [label]="benefit.label"
+              [label]="benefit.benefitName"
               [binary]="true"
               (onChange)="onBenefitChange($event.checked, benefit.benefitName)"
               [ngModel]="benefit.isChecked"

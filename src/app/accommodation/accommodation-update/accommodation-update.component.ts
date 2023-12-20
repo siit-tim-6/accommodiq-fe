@@ -10,7 +10,7 @@ import { AccommodationAdvancedDetails } from '../accommodation-details.model';
 })
 export class AccommodationUpdateComponent {
   accommodation!: AccommodationAdvancedDetails;
-  accommodationLoaded!: Promise<boolean>;
+  accommodationLoaded: Promise<boolean> = Promise.resolve(false);
 
   constructor(
     private accommodationService: AccommodationService,
@@ -32,6 +32,4 @@ export class AccommodationUpdateComponent {
         });
     });
   }
-
-  ngOnInit(): void {}
 }
