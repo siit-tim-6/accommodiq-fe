@@ -17,7 +17,7 @@ export interface Accommodation {
   status?: AccommodationStatus;
 }
 
-export interface AccommodationCreateDto {
+export interface AccommodationModifyDto {
   id?: number;
   title: string;
   description: string;
