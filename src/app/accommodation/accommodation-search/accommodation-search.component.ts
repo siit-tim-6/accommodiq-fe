@@ -112,10 +112,9 @@ export class AccommodationSearchComponent implements OnInit {
     this.accommodationService.updateRangeDatesSearch(this.rangeDates);
     this.accommodationService.updateGuestsSearch(this.guests);
 
-    if (sessionStorage.getItem('lastSearchedRangeDates'))
-      sessionStorage.removeItem('lastSearchedRangeDates');
-    if (sessionStorage.getItem('lastSearchedGuests'))
-      sessionStorage.removeItem('lastSearchedGuests');
+    if (sessionStorage.getItem('lastSearched')) {
+      sessionStorage.removeItem('lastSearched');
+    }
   }
 
   clearDropdown(dropdown: Dropdown, event: Event) {
