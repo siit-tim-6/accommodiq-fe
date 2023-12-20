@@ -75,14 +75,8 @@
             [maxFileSize]="1000000"
             [auto]="true"
             chooseLabel="Select Images"
+            #imageUpload
           >
-            <ng-template pTemplate="content">
-              <ul *ngIf="images.length">
-                <li *ngFor="let file of images" class="uploaded-image-item">
-                  {{ file.name }}
-                </li>
-              </ul>
-            </ng-template>
           </p-fileUpload>
         </div>
 

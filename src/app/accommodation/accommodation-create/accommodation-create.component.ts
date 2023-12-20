@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AccommodationService } from '../accommodation.service';
 import {
   FormArray,
@@ -9,6 +9,8 @@ import {
 } from '@angular/forms';
 import { FormUtils, FormValidators } from '../../utils/form.utils';
 import { Router } from '@angular/router';
+import { FileUpload } from 'primeng/fileupload';
+import { forkJoin, mergeMap, of } from 'rxjs';
 import { AccommodationAdvancedDetails } from '../accommodation.model';
 
 @Component({
@@ -50,6 +52,8 @@ export class AccommodationCreateComponent implements OnInit {
   formGroup!: FormGroup;
   submitAttempted = false;
 
+  @ViewChild('imageUpload') imageUpload!: FileUpload;
+
   constructor(
     private accommodationService: AccommodationService,
     private formBuilder: FormBuilder,
@@ -90,6 +94,7 @@ export class AccommodationCreateComponent implements OnInit {
   onFileSelect($event: any): void {
     if ($event.files && $event.files.length > 0) {
       for (let file of $event.files) {
+        console.log(file);
         this.formGroup.value.images.push(file);
       }
     }
@@ -165,20 +170,34 @@ export class AccommodationCreateComponent implements OnInit {
     return this.formGroup.valid && this.images.length > 0;
   }
 
-  private fetchImages(imageFilenames: string[]): void {
-    imageFilenames.forEach((filename) => {
-      this.accommodationService.getImage(filename).subscribe((blob) => {
-        const imageFile = new File([blob], filename, { type: blob.type });
-        this.images.push(imageFile);
-        this.formGroup.patchValue({ images: this.images });
-      });
-    });
+  private fetchImages(imageFilenames: string[]) {
+    return of(imageFilenames).pipe(
+      mergeMap((filenames) =>
+        forkJoin(
+          ...filenames.map((filename) =>
+            this.accommodationService.getImage(filename),
+          ),
+        ),
+      ),
+    );
   }
 
   ngOnInit() {
-    if (this.accommodationToUpdate?.images) {
-      this.fetchImages(this.accommodationToUpdate.images);
-    }
+    this.fetchImages(this.accommodationToUpdate?.images ?? []).subscribe(
+      (blobs) => {
+        this.imageUpload.clear();
+        blobs.forEach((blob, i) => {
+          // mora any jer mu fali objectURL property da bi se prikazao
+          const imageFile: any = new File(
+            [blob],
+            this.accommodationToUpdate?.images[i]!,
+            { type: blob.type },
+          );
+          imageFile.objectURL = window.URL.createObjectURL(blob);
+          this.imageUpload.files.push(imageFile);
+        });
+      },
+    );
     this.initializeFormGroup();
-  }
+  } 
 }
