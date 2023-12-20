@@ -145,14 +145,8 @@
       </div>
     </div>
     <p-button
-      *ngIf="accommodationToUpdate === undefined"
-      label="Create"
       type="submit"
-    ></p-button>
-    <p-button
-      *ngIf="accommodationToUpdate !== undefined"
-      label="Update"
-      type="submit"
+      [label]="accommodationToUpdate === undefined ? 'Create' : 'Update'"
     ></p-button>
   </form>
 </p-dialog>
