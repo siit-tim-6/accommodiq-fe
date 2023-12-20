@@ -3,7 +3,7 @@ import {
   Accommodation,
   AccommodationBookingDetailFormDto,
   AccommodationBookingDetailsDto,
-  AccommodationCreateDto,
+  AccommodationModifyDto,
   AccommodationDetailsDto,
   AccommodationFormData,
   Availability,
@@ -82,7 +82,7 @@ export class AccommodationService {
     console.log(formData);
     return this.uploadImages(images).pipe(
       switchMap((uploadedImagePaths: string[]) => {
-        const accommodationData: AccommodationCreateDto = {
+        const accommodationData: AccommodationModifyDto = {
           title: formData.name,
           description: formData.description,
           location: formData.location,
@@ -112,7 +112,7 @@ export class AccommodationService {
   ): Observable<HttpResponse<AccommodationDetailsDto>> {
     return this.uploadImages(images).pipe(
       switchMap((uploadedImagePaths: string[]) => {
-        const accommodationData: AccommodationCreateDto = {
+        const accommodationData: AccommodationModifyDto = {
           id: accommodationId,
           title: formData.name,
           description: formData.description,
