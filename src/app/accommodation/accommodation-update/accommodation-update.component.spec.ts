@@ -8,10 +8,9 @@ describe('AccommodationUpdateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AccommodationUpdateComponent]
-    })
-    .compileComponents();
-    
+      declarations: [AccommodationUpdateComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(AccommodationUpdateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

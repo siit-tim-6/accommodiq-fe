@@ -1,28 +1,41 @@
+import { BehaviorSubject } from 'rxjs';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import {
   Accommodation,
   AccommodationBookingDetailFormDto,
+  AccommodationAvailability,
   AccommodationBookingDetailsDto,
+  AccommodationDetails,
   AccommodationModifyDto,
   AccommodationDetailsDto,
   AccommodationFormData,
+  AccommodationTotalPrice,
   Availability,
   AvailabilityDto,
   MessageDto,
   AccommodationStatus,
+  ReservationRequest,
+  AccommodationAdvancedDetails,
 } from './accommodation.model';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from '../../env/env';
-import {
-  AccommodationAdvancedDetails,
-  AccommodationDetails,
-} from './accommodation-details.model';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccommodationService {
+  private accommodationList: Accommodation[] = [];
+  private rangeDatesSearchSubject$ = new BehaviorSubject<Date[] | undefined>(
+    undefined,
+  );
+  private guestsSearchSubject$ = new BehaviorSubject<
+    number | string | undefined
+  >(undefined);
+
+  rangeDatesSearch = this.rangeDatesSearchSubject$.asObservable();
+  guestsSearch = this.guestsSearchSubject$.asObservable();
+
   constructor(private httpClient: HttpClient) {}
 
   getAll(): Observable<Accommodation[]> {
@@ -33,7 +46,7 @@ export class AccommodationService {
 
   getAccommodation(id: number): Observable<AccommodationDetails> {
     return this.httpClient.get<AccommodationDetails>(
-      `${environment.apiHost}'accommodations/${id}`,
+      `${environment.apiHost}accommodations/${id}`,
     );
   }
 
@@ -145,6 +158,34 @@ export class AccommodationService {
     );
   }
 
+  getTotalPrice(
+    id: number,
+    dateFrom: number,
+    dateTo: number,
+    guests: number | string,
+  ): Observable<AccommodationTotalPrice> {
+    return this.httpClient.get<AccommodationTotalPrice>(`
+    ${environment.apiHost}accommodations/${id}/total-price?dateFrom=${dateFrom}&dateTo=${dateTo}&guests=${guests}
+    `);
+  }
+
+  getIsAvailable(
+    id: number,
+    dateFrom: number,
+    dateTo: number,
+  ): Observable<AccommodationAvailability> {
+    return this.httpClient.get<AccommodationAvailability>(
+      `${environment.apiHost}accommodations/${id}/is-available?dateFrom=${dateFrom}&dateTo=${dateTo}`,
+    );
+  }
+
+  updateRangeDatesSearch(rangeDates: Date[] | undefined) {
+    this.rangeDatesSearchSubject$.next(rangeDates);
+  }
+
+  updateGuestsSearch(guests: string | number | undefined) {
+    this.guestsSearchSubject$.next(guests);
+  }
   getImage(filename: string): Observable<Blob> {
     return this.httpClient.get(`${environment.apiHost}images/${filename}`, {
       responseType: 'blob',
@@ -198,6 +239,16 @@ export class AccommodationService {
     return this.httpClient.put<HttpResponse<AccommodationDetails>>(
       `${environment.apiHost}accommodations/${id}/status`,
       { status: status },
+    );
+  }
+
+  createReservation(
+    guestId: number,
+    reservation: ReservationRequest,
+  ): Observable<ReservationRequest> {
+    return this.httpClient.post<ReservationRequest>(
+      `${environment.apiHost}guests/${guestId}/reservations`,
+      reservation,
     );
   }
 

@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { SearchParams } from '../search-params.model';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Dropdown } from 'primeng/dropdown';
+import { AccommodationService } from '../accommodation.service';
+import { SearchParams } from '../accommodation.model';
 
 @Component({
   selector: 'app-accommodation-search',
   templateUrl: './accommodation-search.component.html',
   styleUrl: './accommodation-search.component.css',
 })
-export class AccommodationSearchComponent {
+export class AccommodationSearchComponent implements OnInit {
   accommodationTypes: string[] = [
     'Apartment',
     'House',
@@ -42,14 +43,43 @@ export class AccommodationSearchComponent {
   selectedAccommodationType: string = '';
   selectedBenefits: string[] = [];
 
+  today: Date = new Date();
+
+  constructor(private accommodationService: AccommodationService) {}
+
   @Output()
   onSearch = new EventEmitter<SearchParams>();
 
   @Output()
   onClear = new EventEmitter<never>();
 
+  ngOnInit(): void {
+    let sessionLastSearched = sessionStorage.getItem('lastSearched');
+
+    if (sessionLastSearched) {
+      let lastSearched = JSON.parse(sessionLastSearched);
+      this.populateSearchParams(lastSearched);
+    }
+
+    this.accommodationService.updateRangeDatesSearch(this.rangeDates);
+    this.accommodationService.updateGuestsSearch(this.guests);
+
+    if (sessionLastSearched) {
+      this.onSearch.emit({
+        location: this.location,
+        rangeDates: this.rangeDates,
+        guests: this.guests,
+        title: this.title,
+        minPrice: this.minPrice,
+        maxPrice: this.maxPrice,
+        type: this.selectedAccommodationType,
+        benefits: this.selectedBenefits,
+      });
+    }
+  }
+
   search() {
-    this.onSearch.emit({
+    let searchParams: SearchParams = {
       location: this.location,
       rangeDates: this.rangeDates,
       guests: this.guests,
@@ -58,7 +88,14 @@ export class AccommodationSearchComponent {
       maxPrice: this.maxPrice,
       type: this.selectedAccommodationType,
       benefits: this.selectedBenefits,
-    });
+    };
+
+    this.onSearch.emit(searchParams);
+
+    this.accommodationService.updateRangeDatesSearch(this.rangeDates);
+    this.accommodationService.updateGuestsSearch(this.guests);
+
+    sessionStorage.setItem('lastSearched', JSON.stringify(searchParams));
   }
 
   clear() {
@@ -71,10 +108,33 @@ export class AccommodationSearchComponent {
     this.selectedAccommodationType = '';
     this.selectedBenefits = [];
     this.onClear.emit();
+
+    this.accommodationService.updateRangeDatesSearch(this.rangeDates);
+    this.accommodationService.updateGuestsSearch(this.guests);
+
+    if (sessionStorage.getItem('lastSearched')) {
+      sessionStorage.removeItem('lastSearched');
+    }
   }
 
   clearDropdown(dropdown: Dropdown, event: Event) {
     this.selectedAccommodationType = '';
     dropdown.clear(event);
+  }
+
+  private populateSearchParams(searchParams: SearchParams) {
+    this.location = searchParams.location;
+    if (searchParams.rangeDates)
+      this.rangeDates = [
+        new Date(searchParams.rangeDates[0]),
+        new Date(searchParams.rangeDates[1]),
+      ];
+    else this.rangeDates = undefined;
+    this.title = searchParams.title;
+    this.guests = searchParams.guests;
+    this.minPrice = searchParams.minPrice;
+    this.maxPrice = searchParams.maxPrice;
+    this.selectedAccommodationType = searchParams.type;
+    this.selectedBenefits = searchParams.benefits;
   }
 }

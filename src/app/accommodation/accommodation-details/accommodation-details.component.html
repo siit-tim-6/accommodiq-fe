@@ -65,13 +65,49 @@
     </div>
 
     <div class="row" style="margin-bottom: 25px">
-      <p-calendar selectionMode="range" placeholder="Date" [showIcon]="true" />
+      <p-calendar
+        [(ngModel)]="rangeDates"
+        selectionMode="range"
+        placeholder="Date"
+        [showIcon]="true"
+        placeholder="Date"
+        [minDate]="today"
+        [required]="true"
+        (onBlur)="calendarBlur()"
+      />
       <span class="p-input-icon-left">
         <i class="pi pi-users"></i>
-        <input type="text" pInputText placeholder="Guests" />
+        <input
+          [(ngModel)]="guests"
+          type="number"
+          pInputText
+          placeholder="Guests"
+          [pKeyFilter]="positiveInteger"
+          [min]="accommodationDetails.minGuests"
+          [max]="accommodationDetails.maxGuests"
+          required
+          (change)="guestsChange()"
+        />
       </span>
-      <p><span class="bold">€540</span> EUR total</p>
-      <p-button label="Reserve"></p-button>
+      <p *ngIf="totalPrice !== undefined">
+        <span class="bold">€{{ totalPrice }}</span> EUR total
+      </p>
+      <p *ngIf="totalPrice === undefined">
+        From <span class="bold">€{{ accommodationDetails.minPrice }}</span
+        ><span *ngIf="accommodationDetails.pricingType === 'PER_GUEST'">
+          / guest</span
+        >
+        / night
+      </p>
+
+      <div [pTooltip]="getButtonError()">
+        <p-button
+          label="Reserve"
+          [disabled]="canMakeReservation() !== true"
+          (onClick)="makeReservation()"
+        >
+        </p-button>
+      </div>
     </div>
 
     <p class="description">

@@ -14,6 +14,8 @@ export interface Accommodation {
   totalPrice: number;
   minGuests: number;
   maxGuests: number;
+  accepted?: boolean;
+  pricingType: string;
   status?: AccommodationStatus;
 }
 
@@ -89,6 +91,56 @@ export interface AccommodationFormData {
   benefits: string[];
 }
 
+export type SearchParams = {
+  location: string;
+  rangeDates: Date[] | undefined;
+  guests: string | number | undefined;
+  title: string;
+  minPrice: number | undefined;
+  maxPrice: number | undefined;
+  type: string;
+  benefits: string[];
+};
+
+export type AccommodationHost = {
+  id: number;
+  name: string;
+  rating: number;
+  reviewCount: number;
+};
+
+export type AccommodationReview = {
+  author: string;
+  comment: string;
+  rating: number;
+  date: Date;
+};
+
+export type AccommodationDetails = {
+  id: number;
+  title: string;
+  rating: number;
+  reviewCount: number;
+  location: string;
+  host: AccommodationHost;
+  image: string;
+  minGuests: number;
+  maxGuests: number;
+  description: string;
+  reviews: AccommodationReview[];
+  benefits: string[];
+  type: string;
+  minPrice: number;
+  pricingType: string;
+};
+
+export type AccommodationTotalPrice = {
+  totalPrice: number;
+};
+
+export type AccommodationAvailability = {
+  available: boolean;
+};
 export interface AccommodationBookingDetailsDto {
   cancellationDeadline: number;
   pricingType: string;
@@ -103,3 +155,23 @@ export interface AccommodationBookingDetailFormDto {
 export interface MessageDto {
   message: string;
 }
+
+export type ReservationRequest = {
+  startDate: number;
+  endDate: number;
+  numberOfGuests: number;
+  accommodationId: number;
+};
+
+export type AccommodationAdvancedDetails = {
+  id: number;
+  title: string;
+  description: string;
+  location: string;
+  minGuests: number;
+  maxGuests: number;
+  automaticAcceptance: boolean;
+  type: string;
+  images: string[];
+  benefits: string[];
+};
