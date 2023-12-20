@@ -117,3 +117,12 @@ p-dropdown.ng-invalid.ng-touched {
   color: red;
   /* Add more styling as needed */
 }
+
+.uploaded-image-item {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%; /* Adjust as needed */
+  margin-bottom: 0.5rem; /* Spacing between items */
+  line-height: 1.5; /* Adjust line height as needed */
+}

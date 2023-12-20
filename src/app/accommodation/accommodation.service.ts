@@ -146,7 +146,7 @@ export class AccommodationService {
   }
 
   getImage(filename: string): Observable<Blob> {
-    return this.httpClient.get(`${environment.apiHost}/images/${filename}`, {
+    return this.httpClient.get(`${environment.apiHost}images/${filename}`, {
       responseType: 'blob',
     });
   }

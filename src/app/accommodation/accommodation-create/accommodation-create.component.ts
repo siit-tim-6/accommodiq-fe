@@ -178,12 +178,15 @@ export class AccommodationCreateComponent implements OnInit {
       this.accommodationService.getImage(filename).subscribe((blob) => {
         const imageFile = new File([blob], filename, { type: blob.type });
         this.images.push(imageFile);
+        this.formGroup.patchValue({ images: this.images });
       });
     });
   }
 
   ngOnInit() {
-    this.fetchImages(this.accommodationToUpdate?.images ?? []);
+    if (this.accommodationToUpdate?.images) {
+      this.fetchImages(this.accommodationToUpdate.images);
+    }
     this.initializeFormGroup();
   }
 }

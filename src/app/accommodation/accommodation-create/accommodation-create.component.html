@@ -79,8 +79,8 @@
           >
             <ng-template pTemplate="content">
               <ul *ngIf="images.length">
-                <li *ngFor="let file of images">
-                  {{ file.name }} - {{ file.size }}
+                <li *ngFor="let file of images" class="uploaded-image-item">
+                  {{ file.name }}
                 </li>
               </ul>
             </ng-template>
