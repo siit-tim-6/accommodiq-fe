@@ -156,3 +156,10 @@ export interface AccommodationBookingDetailFormDto {
 export interface MessageDto {
   message: string;
 }
+
+export type ReservationRequest = {
+  startDate: number;
+  endDate: number;
+  numberOfGuests: number;
+  accommodationId: number;
+};

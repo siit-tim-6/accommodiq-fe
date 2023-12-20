@@ -15,6 +15,7 @@ import {
   MessageDto,
   PricingType,
   AccommodationStatus,
+  ReservationRequest,
 } from './accommodation.model';
 import { Injectable } from '@angular/core';
 import { environment } from '../../env/env';
@@ -208,6 +209,16 @@ export class AccommodationService {
     return this.httpClient.put<HttpResponse<AccommodationDetails>>(
       `${environment.apiHost}accommodations/${id}/status`,
       { status: status },
+    );
+  }
+
+  createReservation(
+    guestId: number,
+    reservation: ReservationRequest,
+  ): Observable<ReservationRequest> {
+    return this.httpClient.post<ReservationRequest>(
+      `${environment.apiHost}guests/${guestId}/reservations`,
+      reservation,
     );
   }
 }
