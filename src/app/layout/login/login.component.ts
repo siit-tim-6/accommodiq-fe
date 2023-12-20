@@ -29,13 +29,27 @@ export class LoginComponent {
       password: this.password!,
     };
 
-    this.loginService.login(loginRequest).subscribe((response) => {
-      const jwt = response.jwt;
+    this.loginService.login(loginRequest).subscribe({
+      next: (response) => {
+        const jwt = response.jwt;
 
-      localStorage.setItem('user', jwt);
-      this.roleService.updateRole(this.loginService.getRole());
+        localStorage.setItem('user', jwt);
+        this.roleService.updateRole(this.loginService.getRole());
 
-      this.router.navigate(['/search']);
+        this.router.navigate(['/search']);
+      },
+      error: (err) => {
+        if (err.status === 401) {
+          // The backend returns 401 for both disabled accounts and bad credentials
+          // The specific error message from the backend will clarify which case it is
+          const errorMessage = err.error.message || 'Unauthorized access';
+          alert(errorMessage); // TODO:Replace alert with a more sophisticated notification system
+        } else if (err.status === 500) {
+          alert('An internal server error occurred. Please try again later.');
+        } else {
+          alert('An error occurred. Please try again.');
+        }
+      },
     });
   }
 
