@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { FileUpload } from 'primeng/fileupload';
 import { forkJoin, mergeMap, of } from 'rxjs';
 import { AccommodationAdvancedDetails } from '../accommodation.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-accommodation-create',
@@ -58,6 +59,7 @@ export class AccommodationCreateComponent implements OnInit {
     private accommodationService: AccommodationService,
     private formBuilder: FormBuilder,
     private router: Router,
+    private messageService: MessageService,
   ) {}
 
   onSubmit(): void {
@@ -74,6 +76,18 @@ export class AccommodationCreateComponent implements OnInit {
           .subscribe({
             next: (_) => {
               this.router.navigate(['my-accommodations']); // Add snackbar maybe?
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Success',
+                detail: 'Accommodation updated successfully!',
+              });
+            },
+            error: (error) => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Error updating accommodation. Please try again later.',
+              });
             },
           });
         return;
@@ -84,10 +98,27 @@ export class AccommodationCreateComponent implements OnInit {
         .subscribe({
           next: (_) => {
             this.router.navigate(['my-accommodations']); // Add snackbar maybe?
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Accommodation created successfully!',
+            });
+          },
+          error: (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error creating accommodation. Please try again later.',
+            });
           },
         });
     } else {
       FormUtils.markAllAsTouched(this.formGroup);
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Validation Error',
+        detail: 'Please check all fields before submitting.',
+      });
     }
   }
 
@@ -199,5 +230,5 @@ export class AccommodationCreateComponent implements OnInit {
       },
     );
     this.initializeFormGroup();
-  } 
+  }
 }
