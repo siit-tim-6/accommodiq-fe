@@ -8,6 +8,7 @@ import {
 import { getTimestampSeconds } from '../../utils/date.utils';
 import { EMPTY, Subscription, of, switchMap } from 'rxjs';
 import { AccountRole } from '../../layout/account-info/account.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-accommodation-details',
@@ -38,6 +39,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private accommodationService: AccommodationService,
+    private messageService: MessageService,
   ) {
     this.accommodationId = 0;
     this.accommodationDetails = {
@@ -260,8 +262,23 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
           endDate: getTimestampSeconds(this.rangeDates[1]),
           numberOfGuests: +this.guests,
         })
-        .subscribe(() => {
-          alert('Reservation created successfully.');
+        .subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Reservation Success',
+              detail: 'Reservation created successfully.',
+            });
+            // Optional: Navigate to a confirmation or success page
+            // this.router.navigate(['/reservation-success']);
+          },
+          error: (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Reservation Error',
+              detail: 'Failed to create reservation. Please try again later.',
+            });
+          },
         });
     }
   }
