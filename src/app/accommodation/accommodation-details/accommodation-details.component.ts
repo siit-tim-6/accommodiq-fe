@@ -247,4 +247,18 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
 
     return decodedJwtData.role.toUpperCase() as AccountRole;
   }
+
+  private getId(): number | null {
+    let token = localStorage.getItem('user');
+    if (token == null) return null;
+
+    let decodedJwtData = this.extractToken(token);
+
+    if (Date.now() >= decodedJwtData.exp * 1000) {
+      localStorage.removeItem('user');
+      return null;
+    }
+
+    return decodedJwtData.id;
+  }
 }
