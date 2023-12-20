@@ -100,7 +100,7 @@
         / night
       </p>
 
-      <div [pTooltip]="buttonError">
+      <div [pTooltip]="getButtonError()">
         <p-button
           label="Reserve"
           [disabled]="canMakeReservation() !== true"
