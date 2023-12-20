@@ -13,7 +13,10 @@ import {
 } from './accommodation.model';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from '../../env/env';
-import { AccommodationDetails } from './accommodation-details.model';
+import {
+  AccommodationAdvancedDetails,
+  AccommodationDetails,
+} from './accommodation-details.model';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -195,6 +198,14 @@ export class AccommodationService {
     return this.httpClient.put<HttpResponse<AccommodationDetails>>(
       `${environment.apiHost}accommodations/${id}/status`,
       { status: status },
+    );
+  }
+
+  getAccommodationAdvancedDetails(
+    id: number,
+  ): Observable<AccommodationAdvancedDetails> {
+    return this.httpClient.get<AccommodationAdvancedDetails>(
+      `${environment.apiHost}accommodations/${id}/advanced`,
     );
   }
 }

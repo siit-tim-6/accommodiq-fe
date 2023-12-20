@@ -7,7 +7,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { FormUtils, FormValidators } from '../../utils/form-utils';
+import { FormUtils, FormValidators } from '../../utils/form.utils';
 import { AccommodationAdvancedDetails } from '../accommodation-details.model';
 import { Router } from '@angular/router';
 

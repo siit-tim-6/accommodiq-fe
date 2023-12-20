@@ -13,7 +13,7 @@ import { AdminReviewListComponent } from './accommodation/admin-review-list/admi
 import { AccommodationAvailabilityPricingComponent } from './accommodation/accommodation-availability-pricing/accommodation-availability-pricing.component';
 import { CanActivateRole } from './guards/role.guard';
 import { AccountRole } from './layout/account-info/account.model';
-import {AccommodationUpdateComponent} from "./accommodation/accommodation-update/accommodation-update.component";
+import { AccommodationUpdateComponent } from './accommodation/accommodation-update/accommodation-update.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -29,10 +29,15 @@ const routes: Routes = [
   { path: 'accommodation-create', component: AccommodationCreateComponent },
   { path: 'notifications', component: NotificationListComponent },
   { path: 'my-accommodations', component: HostsAccommodationListComponent },
-  { path: 'accommodation-update/:accommodationId', component: AccommodationUpdateComponent, canActivate: [() => CanActivateRole(AccountRole.HOST)] },
+  {
+    path: 'accommodation-update/:accommodationId',
+    component: AccommodationUpdateComponent,
+    canActivate: [() => CanActivateRole(AccountRole.HOST)],
+  },
   {
     path: 'accommodation-availability-pricing/:accommodationId',
     component: AccommodationAvailabilityPricingComponent,
+    canActivate: [() => CanActivateRole(AccountRole.HOST)],
   },
   {
     path: 'accommodations-review',
