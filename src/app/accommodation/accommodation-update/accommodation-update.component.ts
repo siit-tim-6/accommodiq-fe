@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AccommodationService } from '../accommodation.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AccommodationAdvancedDetails } from '../accommodation-details.model';
+import { AccommodationAdvancedDetails } from '../accommodation.model';
 
 @Component({
   selector: 'app-accommodation-update',

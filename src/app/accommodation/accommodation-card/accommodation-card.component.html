@@ -101,7 +101,10 @@
       <span *ngIf="accommodation.totalPrice === 0">
         From
         <span class="bold"> €{{ accommodation.minPrice }} </span>
-        / night
+        <span *ngIf="accommodation.pricingType === 'PER_NIGHT'">/ night</span>
+        <span *ngIf="accommodation.pricingType === 'PER_GUEST'"
+          >/ guest / night</span
+        >
       </span>
     </p>
   </div>

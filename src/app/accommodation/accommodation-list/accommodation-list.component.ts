@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Accommodation } from '../accommodation.model';
+import { Accommodation, SearchParams } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
-import { SearchParams } from '../search-params.model';
+import { getTimestampSeconds } from '../../utils/date.utils';
 
 @Component({
   selector: 'app-accommodation-list',
@@ -10,24 +10,27 @@ import { SearchParams } from '../search-params.model';
 })
 export class AccommodationListComponent implements OnInit {
   elements: Accommodation[] = [];
+  savedSearchTriggered: boolean = false;
 
   constructor(private service: AccommodationService) {}
 
   ngOnInit(): void {
     this.service.getAll().subscribe((accommodations: Accommodation[]) => {
-      this.elements = accommodations;
+      if (!this.savedSearchTriggered) this.elements = accommodations;
     });
   }
 
   search(searchParams: SearchParams) {
+    this.savedSearchTriggered = true;
+
     let fromDate: number =
       searchParams.rangeDates === undefined || searchParams.rangeDates === null
         ? 0
-        : searchParams.rangeDates[0].valueOf() / 1000;
+        : getTimestampSeconds(searchParams.rangeDates[0]);
     let toDate: number =
       searchParams.rangeDates === undefined || searchParams.rangeDates === null
         ? 0
-        : searchParams.rangeDates[1].valueOf() / 1000;
+        : getTimestampSeconds(searchParams.rangeDates[1]);
 
     this.service
       .findByFilter(
