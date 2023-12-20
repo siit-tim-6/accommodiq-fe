@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AvailabilityDto, PricingType } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
 import {
   FormArray,
@@ -9,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { FormUtils, FormValidators } from '../../utils/form-utils';
-import { AccommodationDetails } from '../accommodation-details.model';
+import { AccommodationAdvancedDetails } from '../accommodation-details.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,7 +17,7 @@ import { Router } from '@angular/router';
   styleUrl: './accommodation-create.component.css',
 })
 export class AccommodationCreateComponent implements OnInit {
-  @Input() accommodationToUpdate: AccommodationDetails | undefined;
+  @Input() accommodationToUpdate: AccommodationAdvancedDetails | undefined;
 
   apartmentTypes: string[] = [
     'Entire apartment',
@@ -56,7 +55,6 @@ export class AccommodationCreateComponent implements OnInit {
   ];
 
   images: File[] = [];
-  availabilityRanges: AvailabilityDto[] = [];
   formGroup!: FormGroup;
   submitAttempted = false;
 
@@ -74,12 +72,11 @@ export class AccommodationCreateComponent implements OnInit {
         this.accommodationService
           .updateAccommodation(
             this.formGroup.value,
-            this.availabilityRanges,
             this.images,
             this.accommodationToUpdate.id,
           )
           .subscribe({
-            next: (accommodationDetails) => {
+            next: (_) => {
               this.router.navigate(['my-accommodations']); // Add snackbar maybe?
             },
           });
@@ -87,13 +84,9 @@ export class AccommodationCreateComponent implements OnInit {
       }
 
       this.accommodationService
-        .createAccommodation(
-          this.formGroup.value,
-          this.availabilityRanges,
-          this.images,
-        )
+        .createAccommodation(this.formGroup.value, this.images)
         .subscribe({
-          next: (accommodationDetails) => {
+          next: (_) => {
             this.router.navigate(['my-accommodations']); // Add snackbar maybe?
           },
         });
@@ -119,26 +112,6 @@ export class AccommodationCreateComponent implements OnInit {
     this.formGroup.patchValue({ images: this.images });
   }
 
-  addRange(): void {
-    const formData = this.formGroup.value;
-
-    if (
-      !this.validateDates(formData.pickedDates) ||
-      !this.validatePrice(formData.price)
-    ) {
-      return;
-    }
-
-    this.addNewRange(formData.pickedDates, formData.price);
-
-    // Clear input fields
-    this.formGroup.patchValue({ pickedDates: null, price: null });
-  }
-
-  removeRange(index: number): void {
-    this.availabilityRanges.splice(index, 1);
-  }
-
   onBenefitChange(checked: boolean, benefit: string): void {
     const benefitsArray = this.formGroup.get('benefits') as FormArray;
 
@@ -157,15 +130,6 @@ export class AccommodationCreateComponent implements OnInit {
       checked;
   }
 
-  private addNewRange(dates: Date[], price: number): void {
-    const newRange: AvailabilityDto = {
-      fromDate: dates[0].getTime(),
-      toDate: dates[1].getTime(),
-      price: price,
-    };
-    this.availabilityRanges = [...this.availabilityRanges, newRange];
-  }
-
   private initializeFormGroup(): void {
     this.formGroup = this.formBuilder.group(
       {
@@ -181,15 +145,11 @@ export class AccommodationCreateComponent implements OnInit {
         ],
         maxGuests: [this.accommodationToUpdate?.maxGuests, Validators.required],
         apartmentType: [this.accommodationToUpdate?.type, Validators.required],
-        pricePerGuest: [
-          this.accommodationToUpdate?.pricingType === PricingType.PerGuest,
-        ],
         automaticallyAcceptIncomingReservations: [
           this.accommodationToUpdate?.automaticAcceptance,
         ],
         benefits: this.formBuilder.array([]),
         pickedDates: [null],
-        price: [this.accommodationToUpdate?.price],
         images: [this.images], // TODO
       },
       { validators: FormValidators.compareMinMaxGuestsValidator() },
@@ -209,44 +169,21 @@ export class AccommodationCreateComponent implements OnInit {
     });
   }
 
-  initializeRanges(): void {
-    if (this.accommodationToUpdate === undefined) return;
-    const formData = this.formGroup.value;
-    this.accommodationToUpdate.available.forEach((availability) => {
-      this.addNewRange(
-        [new Date(availability.fromDate), new Date(availability.toDate)],
-        availability.price,
-      );
+  private isValidSubmission(): boolean {
+    return this.formGroup.valid && this.images.length > 0;
+  }
+
+  private fetchImages(imageFilenames: string[]): void {
+    imageFilenames.forEach((filename) => {
+      this.accommodationService.getImage(filename).subscribe((blob) => {
+        const imageFile = new File([blob], filename, { type: blob.type });
+        this.images.push(imageFile);
+      });
     });
   }
 
-  private validateDates(dates: Date[]): boolean {
-    if (!FormValidators.areDatesValid(dates)) {
-      this.formGroup.get('pickedDates')?.markAsTouched();
-      return false;
-    }
-    return true;
-  }
-
-  private validatePrice(price: number): boolean {
-    if (!FormValidators.isPriceValid(price)) {
-      this.formGroup.get('price')?.markAsTouched();
-      return false;
-    }
-    return true;
-  }
-
-  private isValidSubmission(): boolean {
-    return (
-      this.formGroup.valid &&
-      this.availabilityRanges.length > 0 &&
-      this.images.length > 0
-    );
-  }
-
   ngOnInit() {
-    this.images = [];
+    this.fetchImages(this.accommodationToUpdate?.images ?? []);
     this.initializeFormGroup();
-    this.initializeRanges();
   }
 }

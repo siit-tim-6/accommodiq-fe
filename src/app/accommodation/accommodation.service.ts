@@ -11,7 +11,10 @@ import {
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from '../../env/env';
-import { AccommodationDetails } from './accommodation-details.model';
+import {
+  AccommodationAdvancedDetails,
+  AccommodationDetails,
+} from './accommodation-details.model';
 import { TemplateService } from '../services/template.service';
 
 @Injectable({
@@ -37,8 +40,8 @@ export class AccommodationService {
 
   getAccommodationAdvancedDetails(
     id: number,
-  ): Observable<AccommodationDetails> {
-    return this.templateService.getObservable<AccommodationDetails>(
+  ): Observable<AccommodationAdvancedDetails> {
+    return this.templateService.getObservable<AccommodationAdvancedDetails>(
       'accommodations/' + id + '/advanced',
     );
   }
@@ -93,7 +96,6 @@ export class AccommodationService {
 
   createAccommodation(
     formData: AccommodationFormData,
-    availabilityRanges: AvailabilityDto[],
     images: File[],
   ): Observable<AccommodationDetailsDto> {
     console.log(formData);
@@ -105,20 +107,15 @@ export class AccommodationService {
           location: formData.location,
           minGuests: formData.minGuests,
           maxGuests: formData.maxGuests,
-          available: availabilityRanges,
-          pricingType: formData.pricePerGuest
-            ? PricingType.PerGuest
-            : PricingType.PerNight,
           automaticAcceptance: formData.automaticallyAcceptIncomingReservations,
           images: uploadedImagePaths,
           type: formData.apartmentType,
           benefits: formData.benefits,
         };
-        console.log(accommodationData.benefits);
         return this.httpClient.post<AccommodationDetailsDto>(
           environment.apiHost + 'hosts/' + 'accommodations',
           accommodationData,
-        ); // change later with JWT
+        );
       }),
       catchError((error) => {
         console.error('Error in accommodation creation process:', error);
@@ -129,7 +126,6 @@ export class AccommodationService {
 
   updateAccommodation(
     formData: AccommodationFormData,
-    availabilityRanges: AvailabilityDto[],
     images: File[],
     accommodationId: number,
   ): Observable<HttpResponse<AccommodationDetailsDto>> {
@@ -142,10 +138,6 @@ export class AccommodationService {
           location: formData.location,
           minGuests: formData.minGuests,
           maxGuests: formData.maxGuests,
-          available: availabilityRanges,
-          pricingType: formData.pricePerGuest
-            ? PricingType.PerGuest
-            : PricingType.PerNight,
           automaticAcceptance: formData.automaticallyAcceptIncomingReservations,
           images: uploadedImagePaths,
           type: formData.apartmentType,
@@ -170,5 +162,11 @@ export class AccommodationService {
       environment.apiHost + 'images',
       formData,
     );
+  }
+
+  getImage(filename: string): Observable<Blob> {
+    return this.httpClient.get(`${environment.apiHost}/images/${filename}`, {
+      responseType: 'blob',
+    });
   }
 }
