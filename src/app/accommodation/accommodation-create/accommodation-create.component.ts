@@ -180,9 +180,9 @@ export class AccommodationCreateComponent implements OnInit {
 
   private fetchImages(imageFilenames: string[]) {
     return of(imageFilenames).pipe(
-      mergeMap((filename) =>
+      mergeMap((filenames) =>
         forkJoin(
-          ...filename.map((filename) =>
+          ...filenames.map((filename) =>
             this.accommodationService.getImage(filename),
           ),
         ),
