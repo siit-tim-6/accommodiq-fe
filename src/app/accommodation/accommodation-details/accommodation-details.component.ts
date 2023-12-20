@@ -8,6 +8,7 @@ import {
 import { getTimestampSeconds } from '../../utils/date.utils';
 import { EMPTY, Subscription, of, switchMap } from 'rxjs';
 import { AccountRole } from '../../layout/account-info/account.model';
+import { environment } from '../../../env/env';
 
 @Component({
   selector: 'app-accommodation-details',
@@ -18,14 +19,6 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   accommodationId: number;
   accommodationDetails: AccommodationDetails;
   subscription?: Subscription;
-
-  images: string[] = [
-    '../../../assets/images/accommodation-image.png',
-    '../../../assets/images/accommodation-image.png',
-    '../../../assets/images/accommodation-image.png',
-    '../../../assets/images/accommodation-image.png',
-    '../../../assets/images/accommodation-image.png',
-  ];
 
   rangeDates: Date[] | undefined;
   guests: number | string | undefined;
@@ -52,7 +45,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
         rating: 0,
         reviewCount: 0,
       },
-      image: '',
+      images: [],
       minGuests: 0,
       maxGuests: 0,
       description: '',
@@ -299,5 +292,11 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
     }
 
     return decodedJwtData.id;
+  }
+
+  getFullImagePaths(): string[] {
+    return this.accommodationDetails.images.map(
+      (imageName) => environment.imageBase + imageName,
+    );
   }
 }

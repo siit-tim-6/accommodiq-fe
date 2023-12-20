@@ -124,7 +124,7 @@ export type AccommodationDetails = {
   reviewCount: number;
   location: string;
   host: AccommodationHost;
-  image: string;
+  images: string[];
   minGuests: number;
   maxGuests: number;
   description: string;
