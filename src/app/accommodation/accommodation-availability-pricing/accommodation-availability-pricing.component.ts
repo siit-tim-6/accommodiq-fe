@@ -11,6 +11,7 @@ import {
 } from '../accommodation.model';
 import { FormUtils, FormValidators } from '../../utils/form.utils';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-accommodation-availability-pricing',
@@ -32,6 +33,7 @@ export class AccommodationAvailabilityPricingComponent {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
@@ -63,9 +65,12 @@ export class AccommodationAvailabilityPricingComponent {
         },
         error: (error) => {
           console.error('Error fetching accommodation booking details', error);
-          alert(
-            'Error fetching accommodation booking details. Please try again later.',
-          );
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail:
+              'Error fetching accommodation booking details. Please try again later.',
+          });
         },
       });
   }
@@ -96,21 +101,33 @@ export class AccommodationAvailabilityPricingComponent {
               'Accommodation booking details updated successfully.',
               accommodationDetails,
             );
-            // You might want to navigate the user to another page or show a success message
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Accommodation booking details updated successfully.',
+            });
           },
           error: (error) => {
             console.error(
               'Error updating accommodation booking details',
               error,
             );
-            alert(
-              'Error updating accommodation booking details. Please try again later.',
-            );
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail:
+                'Error updating accommodation booking details. Please try again later.',
+            });
           },
         });
     } else {
       FormUtils.markAllAsTouched(this.bookingDetailsForm);
       console.error('Form is invalid. Please check the entered data.');
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Validation Error',
+        detail: 'Form is invalid. Please check the entered data.',
+      });
     }
   }
 
@@ -154,17 +171,29 @@ export class AccommodationAvailabilityPricingComponent {
         next: (updatedAvailabilities) => {
           console.log('Availability added successfully');
           this.availabilityRanges = updatedAvailabilities;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Availability added successfully',
+          });
         },
         error: (error) => {
           if (error.status === 409) {
             // Handle the overlapping availability scenario
-            alert(
-              'The specified availability period overlaps with an existing one. Please choose a different range.',
-            );
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail:
+                'The specified availability period overlaps with an existing one. Please choose a different range.',
+            });
           } else {
             // Handle other errors
             console.error('Error adding availability', error);
-            alert('Error adding availability. Please try again later.');
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error adding availability. Please try again later.',
+            });
           }
         },
       });
@@ -184,20 +213,30 @@ export class AccommodationAvailabilityPricingComponent {
       .subscribe({
         next: (response) => {
           this.availabilityRanges.splice(index, 1);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Availability range removed',
+          });
         },
         error: (error) => {
+          let errorMessage =
+            'Error removing availability range. Please try again later.';
+          let severity = 'error';
+
           if (error.status === 400) {
             console.error('Error removing availability range', error);
-            alert(
-              'Cannot remove this availability range as there are active reservations.',
-            );
+            errorMessage =
+              'Cannot remove this availability range as there are active reservations.';
           } else if (error.status === 404) {
             console.error('Availability range not found', error);
-            alert('The availability range was not found.');
-          } else {
-            console.error('Error removing availability range', error);
-            alert('Error removing availability range. Please try again later.');
+            errorMessage = 'The availability range was not found.';
           }
+          this.messageService.add({
+            severity,
+            summary: 'Error',
+            detail: errorMessage,
+          });
         },
       });
   }
@@ -264,7 +303,11 @@ export class AccommodationAvailabilityPricingComponent {
 
   private handleInvalidAccommodationId(): void {
     console.error('Invalid or missing accommodationId');
-    alert('Invalid or missing accommodationId');
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: 'Invalid or missing accommodationId',
+    });
     this.router.navigate(['/accommodation/' + this.accommodationId]);
   }
 }

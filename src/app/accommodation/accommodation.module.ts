@@ -28,6 +28,7 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { AccommodationUpdateComponent } from './accommodation-update/accommodation-update.component';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { AccommodationUpdateComponent } from './accommodation-update/accommodati
     KeyFilterModule,
     InputNumberModule,
     MultiSelectModule,
+    ToastModule,
   ],
   exports: [
     AccommodationSearchComponent,
