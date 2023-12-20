@@ -12,7 +12,7 @@ export class AccountService {
 
   getAccountDetails(): Observable<AccountDetails> {
     return this.httpClient.get<AccountDetails>(
-      `${environment.apiHost}users/personal`,
+      `${environment.apiHost}users/me`,
     );
   }
 }
