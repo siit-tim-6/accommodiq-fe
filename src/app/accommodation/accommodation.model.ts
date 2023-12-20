@@ -19,14 +19,13 @@ export interface Accommodation {
   status?: AccommodationStatus;
 }
 
-export interface AccommodationCreateDto {
+export interface AccommodationModifyDto {
+  id?: number;
   title: string;
   description: string;
   location: string;
   minGuests: number;
   maxGuests: number;
-  available: AvailabilityDto[];
-  pricingType: string;
   automaticAcceptance: boolean;
   images: String[];
   type: string;
@@ -62,7 +61,7 @@ export interface AccommodationDetailsHostDto {
 }
 
 export interface Availability {
-  id: number;
+  id?: number;
   fromDate: number;
   toDate: number;
   price: number;
@@ -162,4 +161,17 @@ export type ReservationRequest = {
   endDate: number;
   numberOfGuests: number;
   accommodationId: number;
+};
+
+export type AccommodationAdvancedDetails = {
+  id: number;
+  title: string;
+  description: string;
+  location: string;
+  minGuests: number;
+  maxGuests: number;
+  automaticAcceptance: boolean;
+  type: string;
+  images: string[];
+  benefits: string[];
 };

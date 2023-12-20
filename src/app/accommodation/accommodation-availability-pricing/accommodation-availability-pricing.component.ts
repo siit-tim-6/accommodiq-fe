@@ -180,7 +180,7 @@ export class AccommodationAvailabilityPricingComponent {
     }
 
     this.accommodationService
-      .removeAccommodationAvailability(this.accommodationId, rangeToRemove.id)
+      .removeAccommodationAvailability(this.accommodationId, rangeToRemove.id!)
       .subscribe({
         next: (response) => {
           this.availabilityRanges.splice(index, 1);

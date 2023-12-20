@@ -1,5 +1,7 @@
 <p-dialog [closable]="false" [visible]="true" [draggable]="false">
-  <h2>Create new apartment</h2>
+  <h1 *ngIf="accommodationToUpdate === undefined">Create new apartment</h1>
+  <h1 *ngIf="accommodationToUpdate !== undefined">Update apartment</h1>
+
   <form [formGroup]="formGroup" (submit)="onSubmit()">
     <div class="inline-update-form">
       <div>
@@ -45,9 +47,11 @@
           <div *ngFor="let benefit of benefitOptions" class="checkbox-option">
             <p-checkbox
               name="benefits"
-              [value]="benefit.value"
-              [label]="benefit.label"
+              [label]="benefit.benefitName"
+              [binary]="true"
               (onChange)="onBenefitChange($event.checked, benefit.benefitName)"
+              [ngModel]="benefit.isChecked"
+              [ngModelOptions]="{ standalone: true }"
             ></p-checkbox>
           </div>
         </div>
@@ -74,8 +78,8 @@
           >
             <ng-template pTemplate="content">
               <ul *ngIf="images.length">
-                <li *ngFor="let file of images">
-                  {{ file.name }} - {{ file.size }}
+                <li *ngFor="let file of images" class="uploaded-image-item">
+                  {{ file.name }}
                 </li>
               </ul>
             </ng-template>
@@ -129,15 +133,6 @@
         <div class="checkbox-group">
           <span class="checkbox-option">
             <p-checkbox
-              formControlName="pricePerGuest"
-              id="price-per-guests"
-              name="price-per-guests"
-              label="Price per guest"
-              [binary]="true"
-            ></p-checkbox>
-          </span>
-          <span class="checkbox-option">
-            <p-checkbox
               formControlName="automaticallyAcceptIncomingReservations"
               id="accept-incoming-reservations"
               name="accept-incoming-reservations"
@@ -147,74 +142,10 @@
           </span>
         </div>
       </div>
-
-      <div class="column-wrapper">
-        <div class="row-wrapper availability-wrapper">
-          <div class="calendar-wrapper">
-            <p-calendar
-              formControlName="pickedDates"
-              name="range"
-              selectionMode="range"
-              [readonlyInput]="true"
-              placeholder="Select the Range"
-            ></p-calendar>
-          </div>
-          <div>
-            <span>
-              <input
-                pInputText
-                id="price"
-                name="price"
-                formControlName="price"
-                placeholder="Price"
-              />
-            </span>
-          </div>
-          <div>
-            <p-button label="Add" (click)="addRange()"></p-button>
-          </div>
-        </div>
-
-        <div
-          *ngIf="submitAttempted && availabilityRanges.length === 0"
-          class="empty-message"
-        >
-          Please add at least one availability range.
-        </div>
-
-        <div class="file-upload-wrapper">
-          <p-table
-            [value]="availabilityRanges"
-            [paginator]="true"
-            [rows]="4"
-            [showCurrentPageReport]="true"
-            [tableStyle]="{ width: '450px' }"
-          >
-            <ng-template pTemplate="header">
-              <tr>
-                <th style="width: 27%">Start Date</th>
-                <th style="width: 27%">End Date</th>
-                <th style="width: 27%">Price</th>
-                <th style="width: 19%"></th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-availabilityRange>
-              <tr>
-                <td>{{ availabilityRange.fromDate | date: "dd/MM/yyyy" }}</td>
-                <td>{{ availabilityRange.toDate | date: "dd/MM/yyyy" }}</td>
-                <td>{{ availabilityRange.price }}</td>
-                <td>
-                  <p-button
-                    label="X"
-                    (click)="removeRange(availabilityRange)"
-                  ></p-button>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
-      </div>
     </div>
-    <p-button label="Create" type="submit"></p-button>
+    <p-button
+      type="submit"
+      [label]="accommodationToUpdate === undefined ? 'Create' : 'Update'"
+    ></p-button>
   </form>
 </p-dialog>
