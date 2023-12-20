@@ -1,6 +1,4 @@
-import { Injectable } from '@angular/core';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
-import { environment } from '../../env/env';
 import {
   Accommodation,
   AccommodationBookingDetailFormDto,
@@ -11,11 +9,12 @@ import {
   Availability,
   AvailabilityDto,
   MessageDto,
-  PricingType,
   AccommodationStatus,
 } from './accommodation.model';
-import { AccommodationDetails } from './accommodation-details.model';
 import { HttpClient, HttpResponse } from '@angular/common/http';
+import { environment } from '../../env/env';
+import { AccommodationDetails } from './accommodation-details.model';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -75,7 +74,6 @@ export class AccommodationService {
 
   createAccommodation(
     formData: AccommodationFormData,
-    availabilityRanges: AvailabilityDto[],
     images: File[],
   ): Observable<AccommodationDetailsDto> {
     console.log(formData);
@@ -87,16 +85,11 @@ export class AccommodationService {
           location: formData.location,
           minGuests: formData.minGuests,
           maxGuests: formData.maxGuests,
-          available: availabilityRanges,
-          pricingType: formData.pricePerGuest
-            ? PricingType.PerGuest
-            : PricingType.PerNight,
           automaticAcceptance: formData.automaticallyAcceptIncomingReservations,
           images: uploadedImagePaths,
           type: formData.apartmentType,
           benefits: formData.benefits,
         };
-        console.log(accommodationData.benefits);
         return this.httpClient.post<AccommodationDetailsDto>(
           environment.apiHost + 'hosts/' + 'accommodations',
           accommodationData,
@@ -111,7 +104,6 @@ export class AccommodationService {
 
   updateAccommodation(
     formData: AccommodationFormData,
-    availabilityRanges: AvailabilityDto[],
     images: File[],
     accommodationId: number,
   ): Observable<HttpResponse<AccommodationDetailsDto>> {
@@ -124,10 +116,6 @@ export class AccommodationService {
           location: formData.location,
           minGuests: formData.minGuests,
           maxGuests: formData.maxGuests,
-          available: availabilityRanges,
-          pricingType: formData.pricePerGuest
-            ? PricingType.PerGuest
-            : PricingType.PerNight,
           automaticAcceptance: formData.automaticallyAcceptIncomingReservations,
           images: uploadedImagePaths,
           type: formData.apartmentType,
@@ -152,6 +140,12 @@ export class AccommodationService {
       environment.apiHost + 'images',
       formData,
     );
+  }
+
+  getImage(filename: string): Observable<Blob> {
+    return this.httpClient.get(`${environment.apiHost}/images/${filename}`, {
+      responseType: 'blob',
+    });
   }
 
   getAccommodationBookingDetails(

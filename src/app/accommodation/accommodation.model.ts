@@ -24,8 +24,6 @@ export interface AccommodationCreateDto {
   location: string;
   minGuests: number;
   maxGuests: number;
-  available: AvailabilityDto[];
-  pricingType: string;
   automaticAcceptance: boolean;
   images: String[];
   type: string;

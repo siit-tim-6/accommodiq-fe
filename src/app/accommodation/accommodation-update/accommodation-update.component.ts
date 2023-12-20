@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AccommodationService } from '../accommodation.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AccommodationDetails } from '../accommodation-details.model';
+import { AccommodationAdvancedDetails } from '../accommodation-details.model';
 
 @Component({
   selector: 'app-accommodation-update',
@@ -9,7 +9,7 @@ import { AccommodationDetails } from '../accommodation-details.model';
   styleUrl: './accommodation-update.component.css',
 })
 export class AccommodationUpdateComponent {
-  accommodation!: AccommodationDetails;
+  accommodation!: AccommodationAdvancedDetails;
   accommodationLoaded!: Promise<boolean>;
 
   constructor(
@@ -22,7 +22,7 @@ export class AccommodationUpdateComponent {
       this.accommodationService
         .getAccommodationAdvancedDetails(accommodationId)
         .subscribe({
-          next: (accommodationDetails: AccommodationDetails) => {
+          next: (accommodationDetails) => {
             this.accommodation = accommodationDetails;
             this.accommodationLoaded = Promise.resolve(true);
           },
