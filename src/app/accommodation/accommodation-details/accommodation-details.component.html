@@ -99,15 +99,15 @@
         >
         / night
       </p>
-      <p-button
-        label="Reserve"
-        [disabled]="
-          areFieldsValid() !== true ||
-          getRole() === null ||
-          getRole() !== 'GUEST'
-        "
-        (onClick)="makeReservation()"
-      ></p-button>
+
+      <div [pTooltip]="buttonError">
+        <p-button
+          label="Reserve"
+          [disabled]="canMakeReservation() !== true"
+          (onClick)="makeReservation()"
+        >
+        </p-button>
+      </div>
     </div>
 
     <p class="description">

@@ -34,6 +34,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   today: Date = new Date();
   positiveInteger: RegExp = /^[1-9]\d*$/;
   accommodationAvailable: boolean = true;
+  buttonError: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -62,6 +63,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
       minPrice: 0,
       pricingType: '',
     };
+    this.buttonError = '';
   }
 
   ngOnInit(): void {
@@ -182,12 +184,30 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  areFieldsValid() {
-    return (
-      this.isGuestsValid() &&
-      this.isRangeDatesValid() &&
-      this.accommodationAvailable
-    );
+  canMakeReservation() {
+    if (!this.isGuestsValid()) {
+      this.buttonError = `Guests field is required and must be in range ${this.accommodationDetails.minGuests}-${this.accommodationDetails.maxGuests}.`;
+      return false;
+    }
+
+    if (!this.isRangeDatesValid()) {
+      this.buttonError = 'Date range is required.';
+      return false;
+    }
+
+    if (!this.accommodationAvailable) {
+      this.buttonError =
+        'Accommodation is not available within selected date range.';
+      return false;
+    }
+
+    if (this.getRole() == null || this.getRole() !== 'GUEST') {
+      this.buttonError = 'You must be a logged-in guest.';
+      return false;
+    }
+
+    this.buttonError = '';
+    return true;
   }
 
   private getPriceObservable() {
