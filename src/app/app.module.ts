@@ -9,6 +9,8 @@ import { NotificationModule } from './notification/notification.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Interceptor } from './services/interceptor';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +24,7 @@ import { Interceptor } from './services/interceptor';
     ReactiveFormsModule,
     HttpClientModule,
     NotificationModule,
+    ToastModule,
   ],
   providers: [
     {
@@ -29,6 +32,7 @@ import { Interceptor } from './services/interceptor';
       useClass: Interceptor,
       multi: true,
     },
+    MessageService,
   ],
   bootstrap: [AppComponent],
 })

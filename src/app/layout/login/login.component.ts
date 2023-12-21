@@ -3,6 +3,7 @@ import { LoginService } from './login.service';
 import { LoginRequest } from './login.model';
 import { Router } from '@angular/router';
 import { RoleService } from '../../services/role.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent {
     private loginService: LoginService,
     private router: Router,
     private roleService: RoleService,
+    private messageService: MessageService,
   ) {
     if (this.loginService.getRole() !== null) this.router.navigate(['/search']);
   }
@@ -40,16 +42,22 @@ export class LoginComponent {
         this.router.navigate(['/search']);
       },
       error: (err) => {
+        let errorMessage: string = 'An error occurred. Please try again.';
+
         if (err.status === 401) {
           // The backend returns 401 for both disabled accounts and bad credentials
           // The specific error message from the backend will clarify which case it is
-          const errorMessage = err.error.message || 'Unauthorized access';
-          alert(errorMessage); // TODO:Replace alert with a more sophisticated notification system
+          errorMessage = err.error.message || 'Unauthorized access';
         } else if (err.status === 500) {
-          alert('An internal server error occurred. Please try again later.');
-        } else {
-          alert('An error occurred. Please try again.');
+          errorMessage =
+            'An internal server error occurred. Please try again later.';
         }
+
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Login Failed',
+          detail: errorMessage,
+        });
       },
     });
   }

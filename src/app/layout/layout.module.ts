@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DialogModule } from 'primeng/dialog';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { DialogModule } from 'primeng/dialog';
     InputTextModule,
     RadioButtonModule,
     DialogModule,
+    ToastModule,
   ],
   exports: [
     NavBarComponent,
