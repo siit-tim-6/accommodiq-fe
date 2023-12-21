@@ -11,3 +11,8 @@ export interface AccountDetails {
   address: string;
   phoneNumber: string;
 }
+
+export interface PasswordChangeRequest {
+  oldPassword: string;
+  newPassword: string;
+}

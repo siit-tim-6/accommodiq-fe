@@ -1,4 +1,9 @@
-<p-dialog [closable]="false" [visible]="true" [draggable]="false">
+<p-dialog
+  [closable]="false"
+  [visible]="true"
+  [draggable]="false"
+  *ngIf="accountDetails !== undefined"
+>
   <h1>Update your account</h1>
 
   <div class="inline-update-form">
@@ -15,7 +20,7 @@
                 id="first-name"
                 name="first-name"
                 type="text"
-                [(ngModel)]="firstName"
+                [(ngModel)]="accountDetails.firstName"
                 required
               />
             </span>
@@ -29,7 +34,7 @@
                 id="last-name"
                 name="last-name"
                 type="text"
-                [(ngModel)]="lastName"
+                [(ngModel)]="accountDetails.lastName"
                 required
               />
             </span>
@@ -43,7 +48,7 @@
                 id="email"
                 name="email"
                 type="email"
-                [(ngModel)]="email"
+                [(ngModel)]="accountDetails.email"
                 disabled
                 required
               />
@@ -58,7 +63,7 @@
                 id="address"
                 name="address"
                 type="text"
-                [(ngModel)]="address"
+                [(ngModel)]="accountDetails.address"
                 required
               />
             </span>
@@ -72,7 +77,7 @@
                 id="phone-number"
                 name="phone-number"
                 type="tel"
-                [(ngModel)]="phoneNumber"
+                [(ngModel)]="accountDetails.phoneNumber"
                 required
               />
             </span>
@@ -84,7 +89,7 @@
       <div class="form-wrapper delete-from-wrapper">
         <h3>Delete your account</h3>
         <form (submit)="onDelete()">
-          <p-button label="Delete" type="submit"></p-button>
+          <p-button label="Delete" type="submit" severity="danger"></p-button>
         </form>
       </div>
     </div>

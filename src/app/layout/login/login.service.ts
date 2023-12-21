@@ -52,4 +52,10 @@ export class LoginService {
     localStorage.removeItem('user');
     this.roleService.updateRole(this.getRole());
   }
+
+  getEmail() {
+    let token = localStorage.getItem('user');
+    if (token == null) return '';
+    return this.extractToken(token).sub;
+  }
 }

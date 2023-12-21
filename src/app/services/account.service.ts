@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AccountDetails } from '../layout/account-info/account.model';
+import {
+  AccountDetails,
+  PasswordChangeRequest,
+} from '../layout/account-info/account.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../env/env';
 
@@ -13,6 +16,26 @@ export class AccountService {
   getAccountDetails(): Observable<AccountDetails> {
     return this.httpClient.get<AccountDetails>(
       `${environment.apiHost}users/me`,
+    );
+  }
+
+  updateAccountDetails(
+    accountDetails: AccountDetails,
+  ): Observable<AccountDetails> {
+    return this.httpClient.put<AccountDetails>(
+      `${environment.apiHost}users`,
+      accountDetails,
+    );
+  }
+
+  deleteAccount(): Observable<any> {
+    return this.httpClient.delete<any>(`${environment.apiHost}users`);
+  }
+
+  updatePassword(passwordDto: PasswordChangeRequest): Observable<any> {
+    return this.httpClient.put<any>(
+      `${environment.apiHost}users/password`,
+      passwordDto,
     );
   }
 }
