@@ -269,7 +269,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
             this.messageService.add({
               severity: 'error',
               summary: 'Reservation Error',
-              detail: 'Failed to create reservation. Please try again later.',
+              detail: 'You already have an overlapping reservation.',
             });
           },
         });
