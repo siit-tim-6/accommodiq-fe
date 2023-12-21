@@ -11,6 +11,7 @@ import {
 } from '../accommodation.model';
 import { FormUtils, FormValidators } from '../../utils/form.utils';
 import { ActivatedRoute, Router } from '@angular/router';
+import { getTimestampSeconds } from '../../utils/date.utils';
 
 @Component({
   selector: 'app-accommodation-availability-pricing',
@@ -143,8 +144,8 @@ export class AccommodationAvailabilityPricingComponent {
 
   private addNewRange(dates: Date[], price: number): void {
     const availabilityData: AvailabilityDto = {
-      fromDate: this.availabilityForm.value.pickedDates[0].getTime(),
-      toDate: this.availabilityForm.value.pickedDates[1].getTime(),
+      fromDate: getTimestampSeconds(this.availabilityForm.value.pickedDates[0]),
+      toDate: getTimestampSeconds(this.availabilityForm.value.pickedDates[1]),
       price: this.availabilityForm.value.price,
     };
 

@@ -4,7 +4,7 @@
   <div *ngFor="let el of elements">
     <app-accommodation-card
       [accommodation]="el"
-      [routerLink]="['/accommodation', 1]"
+      [routerLink]="['/accommodation', el.id]"
     />
   </div>
 </div>

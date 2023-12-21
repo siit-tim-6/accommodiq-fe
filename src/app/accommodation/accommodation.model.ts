@@ -17,6 +17,7 @@ export interface Accommodation {
   accepted?: boolean;
   pricingType: string;
   status?: AccommodationStatus;
+  image: string;
 }
 
 export interface AccommodationModifyDto {
@@ -123,7 +124,7 @@ export type AccommodationDetails = {
   reviewCount: number;
   location: string;
   host: AccommodationHost;
-  image: string;
+  images: string[];
   minGuests: number;
   maxGuests: number;
   description: string;
