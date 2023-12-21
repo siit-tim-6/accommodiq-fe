@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../services/account.service';
+import { AccountDetails } from '../account-info/account.model';
+import { LoginService } from '../login/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-account',
@@ -7,36 +10,99 @@ import { AccountService } from '../../services/account.service';
   styleUrl: './update-account.component.css',
 })
 export class UpdateAccountComponent implements OnInit {
-  firstName: string | undefined;
-  lastName: string | undefined;
-  email: string | undefined;
-  address: string | undefined;
-  phoneNumber: string | undefined;
+  accountDetails!: AccountDetails;
   oldPassword: string | undefined;
   newPassword: string | undefined;
   repeatNewPassword: string | undefined;
 
-  constructor(private accountService: AccountService) {}
+  constructor(
+    private accountService: AccountService,
+    private loginService: LoginService,
+    private router: Router,
+  ) {}
 
   onDelete() {
-    console.log('onDelete()');
+    this.accountService.deleteAccount().subscribe({
+      next: () => {
+        this.loginService.signOut();
+        this.router.navigate(['/login']);
+      },
+      error: (_) => {
+        alert('An error occurred. Please try again.');
+      },
+    });
   }
 
   onUpdatePersonalData() {
-    console.log('onUpdatePersonalData()');
+    this.prepareAccountDetails();
+    if (!this.areDetailsValid()) {
+      alert('Please fill in all the fields');
+      return;
+    }
+    this.accountService.updateAccountDetails(this.accountDetails).subscribe({
+      next: () => {
+        alert('Account details updated successfully');
+      },
+      error: (_) => {
+        alert('An error occurred. Please try again.');
+      },
+    });
   }
 
   onUpdatePassword() {
-    console.log('onUpdatePassword()');
+    if (!this.arePasswordsValid()) {
+      alert('Please fill in all the fields');
+      return;
+    }
+    if (this.newPassword !== this.repeatNewPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+    this.accountService
+      .updatePassword({
+        oldPassword: this.oldPassword!,
+        newPassword: this.newPassword!,
+      })
+      .subscribe({
+        next: () => {
+          alert('Password updated successfully');
+        },
+        error: (_) => {
+          alert('An error occurred. Please try again.');
+        },
+      });
   }
 
   ngOnInit(): void {
     this.accountService.getAccountDetails().subscribe((accountDetails) => {
-      this.firstName = accountDetails.firstName;
-      this.lastName = accountDetails.lastName;
-      this.email = accountDetails.email;
-      this.address = accountDetails.address;
-      this.phoneNumber = accountDetails.phoneNumber;
+      this.accountDetails = accountDetails;
     });
+  }
+
+  private areDetailsValid() {
+    return (
+      this.accountDetails.firstName !== '' &&
+      this.accountDetails.lastName !== '' &&
+      this.accountDetails.email === this.loginService.getEmail() &&
+      this.accountDetails.email !== '' &&
+      this.accountDetails.phoneNumber !== '' &&
+      this.accountDetails.address !== ''
+    );
+  }
+
+  private arePasswordsValid() {
+    return (
+      this.oldPassword !== '' &&
+      this.newPassword !== '' &&
+      this.repeatNewPassword !== ''
+    );
+  }
+
+  private prepareAccountDetails() {
+    this.accountDetails.email = this.accountDetails.email.trim();
+    this.accountDetails.firstName = this.accountDetails.firstName.trim();
+    this.accountDetails.lastName = this.accountDetails.lastName.trim();
+    this.accountDetails.phoneNumber = this.accountDetails.phoneNumber.trim();
+    this.accountDetails.address = this.accountDetails.address.trim();
   }
 }
