@@ -1,5 +1,9 @@
 <img
-  src="../../../assets/images/accommodation-image.png"
+  [src]="
+    accommodation.image === ''
+      ? '../../../assets/images/accommodation-image.png'
+      : imageBase + accommodation.image
+  "
   alt="accommodation-image"
   [routerLink]="['/accommodation', accommodation.id]"
 />

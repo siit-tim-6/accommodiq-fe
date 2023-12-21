@@ -24,6 +24,7 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    this.email = this.email.trim();
     if (!this.isFormValid()) return;
 
     let loginRequest: LoginRequest = {
