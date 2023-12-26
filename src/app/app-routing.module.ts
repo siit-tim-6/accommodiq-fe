@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'account-info', component: AccountInfoComponent },
+  { path: 'account-info/:accountId', component: AccountInfoComponent },
   { path: 'search', component: AccommodationListComponent },
   {
     path: 'accommodation/:accommodationId',

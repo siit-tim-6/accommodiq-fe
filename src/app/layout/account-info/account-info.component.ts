@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-account-info',
@@ -7,7 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AccountInfoComponent {
   imageUrl: string =
-    'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50';
+    'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
+  accountId!: number;
   firstName: string = 'John Doe';
   lastName: string = 'Doe';
   reviewCount: number = 25;
@@ -15,6 +17,12 @@ export class AccountInfoComponent {
   role: string = 'Owner';
   stars: string[] = [];
   rating: number | undefined;
+
+  constructor(private route: ActivatedRoute) {
+    this.route.queryParams.subscribe((params: Params) => {
+      this.accountId = +params['accountId'];
+    });
+  }
 
   ngOnInit() {
     this.calculateStarRating();
