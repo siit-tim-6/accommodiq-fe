@@ -12,6 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
+import { CommentModule } from '../comment/comment.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ToastModule } from 'primeng/toast';
     RadioButtonModule,
     DialogModule,
     ToastModule,
+    CommentModule,
   ],
   exports: [
     NavBarComponent,
