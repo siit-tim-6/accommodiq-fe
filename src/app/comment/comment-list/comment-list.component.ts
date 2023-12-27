@@ -12,9 +12,11 @@ export class CommentListComponent {
   comments: Comment[] = [];
   @Input()
   canAddComment: boolean = true;
+  @Input() canReport: boolean = true;
   @Output() reviewSubmitted: EventEmitter<HostReviewRequest> =
     new EventEmitter<HostReviewRequest>();
   @Output() deleteRequest: EventEmitter<number> = new EventEmitter<number>();
+  @Output() reportRequest: EventEmitter<number> = new EventEmitter<number>();
 
   handleReviewSubmission(review: HostReviewRequest) {
     this.reviewSubmitted.emit(review);
@@ -22,5 +24,9 @@ export class CommentListComponent {
 
   handleDeleteComment(commentId: number) {
     this.deleteRequest.emit(commentId);
+  }
+
+  handleReportComment(commentId: number) {
+    this.reportRequest.emit(commentId);
   }
 }

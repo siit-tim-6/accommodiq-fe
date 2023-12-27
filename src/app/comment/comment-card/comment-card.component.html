@@ -14,4 +14,10 @@
     (click)="deleteComment(comment)"
     title="Delete Comment"
   ></i>
+  <i
+    class="pi pi-ban"
+    *ngIf="canReport"
+    (click)="reportComment(comment)"
+    title="Report Comment"
+  ></i>
 </div>

@@ -8,9 +8,15 @@ import { Comment } from '../comment.model';
 })
 export class CommentCardComponent {
   @Input() comment!: Comment;
+  @Input() canReport: boolean = true;
   @Output() deleteRequest = new EventEmitter<number>();
+  @Output() reportRequest = new EventEmitter<number>();
 
   deleteComment(comment: Comment) {
     this.deleteRequest.emit(comment.id);
+  }
+
+  reportComment(comment: Comment) {
+    this.reportRequest.emit(comment.id);
   }
 }

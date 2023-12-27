@@ -17,6 +17,7 @@ export class ProfileAccountComponent {
   accountDetails!: AccountDetails;
   reviews!: Comment[];
   canAddComment: boolean = true;
+  canReport: boolean = false;
   accountId!: number;
   currentUserRole: string = '';
   currentUserEmail: string = '';
@@ -37,6 +38,9 @@ export class ProfileAccountComponent {
       this.currentUserEmail = this.loginService.getEmail();
       this.currentUserRole = this.loginService.getRole() || '';
       this.canAddComment = this.currentUserRole === 'GUEST';
+      this.canReport =
+        this.currentUserEmail === this.accountDetails.email &&
+        this.currentUserRole === 'HOST';
     });
   }
 
@@ -101,6 +105,19 @@ export class ProfileAccountComponent {
       (error) => {
         // Handle error
         console.error('Error deleting review', error);
+      },
+    );
+  }
+
+  handleReportReview(reviewId: number) {
+    // Call the service to report the review
+    this.hostAccountService.reportHostReview(reviewId).subscribe(
+      (response: MessageDto) => {
+        console.log(response);
+      },
+      (error) => {
+        // Handle error
+        console.error('Error reporting review', error);
       },
     );
   }

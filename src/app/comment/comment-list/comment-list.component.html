@@ -10,5 +10,7 @@
   <app-comment
     [comment]="comment"
     (deleteRequest)="handleDeleteComment($event)"
+    (reportRequest)="handleReportComment($event)"
+    [canReport]="canReport"
   ></app-comment>
 </div>

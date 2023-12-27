@@ -38,10 +38,13 @@ p {
   font-size: 0.8em;
 }
 
-.pi-trash {
+.pi-trash,
+.pi-ban {
   cursor: pointer;
+  margin-right: 5px;
 }
 
-.pi-trash:hover {
+.pi-trash:hover,
+.pi-ban:hover {
   color: red;
 }

@@ -53,4 +53,9 @@ export class HostAccountService {
     return of({ message: 'Review deleted successfully' });
     //return this.httpClient.delete<MessageDto>(`${environment.apiHost}/reviews/${reviewId}`);
   }
+
+  reportHostReview(reviewId: number): Observable<MessageDto> {
+    return of({ message: 'Review reported successfully' });
+    //return this.httpClient.delete<MessageDto>(`${environment.apiHost}/reviews/${reviewId}`);
+  }
 }
