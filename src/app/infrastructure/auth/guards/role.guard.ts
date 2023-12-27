@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { LoginService } from '../layout/login/login.service';
-import { AccountRole } from '../layout/account-info/account.model';
+import { LoginService } from '../../../layout/login/login.service';
+import { AccountRole } from '../../../layout/account-info/account.model';
 
 export const CanActivateRole = (role: AccountRole) => {
   const jwtService = inject(LoginService);
