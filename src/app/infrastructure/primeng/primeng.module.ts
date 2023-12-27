@@ -17,6 +17,7 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ToastModule } from 'primeng/toast';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   declarations: [],
@@ -39,6 +40,7 @@ import { ToastModule } from 'primeng/toast';
     InputNumberModule,
     MultiSelectModule,
     ToastModule,
+    RadioButtonModule,
   ],
 })
 export class PrimengModule {}
