@@ -14,7 +14,7 @@ import { AccommodationAvailabilityPricingComponent } from './accommodation/accom
 import { CanActivateRole } from './guards/role.guard';
 import { AccountRole } from './layout/account-info/account.model';
 import { AccommodationUpdateComponent } from './accommodation/accommodation-update/accommodation-update.component';
-import { HostAccountComponent } from './layout/host-account/host-account.component';
+import { ProfileAccountComponent } from './layout/profile-account/profile-account.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -46,8 +46,8 @@ const routes: Routes = [
     canActivate: [() => CanActivateRole(AccountRole.ADMIN)],
   },
   {
-    path: 'host-account/:accountId',
-    component: HostAccountComponent,
+    path: 'profile-account/:accountId',
+    component: ProfileAccountComponent,
   },
 ];
 

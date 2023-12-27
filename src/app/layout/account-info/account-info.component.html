@@ -39,11 +39,11 @@
         <span>{{ user.phoneNumber }}</span>
       </div>
     </div>
-    <div class="bottom-row" *ngIf="hostDetails">
+    <div class="bottom-row" *ngIf="user.role === 'HOST'">
       <div class="rating">
         <span *ngFor="let star of stars" [class]="star"></span>
-        <span class="rating-value">{{ hostDetails.rating }}</span>
-        <span class="num-ratings">{{ hostDetails.reviewCount }} ratings</span>
+        <span class="rating-value">{{ averageRating }}</span>
+        <span class="num-ratings">{{ numberOfReviews }} ratings</span>
       </div>
     </div>
   </div>

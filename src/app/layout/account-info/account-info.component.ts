@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { GuestAccountDetails, HostAccountDetails } from './account.model';
 import { LoginService } from '../login/login.service';
+import { AccountDetails } from './account.model';
 
 @Component({
   selector: 'app-account-info',
@@ -9,7 +9,9 @@ import { LoginService } from '../login/login.service';
   styleUrl: './account-info.component.css',
 })
 export class AccountInfoComponent {
-  @Input() user!: HostAccountDetails | GuestAccountDetails;
+  @Input() user!: AccountDetails;
+  @Input() averageRating: number = 0;
+  @Input() numberOfReviews: number = 0;
   imageUrl: string =
     'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
   accountId!: number;
@@ -30,7 +32,7 @@ export class AccountInfoComponent {
 
   ngOnInit() {
     if (this.user.role === 'HOST') {
-      this.calculateStarRating((this.user as HostAccountDetails).rating);
+      this.calculateStarRating(this.averageRating);
     }
   }
 
@@ -44,9 +46,5 @@ export class AccountInfoComponent {
         this.stars.push('pi pi-star');
       }
     }
-  }
-
-  get hostDetails(): HostAccountDetails | null {
-    return this.user.role === 'HOST' ? (this.user as HostAccountDetails) : null;
   }
 }

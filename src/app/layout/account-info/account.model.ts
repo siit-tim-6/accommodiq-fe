@@ -10,6 +10,7 @@ export interface AccountDetails {
   email: string;
   address: string;
   phoneNumber: string;
+  role: 'GUEST' | 'HOST';
 }
 
 export interface PasswordChangeRequest {
@@ -17,15 +18,15 @@ export interface PasswordChangeRequest {
   newPassword: string;
 }
 
-export interface AccountInfoDetails extends AccountDetails {
-  role: 'GUEST' | 'HOST';
-}
+// export interface AccountInfoDetails extends AccountDetails {
+//   role: 'GUEST' | 'HOST';
+// }
 
-export interface HostAccountDetails extends AccountInfoDetails {
-  rating: number;
-  reviewCount: number;
-}
-
-export interface GuestAccountDetails extends AccountInfoDetails {
-  //IF NEEDED FOR GUEST ACCOUNT
-}
+// export interface HostAccountDetails extends AccountInfoDetails {
+//   rating: number;
+//   reviewCount: number;
+// }
+//
+// export interface GuestAccountDetails extends AccountInfoDetails {
+//   //IF NEEDED FOR GUEST ACCOUNT
+// }

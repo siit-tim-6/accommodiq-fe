@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HostReviewRequest } from '../../layout/host-account/host-account.model';
+import { HostReviewRequest } from '../../layout/profile-account/host-account.model';
 
 @Component({
   selector: 'app-add-comment-form',

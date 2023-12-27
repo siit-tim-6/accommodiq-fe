@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import {
   AccountDetails,
-  AccountInfoDetails,
   PasswordChangeRequest,
 } from '../layout/account-info/account.model';
 import { HttpClient } from '@angular/common/http';
@@ -38,5 +37,21 @@ export class AccountService {
       `${environment.apiHost}users/password`,
       passwordDto,
     );
+  }
+
+  getAccountDetailsById(accountId: number): Observable<AccountDetails> {
+    // Replace with actual HTTP call to fetch host details
+    return of({
+      // Mocked data
+      firstName: 'Teo',
+      lastName: 'Vid',
+      email: 'john.doe@example.com',
+      phoneNumber: '123-456-7890',
+      address: '123 Main St, City, State, 12345',
+      role: 'HOST',
+      rating: 3.5,
+      reviewCount: 123,
+      // ...other required properties
+    });
   }
 }

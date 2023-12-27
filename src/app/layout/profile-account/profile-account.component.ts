@@ -1,29 +1,32 @@
 import { Component } from '@angular/core';
-import { HostAccountDetails } from '../account-info/account.model';
 import { ActivatedRoute } from '@angular/router';
 import { HostAccountService } from './host-account.service';
 import { HostReviewDto, HostReviewRequest } from './host-account.model';
 import { Comment } from '../../comment/comment.model';
 import { MessageDto } from '../../accommodation/accommodation.model';
 import { LoginService } from '../login/login.service';
+import { AccountDetails } from '../account-info/account.model';
+import { AccountService } from '../../services/account.service';
 
 @Component({
-  selector: 'app-host-account',
-  templateUrl: './host-account.component.html',
-  styleUrl: './host-account.component.css',
+  selector: 'app-profile-account',
+  templateUrl: './profile-account.component.html',
+  styleUrl: './profile-account.component.css',
 })
-export class HostAccountComponent {
-  accountDetails!: HostAccountDetails;
+export class ProfileAccountComponent {
+  accountDetails!: AccountDetails;
   reviews!: Comment[];
   canAddComment: boolean = true;
   accountId!: number;
   currentUserRole: string = '';
   currentUserEmail: string = '';
+  averageRating: number = 0;
 
   constructor(
     private route: ActivatedRoute,
-    private accountService: HostAccountService,
+    private hostAccountService: HostAccountService,
     private loginService: LoginService,
+    private accountService: AccountService,
   ) {}
 
   ngOnInit(): void {
@@ -38,8 +41,8 @@ export class HostAccountComponent {
   }
 
   private fetchAccountDetails(accountId: number): void {
-    this.accountService.getHostDetails(accountId).subscribe(
-      (details: HostAccountDetails) => {
+    this.accountService.getAccountDetailsById(accountId).subscribe(
+      (details: AccountDetails) => {
         this.accountDetails = details;
       },
       (error) => {
@@ -49,9 +52,10 @@ export class HostAccountComponent {
   }
 
   private fetchReviews(accountId: number): void {
-    this.accountService.getHostReviews(accountId).subscribe(
+    this.hostAccountService.getHostReviews(accountId).subscribe(
       (reviews: HostReviewDto[]) => {
         this.reviews = reviews.map((review) => this.convertToComment(review));
+        this.calculateAverageRatingAndCount();
       },
       (error) => {
         console.error('Error fetching host reviews', error);
@@ -73,12 +77,12 @@ export class HostAccountComponent {
   handleReviewSubmission(review: HostReviewRequest) {
     // Call service to submit the review
     console.log('Review added successfully');
-    this.accountService.addHostReview(this.accountId, review).subscribe(
+    this.hostAccountService.addHostReview(this.accountId, review).subscribe(
       (reviewDto: HostReviewDto) => {
         // Add the new review to the list of reviews
         this.reviews.push(this.convertToComment(reviewDto));
         console.log('Review added successfully');
-        this.fetchAccountDetails(this.accountId);
+        this.calculateAverageRatingAndCount();
       },
       (error) => {
         console.error('Error adding host review', error);
@@ -88,18 +92,28 @@ export class HostAccountComponent {
 
   handleDeleteReview(reviewId: number) {
     // Call the service to delete the review
-    this.accountService.deleteHostReview(reviewId).subscribe(
+    this.hostAccountService.deleteHostReview(reviewId).subscribe(
       (response: MessageDto) => {
-        // Handle successful deletion
         console.log(response);
-        // Remove the deleted review from the reviews array
         this.reviews = this.reviews.filter((review) => review.id !== reviewId);
-        this.fetchAccountDetails(this.accountId);
+        this.calculateAverageRatingAndCount();
       },
       (error) => {
         // Handle error
         console.error('Error deleting review', error);
       },
     );
+  }
+
+  private calculateAverageRatingAndCount(): void {
+    if (this.reviews.length > 0) {
+      const totalRating = this.reviews.reduce(
+        (acc: number, review: Comment) => acc + review.rating,
+        0,
+      );
+      this.averageRating = totalRating / this.reviews.length;
+    } else {
+      this.averageRating = 0;
+    }
   }
 }
