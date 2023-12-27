@@ -1,2 +1,7 @@
 <app-account-info [user]="accountDetails"></app-account-info>
-<app-comment-list></app-comment-list>
+<app-comment-list
+  [comments]="reviews"
+  (reviewSubmitted)="handleReviewSubmission($event)"
+  (deleteRequest)="handleDeleteReview($event)"
+>
+</app-comment-list>

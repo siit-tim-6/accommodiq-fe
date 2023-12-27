@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import {
-  AccountInfoDetails,
-  HostAccountDetails,
-} from '../account-info/account.model';
+import { HostAccountDetails } from '../account-info/account.model';
 import { ActivatedRoute } from '@angular/router';
 import { HostAccountService } from './host-account.service';
-import { HostReviewDto } from './host-account.model';
+import { HostReviewDto, HostReviewRequest } from './host-account.model';
+import { Comment } from '../../comment/comment.model';
+import { MessageDto } from '../../accommodation/accommodation.model';
 
 @Component({
   selector: 'app-host-account',
@@ -14,7 +13,8 @@ import { HostReviewDto } from './host-account.model';
 })
 export class HostAccountComponent {
   accountDetails!: HostAccountDetails;
-  reviews!: HostReviewDto[];
+  reviews!: Comment[];
+  accountId!: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,9 +23,9 @@ export class HostAccountComponent {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      const accountId = +params['accountId'];
-      this.fetchAccountDetails(accountId);
-      this.fetchReviews(accountId);
+      this.accountId = +params['accountId'];
+      this.fetchAccountDetails(this.accountId);
+      this.fetchReviews(this.accountId);
     });
   }
 
@@ -43,10 +43,52 @@ export class HostAccountComponent {
   private fetchReviews(accountId: number): void {
     this.accountService.getHostReviews(accountId).subscribe(
       (reviews: HostReviewDto[]) => {
-        this.reviews = reviews;
+        this.reviews = reviews.map((review) => this.convertToComment(review));
       },
       (error) => {
         console.error('Error fetching host reviews', error);
+      },
+    );
+  }
+
+  private convertToComment(reviewDto: HostReviewDto): Comment {
+    return {
+      id: reviewDto.id,
+      rating: reviewDto.rating,
+      author: reviewDto.author,
+      comment: reviewDto.comment,
+      date: new Date(reviewDto.date),
+      canDelete: reviewDto.canDelete,
+    };
+  }
+
+  handleReviewSubmission(review: HostReviewRequest) {
+    // Call service to submit the review
+    console.log('Review added successfully');
+    this.accountService.addHostReview(this.accountId, review).subscribe(
+      (reviewDto: HostReviewDto) => {
+        // Add the new review to the list of reviews
+        this.reviews.push(this.convertToComment(reviewDto));
+        console.log('Review added successfully');
+      },
+      (error) => {
+        console.error('Error adding host review', error);
+      },
+    );
+  }
+
+  handleDeleteReview(reviewId: number) {
+    // Call the service to delete the review
+    this.accountService.deleteHostReview(reviewId).subscribe(
+      (response: MessageDto) => {
+        // Handle successful deletion
+        console.log(response);
+        // Remove the deleted review from the reviews array
+        this.reviews = this.reviews.filter((review) => review.id !== reviewId);
+      },
+      (error) => {
+        // Handle error
+        console.error('Error deleting review', error);
       },
     );
   }

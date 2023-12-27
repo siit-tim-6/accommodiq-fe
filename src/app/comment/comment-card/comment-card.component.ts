@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Comment } from '../comment.model';
 
 @Component({
@@ -8,4 +8,9 @@ import { Comment } from '../comment.model';
 })
 export class CommentCardComponent {
   @Input() comment!: Comment;
+  @Output() deleteRequest = new EventEmitter<number>();
+
+  deleteComment(comment: Comment) {
+    this.deleteRequest.emit(comment.id);
+  }
 }

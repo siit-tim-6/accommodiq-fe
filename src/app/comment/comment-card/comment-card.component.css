@@ -30,3 +30,18 @@ p {
   align-items: center;
   justify-content: space-between;
 }
+
+:host .last-line {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 200;
+  font-size: 0.8em;
+}
+
+.pi-trash {
+  cursor: pointer;
+}
+
+.pi-trash:hover {
+  color: red;
+}

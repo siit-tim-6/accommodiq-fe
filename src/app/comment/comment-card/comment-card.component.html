@@ -6,3 +6,12 @@
 <div class="row">
   <p>{{ comment.comment }}</p>
 </div>
+<div class="last-line">
+  <p>{{ comment.date | date }}</p>
+  <i
+    class="pi pi-trash"
+    *ngIf="comment.canDelete"
+    (click)="deleteComment(comment)"
+    title="Delete Comment"
+  ></i>
+</div>
