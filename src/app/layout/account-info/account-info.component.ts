@@ -12,15 +12,7 @@ export class AccountInfoComponent {
   imageUrl: string =
     'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
   accountId!: number;
-  firstName: string = 'John Doe';
-  lastName: string = 'Doe';
-  reviewCount: number = 25;
-  address: string = 'San Francisco';
-  role: string = 'Host';
   stars: string[] = [];
-  rating: number | undefined;
-  email: string = 'teodorv22@gmail.com';
-  phoneNumber: string = '123456789';
 
   constructor(private route: ActivatedRoute) {
     this.route.queryParams.subscribe((params: Params) => {
@@ -35,8 +27,7 @@ export class AccountInfoComponent {
   }
 
   calculateStarRating(rating: number) {
-    this.rating = 3.6; // will be implemented later
-    const roundedRating = Math.round(this.rating * 2) / 2;
+    const roundedRating = Math.round(rating * 2) / 2;
 
     for (let i = 1; i <= 5; i++) {
       if (roundedRating >= i) {

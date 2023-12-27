@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import {
   AccountDetails,
+  AccountInfoDetails,
   PasswordChangeRequest,
 } from '../layout/account-info/account.model';
 import { HttpClient } from '@angular/common/http';

@@ -8,14 +8,14 @@
       <i class="pi pi-id-card"></i>
       <span>{{ user.address }}</span>
       <p-button
-        *ngIf="role === 'Guest'"
+        *ngIf="user.role === 'Guest'"
         label="Report"
         id="report-btn"
         class="account-info-button"
         severity="danger"
       ></p-button>
       <p-button
-        *ngIf="role === 'Host'"
+        *ngIf="user.role === 'Host'"
         label="Edit"
         id="edit-btn"
         class="account-info-button"
@@ -24,7 +24,7 @@
     <div class="top-row middle-row">
       <div>
         <i class="pi pi-user"></i>
-        <span>{{ role }}</span>
+        <span>{{ user.role }}</span>
       </div>
       <div>
         <i class="pi pi-envelope"></i>
