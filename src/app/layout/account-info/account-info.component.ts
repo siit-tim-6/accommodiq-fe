@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { GuestAccountDetails, HostAccountDetails } from './account.model';
 
 @Component({
   selector: 'app-account-info',
@@ -7,6 +8,7 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrl: './account-info.component.css',
 })
 export class AccountInfoComponent {
+  @Input() user!: HostAccountDetails | GuestAccountDetails;
   imageUrl: string =
     'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
   accountId!: number;
@@ -14,9 +16,11 @@ export class AccountInfoComponent {
   lastName: string = 'Doe';
   reviewCount: number = 25;
   address: string = 'San Francisco';
-  role: string = 'Owner';
+  role: string = 'Host';
   stars: string[] = [];
   rating: number | undefined;
+  email: string = 'teodorv22@gmail.com';
+  phoneNumber: string = '123456789';
 
   constructor(private route: ActivatedRoute) {
     this.route.queryParams.subscribe((params: Params) => {
@@ -25,10 +29,12 @@ export class AccountInfoComponent {
   }
 
   ngOnInit() {
-    this.calculateStarRating();
+    if (this.user.role === 'Host') {
+      this.calculateStarRating((this.user as HostAccountDetails).rating);
+    }
   }
 
-  calculateStarRating() {
+  calculateStarRating(rating: number) {
     this.rating = 3.6; // will be implemented later
     const roundedRating = Math.round(this.rating * 2) / 2;
 
@@ -39,5 +45,9 @@ export class AccountInfoComponent {
         this.stars.push('pi pi-star');
       }
     }
+  }
+
+  get hostDetails(): HostAccountDetails | null {
+    return this.user.role === 'Host' ? (this.user as HostAccountDetails) : null;
   }
 }

@@ -13,6 +13,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { CommentModule } from '../comment/comment.module';
+import { HostAccountComponent } from './host-account/host-account.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CommentModule } from '../comment/comment.module';
     RegistrationComponent,
     UpdateAccountComponent,
     AccountInfoComponent,
+    HostAccountComponent,
   ],
   imports: [
     CommonModule,

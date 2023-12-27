@@ -16,3 +16,16 @@ export interface PasswordChangeRequest {
   oldPassword: string;
   newPassword: string;
 }
+
+export interface AccountInfoDetails extends AccountDetails {
+  role: 'Guest' | 'Host';
+}
+
+export interface HostAccountDetails extends AccountInfoDetails {
+  rating: number;
+  reviewCount: number;
+}
+
+export interface GuestAccountDetails extends AccountInfoDetails {
+  //IF NEEDED FOR GUEST ACCOUNT
+}
