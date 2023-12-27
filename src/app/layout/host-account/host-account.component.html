@@ -1,6 +1,8 @@
 <app-account-info [user]="accountDetails"></app-account-info>
 <app-comment-list
+  *ngIf="accountDetails.role === 'HOST'"
   [comments]="reviews"
+  [canAddComment]="canAddComment"
   (reviewSubmitted)="handleReviewSubmission($event)"
   (deleteRequest)="handleDeleteReview($event)"
 >

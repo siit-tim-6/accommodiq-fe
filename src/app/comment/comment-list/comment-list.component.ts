@@ -10,6 +10,7 @@ import { HostReviewRequest } from '../../layout/host-account/host-account.model'
 export class CommentListComponent {
   @Input()
   comments: Comment[] = [];
+  @Input()
   canAddComment: boolean = true;
   @Output() reviewSubmitted: EventEmitter<HostReviewRequest> =
     new EventEmitter<HostReviewRequest>();

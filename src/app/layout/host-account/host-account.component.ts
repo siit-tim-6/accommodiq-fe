@@ -5,6 +5,7 @@ import { HostAccountService } from './host-account.service';
 import { HostReviewDto, HostReviewRequest } from './host-account.model';
 import { Comment } from '../../comment/comment.model';
 import { MessageDto } from '../../accommodation/accommodation.model';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-host-account',
@@ -14,11 +15,15 @@ import { MessageDto } from '../../accommodation/accommodation.model';
 export class HostAccountComponent {
   accountDetails!: HostAccountDetails;
   reviews!: Comment[];
+  canAddComment: boolean = true;
   accountId!: number;
+  currentUserRole: string = '';
+  currentUserEmail: string = '';
 
   constructor(
     private route: ActivatedRoute,
     private accountService: HostAccountService,
+    private loginService: LoginService,
   ) {}
 
   ngOnInit(): void {
@@ -26,6 +31,9 @@ export class HostAccountComponent {
       this.accountId = +params['accountId'];
       this.fetchAccountDetails(this.accountId);
       this.fetchReviews(this.accountId);
+      this.currentUserEmail = this.loginService.getEmail();
+      this.currentUserRole = this.loginService.getRole() || '';
+      this.canAddComment = this.currentUserRole === 'GUEST';
     });
   }
 
@@ -70,6 +78,7 @@ export class HostAccountComponent {
         // Add the new review to the list of reviews
         this.reviews.push(this.convertToComment(reviewDto));
         console.log('Review added successfully');
+        this.fetchAccountDetails(this.accountId);
       },
       (error) => {
         console.error('Error adding host review', error);
@@ -85,6 +94,7 @@ export class HostAccountComponent {
         console.log(response);
         // Remove the deleted review from the reviews array
         this.reviews = this.reviews.filter((review) => review.id !== reviewId);
+        this.fetchAccountDetails(this.accountId);
       },
       (error) => {
         // Handle error

@@ -18,7 +18,7 @@ export interface PasswordChangeRequest {
 }
 
 export interface AccountInfoDetails extends AccountDetails {
-  role: 'Guest' | 'Host';
+  role: 'GUEST' | 'HOST';
 }
 
 export interface HostAccountDetails extends AccountInfoDetails {

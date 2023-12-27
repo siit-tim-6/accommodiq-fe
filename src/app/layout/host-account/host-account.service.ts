@@ -21,7 +21,7 @@ export class HostAccountService {
       email: 'john.doe@example.com',
       phoneNumber: '123-456-7890',
       address: '123 Main St, City, State, 12345',
-      role: 'Host',
+      role: 'HOST',
       rating: 3.5,
       reviewCount: 123,
       // ...other required properties

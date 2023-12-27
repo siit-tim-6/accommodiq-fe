@@ -8,14 +8,18 @@
       <i class="pi pi-id-card"></i>
       <span>{{ user.address }}</span>
       <p-button
-        *ngIf="user.role === 'Guest'"
+        *ngIf="
+          user.role === 'GUEST' &&
+          user.email !== currentUserEmail &&
+          currentUserRole === 'HOST'
+        "
         label="Report"
         id="report-btn"
         class="account-info-button"
         severity="danger"
       ></p-button>
       <p-button
-        *ngIf="user.role === 'Host'"
+        *ngIf="user.email === currentUserEmail"
         label="Edit"
         id="edit-btn"
         class="account-info-button"
