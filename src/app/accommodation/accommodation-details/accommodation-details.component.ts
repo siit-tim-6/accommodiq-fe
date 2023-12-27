@@ -10,6 +10,7 @@ import { EMPTY, Subscription, of, switchMap } from 'rxjs';
 import { AccountRole } from '../../layout/account-info/account.model';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../env/env';
+import { JwtService } from '../../infrastructure/auth/jwt.service';
 
 @Component({
   selector: 'app-accommodation-details',
@@ -20,6 +21,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   accommodationId: number;
   accommodationDetails: AccommodationDetails;
   subscription?: Subscription;
+  accommodationImages: string[];
 
   rangeDates: Date[] | undefined;
   guests: number | string | undefined;
@@ -31,6 +33,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private jwtService: JwtService,
     private accommodationService: AccommodationService,
     private messageService: MessageService,
   ) {
@@ -57,6 +60,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
       minPrice: 0,
       pricingType: '',
     };
+    this.accommodationImages = [];
   }
 
   ngOnInit(): void {
@@ -70,6 +74,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
       }),
       switchMap((accommodation: AccommodationDetails) => {
         this.accommodationDetails = accommodation;
+        this.populateFullImagePaths();
         return this.accommodationService.rangeDatesSearch;
       }),
       switchMap((rangeDates: Date[] | undefined) => {
@@ -190,7 +195,10 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
       return 'Accommodation is not available within selected date range.';
     }
 
-    if (this.getRole() == null || this.getRole() !== 'GUEST') {
+    if (
+      this.jwtService.getRole() == null ||
+      this.jwtService.getRole() !== 'GUEST'
+    ) {
       return 'You must be a logged-in guest.';
     }
 
@@ -202,8 +210,8 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
       this.isGuestsValid() &&
       this.isRangeDatesValid() &&
       this.accommodationAvailable &&
-      this.getRole !== null &&
-      this.getRole() === 'GUEST'
+      this.jwtService.getRole() !== null &&
+      this.jwtService.getRole() === 'GUEST'
     );
   }
 
@@ -242,7 +250,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   }
 
   makeReservation() {
-    let userId = this.getUserId();
+    let userId = this.jwtService.getUserId();
     if (
       userId !== null &&
       this.rangeDates !== undefined &&
@@ -276,43 +284,8 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  // will get removed when we make infrastructure module
-  private extractToken(token: string) {
-    let jwtData = token.split('.')[1];
-    let decodedJwtJsonData = window.atob(jwtData);
-    return JSON.parse(decodedJwtJsonData);
-  }
-
-  getRole(): AccountRole | null {
-    let token = localStorage.getItem('user');
-    if (token == null) return null;
-
-    let decodedJwtData = this.extractToken(token);
-
-    if (Date.now() >= decodedJwtData.exp * 1000) {
-      localStorage.removeItem('user');
-      return null;
-    }
-
-    return decodedJwtData.role.toUpperCase() as AccountRole;
-  }
-
-  private getUserId(): number | null {
-    let token = localStorage.getItem('user');
-    if (token == null) return null;
-
-    let decodedJwtData = this.extractToken(token);
-
-    if (Date.now() >= decodedJwtData.exp * 1000) {
-      localStorage.removeItem('user');
-      return null;
-    }
-
-    return decodedJwtData.id;
-  }
-
-  getFullImagePaths(): string[] {
-    return this.accommodationDetails.images.map(
+  private populateFullImagePaths() {
+    this.accommodationImages = this.accommodationDetails.images.map(
       (imageName) => environment.imageBase + imageName,
     );
   }
