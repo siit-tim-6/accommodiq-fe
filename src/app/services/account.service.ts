@@ -49,7 +49,7 @@ export class AccountService {
         email: 'teodorv22+proba@gmail.com',
         phoneNumber: '123-456-7890',
         address: '123 Main St, City, State, 12345',
-        role: 'HOST',
+        role: 'GUEST',
         // ...other required properties
       });
     }
@@ -60,7 +60,7 @@ export class AccountService {
       email: 'john.cena@example.com',
       phoneNumber: '123-456-7890',
       address: '123 Main St, City, State, 12345',
-      role: 'GUEST',
+      role: 'HOST',
       // ...other required properties
     });
   }

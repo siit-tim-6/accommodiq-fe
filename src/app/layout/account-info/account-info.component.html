@@ -9,9 +9,12 @@
       <span>{{ user.address }}</span>
       <p-button
         *ngIf="
-          user.role === 'GUEST' &&
-          user.email !== currentUserEmail &&
-          currentUserRole === 'HOST'
+          (user.role === 'GUEST' &&
+            user.email !== currentUserEmail &&
+            currentUserRole === 'HOST') ||
+          (user.role === 'HOST' &&
+            user.email !== currentUserEmail &&
+            currentUserRole === 'GUEST')
         "
         label="Report"
         id="report-btn"
