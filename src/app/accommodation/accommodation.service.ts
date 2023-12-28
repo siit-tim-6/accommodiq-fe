@@ -25,7 +25,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AccommodationService {
-  private accommodationList: Accommodation[] = [];
   private rangeDatesSearchSubject$ = new BehaviorSubject<Date[] | undefined>(
     undefined,
   );
