@@ -7,6 +7,8 @@ import { MessageDto } from '../../accommodation/accommodation.model';
 import { LoginService } from '../login/login.service';
 import { AccountDetails, AccountRole } from '../account-info/account.model';
 import { AccountService } from '../../services/account.service';
+import { MessageService } from 'primeng/api';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-profile-account',
@@ -28,6 +30,7 @@ export class ProfileAccountComponent {
     private hostAccountService: HostAccountService,
     private loginService: LoginService,
     private accountService: AccountService,
+    private messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
@@ -41,8 +44,20 @@ export class ProfileAccountComponent {
   }
 
   private fetchAccountDetails(accountId: number): void {
-    this.accountService.getAccountDetailsById(accountId).subscribe(
-      (details: AccountDetails) => {
+    this.accountService
+      .getAccountDetailsById(accountId)
+      .pipe(
+        catchError((error) => {
+          console.error('Error fetching account details', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error fetching account details. Please try again later.',
+          });
+          return throwError(() => new Error('Error fetching account details'));
+        }),
+      )
+      .subscribe((details: AccountDetails) => {
         console.log(details);
         this.accountDetails = details;
         if (this.accountDetails.role === AccountRole.HOST) {
@@ -51,24 +66,28 @@ export class ProfileAccountComponent {
             this.currentUserEmail === this.accountDetails.email &&
             this.currentUserRole === 'HOST';
         }
-      },
-      (error) => {
-        console.error('Error fetching host account details', error);
-      },
-    );
+      });
   }
 
   private fetchReviews(accountId: number): void {
-    this.hostAccountService.getHostReviews(accountId).subscribe(
-      (reviews: ReviewDto[]) => {
+    this.hostAccountService
+      .getHostReviews(accountId)
+      .pipe(
+        catchError((error) => {
+          console.error('Error fetching host reviews', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error fetching host reviews. Please try again later.',
+          });
+          return throwError(() => new Error('Error fetching host reviews'));
+        }),
+      )
+      .subscribe((reviews: ReviewDto[]) => {
         console.log(reviews);
         this.reviews = reviews.map((review) => this.convertToComment(review));
         this.calculateAverageRatingAndCount();
-      },
-      (error) => {
-        console.error('Error fetching host reviews', error);
-      },
-    );
+      });
   }
 
   private convertToComment(reviewDto: ReviewDto): Comment {
@@ -83,47 +102,88 @@ export class ProfileAccountComponent {
   }
 
   handleReviewSubmission(review: ReviewRequest) {
-    // Call service to submit the review
-    console.log('Review added successfully');
-    this.hostAccountService.addHostReview(this.accountId, review).subscribe(
-      (reviewDto: ReviewDto) => {
-        // Add the new review to the list of reviews
-        this.reviews.push(this.convertToComment(reviewDto));
-        console.log('Review added successfully');
-        this.calculateAverageRatingAndCount();
-      },
-      (error) => {
-        console.error('Error adding host review', error);
-      },
-    );
+    if (review.rating >= 1 && review.rating <= 5 && review.comment != '') {
+      this.hostAccountService
+        .addHostReview(this.accountId, review)
+        .pipe(
+          catchError((error) => {
+            let errorMessage = 'Error adding host review';
+            if (
+              error.status === 403 &&
+              error.error.message.includes('Guest cannot comment')
+            ) {
+              errorMessage = error.error.message; // Specific error message
+            }
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: errorMessage,
+            });
+            return throwError(error);
+          }),
+        )
+        .subscribe((reviewDto: ReviewDto) => {
+          this.reviews.push(this.convertToComment(reviewDto));
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Review added successfully',
+          });
+          this.calculateAverageRatingAndCount();
+        });
+    } else {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Validation Error',
+        detail:
+          'Please fill in all required fields before submitting your review.',
+      });
+    }
   }
 
   handleDeleteReview(reviewId: number) {
-    // Call the service to delete the review
-    this.hostAccountService.deleteHostReview(reviewId).subscribe(
-      (response: MessageDto) => {
+    this.hostAccountService
+      .deleteHostReview(reviewId)
+      .pipe(
+        catchError((error) => {
+          console.error('Error deleting review', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error deleting review. Please try again later.',
+          });
+          return throwError(() => new Error('Error deleting review'));
+        }),
+      )
+      .subscribe((response: MessageDto) => {
         console.log(response);
         this.reviews = this.reviews.filter((review) => review.id !== reviewId);
         this.calculateAverageRatingAndCount();
-      },
-      (error) => {
-        // Handle error
-        console.error('Error deleting review', error);
-      },
-    );
+      });
   }
 
   handleReportReview(reviewId: number) {
-    // Call the service to report the review
-    this.hostAccountService.reportHostReview(reviewId).subscribe(
-      (response: MessageDto) => {
+    this.hostAccountService
+      .reportHostReview(reviewId)
+      .pipe(
+        catchError((error) => {
+          console.error('Error reporting review', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error reporting review. Please try again later.',
+          });
+          return throwError(() => new Error('Error reporting review'));
+        }),
+      )
+      .subscribe((response: MessageDto) => {
         console.log(response);
-      },
-      (error) => {
-        // Handle error
-        console.error('Error reporting review', error);
-      },
-    );
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Report Successful',
+          detail: 'Review reported successfully.',
+        });
+      });
   }
 
   private calculateAverageRatingAndCount(): void {

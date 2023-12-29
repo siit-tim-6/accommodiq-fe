@@ -9,7 +9,7 @@ import { AccountDetails, AccountRole } from './account.model';
   styleUrl: './account-info.component.css',
 })
 export class AccountInfoComponent {
-  @Input() user!: AccountDetails;
+  @Input() user?: AccountDetails;
   @Input() averageRating: number = 0;
   @Input() numberOfReviews: number = 0;
   imageUrl: string =
