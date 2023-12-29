@@ -5,15 +5,15 @@ import {
   ReviewRequest,
   ReviewStatus,
   ReviewStatusDto,
-} from './host-account.model';
+} from '../layout/profile-account/review.model';
 import { HttpClient } from '@angular/common/http';
-import { MessageDto } from '../../accommodation/accommodation.model';
-import { environment } from '../../../env/env';
+import { MessageDto } from '../accommodation/accommodation.model';
+import { environment } from '../../env/env';
 
 @Injectable({
   providedIn: 'root',
 })
-export class HostAccountService {
+export class ReviewService {
   constructor(private httpClient: HttpClient) {}
 
   getHostReviews(hostId: number): Observable<ReviewDto[]> {

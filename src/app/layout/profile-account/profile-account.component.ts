@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HostAccountService } from './host-account.service';
-import { ReviewDto, ReviewRequest } from './host-account.model';
+import { ReviewService } from '../../services/review.service';
+import { ReviewDto, ReviewRequest } from './review.model';
 import { Comment } from '../../comment/comment.model';
 import { MessageDto } from '../../accommodation/accommodation.model';
 import { LoginService } from '../login/login.service';
@@ -27,7 +27,7 @@ export class ProfileAccountComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private hostAccountService: HostAccountService,
+    private hostAccountService: ReviewService,
     private loginService: LoginService,
     private accountService: AccountService,
     private messageService: MessageService,
