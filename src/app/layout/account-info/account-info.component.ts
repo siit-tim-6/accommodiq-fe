@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { LoginService } from '../login/login.service';
-import { AccountDetails } from './account.model';
+import { AccountDetails, AccountRole } from './account.model';
 
 @Component({
   selector: 'app-account-info',
@@ -30,8 +30,8 @@ export class AccountInfoComponent {
     });
   }
 
-  ngOnInit() {
-    if (this.user.role === 'HOST') {
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['averageRating'] && this.user?.role === AccountRole.HOST) {
       this.calculateStarRating(this.averageRating);
     }
   }
@@ -47,4 +47,6 @@ export class AccountInfoComponent {
       }
     }
   }
+
+  protected readonly AccountRole = AccountRole;
 }

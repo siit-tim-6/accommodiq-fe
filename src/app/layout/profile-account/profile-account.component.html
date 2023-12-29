@@ -4,7 +4,7 @@
   [numberOfReviews]="reviews.length"
 ></app-account-info>
 <app-comment-list
-  *ngIf="accountDetails.role === 'HOST'"
+  *ngIf="accountDetails?.role === AccountRole.HOST"
   [comments]="reviews"
   [canAddComment]="canAddComment"
   [canReport]="canReport"

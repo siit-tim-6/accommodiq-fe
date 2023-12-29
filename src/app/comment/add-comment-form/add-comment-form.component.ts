@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HostReviewRequest } from '../../layout/profile-account/host-account.model';
+import { ReviewRequest } from '../../layout/profile-account/host-account.model';
 
 @Component({
   selector: 'app-add-comment-form',
@@ -8,8 +8,8 @@ import { HostReviewRequest } from '../../layout/profile-account/host-account.mod
   styleUrl: './add-comment-form.component.css',
 })
 export class AddCommentFormComponent {
-  @Output() reviewSubmitted: EventEmitter<HostReviewRequest> =
-    new EventEmitter<HostReviewRequest>();
+  @Output() reviewSubmitted: EventEmitter<ReviewRequest> =
+    new EventEmitter<ReviewRequest>();
   reviewForm: FormGroup;
 
   constructor(private fb: FormBuilder) {

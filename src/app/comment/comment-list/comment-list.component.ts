@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Comment } from '../comment.model';
-import { HostReviewRequest } from '../../layout/profile-account/host-account.model';
+import { ReviewRequest } from '../../layout/profile-account/host-account.model';
 
 @Component({
   selector: 'app-comment-list',
@@ -13,12 +13,12 @@ export class CommentListComponent {
   @Input()
   canAddComment: boolean = true;
   @Input() canReport: boolean = true;
-  @Output() reviewSubmitted: EventEmitter<HostReviewRequest> =
-    new EventEmitter<HostReviewRequest>();
+  @Output() reviewSubmitted: EventEmitter<ReviewRequest> =
+    new EventEmitter<ReviewRequest>();
   @Output() deleteRequest: EventEmitter<number> = new EventEmitter<number>();
   @Output() reportRequest: EventEmitter<number> = new EventEmitter<number>();
 
-  handleReviewSubmission(review: HostReviewRequest) {
+  handleReviewSubmission(review: ReviewRequest) {
     this.reviewSubmitted.emit(review);
   }
 

@@ -40,28 +40,8 @@ export class AccountService {
   }
 
   getAccountDetailsById(accountId: number): Observable<AccountDetails> {
-    // Replace with actual HTTP call to fetch host details
-    if (accountId === 1) {
-      return of({
-        // Mocked data
-        firstName: 'Teo',
-        lastName: 'Vid',
-        email: 'teodorv22+proba@gmail.com',
-        phoneNumber: '123-456-7890',
-        address: '123 Main St, City, State, 12345',
-        role: 'GUEST',
-        // ...other required properties
-      });
-    }
-    return of({
-      // Mocked data
-      firstName: 'John',
-      lastName: 'Cena',
-      email: 'john.cena@example.com',
-      phoneNumber: '123-456-7890',
-      address: '123 Main St, City, State, 12345',
-      role: 'HOST',
-      // ...other required properties
-    });
+    return this.httpClient.get<AccountDetails>(
+      `${environment.apiHost}users/${accountId}/profile`,
+    );
   }
 }

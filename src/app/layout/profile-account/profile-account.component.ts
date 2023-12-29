@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HostAccountService } from './host-account.service';
-import { HostReviewDto, HostReviewRequest } from './host-account.model';
+import { ReviewDto, ReviewRequest } from './host-account.model';
 import { Comment } from '../../comment/comment.model';
 import { MessageDto } from '../../accommodation/accommodation.model';
 import { LoginService } from '../login/login.service';
-import { AccountDetails } from '../account-info/account.model';
+import { AccountDetails, AccountRole } from '../account-info/account.model';
 import { AccountService } from '../../services/account.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { AccountService } from '../../services/account.service';
 })
 export class ProfileAccountComponent {
   accountDetails!: AccountDetails;
-  reviews!: Comment[];
+  reviews: Comment[] = [];
   canAddComment: boolean = true;
   canReport: boolean = false;
   accountId!: number;
@@ -34,20 +34,23 @@ export class ProfileAccountComponent {
     this.route.params.subscribe((params) => {
       this.accountId = +params['accountId'];
       this.fetchAccountDetails(this.accountId);
-      this.fetchReviews(this.accountId);
       this.currentUserEmail = this.loginService.getEmail();
       this.currentUserRole = this.loginService.getRole() || '';
       this.canAddComment = this.currentUserRole === 'GUEST';
-      this.canReport =
-        this.currentUserEmail === this.accountDetails.email &&
-        this.currentUserRole === 'HOST';
     });
   }
 
   private fetchAccountDetails(accountId: number): void {
     this.accountService.getAccountDetailsById(accountId).subscribe(
       (details: AccountDetails) => {
+        console.log(details);
         this.accountDetails = details;
+        if (this.accountDetails.role === AccountRole.HOST) {
+          this.fetchReviews(this.accountId);
+          this.canReport =
+            this.currentUserEmail === this.accountDetails.email &&
+            this.currentUserRole === 'HOST';
+        }
       },
       (error) => {
         console.error('Error fetching host account details', error);
@@ -57,7 +60,8 @@ export class ProfileAccountComponent {
 
   private fetchReviews(accountId: number): void {
     this.hostAccountService.getHostReviews(accountId).subscribe(
-      (reviews: HostReviewDto[]) => {
+      (reviews: ReviewDto[]) => {
+        console.log(reviews);
         this.reviews = reviews.map((review) => this.convertToComment(review));
         this.calculateAverageRatingAndCount();
       },
@@ -67,7 +71,7 @@ export class ProfileAccountComponent {
     );
   }
 
-  private convertToComment(reviewDto: HostReviewDto): Comment {
+  private convertToComment(reviewDto: ReviewDto): Comment {
     return {
       id: reviewDto.id,
       rating: reviewDto.rating,
@@ -78,11 +82,11 @@ export class ProfileAccountComponent {
     };
   }
 
-  handleReviewSubmission(review: HostReviewRequest) {
+  handleReviewSubmission(review: ReviewRequest) {
     // Call service to submit the review
     console.log('Review added successfully');
     this.hostAccountService.addHostReview(this.accountId, review).subscribe(
-      (reviewDto: HostReviewDto) => {
+      (reviewDto: ReviewDto) => {
         // Add the new review to the list of reviews
         this.reviews.push(this.convertToComment(reviewDto));
         console.log('Review added successfully');
@@ -133,4 +137,6 @@ export class ProfileAccountComponent {
       this.averageRating = 0;
     }
   }
+
+  protected readonly AccountRole = AccountRole;
 }
