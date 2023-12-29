@@ -102,43 +102,34 @@ export class ProfileAccountComponent {
   }
 
   handleReviewSubmission(review: ReviewRequest) {
-    if (review.rating >= 1 && review.rating <= 5 && review.comment != '') {
-      this.hostAccountService
-        .addHostReview(this.accountId, review)
-        .pipe(
-          catchError((error) => {
-            let errorMessage = 'Error adding host review';
-            if (
-              error.status === 403 &&
-              error.error.message.includes('Guest cannot comment')
-            ) {
-              errorMessage = error.error.message; // Specific error message
-            }
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: errorMessage,
-            });
-            return throwError(error);
-          }),
-        )
-        .subscribe((reviewDto: ReviewDto) => {
-          this.reviews.push(this.convertToComment(reviewDto));
+    this.hostAccountService
+      .addHostReview(this.accountId, review)
+      .pipe(
+        catchError((error) => {
+          let errorMessage = 'Error adding host review';
+          if (
+            error.status === 403 &&
+            error.error.message.includes('Guest cannot comment')
+          ) {
+            errorMessage = error.error.message; // Specific error message
+          }
           this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Review added successfully',
+            severity: 'error',
+            summary: 'Error',
+            detail: errorMessage,
           });
-          this.calculateAverageRatingAndCount();
+          return throwError(error);
+        }),
+      )
+      .subscribe((reviewDto: ReviewDto) => {
+        this.reviews.push(this.convertToComment(reviewDto));
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Review added successfully',
         });
-    } else {
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'Validation Error',
-        detail:
-          'Please fill in all required fields before submitting your review.',
+        this.calculateAverageRatingAndCount();
       });
-    }
   }
 
   handleDeleteReview(reviewId: number) {
