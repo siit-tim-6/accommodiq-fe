@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { ReviewDto, ReviewRequest, ReviewStatus } from './host-account.model';
+import {
+  ReviewDto,
+  ReviewRequest,
+  ReviewStatus,
+  ReviewStatusDto,
+} from './host-account.model';
 import { HttpClient } from '@angular/common/http';
 import { MessageDto } from '../../accommodation/accommodation.model';
 import { environment } from '../../../env/env';
@@ -28,12 +33,18 @@ export class HostAccountService {
   }
 
   deleteHostReview(reviewId: number): Observable<MessageDto> {
-    return of({ message: 'Review deleted successfully' });
-    //return this.httpClient.delete<MessageDto>(`${environment.apiHost}/reviews/${reviewId}`);
+    return this.httpClient.delete<MessageDto>(
+      `${environment.apiHost}/reviews/${reviewId}`,
+    );
   }
 
   reportHostReview(reviewId: number): Observable<MessageDto> {
-    return of({ message: 'Review reported successfully' });
-    //return this.httpClient.delete<MessageDto>(`${environment.apiHost}/reviews/${reviewId}/status`);
+    const reviewStatusDto: ReviewStatusDto = {
+      status: ReviewStatus.REPORTED,
+    };
+    return this.httpClient.put<MessageDto>(
+      `${environment.apiHost}/reviews/${reviewId}/status`,
+      reviewStatusDto,
+    );
   }
 }

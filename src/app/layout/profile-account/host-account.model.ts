@@ -9,6 +9,10 @@ export interface ReviewDto {
   status: ReviewStatus;
 }
 
+export interface ReviewStatusDto {
+  status: ReviewStatus;
+}
+
 export enum ReviewStatus {
   ACCEPTED = 'ACCEPTED',
   DECLINED = 'DECLINED',
