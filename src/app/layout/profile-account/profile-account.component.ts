@@ -151,6 +151,11 @@ export class ProfileAccountComponent {
         console.log(response);
         this.reviews = this.reviews.filter((review) => review.id !== reviewId);
         this.calculateAverageRatingAndCount();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Review deleted successfully',
+        });
       });
   }
 

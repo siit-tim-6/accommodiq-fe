@@ -38,6 +38,7 @@ export class AccountInfoComponent {
 
   calculateStarRating(rating: number) {
     const roundedRating = Math.round(rating * 2) / 2;
+    this.stars = [];
 
     for (let i = 1; i <= 5; i++) {
       if (roundedRating >= i) {
