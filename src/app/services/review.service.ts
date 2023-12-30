@@ -32,19 +32,29 @@ export class ReviewService {
     );
   }
 
-  deleteHostReview(reviewId: number): Observable<MessageDto> {
+  deleteReview(reviewId: number): Observable<MessageDto> {
     return this.httpClient.delete<MessageDto>(
       `${environment.apiHost}reviews/${reviewId}`,
     );
   }
 
-  reportHostReview(reviewId: number): Observable<MessageDto> {
+  reportReview(reviewId: number): Observable<MessageDto> {
     const reviewStatusDto: ReviewStatusDto = {
       status: ReviewStatus.REPORTED,
     };
     return this.httpClient.put<MessageDto>(
       `${environment.apiHost}reviews/${reviewId}/status`,
       reviewStatusDto,
+    );
+  }
+
+  addAccommodationReview(
+    accommodationId: number,
+    review: ReviewRequest,
+  ): Observable<ReviewDto> {
+    return this.httpClient.post<ReviewDto>(
+      `${environment.apiHost}accommodations/${accommodationId}/reviews`,
+      review,
     );
   }
 }
