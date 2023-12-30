@@ -48,3 +48,11 @@ p {
 .pi-ban:hover {
   color: red;
 }
+
+:host h2 {
+  cursor: pointer;
+}
+
+:host h2:hover {
+  color: rgb(128, 128, 128);
+}

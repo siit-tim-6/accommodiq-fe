@@ -5,4 +5,5 @@ export interface Comment {
   comment: string;
   date: Date;
   canDelete: boolean;
+  authorId: number;
 }
