@@ -1,10 +1,10 @@
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { LoginService } from '../layout/login/login.service';
-import { AccountRole } from '../layout/account-info/account.model';
+import { AccountRole } from '../../../layout/account-info/account.model';
+import { JwtService } from '../jwt.service';
 
 export const CanActivateRole = (role: AccountRole) => {
-  const jwtService = inject(LoginService);
+  const jwtService = inject(JwtService);
   const router = inject(Router);
 
   let token = localStorage.getItem('user');
