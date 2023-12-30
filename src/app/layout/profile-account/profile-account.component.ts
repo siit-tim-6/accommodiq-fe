@@ -184,7 +184,8 @@ export class ProfileAccountComponent {
         (acc: number, review: Comment) => acc + review.rating,
         0,
       );
-      this.averageRating = totalRating / this.reviews.length;
+      // Calculate average and round to one decimal place
+      this.averageRating = +(totalRating / this.reviews.length).toFixed(1);
     } else {
       this.averageRating = 0;
     }

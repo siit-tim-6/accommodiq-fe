@@ -34,7 +34,7 @@ export class ReviewService {
 
   deleteHostReview(reviewId: number): Observable<MessageDto> {
     return this.httpClient.delete<MessageDto>(
-      `${environment.apiHost}/reviews/${reviewId}`,
+      `${environment.apiHost}reviews/${reviewId}`,
     );
   }
 
@@ -43,7 +43,7 @@ export class ReviewService {
       status: ReviewStatus.REPORTED,
     };
     return this.httpClient.put<MessageDto>(
-      `${environment.apiHost}/reviews/${reviewId}/status`,
+      `${environment.apiHost}reviews/${reviewId}/status`,
       reviewStatusDto,
     );
   }

@@ -25,11 +25,11 @@ export class AddCommentFormComponent {
 
   onSubmit() {
     if (this.reviewForm.valid) {
+      this.reviewSubmitted.emit({ ...this.reviewForm.value });
       this.reviewForm.patchValue({
         rating: 0,
         comment: '',
       });
-      this.reviewSubmitted.emit({ ...this.reviewForm.value });
     } else {
       this.messageService.add({
         severity: 'warn',
