@@ -358,10 +358,10 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
         }),
       )
       .subscribe((messageDto) => {
-        this.accommodationDetails.reviews =
-          this.accommodationDetails.reviews.filter(
-            (review) => review.id !== reviewId,
-          );
+        this.accommodationDetails.reviews = this.accommodationDetails.reviews
+          .filter((review) => review.id !== reviewId)
+          .map((review) => ({ ...review }));
+        this.accommodationDetails.reviewCount--;
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
