@@ -16,6 +16,7 @@ import {
   AccommodationStatus,
   ReservationRequest,
   AccommodationAdvancedDetails,
+  GuestFavorite,
 } from './accommodation.model';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from '../../env/env';
@@ -256,6 +257,27 @@ export class AccommodationService {
   ): Observable<AccommodationAdvancedDetails> {
     return this.httpClient.get<AccommodationAdvancedDetails>(
       `${environment.apiHost}accommodations/${id}/advanced`,
+    );
+  }
+
+  getGuestsFavoriteAccommodations(): Observable<Accommodation[]> {
+    return this.httpClient.get<Accommodation[]>(
+      `${environment.apiHost}guests/favorites`,
+    );
+  }
+
+  addGuestFavoriteAccommodation(
+    favorite: GuestFavorite,
+  ): Observable<Accommodation> {
+    return this.httpClient.post<Accommodation>(
+      `${environment.apiHost}guests/favorites`,
+      favorite,
+    );
+  }
+
+  removeGuestFavoriteAccommodation(id: number): Observable<MessageDto> {
+    return this.httpClient.delete<MessageDto>(
+      `${environment.apiHost}guests/favorites/${id}`,
     );
   }
 }
