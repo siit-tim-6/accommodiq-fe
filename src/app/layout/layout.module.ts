@@ -10,6 +10,7 @@ import { AccountInfoComponent } from './account-info/account-info.component';
 import { CommentModule } from '../comment/comment.module';
 import { ProfileAccountComponent } from './profile-account/profile-account.component';
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
+import { ReportFormComponent } from './report-form/report-form.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { PrimengModule } from '../infrastructure/primeng/primeng.module';
     UpdateAccountComponent,
     AccountInfoComponent,
     ProfileAccountComponent,
+    ReportFormComponent,
   ],
   imports: [
     CommonModule,

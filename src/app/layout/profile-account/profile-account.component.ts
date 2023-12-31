@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReviewService } from '../../services/review.service';
 import { ReviewDto, ReviewRequest } from './review.model';
 import { Comment } from '../../comment/comment.model';
@@ -31,6 +31,7 @@ export class ProfileAccountComponent {
     private loginService: LoginService,
     private accountService: AccountService,
     private messageService: MessageService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -181,6 +182,10 @@ export class ProfileAccountComponent {
           detail: 'Review reported successfully.',
         });
       });
+  }
+
+  handleReportUserBtn() {
+    this.router.navigate(['/report', this.accountId]);
   }
 
   private calculateAverageRatingAndCount(): void {

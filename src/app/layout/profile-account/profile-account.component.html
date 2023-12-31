@@ -2,6 +2,7 @@
   [user]="accountDetails"
   [averageRating]="averageRating"
   [numberOfReviews]="reviews.length"
+  (handleReportUserBtn)="handleReportUserBtn()"
 ></app-account-info>
 <app-comment-list
   *ngIf="accountDetails?.role === AccountRole.HOST"

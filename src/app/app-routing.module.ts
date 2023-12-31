@@ -15,12 +15,12 @@ import { CanActivateRole } from './infrastructure/auth/guards/role.guard';
 import { AccountRole } from './layout/account-info/account.model';
 import { AccommodationUpdateComponent } from './accommodation/accommodation-update/accommodation-update.component';
 import { ProfileAccountComponent } from './layout/profile-account/profile-account.component';
+import { ReportFormComponent } from './layout/report-form/report-form.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'account-info/:accountId', component: AccountInfoComponent },
   { path: 'search', component: AccommodationListComponent },
   {
     path: 'accommodation/:accommodationId',
@@ -48,6 +48,10 @@ const routes: Routes = [
   {
     path: 'profile-account/:accountId',
     component: ProfileAccountComponent,
+  },
+  {
+    path: 'report/:accommodationId',
+    component: ReportFormComponent,
   },
 ];
 
