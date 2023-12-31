@@ -14,6 +14,7 @@ import { AccommodationAvailabilityPricingComponent } from './accommodation/accom
 import { CanActivateRole } from './infrastructure/auth/guards/role.guard';
 import { AccountRole } from './layout/account-info/account.model';
 import { AccommodationUpdateComponent } from './accommodation/accommodation-update/accommodation-update.component';
+import { GuestFavoritesListComponent } from './accommodation/guest-favorites-list/guest-favorites-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -43,6 +44,11 @@ const routes: Routes = [
     path: 'accommodations-review',
     component: AdminReviewListComponent,
     canActivate: [() => CanActivateRole(AccountRole.ADMIN)],
+  },
+  {
+    path: 'favorites',
+    component: GuestFavoritesListComponent,
+    canActivate: [() => CanActivateRole(AccountRole.GUEST)],
   },
 ];
 

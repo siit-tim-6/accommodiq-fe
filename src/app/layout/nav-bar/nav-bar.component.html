@@ -22,10 +22,18 @@
   src="../../../assets/images/my-accommodations.svg"
   alt="my-accommodations-icon"
 />
+
 <img
   *ngIf="role === AccountRole.ADMIN"
   [routerLink]="['/accommodations-review']"
   src="../../../assets/images/accommodations-review.svg"
+  alt="accommodations-review-icon"
+/>
+
+<img
+  *ngIf="role === AccountRole.GUEST"
+  [routerLink]="['/favorites']"
+  src="../../../assets/images/favorites-icon.svg"
   alt="accommodations-review-icon"
 />
 
