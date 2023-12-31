@@ -50,7 +50,7 @@ const routes: Routes = [
     component: ProfileAccountComponent,
   },
   {
-    path: 'report/:accommodationId',
+    path: 'report/:accountId',
     component: ReportFormComponent,
   },
 ];
