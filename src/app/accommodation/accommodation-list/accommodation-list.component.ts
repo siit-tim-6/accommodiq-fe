@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Accommodation, SearchParams } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
 import { getTimestampSeconds } from '../../utils/date.utils';
+import { JwtService } from '../../infrastructure/auth/jwt.service';
 
 @Component({
   selector: 'app-accommodation-list',
@@ -11,12 +12,23 @@ import { getTimestampSeconds } from '../../utils/date.utils';
 export class AccommodationListComponent implements OnInit {
   elements: Accommodation[] = [];
   savedSearchTriggered: boolean = false;
+  favorites: number[] = [];
 
-  constructor(private service: AccommodationService) {}
+  constructor(
+    private service: AccommodationService,
+    private jwtService: JwtService,
+  ) {}
 
   ngOnInit(): void {
     this.service.getAll().subscribe((accommodations: Accommodation[]) => {
       if (!this.savedSearchTriggered) this.elements = accommodations;
+      if (this.jwtService.getRole() === 'GUEST') {
+        this.service
+          .getGuestsFavoriteAccommodations()
+          .subscribe((favorites: Accommodation[]) => {
+            this.favorites = favorites.map((f) => f.id);
+          });
+      }
     });
   }
 
@@ -53,5 +65,9 @@ export class AccommodationListComponent implements OnInit {
     this.service.getAll().subscribe((accommodations: Accommodation[]) => {
       this.elements = accommodations;
     });
+  }
+
+  isFavorite(el: Accommodation) {
+    return this.favorites.includes(el.id);
   }
 }
