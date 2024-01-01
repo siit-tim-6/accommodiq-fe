@@ -3,6 +3,7 @@ import { AccountService } from '../../services/account.service';
 import { AccountDetails } from '../account-info/account.model';
 import { LoginService } from '../login/login.service';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-update-account',
@@ -19,6 +20,7 @@ export class UpdateAccountComponent implements OnInit {
     private accountService: AccountService,
     private loginService: LoginService,
     private router: Router,
+    private messageService: MessageService,
   ) {}
 
   onDelete() {
@@ -27,8 +29,12 @@ export class UpdateAccountComponent implements OnInit {
         this.loginService.signOut();
         this.router.navigate(['/login']);
       },
-      error: (_) => {
-        alert('An error occurred. Please try again.');
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Delete Failed',
+          detail: err.error.message,
+        });
       },
     });
   }
