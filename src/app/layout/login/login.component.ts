@@ -4,6 +4,7 @@ import { LoginRequest } from './login.model';
 import { Router } from '@angular/router';
 import { RoleService } from '../../services/role.service';
 import { MessageService } from 'primeng/api';
+import { WebSockets } from '../../infrastructure/websockets/web-sockets';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent {
     private router: Router,
     private roleService: RoleService,
     private messageService: MessageService,
+    private webSockets: WebSockets,
   ) {
     if (this.loginService.getRole() !== null) this.router.navigate(['/search']);
   }
@@ -38,7 +40,7 @@ export class LoginComponent {
 
         localStorage.setItem('user', jwt);
         this.roleService.updateRole(this.loginService.getRole());
-
+        this.webSockets.initializeWebSocketConnection();
         this.router.navigate(['/search']);
       },
       error: (err) => {

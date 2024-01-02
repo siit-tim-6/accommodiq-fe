@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { environment } from '../../../env/env';
 import { JwtService } from '../auth/jwt.service';
 import { Message } from './web-sockets.model';
 
 import * as Stomp from 'stompjs';
-import * as SockJS from 'sockjs-client';
+import SockJS from 'sockjs-client';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class WebSockets {
   private serverUrl = environment.apiHost + 'socket';
   private stompClient: any;
-  form!: FormGroup;
-  userForm!: FormGroup;
 
   constructor(private jwtService: JwtService) {}
 
@@ -26,32 +25,17 @@ export class WebSockets {
     let that = this;
 
     this.stompClient.connect({}, function () {
-      that.isLoaded = true;
-      that.openGlobalSocket();
+      that.openSocket();
     });
   }
 
-  openGlobalSocket() {
-    if (this.isLoaded) {
-      this.stompClient.subscribe(
-        '/socket-publisher',
-        (message: { body: string }) => {
-          this.handleResult(message);
-        },
-      );
-    }
-  }
-
   openSocket() {
-    if (this.isLoaded) {
-      this.isCustomSocketOpened = true;
-      this.stompClient.subscribe(
-        '/socket-publisher/' + this.userForm.value.fromId,
-        (message: { body: string }) => {
-          this.handleResult(message);
-        },
-      );
-    }
+    this.stompClient.subscribe(
+      '/socket-publisher/' + this.jwtService.getUserId(),
+      (message: { body: string }) => {
+        this.handleResult(message);
+      },
+    );
   }
 
   handleResult(message: { body: string }) {
