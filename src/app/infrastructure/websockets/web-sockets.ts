@@ -5,6 +5,7 @@ import { Message } from './web-sockets.model';
 
 import * as Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,10 @@ export class WebSockets {
   private serverUrl = environment.apiHost + 'socket';
   private stompClient: any;
 
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private jwtService: JwtService,
+    private messageService: MessageService,
+  ) {}
 
   ngOnInit() {
     this.initializeWebSocketConnection();
@@ -41,7 +45,12 @@ export class WebSockets {
   handleResult(message: { body: string }) {
     if (message.body) {
       let messageResult: Message = JSON.parse(message.body);
-      alert(messageResult);
+      this.messageService.add({
+        id: 'notification-toast',
+        severity: 'info',
+        summary: 'New Notification',
+        detail: messageResult.text,
+      });
     }
   }
 }
