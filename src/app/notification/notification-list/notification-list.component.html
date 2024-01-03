@@ -1,3 +1,5 @@
-<div *ngFor="let el of elements">
-  <app-notification-card [routerLink]="['/accommodation', 1]" />
+<div *ngIf="isLoaded">
+  <div *ngFor="let notification of notifications">
+    <app-notification-card [notification]="notification" />
+  </div>
 </div>

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NotificationService } from '../notification.service';
+import { NotificationDto } from '../notification.model';
 
 @Component({
   selector: 'app-notification-list',
@@ -6,5 +8,18 @@ import { Component } from '@angular/core';
   styleUrl: './notification-list.component.css',
 })
 export class NotificationListComponent {
-  elements: any = [1, 1, 1, 1, 1];
+  notifications: NotificationDto[] = [];
+  isLoaded: boolean = false;
+
+  constructor(private notificationService: NotificationService) {
+    this.notificationService.getNotifications().subscribe({
+      next: (notifications) => {
+        this.notifications = notifications;
+        this.isLoaded = true;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 }
