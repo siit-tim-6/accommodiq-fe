@@ -12,6 +12,10 @@ import { Interceptor } from './infrastructure/auth/interceptor';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { NotificationSettingsComponent } from './notification/notification-settings/notification-settings.component';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { PrimengModule } from './infrastructure/primeng/primeng.module';
 
 @NgModule({
   declarations: [AppComponent, NotificationSettingsComponent],
@@ -26,6 +30,10 @@ import { NotificationSettingsComponent } from './notification/notification-setti
     HttpClientModule,
     NotificationModule,
     ToastModule,
+    ButtonModule,
+    DialogModule,
+    InputTextModule,
+    PrimengModule,
   ],
   providers: [
     {

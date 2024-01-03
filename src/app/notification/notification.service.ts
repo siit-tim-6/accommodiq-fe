@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../env/env';
-import { NotificationDto } from './notification.model';
+import { NotificationDto, NotificationSettingDto } from './notification.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +24,18 @@ export class NotificationService {
 
   markAllAsRead() {
     return this.http.put(environment.apiHost + 'users/notifications/seen', {});
+  }
+
+  getNotificationSettings() {
+    return this.http.get<NotificationSettingDto[]>(
+      environment.apiHost + 'users/notification-settings',
+    );
+  }
+
+  updateNotificationSettings(notificationSettings: NotificationSettingDto[]) {
+    return this.http.put(
+      environment.apiHost + 'users/notification-settings',
+      notificationSettings,
+    );
   }
 }

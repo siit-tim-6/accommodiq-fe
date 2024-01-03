@@ -6,6 +6,11 @@ export interface NotificationDto {
   type: NotificationType;
 }
 
+export interface NotificationSettingDto {
+  type: NotificationType;
+  on: boolean;
+}
+
 export enum NotificationType {
   RESERVATION_REQUEST = 'RESERVATION_REQUEST',
   RESERVATION_CANCEL = 'RESERVATION_CANCEL',
