@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NotificationService } from '../notification.service';
-import { NotificationDto } from '../notification.model';
+import { NotificationDto, NotificationType } from '../notification.model';
 
 @Component({
   selector: 'app-notification-list',
@@ -9,17 +9,69 @@ import { NotificationDto } from '../notification.model';
 })
 export class NotificationListComponent {
   notifications: NotificationDto[] = [];
+  notificationToShow: NotificationDto[] = [];
   isLoaded: boolean = false;
+  showAll: boolean = false;
 
   constructor(private notificationService: NotificationService) {
     this.notificationService.getNotifications().subscribe({
       next: (notifications) => {
         this.notifications = notifications;
+        this.setNotificationToShow(this.showAll);
         this.isLoaded = true;
       },
       error: (err) => {
         console.log(err);
       },
     });
+  }
+
+  setNotificationToShow(showAll: boolean) {
+    this.showAll = showAll;
+    if (showAll) this.notificationToShow = this.notifications;
+    else this.notificationToShow = this.notifications.filter((n) => !n.seen);
+  }
+
+  markAllAsRead() {
+    this.notifications.forEach((n) => (n.seen = true));
+    this.setNotificationToShow(this.showAll);
+  }
+
+  getStatusSeverity(type: NotificationType): string {
+    switch (type) {
+      case NotificationType.RESERVATION_REQUEST:
+        return 'info';
+      case NotificationType.RESERVATION_CANCEL:
+        return 'danger';
+      case NotificationType.HOST_RATING:
+        return 'warning';
+      case NotificationType.ACCOMMODATION_RATING:
+        return 'success';
+      case NotificationType.HOST_REPLY_TO_REQUEST:
+        return 'success';
+      default:
+        return 'info';
+    }
+  }
+
+  getType(type: NotificationType): string {
+    switch (type) {
+      case NotificationType.RESERVATION_REQUEST:
+        return 'Reservation request';
+      case NotificationType.RESERVATION_CANCEL:
+        return 'Reservation cancel';
+      case NotificationType.HOST_RATING:
+        return 'Account rating';
+      case NotificationType.ACCOMMODATION_RATING:
+        return 'Accommodation rating';
+      case NotificationType.HOST_REPLY_TO_REQUEST:
+        return 'Host reply to request';
+      default:
+        return 'Unknown';
+    }
+  }
+
+  isSeen(notification: NotificationDto) {
+    return notification.seen;
   }
 }
