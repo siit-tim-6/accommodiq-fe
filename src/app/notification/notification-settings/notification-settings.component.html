@@ -1,0 +1,20 @@
+<p-dialog
+  [closable]="false"
+  [visible]="true"
+  [draggable]="false"
+  *ngIf="isLoaded"
+>
+  <h1>Manage notification settings</h1>
+
+  <form (submit)="updateNotificationSettings()">
+    <div *ngFor="let setting of notificationSettings">
+      <label>{{ getType(setting.type) }}</label>
+      <p-checkbox
+        [binary]="true"
+        [(ngModel)]="setting.on"
+        name="{{ setting.type }}"
+      ></p-checkbox>
+    </div>
+    <p-button label="Update" type="submit"></p-button>
+  </form>
+</p-dialog>
