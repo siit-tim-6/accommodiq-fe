@@ -28,4 +28,5 @@ h4:first-of-type {
 
 :host .interaction > * {
   margin-right: 10px;
+  margin-bottom: 10px;
 }

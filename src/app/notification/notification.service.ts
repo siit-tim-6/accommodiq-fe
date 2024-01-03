@@ -14,4 +14,15 @@ export class NotificationService {
       environment.apiHost + 'users/notifications',
     );
   }
+
+  markAsRead(id: number) {
+    return this.http.put(
+      environment.apiHost + `users/notifications/${id}/seen`,
+      {},
+    );
+  }
+
+  markAllAsRead() {
+    return this.http.put(environment.apiHost + 'users/notifications/seen', {});
+  }
 }

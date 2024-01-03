@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NotificationService } from '../notification.service';
 import { NotificationDto, NotificationType } from '../notification.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-notification-list',
@@ -13,7 +14,10 @@ export class NotificationListComponent {
   isLoaded: boolean = false;
   showAll: boolean = false;
 
-  constructor(private notificationService: NotificationService) {
+  constructor(
+    private notificationService: NotificationService,
+    private messageService: MessageService,
+  ) {
     this.notificationService.getNotifications().subscribe({
       next: (notifications) => {
         this.notifications = notifications;
@@ -32,9 +36,36 @@ export class NotificationListComponent {
     else this.notificationToShow = this.notifications.filter((n) => !n.seen);
   }
 
-  markAllAsRead() {
-    this.notifications.forEach((n) => (n.seen = true));
-    this.setNotificationToShow(this.showAll);
+  markAllAsSeen() {
+    this.notificationService.markAllAsRead().subscribe({
+      next: () => {
+        this.notifications.forEach((n) => (n.seen = true));
+        this.setNotificationToShow(this.showAll);
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error while marking all notifications as read',
+        });
+      },
+    });
+  }
+
+  markAsSeen(id: number) {
+    this.notificationService.markAsRead(id).subscribe({
+      next: () => {
+        this.notifications.find((n) => n.id == id)!.seen = true;
+        this.setNotificationToShow(this.showAll);
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error while marking notification as read',
+        });
+      },
+    });
   }
 
   getStatusSeverity(type: NotificationType): string {

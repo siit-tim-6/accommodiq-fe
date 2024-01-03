@@ -2,12 +2,16 @@
   <h1>Your Notifications</h1>
   <h4>View your notifications and manage notification settings</h4>
   <div class="interaction">
-    <p-button icon="pi pi-cog" [rounded]="true"></p-button>
+    <p-button
+      icon="pi pi-cog"
+      [rounded]="true"
+      [routerLink]="['/notification-settings']"
+    ></p-button>
 
     <p-button
-      label="Mark all as read"
+      label="Mark all as seen"
       size="small"
-      (onClick)="markAllAsRead()"
+      (onClick)="markAllAsSeen()"
       [disabled]="!isLoaded"
     ></p-button>
 
@@ -19,14 +23,10 @@
   </div>
 
   <div *ngIf="isLoaded">
-    <p-table
-      [value]="notificationToShow"
-      [tableStyle]="{ 'min-width': '50rem' }"
-    >
+    <p-table [value]="notificationToShow" [tableStyle]="{ width: '120vh' }">
       <ng-template pTemplate="header">
         <tr>
-          <th>Id</th>
-          <th>Content</th>
+          <th style="width: 35%">Content</th>
           <th>Time</th>
           <th>Type</th>
           <th style="width: 5rem"></th>
@@ -34,7 +34,6 @@
       </ng-template>
       <ng-template pTemplate="body" let-notification>
         <tr>
-          <td>{{ notification.id }}</td>
           <td>{{ notification.text }}</td>
           <td>{{ notification.time | date: "dd/MM/yyyy hh:mm:ss" }}</td>
           <td>
@@ -50,7 +49,8 @@
               [rounded]="true"
               [text]="true"
               [raised]="true"
-              severity="danger "
+              severity="danger"
+              (onClick)="markAsSeen(notification.id)"
             ></p-button>
             <i
               *ngIf="isSeen(notification)"
@@ -63,3 +63,4 @@
     </p-table>
   </div>
 </div>
+<p-toast></p-toast>
