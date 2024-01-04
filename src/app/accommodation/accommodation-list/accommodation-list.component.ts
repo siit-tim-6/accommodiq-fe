@@ -3,7 +3,7 @@ import { Accommodation, SearchParams } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
 import { getTimestampSeconds } from '../../utils/date.utils';
 import { Observable, catchError, map, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { keys } from '../../../env/keys';
 
 @Component({
@@ -12,15 +12,17 @@ import { keys } from '../../../env/keys';
   styleUrl: './accommodation-list.component.css',
 })
 export class AccommodationListComponent implements OnInit {
+  private httpClient: HttpClient;
   elements: Accommodation[] = [];
   savedSearchTriggered: boolean = false;
   apiLoaded: Observable<boolean>;
 
   constructor(
     private service: AccommodationService,
-    private httpClient: HttpClient,
+    private httpBackend: JsonpClientBackend,
   ) {
-    this.apiLoaded = httpClient
+    this.httpClient = new HttpClient(httpBackend);
+    this.apiLoaded = this.httpClient
       .jsonp(
         `https://maps.googleapis.com/maps/api/js?key=${keys.googleMaps}`,
         'callback',
