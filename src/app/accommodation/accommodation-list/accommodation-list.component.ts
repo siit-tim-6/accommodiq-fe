@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Accommodation, SearchParams } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
 import { getTimestampSeconds } from '../../utils/date.utils';
+import { Observable, catchError, map, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { keys } from '../../../env/keys';
 
 @Component({
   selector: 'app-accommodation-list',
@@ -11,8 +14,25 @@ import { getTimestampSeconds } from '../../utils/date.utils';
 export class AccommodationListComponent implements OnInit {
   elements: Accommodation[] = [];
   savedSearchTriggered: boolean = false;
+  apiLoaded: Observable<boolean>;
 
-  constructor(private service: AccommodationService) {}
+  constructor(
+    private service: AccommodationService,
+    private httpClient: HttpClient,
+  ) {
+    this.apiLoaded = httpClient
+      .jsonp(
+        `https://maps.googleapis.com/maps/api/js?key=${keys.googleMaps}`,
+        'callback',
+      )
+      .pipe(
+        map(() => true),
+        catchError((error) => {
+          console.log(error);
+          return of(false);
+        }),
+      );
+  }
 
   ngOnInit(): void {
     this.service.getAll().subscribe((accommodations: Accommodation[]) => {

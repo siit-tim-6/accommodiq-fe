@@ -15,7 +15,7 @@
   top: 0;
 }
 
-.map > img {
+.map > google-map {
   height: 100vh;
   width: 35rem;
   filter: grayscale(100%);

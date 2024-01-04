@@ -8,5 +8,9 @@
   </div>
 </div>
 <div class="map">
-  <img src="../../../assets/images/map.png" alt="map image" />
+  <google-map
+    *ngIf="apiLoaded | async"
+    height="100vh"
+    width="35rem"
+  ></google-map>
 </div>
