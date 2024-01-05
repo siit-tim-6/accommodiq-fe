@@ -15,6 +15,7 @@ import { AccommodationUpdateComponent } from './accommodation-update/accommodati
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { HttpClientJsonpModule } from '@angular/common/http';
+import { GuestFavoritesListComponent } from './guest-favorites-list/guest-favorites-list.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { HttpClientJsonpModule } from '@angular/common/http';
     AdminReviewListComponent,
     AccommodationUpdateComponent,
     AccommodationAvailabilityPricingComponent,
+    GuestFavoritesListComponent,
   ],
   imports: [
     CommonModule,

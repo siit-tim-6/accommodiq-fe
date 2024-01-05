@@ -3,6 +3,7 @@ import { Accommodation, SearchParams } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
 import { getTimestampSeconds } from '../../utils/date.utils';
 import { GmapsService } from '../../services/gmaps.service';
+import { JwtService } from '../../infrastructure/auth/jwt.service';
 
 @Component({
   selector: 'app-accommodation-list',
@@ -13,10 +14,12 @@ export class AccommodationListComponent implements OnInit {
   elements: Accommodation[] = [];
   savedSearchTriggered: boolean = false;
   apiLoaded: boolean = false;
+  favorites: number[] = [];
 
   constructor(
     private service: AccommodationService,
     private gmaps: GmapsService,
+    private jwtService: JwtService,
   ) {}
 
   ngOnInit(): void {
@@ -29,6 +32,14 @@ export class AccommodationListComponent implements OnInit {
       }
       this.apiLoaded = loaded;
     });
+
+    if (this.jwtService.getRole() === 'GUEST') {
+      this.service
+        .getGuestsFavoriteAccommodations()
+        .subscribe((favorites: Accommodation[]) => {
+          this.favorites = favorites.map((f) => f.id);
+        });
+    }
   }
 
   search(searchParams: SearchParams) {
@@ -64,5 +75,9 @@ export class AccommodationListComponent implements OnInit {
     this.service.getAll().subscribe((accommodations: Accommodation[]) => {
       this.elements = accommodations;
     });
+  }
+
+  isFavorite(el: Accommodation) {
+    return this.favorites.includes(el.id);
   }
 }
