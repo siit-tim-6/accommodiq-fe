@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Accommodation } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
-import { HttpClient, JsonpClientBackend } from '@angular/common/http';
-import { Observable, catchError, map, of } from 'rxjs';
-import { keys } from '../../../env/keys';
+import { GmapsService } from '../../services/gmaps.service';
 
 @Component({
   selector: 'app-admin-review-list',
@@ -12,28 +10,13 @@ import { keys } from '../../../env/keys';
     '../hosts-accommodation-list/hosts-accommodation-list.component.css',
 })
 export class AdminReviewListComponent implements OnInit {
-  private httpClient: HttpClient;
   accommodations: Accommodation[] = [];
-  apiLoaded: Observable<boolean>;
+  apiLoaded: boolean = false;
 
   constructor(
     private service: AccommodationService,
-    private httpBackend: JsonpClientBackend,
-  ) {
-    this.httpClient = new HttpClient(httpBackend);
-    this.apiLoaded = this.httpClient
-      .jsonp(
-        `https://maps.googleapis.com/maps/api/js?key=${keys.googleMaps}`,
-        'callback',
-      )
-      .pipe(
-        map(() => true),
-        catchError((error) => {
-          console.log(error);
-          return of(false);
-        }),
-      );
-  }
+    private gmaps: GmapsService,
+  ) {}
 
   ngOnInit(): void {
     this.service
@@ -41,6 +24,12 @@ export class AdminReviewListComponent implements OnInit {
       .subscribe((accommodations: Accommodation[]) => {
         this.accommodations = accommodations;
       });
+    this.gmaps.apiLoaded$.subscribe((loaded) => {
+      if (!loaded) {
+        this.gmaps.loadMaps();
+      }
+      this.apiLoaded = loaded;
+    });
   }
 
   onModifiedSuccessfully(id: number) {

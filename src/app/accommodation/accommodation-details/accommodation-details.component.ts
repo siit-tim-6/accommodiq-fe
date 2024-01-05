@@ -6,21 +6,11 @@ import {
   AccommodationTotalPrice,
 } from '../accommodation.model';
 import { getTimestampSeconds } from '../../utils/date.utils';
-import {
-  EMPTY,
-  Observable,
-  Subscription,
-  catchError,
-  map,
-  of,
-  switchMap,
-} from 'rxjs';
-import { AccountRole } from '../../layout/account-info/account.model';
+import { EMPTY, Subscription, of, switchMap } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../env/env';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
-import { HttpClient, JsonpClientBackend } from '@angular/common/http';
-import { keys } from '../../../env/keys';
+import { GmapsService } from '../../services/gmaps.service';
 
 @Component({
   selector: 'app-accommodation-details',
@@ -28,8 +18,7 @@ import { keys } from '../../../env/keys';
   styleUrl: './accommodation-details.component.css',
 })
 export class AccommodationDetailsComponent implements OnInit, OnDestroy {
-  private httpClient: HttpClient;
-  apiLoaded: Observable<boolean>;
+  apiLoaded: boolean = false;
 
   accommodationId: number;
   accommodationDetails: AccommodationDetails;
@@ -49,21 +38,8 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
     private jwtService: JwtService,
     private accommodationService: AccommodationService,
     private messageService: MessageService,
-    private httpBackend: JsonpClientBackend,
+    private gmaps: GmapsService,
   ) {
-    this.httpClient = new HttpClient(httpBackend);
-    this.apiLoaded = this.httpClient
-      .jsonp(
-        `https://maps.googleapis.com/maps/api/js?key=${keys.googleMaps}`,
-        'callback',
-      )
-      .pipe(
-        map(() => true),
-        catchError((error) => {
-          console.log(error);
-          return of(false);
-        }),
-      );
     this.accommodationId = 0;
     this.accommodationDetails = {
       id: 0,
@@ -95,6 +71,13 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.gmaps.apiLoaded$.subscribe((loaded) => {
+      if (!loaded) {
+        this.gmaps.loadMaps();
+      }
+      this.apiLoaded = loaded;
+    });
+
     const observable = this.route.params.pipe(
       switchMap((params) => {
         return of(+params['accommodationId']);

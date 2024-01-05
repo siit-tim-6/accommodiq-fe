@@ -9,7 +9,7 @@
 </div>
 <div class="map">
   <google-map
-    *ngIf="elements.length > 0 && (apiLoaded | async)"
+    *ngIf="elements.length > 0 && apiLoaded"
     height="100vh"
     width="35rem"
     [center]="{

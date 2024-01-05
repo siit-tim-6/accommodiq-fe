@@ -11,7 +11,7 @@
 </div>
 <div class="map">
   <google-map
-    *ngIf="accommodations.length > 0 && (apiLoaded | async)"
+    *ngIf="accommodations.length > 0 && apiLoaded"
     height="100vh"
     width="35rem"
     [center]="{
