@@ -12,5 +12,17 @@
     *ngIf="apiLoaded | async"
     height="100vh"
     width="35rem"
-  ></google-map>
+    [center]="{
+      lat: elements[0].location.latitude,
+      lng: elements[0].location.longitude
+    }"
+    [zoom]="11"
+  >
+    <map-marker
+      *ngFor="let el of elements"
+      [position]="{ lat: el.location.latitude, lng: el.location.longitude }"
+      [label]="el.title"
+      [clickable]="true"
+    ></map-marker>
+  </google-map>
 </div>
