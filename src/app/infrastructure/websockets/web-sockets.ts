@@ -12,18 +12,22 @@ import { MessageService } from 'primeng/api';
 })
 export class WebSockets {
   private serverUrl = environment.apiHost + 'socket';
-  private stompClient: any;
+  private stompClient: Stomp.Client | undefined;
+  private isLoaded: boolean = false;
 
   constructor(
     private jwtService: JwtService,
     private messageService: MessageService,
-  ) {}
-
-  ngOnInit() {
+  ) {
+    alert('WebSockets constructor');
     this.initializeWebSocketConnection();
   }
 
   initializeWebSocketConnection() {
+    if (this.isLoaded) return;
+    this.disconnect();
+    this.isLoaded = true;
+
     let ws = new SockJS(this.serverUrl);
     this.stompClient = Stomp.over(ws);
     let that = this;
@@ -34,7 +38,7 @@ export class WebSockets {
   }
 
   openSocket() {
-    this.stompClient.subscribe(
+    this.stompClient!.subscribe(
       '/socket-publisher/' + this.jwtService.getUserId(),
       (message: { body: string }) => {
         this.handleResult(message);
@@ -51,6 +55,13 @@ export class WebSockets {
         summary: 'New Notification',
         detail: messageResult.text,
       });
+    }
+  }
+
+  disconnect() {
+    this.isLoaded = false;
+    if (this.stompClient !== undefined) {
+      this.stompClient!.disconnect(() => {});
     }
   }
 }
