@@ -1,0 +1,14 @@
+<div class="main-content">
+  <h1>Favorite accommodations</h1>
+  <h4>View, add or remove your favorite accommodations</h4>
+  <div *ngFor="let accommodation of favoriteAccommodations">
+    <app-accommodation-card
+      [accommodation]="accommodation"
+      [isFavorite]="true"
+      (removedFromFavorites)="removeFromFavorites($event)"
+    />
+  </div>
+</div>
+<div class="map">
+  <img src="../../../assets/images/map.png" alt="map image" />
+</div>
