@@ -1,0 +1,11 @@
+.map {
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.map > google-map {
+  height: 100vh;
+  width: 35rem;
+  filter: grayscale(100%);
+}
