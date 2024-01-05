@@ -9,7 +9,7 @@ export interface Accommodation {
   title: string;
   rating: number;
   reviewCount: number;
-  location: string;
+  location: AccommodationLocation;
   minPrice: number;
   totalPrice: number;
   minGuests: number;
@@ -128,7 +128,7 @@ export type AccommodationDetails = {
   title: string;
   rating: number;
   reviewCount: number;
-  location: string;
+  location: AccommodationLocation;
   host: AccommodationHost;
   images: string[];
   minGuests: number;

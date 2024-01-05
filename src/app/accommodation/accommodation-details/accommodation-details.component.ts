@@ -43,7 +43,11 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
       title: '',
       rating: 0,
       reviewCount: 0,
-      location: '',
+      location: {
+        address: '',
+        latitude: 0,
+        longitude: 0,
+      },
       host: {
         id: 0,
         name: '',
