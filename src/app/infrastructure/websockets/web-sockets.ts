@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { environment } from '../../../env/env';
 import { JwtService } from '../auth/jwt.service';
 
@@ -21,7 +21,6 @@ export class WebSockets {
     private messageService: MessageService,
     private notificationService: NotificationService,
   ) {
-    alert('WebSockets constructor');
     this.initializeWebSocketConnection();
   }
 
