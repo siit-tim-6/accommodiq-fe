@@ -22,14 +22,15 @@ export class AccommodationListComponent implements OnInit {
   ngOnInit(): void {
     this.service.getAll().subscribe((accommodations: Accommodation[]) => {
       if (!this.savedSearchTriggered) this.elements = accommodations;
-      if (this.jwtService.getRole() === 'GUEST') {
-        this.service
-          .getGuestsFavoriteAccommodations()
-          .subscribe((favorites: Accommodation[]) => {
-            this.favorites = favorites.map((f) => f.id);
-          });
-      }
     });
+
+    if (this.jwtService.getRole() === 'GUEST') {
+      this.service
+        .getGuestsFavoriteAccommodations()
+        .subscribe((favorites: Accommodation[]) => {
+          this.favorites = favorites.map((f) => f.id);
+        });
+    }
   }
 
   search(searchParams: SearchParams) {
