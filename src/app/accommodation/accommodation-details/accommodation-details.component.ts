@@ -6,11 +6,21 @@ import {
   AccommodationTotalPrice,
 } from '../accommodation.model';
 import { getTimestampSeconds } from '../../utils/date.utils';
-import { EMPTY, Subscription, of, switchMap } from 'rxjs';
+import {
+  EMPTY,
+  Observable,
+  Subscription,
+  catchError,
+  map,
+  of,
+  switchMap,
+} from 'rxjs';
 import { AccountRole } from '../../layout/account-info/account.model';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../env/env';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
+import { HttpClient, JsonpClientBackend } from '@angular/common/http';
+import { keys } from '../../../env/keys';
 
 @Component({
   selector: 'app-accommodation-details',
@@ -18,6 +28,9 @@ import { JwtService } from '../../infrastructure/auth/jwt.service';
   styleUrl: './accommodation-details.component.css',
 })
 export class AccommodationDetailsComponent implements OnInit, OnDestroy {
+  private httpClient: HttpClient;
+  apiLoaded: Observable<boolean>;
+
   accommodationId: number;
   accommodationDetails: AccommodationDetails;
   subscription?: Subscription;
@@ -36,7 +49,21 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
     private jwtService: JwtService,
     private accommodationService: AccommodationService,
     private messageService: MessageService,
+    private httpBackend: JsonpClientBackend,
   ) {
+    this.httpClient = new HttpClient(httpBackend);
+    this.apiLoaded = this.httpClient
+      .jsonp(
+        `https://maps.googleapis.com/maps/api/js?key=${keys.googleMaps}`,
+        'callback',
+      )
+      .pipe(
+        map(() => true),
+        catchError((error) => {
+          console.log(error);
+          return of(false);
+        }),
+      );
     this.accommodationId = 0;
     this.accommodationDetails = {
       id: 0,

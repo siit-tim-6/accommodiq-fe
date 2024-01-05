@@ -120,5 +120,23 @@
 </div>
 
 <div class="map">
-  <img src="../../../assets/images/map.png" alt="map image" />
+  <google-map
+    *ngIf="apiLoaded | async"
+    height="100vh"
+    width="42rem"
+    [center]="{
+      lat: accommodationDetails.location.latitude,
+      lng: accommodationDetails.location.longitude
+    }"
+    [zoom]="14"
+  >
+    <map-marker
+      [position]="{
+        lat: accommodationDetails.location.latitude,
+        lng: accommodationDetails.location.longitude
+      }"
+      [label]="accommodationDetails.title"
+      [clickable]="true"
+    ></map-marker>
+  </google-map>
 </div>
