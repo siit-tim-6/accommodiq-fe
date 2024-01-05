@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { environment } from '../../../env/env';
 import { JwtService } from '../auth/jwt.service';
-import { Message } from './web-sockets.model';
 
 import * as Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 import { MessageService } from 'primeng/api';
+import { NotificationDto } from '../../notification/notification.model';
+import { NotificationService } from '../../notification/notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,7 @@ export class WebSockets {
   constructor(
     private jwtService: JwtService,
     private messageService: MessageService,
+    private notificationService: NotificationService,
   ) {
     alert('WebSockets constructor');
     this.initializeWebSocketConnection();
@@ -48,13 +50,14 @@ export class WebSockets {
 
   handleResult(message: { body: string }) {
     if (message.body) {
-      let messageResult: Message = JSON.parse(message.body);
+      let notificationDto: NotificationDto = JSON.parse(message.body);
       this.messageService.add({
         id: 'notification-toast',
         severity: 'info',
         summary: 'New Notification',
-        detail: messageResult.text,
+        detail: notificationDto.text,
       });
+      this.notificationService.emitNotification(notificationDto);
     }
   }
 

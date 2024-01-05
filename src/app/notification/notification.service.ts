@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../env/env';
 import { NotificationDto, NotificationSettingDto } from './notification.model';
@@ -7,6 +7,9 @@ import { NotificationDto, NotificationSettingDto } from './notification.model';
   providedIn: 'root',
 })
 export class NotificationService {
+  notificationCreated: EventEmitter<NotificationDto> =
+    new EventEmitter<NotificationDto>();
+
   constructor(private http: HttpClient) {}
 
   getNotifications() {
@@ -37,5 +40,9 @@ export class NotificationService {
       environment.apiHost + 'users/notification-settings',
       notificationSettings,
     );
+  }
+
+  emitNotification(notification: NotificationDto): void {
+    this.notificationCreated.emit(notification);
   }
 }

@@ -28,6 +28,11 @@ export class NotificationListComponent {
         console.log(err);
       },
     });
+    this.notificationService.notificationCreated.subscribe(
+      (notification: NotificationDto) => {
+        this.handleNotification(notification);
+      },
+    );
   }
 
   setNotificationToShow(showAll: boolean) {
@@ -104,5 +109,10 @@ export class NotificationListComponent {
 
   isSeen(notification: NotificationDto) {
     return notification.seen;
+  }
+
+  handleNotification(notification: NotificationDto): void {
+    this.notifications.push(notification);
+    this.setNotificationToShow(this.showAll);
   }
 }
