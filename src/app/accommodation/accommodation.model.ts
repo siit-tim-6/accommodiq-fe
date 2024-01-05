@@ -20,11 +20,17 @@ export interface Accommodation {
   image: string;
 }
 
+export type AccommodationLocation = {
+  address: string;
+  latitude: number;
+  longitude: number;
+};
+
 export interface AccommodationModifyDto {
   id?: number;
   title: string;
   description: string;
-  location: string;
+  location: AccommodationLocation;
   minGuests: number;
   maxGuests: number;
   automaticAcceptance: boolean;
