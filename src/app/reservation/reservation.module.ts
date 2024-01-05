@@ -12,5 +12,6 @@ import { PrimengModule } from '../infrastructure/primeng/primeng.module';
     ReservationSearchComponent,
   ],
   imports: [CommonModule, PrimengModule],
+  exports: [ReservationListComponent],
 })
 export class ReservationModule {}
