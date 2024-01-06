@@ -5,4 +5,11 @@ import { Component } from '@angular/core';
   templateUrl: './reservation-search.component.html',
   styleUrl: './reservation-search.component.css',
 })
-export class ReservationSearchComponent {}
+export class ReservationSearchComponent {
+  accommodationTitle: string = '';
+  reservationDates: Date[] = [];
+
+  search() {}
+
+  clear() {}
+}

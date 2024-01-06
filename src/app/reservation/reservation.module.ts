@@ -4,6 +4,7 @@ import { ReservationCardComponent } from './reservation-card/reservation-card.co
 import { ReservationListComponent } from './reservation-list/reservation-list.component';
 import { ReservationSearchComponent } from './reservation-search/reservation-search.component';
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,7 @@ import { PrimengModule } from '../infrastructure/primeng/primeng.module';
     ReservationListComponent,
     ReservationSearchComponent,
   ],
-  imports: [CommonModule, PrimengModule],
+  imports: [CommonModule, PrimengModule, FormsModule],
   exports: [ReservationListComponent],
 })
 export class ReservationModule {}
