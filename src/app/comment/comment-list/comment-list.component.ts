@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Comment } from '../comment.model';
-import { ReviewRequest } from '../../layout/profile-account/review.model';
+import { ReviewRequest } from '../review.model';
 
 @Component({
   selector: 'app-comment-list',

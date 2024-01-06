@@ -1,6 +1,6 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { LoginService } from '../login/login.service';
+import { LoginService } from '../../layout/login/login.service';
 import { AccountDetails, AccountRole } from './account.model';
 
 @Component({

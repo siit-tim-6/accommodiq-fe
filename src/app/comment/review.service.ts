@@ -5,7 +5,7 @@ import {
   ReviewRequest,
   ReviewStatus,
   ReviewStatusDto,
-} from '../layout/profile-account/review.model';
+} from './review.model';
 import { HttpClient } from '@angular/common/http';
 import { MessageDto } from '../accommodation/accommodation.model';
 import { environment } from '../../env/env';
