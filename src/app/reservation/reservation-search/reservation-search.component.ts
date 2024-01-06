@@ -9,7 +9,7 @@ export class ReservationSearchComponent {
   accommodationTitle: string = '';
   reservationDates: Date[] = [];
   reservationStatus: string[] = ['Accepted', 'Denied', 'Cancelled', 'Pending'];
-  selectedReservationStatus: string | undefined;
+  selectedReservationStatus: string | null = null;
 
   search() {}
 
