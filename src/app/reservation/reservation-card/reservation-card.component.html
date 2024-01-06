@@ -1,11 +1,15 @@
 <img
-  src="../../../assets/images/accommodation-image.png"
+  [src]="
+    reservation.accommodationImage === ''
+      ? '../../../assets/images/accommodation-image.png'
+      : imageBase + reservation.accommodationImage
+  "
   alt="accommodation-image"
 />
 
 <div class="reservation-info">
   <span class="first-line">
-    <h2>Cozy Cottage</h2>
+    <h2>{{ reservation.accommodationTitle }}</h2>
 
     <div class="icon-container">
       <p-button label="Delete" [rounded]="true" severity="secondary"></p-button>
@@ -13,20 +17,24 @@
   </span>
 
   <div class="row">
-    <p-rating [disabled]="true" [cancel]="false" />
-    <p class="bold">4.92</p>
-    <p>45 ratings</p>
+    <p-rating
+      [ngModel]="Math.floor(reservation.accommodationRating)"
+      [disabled]="true"
+      [cancel]="false"
+    />
+    <p class="bold">{{ reservation.accommodationRating }}</p>
+    <p>{{ reservation.accommodationReviewCount }} ratings</p>
   </div>
 
   <div class="row">
     <span class="icon-label">
       <i class="pi pi-map-marker"></i>
-      <p>Sveteozara Miletica 23</p>
+      <p>{{ reservation.accommodationLocation.address }}</p>
     </span>
 
     <span class="icon-label">
       <i class="pi pi-users"></i>
-      <p>2 guests</p>
+      <p>{{ reservation.guests }} guests</p>
     </span>
 
     <span class="icon-label">
@@ -36,12 +44,12 @@
 
     <span class="icon-label">
       <i class="pi pi-info-circle"></i>
-      <p>Pending</p>
+      <p>{{ reservation.status }}</p>
     </span>
 
     <p>
       <span>
-        <span class="bold">€500 </span>
+        <span class="bold">€{{ reservation.totalPrice }} </span>
         EUR total
       </span>
     </p>

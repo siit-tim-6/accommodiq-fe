@@ -1,4 +1,6 @@
 <div class="main-content">
   <app-reservation-search />
-  <app-reservation-card />
+  <div *ngFor="let el of elements">
+    <app-reservation-card [reservation]="el" />
+  </div>
 </div>
