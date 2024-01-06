@@ -39,12 +39,9 @@ export class ReviewService {
   }
 
   reportHostReview(reviewId: number): Observable<MessageDto> {
-    const reviewStatusDto: ReviewStatusDto = {
-      status: ReviewStatus.REPORTED,
-    };
     return this.httpClient.put<MessageDto>(
-      `${environment.apiHost}reviews/${reviewId}/status`,
-      reviewStatusDto,
+      `${environment.apiHost}reviews/${reviewId}/report`,
+      {},
     );
   }
 }
