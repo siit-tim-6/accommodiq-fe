@@ -8,6 +8,8 @@ import { Component } from '@angular/core';
 export class ReservationSearchComponent {
   accommodationTitle: string = '';
   reservationDates: Date[] = [];
+  reservationStatus: string[] = ['Accepted', 'Denied', 'Cancelled', 'Pending'];
+  selectedReservationStatus: string | undefined;
 
   search() {}
 

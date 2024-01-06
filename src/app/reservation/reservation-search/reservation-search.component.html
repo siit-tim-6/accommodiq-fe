@@ -20,6 +20,13 @@
     [(ngModel)]="reservationDates"
   />
 
+  <p-dropdown
+    #statusDropdown
+    [options]="reservationStatus"
+    [(ngModel)]="selectedReservationStatus"
+    placeholder="Select Status"
+  />
+
   <p-button severity="secondary" label="Clear" (onClick)="clear()" />
   <p-button label="Search" (onClick)="search()" />
 </div>

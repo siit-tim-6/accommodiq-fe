@@ -39,8 +39,3 @@ h4:first-of-type {
     border-bottom-left-radius: 0px;
   }
 }
-
-.search-input,
-.search-input input {
-  width: 100%;
-}
