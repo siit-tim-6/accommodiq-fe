@@ -4,7 +4,6 @@ import { LoginComponent } from './layout/login/login.component';
 import { RegistrationComponent } from './layout/registration/registration.component';
 import { AccommodationListComponent } from './accommodation/accommodation-list/accommodation-list.component';
 import { AccommodationDetailsComponent } from './accommodation/accommodation-details/accommodation-details.component';
-import { AccountInfoComponent } from './account/account-info/account-info.component';
 import { UpdateAccountComponent } from './layout/update-account/update-account.component';
 import { AccommodationCreateComponent } from './accommodation/accommodation-create/accommodation-create.component';
 import { NotificationListComponent } from './notification/notification-list/notification-list.component';
@@ -15,6 +14,7 @@ import { CanActivateRole } from './infrastructure/auth/guards/role.guard';
 import { AccountRole } from './account/account-info/account.model';
 import { AccommodationUpdateComponent } from './accommodation/accommodation-update/accommodation-update.component';
 import { ProfileAccountComponent } from './account/profile-account/profile-account.component';
+import { GuestFavoritesListComponent } from './accommodation/guest-favorites-list/guest-favorites-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -47,6 +47,11 @@ const routes: Routes = [
   {
     path: 'profile-account/:accountId',
     component: ProfileAccountComponent,
+  },
+  {
+    path: 'favorites',
+    component: GuestFavoritesListComponent,
+    canActivate: [() => CanActivateRole(AccountRole.GUEST)],
   },
 ];
 
