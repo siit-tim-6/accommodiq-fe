@@ -5,4 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './reservation-card.component.html',
   styleUrl: './reservation-card.component.css',
 })
-export class ReservationCardComponent {}
+export class ReservationCardComponent {
+  protected Math = Math;
+}
