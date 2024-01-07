@@ -5,7 +5,7 @@ import { ReservationListComponent } from './reservation-list/reservation-list.co
 import { ReservationSearchComponent } from './reservation-search/reservation-search.component';
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
 import { FormsModule } from '@angular/forms';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { GmapsModule } from '../infrastructure/gmaps/gmaps.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     ReservationListComponent,
     ReservationSearchComponent,
   ],
-  imports: [CommonModule, PrimengModule, FormsModule, GoogleMapsModule],
+  imports: [CommonModule, PrimengModule, FormsModule, GmapsModule],
   exports: [ReservationListComponent],
 })
 export class ReservationModule {}

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Reservation, ReservationSearchParams } from '../reservation.model';
 import { ReservationService } from '../reservation.service';
-import { GmapsService } from '../../services/gmaps.service';
 import { getTimestampSeconds } from '../../utils/date.utils';
+import { Marker } from '../../infrastructure/gmaps/gmaps.model';
 
 @Component({
   selector: 'app-reservation-list',
@@ -13,20 +13,11 @@ export class ReservationListComponent implements OnInit {
   elements: Reservation[] = [];
   apiLoaded: boolean = false;
 
-  constructor(
-    private service: ReservationService,
-    private gmaps: GmapsService,
-  ) {}
+  constructor(private service: ReservationService) {}
 
   ngOnInit(): void {
     this.service.getAll().subscribe((reservations) => {
       this.elements = reservations;
-    });
-    this.gmaps.apiLoaded$.subscribe((loaded) => {
-      if (!loaded) {
-        this.gmaps.loadMaps();
-      }
-      this.apiLoaded = loaded;
     });
   }
 
@@ -55,6 +46,16 @@ export class ReservationListComponent implements OnInit {
   clear() {
     this.service.getAll().subscribe((reservations) => {
       this.elements = reservations;
+    });
+  }
+
+  protected getMarkers(): Marker[] {
+    return this.elements.map((el) => {
+      return {
+        label: el.accommodationTitle,
+        latitude: el.accommodationLocation.latitude,
+        longitude: el.accommodationLocation.longitude,
+      };
     });
   }
 }

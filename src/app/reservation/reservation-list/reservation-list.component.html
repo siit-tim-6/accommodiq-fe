@@ -4,25 +4,5 @@
     <app-reservation-card [reservation]="el" />
   </div>
 </div>
-<div class="map">
-  <google-map
-    *ngIf="elements.length > 0 && apiLoaded"
-    height="100vh"
-    width="33rem"
-    [center]="{
-      lat: elements[0].accommodationLocation.latitude,
-      lng: elements[0].accommodationLocation.longitude
-    }"
-    [zoom]="11"
-  >
-    <map-marker
-      *ngFor="let el of elements"
-      [position]="{
-        lat: el.accommodationLocation.latitude,
-        lng: el.accommodationLocation.longitude
-      }"
-      [label]="el.accommodationTitle"
-      [clickable]="true"
-    ></map-marker>
-  </google-map>
-</div>
+
+<app-map [markers]="getMarkers()" [zoom]="11" width="33rem" />
