@@ -119,24 +119,4 @@
   <app-comment-list [comments]="accommodationDetails.reviews" />
 </div>
 
-<div class="map">
-  <google-map
-    *ngIf="apiLoaded"
-    height="100vh"
-    width="42rem"
-    [center]="{
-      lat: accommodationDetails.location.latitude,
-      lng: accommodationDetails.location.longitude
-    }"
-    [zoom]="14"
-  >
-    <map-marker
-      [position]="{
-        lat: accommodationDetails.location.latitude,
-        lng: accommodationDetails.location.longitude
-      }"
-      [label]="accommodationDetails.title"
-      [clickable]="true"
-    ></map-marker>
-  </google-map>
-</div>
+<app-map [markers]="getMarkers()" width="42rem" [zoom]="14" />

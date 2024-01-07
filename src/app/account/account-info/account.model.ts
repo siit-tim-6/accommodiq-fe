@@ -10,6 +10,7 @@ export interface AccountDetails {
   email: string;
   address: string;
   phoneNumber: string;
+  role: AccountRole;
 }
 
 export interface PasswordChangeRequest {

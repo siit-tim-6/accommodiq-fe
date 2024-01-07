@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Accommodation, SearchParams } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
 import { getTimestampSeconds } from '../../utils/date.utils';
-import { GmapsService } from '../../services/gmaps.service';
+import { Marker } from '../../infrastructure/gmaps/gmaps.model';
+import { JwtService } from '../../infrastructure/auth/jwt.service';
 
 @Component({
   selector: 'app-accommodation-list',
@@ -12,23 +13,24 @@ import { GmapsService } from '../../services/gmaps.service';
 export class AccommodationListComponent implements OnInit {
   elements: Accommodation[] = [];
   savedSearchTriggered: boolean = false;
-  apiLoaded: boolean = false;
+  favorites: number[] = [];
 
   constructor(
     private service: AccommodationService,
-    private gmaps: GmapsService,
+    private jwtService: JwtService,
   ) {}
 
   ngOnInit(): void {
     this.service.getAll().subscribe((accommodations: Accommodation[]) => {
       if (!this.savedSearchTriggered) this.elements = accommodations;
     });
-    this.gmaps.apiLoaded$.subscribe((loaded) => {
-      if (!loaded) {
-        this.gmaps.loadMaps();
-      }
-      this.apiLoaded = loaded;
-    });
+    if (this.jwtService.getRole() === 'GUEST') {
+      this.service
+        .getGuestsFavoriteAccommodations()
+        .subscribe((favorites: Accommodation[]) => {
+          this.favorites = favorites.map((f) => f.id);
+        });
+    }
   }
 
   search(searchParams: SearchParams) {
@@ -64,5 +66,19 @@ export class AccommodationListComponent implements OnInit {
     this.service.getAll().subscribe((accommodations: Accommodation[]) => {
       this.elements = accommodations;
     });
+  }
+
+  protected getMarkers(): Marker[] {
+    return this.elements.map((el) => {
+      return {
+        label: el.title,
+        latitude: el.location.latitude,
+        longitude: el.location.longitude,
+      };
+    });
+  }
+
+  isFavorite(el: Accommodation) {
+    return this.favorites.includes(el.id);
   }
 }

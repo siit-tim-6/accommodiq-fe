@@ -1,3 +1,15 @@
-<input type="text" pInputText placeholder="Write a review" />
-<p-rating [cancel]="false" />
-<p-button icon="pi pi-send" class="send-button" label="send" />
+<form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+  <input
+    type="text"
+    pInputText
+    formControlName="comment"
+    placeholder="Write a review"
+  />
+  <p-rating formControlName="rating" [cancel]="false"></p-rating>
+  <p-button
+    icon="pi pi-send"
+    class="send-button"
+    label="Send"
+    type="submit"
+  ></p-button>
+</form>

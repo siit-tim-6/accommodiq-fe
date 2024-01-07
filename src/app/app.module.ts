@@ -12,6 +12,7 @@ import { Interceptor } from './infrastructure/auth/interceptor';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ReservationModule } from './reservation/reservation.module';
+import { AccountModule } from './account/account.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { ReservationModule } from './reservation/reservation.module';
     NotificationModule,
     ToastModule,
     ReservationModule,
+    AccountModule,
   ],
   providers: [
     {

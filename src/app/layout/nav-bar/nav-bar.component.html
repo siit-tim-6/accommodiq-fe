@@ -37,6 +37,13 @@
 />
 
 <img
+  *ngIf="role === AccountRole.GUEST"
+  [routerLink]="['/favorites']"
+  src="../../../assets/images/favorites-icon.svg"
+  alt="favorite-accommodations-icon"
+/>
+
+<img
   *ngIf="role === null"
   [routerLink]="['/login']"
   src="../../../assets/images/account-icon.svg"

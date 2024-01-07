@@ -1,3 +1,5 @@
+import { Comment } from '../comment/comment.model';
+
 export enum AccommodationStatus {
   ACCEPTED = 'ACCEPTED',
   DENIED = 'DENIED',
@@ -116,13 +118,6 @@ export type AccommodationHost = {
   reviewCount: number;
 };
 
-export type AccommodationReview = {
-  author: string;
-  comment: string;
-  rating: number;
-  date: Date;
-};
-
 export type AccommodationDetails = {
   id: number;
   title: string;
@@ -134,7 +129,7 @@ export type AccommodationDetails = {
   minGuests: number;
   maxGuests: number;
   description: string;
-  reviews: AccommodationReview[];
+  reviews: Comment[];
   benefits: string[];
   type: string;
   minPrice: number;
@@ -181,4 +176,8 @@ export type AccommodationAdvancedDetails = {
   type: string;
   images: string[];
   benefits: string[];
+};
+
+export type GuestFavorite = {
+  favoriteId: number;
 };

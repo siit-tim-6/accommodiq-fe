@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Accommodation } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
-import { GmapsService } from '../../services/gmaps.service';
+import { Marker } from '../../infrastructure/gmaps/gmaps.model';
 
 @Component({
   selector: 'app-admin-review-list',
@@ -13,10 +13,7 @@ export class AdminReviewListComponent implements OnInit {
   accommodations: Accommodation[] = [];
   apiLoaded: boolean = false;
 
-  constructor(
-    private service: AccommodationService,
-    private gmaps: GmapsService,
-  ) {}
+  constructor(private service: AccommodationService) {}
 
   ngOnInit(): void {
     this.service
@@ -24,15 +21,19 @@ export class AdminReviewListComponent implements OnInit {
       .subscribe((accommodations: Accommodation[]) => {
         this.accommodations = accommodations;
       });
-    this.gmaps.apiLoaded$.subscribe((loaded) => {
-      if (!loaded) {
-        this.gmaps.loadMaps();
-      }
-      this.apiLoaded = loaded;
-    });
   }
 
   onModifiedSuccessfully(id: number) {
     this.accommodations = this.accommodations.filter((acc) => acc.id !== id);
+  }
+
+  protected getMarkers(): Marker[] {
+    return this.accommodations.map((accommodation) => {
+      return {
+        label: accommodation.title,
+        latitude: accommodation.location.latitude,
+        longitude: accommodation.location.longitude,
+      };
+    });
   }
 }

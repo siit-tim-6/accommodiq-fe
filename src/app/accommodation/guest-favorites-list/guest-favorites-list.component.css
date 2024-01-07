@@ -17,6 +17,18 @@ h4:first-of-type {
   padding-right: 30px;
 }
 
+.map {
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.map > img {
+  height: 100vh;
+  width: 42rem;
+  filter: grayscale(100%);
+}
+
 .main-content {
   width: 100%;
 }

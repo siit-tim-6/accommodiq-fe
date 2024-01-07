@@ -1,4 +1,4 @@
-import { AccountRole } from '../account-info/account.model';
+import { AccountRole } from '../../account/account-info/account.model';
 
 export interface LoginResponse {
   jwt: string;
