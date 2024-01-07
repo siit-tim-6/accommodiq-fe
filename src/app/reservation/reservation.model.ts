@@ -8,6 +8,7 @@ export enum ReservationStatus {
 }
 
 export type Reservation = {
+  accommodationId: number;
   accommodationImage: string;
   accommodationTitle: string;
   accommodationRating: number;

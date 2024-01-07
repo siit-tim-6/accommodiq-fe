@@ -5,14 +5,22 @@
       : imageBase + reservation.accommodationImage
   "
   alt="accommodation-image"
+  [routerLink]="['/accommodation', reservation.accommodationId]"
 />
 
 <div class="reservation-info">
   <span class="first-line">
-    <h2>{{ reservation.accommodationTitle }}</h2>
+    <h2 [routerLink]="['/accommodation', reservation.accommodationId]">
+      {{ reservation.accommodationTitle }}
+    </h2>
 
     <div class="icon-container">
-      <p-button label="Delete" [rounded]="true" severity="secondary"></p-button>
+      <p-button
+        *ngIf="reservation.status === 'PENDING'"
+        label="Delete"
+        [rounded]="true"
+        severity="secondary"
+      ></p-button>
     </div>
   </span>
 
