@@ -17,18 +17,6 @@ h4:first-of-type {
   padding-right: 30px;
 }
 
-.map {
-  position: fixed;
-  right: 0;
-  top: 0;
-}
-
-.map > google-map {
-  height: 100vh;
-  width: 35rem;
-  filter: grayscale(100%);
-}
-
 .main-content {
   width: 100%;
 }

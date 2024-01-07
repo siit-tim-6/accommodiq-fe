@@ -10,7 +10,7 @@ import { EMPTY, Subscription, of, switchMap } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../env/env';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
-import { GmapsService } from '../../services/gmaps.service';
+import { Marker } from '../../infrastructure/gmaps/gmaps.model';
 
 @Component({
   selector: 'app-accommodation-details',
@@ -38,7 +38,6 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
     private jwtService: JwtService,
     private accommodationService: AccommodationService,
     private messageService: MessageService,
-    private gmaps: GmapsService,
   ) {
     this.accommodationId = 0;
     this.accommodationDetails = {
@@ -71,13 +70,6 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.gmaps.apiLoaded$.subscribe((loaded) => {
-      if (!loaded) {
-        this.gmaps.loadMaps();
-      }
-      this.apiLoaded = loaded;
-    });
-
     const observable = this.route.params.pipe(
       switchMap((params) => {
         return of(+params['accommodationId']);
@@ -302,5 +294,15 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
     this.accommodationImages = this.accommodationDetails.images.map(
       (imageName) => environment.imageBase + imageName,
     );
+  }
+
+  protected getMarkers(): Marker[] {
+    return [
+      {
+        label: this.accommodationDetails.title,
+        latitude: this.accommodationDetails.location.latitude,
+        longitude: this.accommodationDetails.location.longitude,
+      },
+    ];
   }
 }

@@ -13,8 +13,7 @@ import { AdminReviewListComponent } from './admin-review-list/admin-review-list.
 import { AccommodationAvailabilityPricingComponent } from './accommodation-availability-pricing/accommodation-availability-pricing.component';
 import { AccommodationUpdateComponent } from './accommodation-update/accommodation-update.component';
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
-import { GoogleMapsModule } from '@angular/google-maps';
-import { HttpClientJsonpModule } from '@angular/common/http';
+import { GmapsModule } from '../infrastructure/gmaps/gmaps.module';
 
 @NgModule({
   declarations: [
@@ -35,8 +34,7 @@ import { HttpClientJsonpModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     PrimengModule,
-    GoogleMapsModule,
-    HttpClientJsonpModule,
+    GmapsModule,
   ],
   exports: [
     AccommodationSearchComponent,

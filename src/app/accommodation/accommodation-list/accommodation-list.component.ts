@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Accommodation, SearchParams } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
 import { getTimestampSeconds } from '../../utils/date.utils';
-import { GmapsService } from '../../services/gmaps.service';
+import { Marker } from '../../infrastructure/gmaps/gmaps.model';
 
 @Component({
   selector: 'app-accommodation-list',
@@ -12,22 +12,12 @@ import { GmapsService } from '../../services/gmaps.service';
 export class AccommodationListComponent implements OnInit {
   elements: Accommodation[] = [];
   savedSearchTriggered: boolean = false;
-  apiLoaded: boolean = false;
 
-  constructor(
-    private service: AccommodationService,
-    private gmaps: GmapsService,
-  ) {}
+  constructor(private service: AccommodationService) {}
 
   ngOnInit(): void {
     this.service.getAll().subscribe((accommodations: Accommodation[]) => {
       if (!this.savedSearchTriggered) this.elements = accommodations;
-    });
-    this.gmaps.apiLoaded$.subscribe((loaded) => {
-      if (!loaded) {
-        this.gmaps.loadMaps();
-      }
-      this.apiLoaded = loaded;
     });
   }
 
@@ -63,6 +53,16 @@ export class AccommodationListComponent implements OnInit {
   clear() {
     this.service.getAll().subscribe((accommodations: Accommodation[]) => {
       this.elements = accommodations;
+    });
+  }
+
+  protected getMarkers(): Marker[] {
+    return this.elements.map((el) => {
+      return {
+        label: el.title,
+        latitude: el.location.latitude,
+        longitude: el.location.longitude,
+      };
     });
   }
 }

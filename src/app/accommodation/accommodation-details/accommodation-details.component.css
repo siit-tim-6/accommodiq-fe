@@ -108,15 +108,3 @@ h4 {
   padding: 15px;
   text-align: justify;
 }
-
-.map {
-  position: fixed;
-  right: 0;
-  top: 0;
-}
-
-.map > google-map {
-  height: 100vh;
-  width: 42rem;
-  filter: grayscale(100%);
-}
