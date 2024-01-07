@@ -8,3 +8,19 @@
   padding-left: 30px;
   padding-right: 30px;
 }
+
+.map {
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.map > google-map {
+  height: 100vh;
+  width: 33rem;
+  filter: grayscale(100%);
+}
+
+.main-content {
+  width: 100%;
+}
