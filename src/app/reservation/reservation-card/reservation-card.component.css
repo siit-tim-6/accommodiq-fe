@@ -1,7 +1,12 @@
+:host {
+  max-width: 1150px;
+}
+
 .row {
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .row > * {

@@ -39,7 +39,10 @@
 
     <span class="icon-label">
       <i class="pi pi-calendar"></i>
-      <p>5 Jan 2023 - 10 Jan 2023</p>
+      <p>
+        {{ formatTimestamp(reservation.startDate) }} -
+        {{ formatTimestamp(reservation.endDate) }}
+      </p>
     </span>
 
     <span class="icon-label">

@@ -13,4 +13,26 @@ export class ReservationCardComponent {
   protected readonly imageBase = environment.imageBase;
 
   constructor() {}
+
+  protected formatTimestamp(timestampSeconds: number): string {
+    const date = new Date(timestampSeconds * 1000);
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+
+    return `${date.getUTCDate()} ${
+      months[date.getUTCMonth()]
+    } ${date.getUTCFullYear()}`;
+  }
 }
