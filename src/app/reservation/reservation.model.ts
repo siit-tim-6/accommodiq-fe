@@ -20,3 +20,9 @@ export type Reservation = {
   status: ReservationStatus;
   totalPrice: number;
 };
+
+export type ReservationSearchParams = {
+  title: string;
+  reservationDates: Date[];
+  status: string | null;
+};

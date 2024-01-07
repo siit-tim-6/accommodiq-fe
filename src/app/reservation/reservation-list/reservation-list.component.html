@@ -1,5 +1,5 @@
 <div class="main-content">
-  <app-reservation-search />
+  <app-reservation-search (onSearch)="search($event)" (onClear)="clear()" />
   <div *ngFor="let el of elements">
     <app-reservation-card [reservation]="el" />
   </div>

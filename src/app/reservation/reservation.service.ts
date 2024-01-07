@@ -10,9 +10,26 @@ import { environment } from '../../env/env';
 export class ReservationService {
   constructor(private httpClient: HttpClient) {}
 
-  findByFilter(): Observable<Reservation[]> {
+  getAll(): Observable<Reservation[]> {
     return this.httpClient.get<Reservation[]>(
       `${environment.apiHost}guests/reservations`,
+    );
+  }
+
+  findByFilter(
+    title: string,
+    startDate: number,
+    endDate: number,
+    status: string,
+  ): Observable<Reservation[]> {
+    return this.httpClient.get<Reservation[]>(
+      `${environment.apiHost}guests/reservations?${
+        title != '' ? `title=${title}&` : ''
+      }${startDate != 0 ? `startDate=${startDate}&` : ''}${
+        endDate != 0 ? `endDate=${endDate}&` : ''
+      }${
+        status != null && status != '' ? `status=${status.toUpperCase()}` : ''
+      }`,
     );
   }
 }

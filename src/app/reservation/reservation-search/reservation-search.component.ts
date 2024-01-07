@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { ReservationSearchParams } from '../reservation.model';
 
 @Component({
   selector: 'app-reservation-search',
@@ -6,12 +7,35 @@ import { Component } from '@angular/core';
   styleUrl: './reservation-search.component.css',
 })
 export class ReservationSearchComponent {
+  @Output()
+  onSearch = new EventEmitter<ReservationSearchParams>();
+
+  @Output()
+  onClear = new EventEmitter<never>();
+
   accommodationTitle: string = '';
   reservationDates: Date[] = [];
-  reservationStatus: string[] = ['Accepted', 'Denied', 'Cancelled', 'Pending'];
+  reservationStatus: string[] = [
+    'Accepted',
+    'Declined',
+    'Cancelled',
+    'Pending',
+  ];
   selectedReservationStatus: string | null = null;
 
-  search() {}
+  search() {
+    let searchParams: ReservationSearchParams = {
+      title: this.accommodationTitle,
+      reservationDates: this.reservationDates,
+      status: this.selectedReservationStatus,
+    };
+    this.onSearch.emit(searchParams);
+  }
 
-  clear() {}
+  clear() {
+    this.accommodationTitle = '';
+    this.reservationDates = [];
+    this.selectedReservationStatus = null;
+    this.onClear.emit();
+  }
 }
