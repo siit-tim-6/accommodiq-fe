@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import {
-  ReviewDto,
-  ReviewRequest,
-  ReviewStatus,
-  ReviewStatusDto,
-} from '../layout/profile-account/review.model';
+import { Observable } from 'rxjs';
+import { ReviewDto, ReviewRequest } from './review.model';
 import { HttpClient } from '@angular/common/http';
 import { MessageDto } from '../accommodation/accommodation.model';
 import { environment } from '../../env/env';
@@ -39,12 +34,9 @@ export class ReviewService {
   }
 
   reportReview(reviewId: number): Observable<MessageDto> {
-    const reviewStatusDto: ReviewStatusDto = {
-      status: ReviewStatus.REPORTED,
-    };
     return this.httpClient.put<MessageDto>(
-      `${environment.apiHost}reviews/${reviewId}/status`,
-      reviewStatusDto,
+      `${environment.apiHost}reviews/${reviewId}/report`,
+      {},
     );
   }
 

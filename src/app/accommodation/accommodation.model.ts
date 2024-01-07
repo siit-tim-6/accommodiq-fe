@@ -171,3 +171,7 @@ export type AccommodationAdvancedDetails = {
   images: string[];
   benefits: string[];
 };
+
+export type GuestFavorite = {
+  favoriteId: number;
+};

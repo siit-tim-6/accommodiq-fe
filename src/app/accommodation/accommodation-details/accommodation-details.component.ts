@@ -14,15 +14,12 @@ import {
   catchError,
   throwError,
 } from 'rxjs';
-import { AccountRole } from '../../layout/account-info/account.model';
+import { AccountRole } from '../../account/account-info/account.model';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../env/env';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
-import {
-  ReviewDto,
-  ReviewRequest,
-} from '../../layout/profile-account/review.model';
-import { ReviewService } from '../../services/review.service';
+import { ReviewDto, ReviewRequest } from '../../comment/review.model';
+import { ReviewService } from '../../comment/review.service';
 import { Comment } from '../../comment/comment.model';
 
 @Component({
@@ -401,7 +398,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
       author: reviewDto.author,
       comment: reviewDto.comment,
       date: new Date(reviewDto.date),
-      canDelete: reviewDto.canDelete,
+      canDelete: reviewDto.deletable,
       authorId: reviewDto.authorId,
     };
   }

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   AccountDetails,
   PasswordChangeRequest,
-} from '../layout/account-info/account.model';
+} from '../account/account-info/account.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../env/env';
 

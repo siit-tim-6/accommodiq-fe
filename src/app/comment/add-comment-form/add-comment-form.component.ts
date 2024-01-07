@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReviewRequest } from '../../layout/profile-account/review.model';
+import { ReviewRequest } from '../review.model';
 import { MessageService } from 'primeng/api';
 
 @Component({

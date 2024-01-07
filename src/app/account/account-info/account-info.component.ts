@@ -1,6 +1,6 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { LoginService } from '../login/login.service';
+import { LoginService } from '../../layout/login/login.service';
 import { AccountDetails, AccountRole } from './account.model';
 
 @Component({
@@ -14,7 +14,6 @@ export class AccountInfoComponent {
   @Input() numberOfReviews: number = 0;
   imageUrl: string =
     'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
-  accountId!: number;
   stars: string[] = [];
   currentUserRole: string = '';
   currentUserEmail: string = '';
@@ -22,9 +21,10 @@ export class AccountInfoComponent {
   constructor(
     private route: ActivatedRoute,
     private loginService: LoginService,
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
-      this.accountId = +params['accountId'];
       this.currentUserEmail = this.loginService.getEmail();
       this.currentUserRole = this.loginService.getRole() || '';
     });

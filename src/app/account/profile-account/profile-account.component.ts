@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ReviewService } from '../../services/review.service';
-import { ReviewDto, ReviewRequest } from './review.model';
+import { ReviewService } from '../../comment/review.service';
+import { ReviewDto, ReviewRequest } from '../../comment/review.model';
 import { Comment } from '../../comment/comment.model';
 import { MessageDto } from '../../accommodation/accommodation.model';
-import { LoginService } from '../login/login.service';
+import { LoginService } from '../../layout/login/login.service';
 import { AccountDetails, AccountRole } from '../account-info/account.model';
 import { AccountService } from '../../services/account.service';
 import { MessageService } from 'primeng/api';
@@ -97,7 +97,7 @@ export class ProfileAccountComponent {
       author: reviewDto.author,
       comment: reviewDto.comment,
       date: new Date(reviewDto.date),
-      canDelete: reviewDto.canDelete,
+      canDelete: reviewDto.deletable,
       authorId: reviewDto.authorId,
     };
   }
