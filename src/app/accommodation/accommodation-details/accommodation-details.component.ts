@@ -7,7 +7,6 @@ import {
 } from '../accommodation.model';
 import { getTimestampSeconds } from '../../utils/date.utils';
 import { EMPTY, Subscription, of, switchMap } from 'rxjs';
-import { AccountRole } from '../../account/account-info/account.model';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../env/env';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
