@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../services/account.service';
-import { AccountDetails } from '../account-info/account.model';
+import { AccountDetails } from '../../account/account-info/account.model';
 import { LoginService } from '../login/login.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';

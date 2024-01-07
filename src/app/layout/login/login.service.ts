@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginRequest, LoginResponse } from './login.model';
 import { Observable } from 'rxjs';
 import { environment } from '../../../env/env';
-import { AccountRole } from '../account-info/account.model';
+import { AccountRole } from '../../account/account-info/account.model';
 import { RoleService } from '../../services/role.service';
 
 @Injectable({
