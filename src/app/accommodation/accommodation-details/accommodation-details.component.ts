@@ -89,6 +89,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
       }),
       switchMap((accommodation: AccommodationDetails) => {
         this.accommodationDetails = accommodation;
+        console.log(this.accommodationDetails);
         if (
           this.jwtService.getRole() === AccountRole.HOST &&
           this.accommodationDetails.host.id === this.jwtService.getUserId()
@@ -389,18 +390,6 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
           detail: 'Review reported successfully',
         });
       });
-  }
-
-  private convertToComment(reviewDto: ReviewDto): Comment {
-    return {
-      id: reviewDto.id,
-      rating: reviewDto.rating,
-      author: reviewDto.author,
-      comment: reviewDto.comment,
-      date: new Date(reviewDto.date),
-      canDelete: reviewDto.deletable,
-      authorId: reviewDto.authorId,
-    };
   }
 
   private calculateAverageRatingAndCount(): void {
