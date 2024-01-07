@@ -48,6 +48,7 @@ const routes: Routes = [
   {
     path: 'my-reservations',
     component: ReservationListComponent,
+    canActivate: [() => CanActivateRole(AccountRole.GUEST)],
   },
   {
     path: 'profile-account/:accountId',
