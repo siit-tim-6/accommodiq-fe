@@ -97,7 +97,7 @@ export class ProfileAccountComponent {
       author: reviewDto.author,
       comment: reviewDto.comment,
       date: new Date(reviewDto.date),
-      canDelete: reviewDto.canDelete,
+      canDelete: reviewDto.deletable,
       authorId: reviewDto.authorId,
     };
   }

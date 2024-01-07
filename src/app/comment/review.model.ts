@@ -4,7 +4,7 @@ export interface ReviewDto {
   comment: string;
   date: number;
   author: string;
-  canDelete: boolean;
+  deletable: boolean;
   authorId: number;
   status: ReviewStatus;
 }
