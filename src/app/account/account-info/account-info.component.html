@@ -1,0 +1,55 @@
+<p-toast></p-toast>
+<div class="profile-container">
+  <div class="left-section">
+    <img [src]="imageUrl" alt="Profile Image" class="rounded-photo" />
+  </div>
+  <div class="right-section">
+    <div class="top-row">
+      <span id="full-name">{{ user?.firstName }} {{ user?.lastName }}</span>
+      <i class="pi pi-id-card"></i>
+      <span>{{ user?.address }}</span>
+      <p-button
+        *ngIf="
+          (user?.role === AccountRole.GUEST &&
+            user?.email !== currentUserEmail &&
+            currentUserRole === 'HOST') ||
+          (user?.role === AccountRole.HOST &&
+            user?.email !== currentUserEmail &&
+            currentUserRole === 'GUEST')
+        "
+        label="Report"
+        id="report-btn"
+        class="account-info-button"
+        severity="danger"
+      ></p-button>
+      <p-button
+        *ngIf="user?.email === currentUserEmail"
+        label="Edit"
+        id="edit-btn"
+        class="account-info-button"
+      ></p-button>
+    </div>
+    <div class="top-row middle-row">
+      <div>
+        <i class="pi pi-user"></i>
+        <span>{{ user?.role }}</span>
+      </div>
+      <div>
+        <i class="pi pi-envelope"></i>
+        <span>{{ user?.email }}</span>
+      </div>
+      <div>
+        <i class="pi pi-phone"></i>
+        <span>{{ user?.phoneNumber }}</span>
+      </div>
+    </div>
+    <div class="bottom-row" *ngIf="user?.role === AccountRole.HOST">
+      <div class="rating">
+        <span *ngFor="let star of stars" [class]="star"></span>
+        <span class="rating-value">{{ averageRating }}</span>
+        <span class="num-ratings">{{ numberOfReviews }} ratings</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="line-separator"></div>

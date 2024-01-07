@@ -1,9 +1,16 @@
 <h1>Reviews</h1>
 
 <div *ngIf="canAddComment">
-  <app-add-comment-form></app-add-comment-form>
+  <app-add-comment-form
+    (reviewSubmitted)="handleReviewSubmission($event)"
+  ></app-add-comment-form>
 </div>
 
 <div *ngFor="let comment of comments">
-  <app-comment [comment]="comment"></app-comment>
+  <app-comment
+    [comment]="comment"
+    (deleteRequest)="handleDeleteComment($event)"
+    (reportRequest)="handleReportComment($event)"
+    [canReport]="canReport"
+  ></app-comment>
 </div>

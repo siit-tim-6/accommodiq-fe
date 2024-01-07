@@ -7,7 +7,7 @@ import {
 import { AccommodationService } from '../accommodation.service';
 import { environment } from '../../../env/env';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
-import { AccountRole } from '../../layout/account-info/account.model';
+import { AccountRole } from '../../account/account-info/account.model';
 
 @Component({
   selector: 'app-accommodation-card',
