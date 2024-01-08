@@ -1,7 +1,8 @@
 <div class="main-content">
+  <p-toast></p-toast>
   <app-reservation-search (onSearch)="search($event)" (onClear)="clear()" />
   <div *ngFor="let el of elements">
-    <app-reservation-card [reservation]="el" />
+    <app-reservation-card [reservation]="el" (onDelete)="delete($event)" />
   </div>
 </div>
 

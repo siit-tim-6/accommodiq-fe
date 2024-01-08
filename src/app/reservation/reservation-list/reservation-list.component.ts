@@ -3,6 +3,7 @@ import { Reservation, ReservationSearchParams } from '../reservation.model';
 import { ReservationService } from '../reservation.service';
 import { getTimestampSeconds } from '../../utils/date.utils';
 import { Marker } from '../../infrastructure/gmaps/gmaps.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-reservation-list',
@@ -13,7 +14,10 @@ export class ReservationListComponent implements OnInit {
   elements: Reservation[] = [];
   apiLoaded: boolean = false;
 
-  constructor(private service: ReservationService) {}
+  constructor(
+    private service: ReservationService,
+    private messageService: MessageService,
+  ) {}
 
   ngOnInit(): void {
     this.service.getAll().subscribe((reservations) => {
@@ -56,6 +60,26 @@ export class ReservationListComponent implements OnInit {
         latitude: el.accommodationLocation.latitude,
         longitude: el.accommodationLocation.longitude,
       };
+    });
+  }
+
+  delete(id: number) {
+    this.service.delete(id).subscribe({
+      next: (_) => {
+        this.elements = this.elements.filter((el) => el.id != id);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Reservation sucessfully deleted!',
+        });
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Unable to delete selected reservation.',
+        });
+      },
     });
   }
 }
