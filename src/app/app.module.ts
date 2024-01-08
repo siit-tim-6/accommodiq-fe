@@ -10,12 +10,11 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Interceptor } from './infrastructure/auth/interceptor';
 import { MessageService } from 'primeng/api';
-import { NotificationSettingsComponent } from './notification/notification-settings/notification-settings.component';
 import { PrimengModule } from './infrastructure/primeng/primeng.module';
 import { AccountModule } from './account/account.module';
 
 @NgModule({
-  declarations: [AppComponent, NotificationSettingsComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

@@ -4,9 +4,10 @@ import { NotificationListComponent } from './notification-list/notification-list
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
+import { NotificationSettingsComponent } from './notification-settings/notification-settings.component';
 
 @NgModule({
-  declarations: [NotificationListComponent],
+  declarations: [NotificationListComponent, NotificationSettingsComponent],
   imports: [CommonModule, ButtonModule, RouterModule, PrimengModule],
   exports: [NotificationListComponent],
 })

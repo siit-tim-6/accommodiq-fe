@@ -19,6 +19,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TagModule } from 'primeng/tag';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
@@ -43,6 +44,7 @@ import { TagModule } from 'primeng/tag';
     ToastModule,
     RadioButtonModule,
     TagModule,
+    FormsModule,
   ],
 })
 export class PrimengModule {}
