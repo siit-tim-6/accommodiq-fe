@@ -17,7 +17,12 @@
 
   <div class="row">
     <h3>
-      Hosted by <span class="bold">{{ accommodationDetails.host.name }}</span>
+      Hosted by
+      <span
+        class="bold"
+        (click)="redirectToHostProfile(accommodationDetails.host.id)"
+        >{{ accommodationDetails.host.name }}</span
+      >
     </h3>
     <p-rating
       [ngModel]="accommodationDetails.host.rating"
@@ -116,7 +121,14 @@
     </p>
   </div>
 
-  <app-comment-list [comments]="accommodationDetails.reviews" />
+  <app-comment-list
+    [comments]="accommodationDetails.reviews"
+    [canAddComment]="canAddComment"
+    [canReport]="canReport"
+    (reviewSubmitted)="handleReviewSubmission($event)"
+    (deleteRequest)="handleDeleteReview($event)"
+    (reportRequest)="handleReportReview($event)"
+  />
 </div>
 
 <div class="map">
