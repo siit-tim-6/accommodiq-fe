@@ -10,14 +10,14 @@ import { Marker } from '../../infrastructure/gmaps/gmaps.model';
   styleUrl: './reservation-list.component.css',
 })
 export class ReservationListComponent implements OnInit {
-  elements: Reservation[] = [];
+  reservations: Reservation[] = [];
   apiLoaded: boolean = false;
 
   constructor(private service: ReservationService) {}
 
   ngOnInit(): void {
     this.service.getAll().subscribe((reservations) => {
-      this.elements = reservations;
+      this.reservations = reservations;
     });
   }
 
@@ -39,18 +39,18 @@ export class ReservationListComponent implements OnInit {
         searchParams.status ?? '',
       )
       .subscribe((reservations) => {
-        this.elements = reservations;
+        this.reservations = reservations;
       });
   }
 
   clear() {
     this.service.getAll().subscribe((reservations) => {
-      this.elements = reservations;
+      this.reservations = reservations;
     });
   }
 
   protected getMarkers(): Marker[] {
-    return this.elements.map((el) => {
+    return this.reservations.map((el) => {
       return {
         label: el.accommodationTitle,
         latitude: el.accommodationLocation.latitude,
