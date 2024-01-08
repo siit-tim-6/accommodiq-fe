@@ -65,7 +65,7 @@ export class ReservationListComponent implements OnInit {
   delete(id: number) {
     this.service.delete(id).subscribe({
       next: (_) => {
-        this.elements = this.elements.filter((el) => el.id != id);
+        this.reservations = this.reservations.filter((el) => el.id != id);
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
