@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AccommodationService } from '../accommodation.service';
 import {
   AccommodationDetails,
@@ -11,6 +11,20 @@ import { MessageService } from 'primeng/api';
 import { environment } from '../../../env/env';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
 import { Marker } from '../../infrastructure/gmaps/gmaps.model';
+import {
+  EMPTY,
+  Subscription,
+  of,
+  switchMap,
+  catchError,
+  throwError,
+} from 'rxjs';
+import { AccountRole } from '../../account/account-info/account.model';
+import { MessageService } from 'primeng/api';
+import { environment } from '../../../env/env';
+import { ReviewDto, ReviewRequest } from '../../comment/review.model';
+import { ReviewService } from '../../comment/review.service';
+import { Comment } from '../../comment/comment.model';
 
 @Component({
   selector: 'app-accommodation-details',
@@ -24,6 +38,8 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   accommodationDetails: AccommodationDetails;
   subscription?: Subscription;
   accommodationImages: string[];
+  canAddComment: boolean = true;
+  canReport: boolean = false;
 
   rangeDates: Date[] | undefined;
   guests: number | string | undefined;
@@ -38,7 +54,10 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
     private jwtService: JwtService,
     private accommodationService: AccommodationService,
     private messageService: MessageService,
+    private reviewService: ReviewService,
+    private router: Router,
   ) {
+    this.canAddComment = this.jwtService.getRole() === AccountRole.GUEST;
     this.accommodationId = 0;
     this.accommodationDetails = {
       id: 0,
@@ -80,6 +99,13 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
       }),
       switchMap((accommodation: AccommodationDetails) => {
         this.accommodationDetails = accommodation;
+        console.log(this.accommodationDetails);
+        if (
+          this.jwtService.getRole() === AccountRole.HOST &&
+          this.accommodationDetails.host.id === this.jwtService.getUserId()
+        ) {
+          this.canReport = true;
+        }
         this.populateFullImagePaths();
         return this.accommodationService.rangeDatesSearch;
       }),
@@ -304,5 +330,105 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
         longitude: this.accommodationDetails.location.longitude,
       },
     ];
+  }
+
+  handleReviewSubmission(review: ReviewRequest) {
+    this.reviewService
+      .addAccommodationReview(this.accommodationId, review)
+      .pipe(
+        catchError((error) => {
+          let errorMessage = 'Error adding accommodation review';
+          if (
+            error.status === 403 &&
+            error.error.message.includes('Guest cannot comment')
+          ) {
+            errorMessage = error.error.message; // Specific error message
+          }
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: errorMessage,
+          });
+          return throwError(error);
+        }),
+      )
+      .subscribe((reviewDto) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Review added successfully',
+        });
+      });
+  }
+
+  handleDeleteReview(reviewId: number) {
+    this.reviewService
+      .deleteReview(reviewId)
+      .pipe(
+        catchError((error) => {
+          console.error('Error deleting review', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error deleting review',
+          });
+          return throwError(error);
+        }),
+      )
+      .subscribe((messageDto) => {
+        this.accommodationDetails.reviews =
+          this.accommodationDetails.reviews.filter(
+            (review) => review.id !== reviewId,
+          );
+        this.accommodationDetails.reviewCount--;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Review deleted successfully',
+        });
+        this.calculateAverageRatingAndCount();
+      });
+  }
+
+  handleReportReview(reviewId: number) {
+    this.reviewService
+      .reportReview(reviewId)
+      .pipe(
+        catchError((error) => {
+          console.error('Error reporting review', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error reporting review',
+          });
+          return throwError(() => new Error('Error reporting review'));
+        }),
+      )
+      .subscribe((messageDto) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Review reported successfully',
+        });
+      });
+  }
+
+  private calculateAverageRatingAndCount(): void {
+    if (this.accommodationDetails.reviews.length > 0) {
+      const totalRating = this.accommodationDetails.reviews.reduce(
+        (acc: number, review: Comment) => acc + review.rating,
+        0,
+      );
+      // Calculate average and round to one decimal place
+      this.accommodationDetails.rating = +(
+        totalRating / this.accommodationDetails.reviews.length
+      ).toFixed(1);
+    } else {
+      this.accommodationDetails.rating = 0;
+    }
+  }
+
+  redirectToHostProfile(id: number) {
+    this.router.navigate(['/profile-account', id]).then((r) => console.log(r));
   }
 }
