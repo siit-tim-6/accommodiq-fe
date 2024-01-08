@@ -11,7 +11,6 @@ import { Marker } from '../../infrastructure/gmaps/gmaps.model';
 })
 export class ReservationListComponent implements OnInit {
   reservations: Reservation[] = [];
-  apiLoaded: boolean = false;
 
   constructor(private service: ReservationService) {}
 
