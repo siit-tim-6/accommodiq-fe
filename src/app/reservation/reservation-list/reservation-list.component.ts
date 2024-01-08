@@ -11,8 +11,7 @@ import { MessageService } from 'primeng/api';
   styleUrl: './reservation-list.component.css',
 })
 export class ReservationListComponent implements OnInit {
-  elements: Reservation[] = [];
-  apiLoaded: boolean = false;
+  reservations: Reservation[] = [];
 
   constructor(
     private service: ReservationService,
@@ -21,7 +20,7 @@ export class ReservationListComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getAll().subscribe((reservations) => {
-      this.elements = reservations;
+      this.reservations = reservations;
     });
   }
 
@@ -43,18 +42,18 @@ export class ReservationListComponent implements OnInit {
         searchParams.status ?? '',
       )
       .subscribe((reservations) => {
-        this.elements = reservations;
+        this.reservations = reservations;
       });
   }
 
   clear() {
     this.service.getAll().subscribe((reservations) => {
-      this.elements = reservations;
+      this.reservations = reservations;
     });
   }
 
   protected getMarkers(): Marker[] {
-    return this.elements.map((el) => {
+    return this.reservations.map((el) => {
       return {
         label: el.accommodationTitle,
         latitude: el.accommodationLocation.latitude,
