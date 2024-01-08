@@ -6,6 +6,7 @@ import {
   AccommodationTotalPrice,
 } from '../accommodation.model';
 import { getTimestampSeconds } from '../../utils/date.utils';
+import { Marker } from '../../infrastructure/gmaps/gmaps.model';
 import {
   EMPTY,
   Subscription,
@@ -28,6 +29,8 @@ import { Comment } from '../../comment/comment.model';
   styleUrl: './accommodation-details.component.css',
 })
 export class AccommodationDetailsComponent implements OnInit, OnDestroy {
+  apiLoaded: boolean = false;
+
   accommodationId: number;
   accommodationDetails: AccommodationDetails;
   subscription?: Subscription;
@@ -58,7 +61,11 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
       title: '',
       rating: 0,
       reviewCount: 0,
-      location: '',
+      location: {
+        address: '',
+        latitude: 0,
+        longitude: 0,
+      },
       host: {
         id: 0,
         name: '',
@@ -310,6 +317,16 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
     this.accommodationImages = this.accommodationDetails.images.map(
       (imageName) => environment.imageBase + imageName,
     );
+  }
+
+  protected getMarkers(): Marker[] {
+    return [
+      {
+        label: this.accommodationDetails.title,
+        latitude: this.accommodationDetails.location.latitude,
+        longitude: this.accommodationDetails.location.longitude,
+      },
+    ];
   }
 
   handleReviewSubmission(review: ReviewRequest) {

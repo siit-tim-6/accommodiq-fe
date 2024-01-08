@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Accommodation } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
+import { Marker } from '../../infrastructure/gmaps/gmaps.model';
 
 @Component({
   selector: 'app-hosts-accommodation-list',
@@ -9,6 +10,7 @@ import { AccommodationService } from '../accommodation.service';
 })
 export class HostsAccommodationListComponent implements OnInit {
   elements: Accommodation[] = [];
+  apiLoaded: boolean = false;
 
   constructor(private service: AccommodationService) {}
 
@@ -18,5 +20,15 @@ export class HostsAccommodationListComponent implements OnInit {
       .subscribe((accommodations: Accommodation[]) => {
         this.elements = accommodations;
       });
+  }
+
+  protected getMarkers(): Marker[] {
+    return this.elements.map((el) => {
+      return {
+        label: el.title,
+        latitude: el.location.latitude,
+        longitude: el.location.longitude,
+      };
+    });
   }
 }
