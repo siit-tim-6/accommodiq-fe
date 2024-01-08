@@ -19,7 +19,7 @@ import {
   throwError,
 } from 'rxjs';
 import { AccountRole } from '../../account/account-info/account.model';
-import { ReviewDto, ReviewRequest } from '../../comment/review.model';
+import { ReviewRequest } from '../../comment/review.model';
 import { ReviewService } from '../../comment/review.service';
 import { Comment } from '../../comment/comment.model';
 
