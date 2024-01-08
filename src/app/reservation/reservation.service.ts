@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Reservation } from './reservation.model';
 import { environment } from '../../env/env';
+import { MessageDto } from '../accommodation/accommodation.model';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +31,12 @@ export class ReservationService {
       }${
         status != null && status != '' ? `status=${status.toUpperCase()}` : ''
       }`,
+    );
+  }
+
+  delete(id: number): Observable<MessageDto> {
+    return this.httpClient.delete<MessageDto>(
+      `${environment.apiHost}reservations/${id}`,
     );
   }
 }
