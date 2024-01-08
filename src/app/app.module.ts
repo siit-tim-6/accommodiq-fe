@@ -16,6 +16,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { PrimengModule } from './infrastructure/primeng/primeng.module';
+import { AccountModule } from './account/account.module';
 
 @NgModule({
   declarations: [AppComponent, NotificationSettingsComponent],
@@ -34,6 +35,7 @@ import { PrimengModule } from './infrastructure/primeng/primeng.module';
     DialogModule,
     InputTextModule,
     PrimengModule,
+    AccountModule,
   ],
   providers: [
     {

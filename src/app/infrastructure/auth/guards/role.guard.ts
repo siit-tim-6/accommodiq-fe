@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { AccountRole } from '../../../layout/account-info/account.model';
+import { AccountRole } from '../../../account/account-info/account.model';
 import { JwtService } from '../jwt.service';
 
 export const CanActivateRole = (role: AccountRole) => {

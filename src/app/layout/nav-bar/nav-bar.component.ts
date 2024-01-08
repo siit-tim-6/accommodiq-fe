@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../login/login.service';
-import { AccountRole } from '../account-info/account.model';
+import { AccountRole } from '../../account/account-info/account.model';
 import { RoleService } from '../../services/role.service';
 import { Router } from '@angular/router';
 import { WebSockets } from '../../infrastructure/websockets/web-sockets';
