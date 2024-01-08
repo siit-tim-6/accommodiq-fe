@@ -1,5 +1,4 @@
 <div class="main-content">
-  <p-toast></p-toast>
   <app-reservation-search (onSearch)="search($event)" (onClear)="clear()" />
   <div *ngFor="let res of reservations">
     <app-reservation-card [reservation]="res" (onDelete)="delete($event)" />
