@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../notification.service';
 import { NotificationDto, NotificationType } from '../notification.model';
 import { MessageService } from 'primeng/api';
@@ -8,16 +8,18 @@ import { MessageService } from 'primeng/api';
   templateUrl: './notification-list.component.html',
   styleUrl: './notification-list.component.css',
 })
-export class NotificationListComponent {
+export class NotificationListComponent implements OnInit {
   notifications: NotificationDto[] = [];
-  notificationToShow: NotificationDto[] = [];
+  notificationsToShow: NotificationDto[] = [];
   isLoaded: boolean = false;
   showAll: boolean = false;
 
   constructor(
     private notificationService: NotificationService,
     private messageService: MessageService,
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.notificationService.getNotifications().subscribe({
       next: (notifications) => {
         this.notifications = notifications;
@@ -37,8 +39,8 @@ export class NotificationListComponent {
 
   setNotificationToShow(showAll: boolean) {
     this.showAll = showAll;
-    if (showAll) this.notificationToShow = this.notifications;
-    else this.notificationToShow = this.notifications.filter((n) => !n.seen);
+    if (showAll) this.notificationsToShow = this.notifications;
+    else this.notificationsToShow = this.notifications.filter((n) => !n.seen);
   }
 
   markAllAsSeen() {
@@ -47,7 +49,7 @@ export class NotificationListComponent {
         this.notifications.forEach((n) => (n.seen = true));
         this.setNotificationToShow(this.showAll);
       },
-      error: (err) => {
+      error: (_) => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -63,7 +65,7 @@ export class NotificationListComponent {
         this.notifications.find((n) => n.id == id)!.seen = true;
         this.setNotificationToShow(this.showAll);
       },
-      error: (err) => {
+      error: (_) => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',

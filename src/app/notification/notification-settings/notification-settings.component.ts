@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   NotificationSettingDto,
   NotificationType,
@@ -11,14 +11,16 @@ import { MessageService } from 'primeng/api';
   templateUrl: './notification-settings.component.html',
   styleUrl: './notification-settings.component.css',
 })
-export class NotificationSettingsComponent {
+export class NotificationSettingsComponent implements OnInit {
   notificationSettings: NotificationSettingDto[] = [];
   isLoaded = false;
 
   constructor(
     private notificationService: NotificationService,
     private messageService: MessageService,
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.notificationService.getNotificationSettings().subscribe({
       next: (notificationSettings) => {
         this.notificationSettings = notificationSettings;

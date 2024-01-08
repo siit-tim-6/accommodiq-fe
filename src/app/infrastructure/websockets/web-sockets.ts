@@ -31,10 +31,9 @@ export class WebSockets {
 
     let ws = new SockJS(this.serverUrl);
     this.stompClient = Stomp.over(ws);
-    let that = this;
 
-    this.stompClient.connect({}, function () {
-      that.openSocket();
+    this.stompClient.connect({}, () => {
+      this.openSocket();
     });
   }
 
