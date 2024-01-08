@@ -12,7 +12,7 @@
   <p>{{ comment.date | date }}</p>
   <i
     class="pi pi-trash"
-    *ngIf="comment.canDelete"
+    *ngIf="comment.deletable"
     (click)="deleteComment(comment)"
     title="Delete Comment"
   ></i>

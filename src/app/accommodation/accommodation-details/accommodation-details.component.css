@@ -44,6 +44,14 @@ h3 {
   font-weight: 400;
 }
 
+:host h3 > span {
+  cursor: pointer;
+}
+
+:host h3 > span:hover {
+  color: rgb(128, 128, 128);
+}
+
 h4 {
   margin-top: 0px;
 }
