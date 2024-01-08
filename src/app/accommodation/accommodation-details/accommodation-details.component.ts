@@ -6,7 +6,6 @@ import {
   AccommodationTotalPrice,
 } from '../accommodation.model';
 import { getTimestampSeconds } from '../../utils/date.utils';
-import { EMPTY, Subscription, of, switchMap } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../env/env';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
@@ -20,8 +19,6 @@ import {
   throwError,
 } from 'rxjs';
 import { AccountRole } from '../../account/account-info/account.model';
-import { MessageService } from 'primeng/api';
-import { environment } from '../../../env/env';
 import { ReviewDto, ReviewRequest } from '../../comment/review.model';
 import { ReviewService } from '../../comment/review.service';
 import { Comment } from '../../comment/comment.model';
