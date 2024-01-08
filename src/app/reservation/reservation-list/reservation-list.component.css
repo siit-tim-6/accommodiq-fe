@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  flex-direction: row;
+}
+
+:host > :first-child {
+  padding-top: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.main-content {
+  width: 100%;
+}

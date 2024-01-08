@@ -1,0 +1,8 @@
+<div class="main-content">
+  <app-reservation-search (onSearch)="search($event)" (onClear)="clear()" />
+  <div *ngFor="let res of reservations">
+    <app-reservation-card [reservation]="res" />
+  </div>
+</div>
+
+<app-map [markers]="getMarkers()" [zoom]="11" width="33rem" />

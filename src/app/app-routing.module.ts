@@ -13,6 +13,7 @@ import { AccommodationAvailabilityPricingComponent } from './accommodation/accom
 import { CanActivateRole } from './infrastructure/auth/guards/role.guard';
 import { AccountRole } from './account/account-info/account.model';
 import { AccommodationUpdateComponent } from './accommodation/accommodation-update/accommodation-update.component';
+import { ReservationListComponent } from './reservation/reservation-list/reservation-list.component';
 import { ProfileAccountComponent } from './account/profile-account/profile-account.component';
 import { GuestFavoritesListComponent } from './accommodation/guest-favorites-list/guest-favorites-list.component';
 
@@ -43,6 +44,11 @@ const routes: Routes = [
     path: 'accommodations-review',
     component: AdminReviewListComponent,
     canActivate: [() => CanActivateRole(AccountRole.ADMIN)],
+  },
+  {
+    path: 'my-reservations',
+    component: ReservationListComponent,
+    canActivate: [() => CanActivateRole(AccountRole.GUEST)],
   },
   {
     path: 'profile-account/:accountId',
