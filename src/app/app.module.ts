@@ -10,11 +10,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Interceptor } from './infrastructure/auth/interceptor';
 import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
 import { NotificationSettingsComponent } from './notification/notification-settings/notification-settings.component';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
 import { PrimengModule } from './infrastructure/primeng/primeng.module';
 import { AccountModule } from './account/account.module';
 
@@ -30,10 +26,6 @@ import { AccountModule } from './account/account.module';
     ReactiveFormsModule,
     HttpClientModule,
     NotificationModule,
-    ToastModule,
-    ButtonModule,
-    DialogModule,
-    InputTextModule,
     PrimengModule,
     AccountModule,
   ],
