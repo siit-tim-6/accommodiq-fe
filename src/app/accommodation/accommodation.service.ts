@@ -21,6 +21,8 @@ import {
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from '../../env/env';
 import { Injectable } from '@angular/core';
+import { GeocodingService } from '../services/geocoding.service';
+import { GeocoderResponse } from '../models/geocoder.model';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +38,10 @@ export class AccommodationService {
   rangeDatesSearch = this.rangeDatesSearchSubject$.asObservable();
   guestsSearch = this.guestsSearchSubject$.asObservable();
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private geocodingService: GeocodingService,
+  ) {}
 
   getAll(): Observable<Accommodation[]> {
     return this.httpClient.get<Accommodation[]>(
@@ -93,16 +98,29 @@ export class AccommodationService {
     images: File[],
   ): Observable<AccommodationDetailsDto> {
     console.log(formData);
+    let uploadedImagePathsRes: string[];
     return this.uploadImages(images).pipe(
       switchMap((uploadedImagePaths: string[]) => {
+        uploadedImagePathsRes = uploadedImagePaths;
+        return this.geocodingService.getLocation(formData.location);
+      }),
+      switchMap((geocodingResults: GeocoderResponse) => {
+        if (geocodingResults.results.length === 0) {
+          return throwError('Invalid location.');
+        }
+        let coordinates = geocodingResults.results[0].geometry.location;
         const accommodationData: AccommodationModifyDto = {
           title: formData.name,
           description: formData.description,
-          location: formData.location,
+          location: {
+            address: geocodingResults.results[0].formatted_address,
+            longitude: coordinates.lng as unknown as number,
+            latitude: coordinates.lat as unknown as number,
+          },
           minGuests: formData.minGuests,
           maxGuests: formData.maxGuests,
           automaticAcceptance: formData.automaticallyAcceptIncomingReservations,
-          images: uploadedImagePaths,
+          images: uploadedImagePathsRes,
           type: formData.apartmentType,
           benefits: formData.benefits,
         };
@@ -123,17 +141,30 @@ export class AccommodationService {
     images: File[],
     accommodationId: number,
   ): Observable<HttpResponse<AccommodationDetailsDto>> {
+    let uploadedImagePathsRes: string[];
     return this.uploadImages(images).pipe(
       switchMap((uploadedImagePaths: string[]) => {
+        uploadedImagePathsRes = uploadedImagePaths;
+        return this.geocodingService.getLocation(formData.location);
+      }),
+      switchMap((geocodingResults: GeocoderResponse) => {
+        if (geocodingResults.results.length === 0) {
+          return throwError('Invalid location.');
+        }
+        let coordinates = geocodingResults.results[0].geometry.location;
         const accommodationData: AccommodationModifyDto = {
           id: accommodationId,
           title: formData.name,
           description: formData.description,
-          location: formData.location,
+          location: {
+            address: geocodingResults.results[0].formatted_address,
+            longitude: coordinates.lng as unknown as number,
+            latitude: coordinates.lat as unknown as number,
+          },
           minGuests: formData.minGuests,
           maxGuests: formData.maxGuests,
           automaticAcceptance: formData.automaticallyAcceptIncomingReservations,
-          images: uploadedImagePaths,
+          images: uploadedImagePathsRes,
           type: formData.apartmentType,
           benefits: formData.benefits,
         };

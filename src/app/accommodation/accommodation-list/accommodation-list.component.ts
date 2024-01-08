@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Accommodation, SearchParams } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
 import { getTimestampSeconds } from '../../utils/date.utils';
+import { Marker } from '../../infrastructure/gmaps/gmaps.model';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
 
 @Component({
@@ -23,7 +24,6 @@ export class AccommodationListComponent implements OnInit {
     this.service.getAll().subscribe((accommodations: Accommodation[]) => {
       if (!this.savedSearchTriggered) this.elements = accommodations;
     });
-
     if (this.jwtService.getRole() === 'GUEST') {
       this.service
         .getGuestsFavoriteAccommodations()
@@ -65,6 +65,16 @@ export class AccommodationListComponent implements OnInit {
   clear() {
     this.service.getAll().subscribe((accommodations: Accommodation[]) => {
       this.elements = accommodations;
+    });
+  }
+
+  protected getMarkers(): Marker[] {
+    return this.elements.map((el) => {
+      return {
+        label: el.title,
+        latitude: el.location.latitude,
+        longitude: el.location.longitude,
+      };
     });
   }
 

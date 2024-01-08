@@ -12,11 +12,16 @@
     </div>
   </div>
 
-  <h4>{{ accommodationDetails.location }}</h4>
+  <h4>{{ accommodationDetails.location.address }}</h4>
 
   <div class="row">
     <h3>
-      Hosted by <span class="bold">{{ accommodationDetails.host.name }}</span>
+      Hosted by
+      <span
+        class="bold"
+        (click)="redirectToHostProfile(accommodationDetails.host.id)"
+        >{{ accommodationDetails.host.name }}</span
+      >
     </h3>
     <p-rating
       [ngModel]="accommodationDetails.host.rating"
@@ -115,9 +120,14 @@
     </p>
   </div>
 
-  <app-comment-list [comments]="accommodationDetails.reviews" />
+  <app-comment-list
+    [comments]="accommodationDetails.reviews"
+    [canAddComment]="canAddComment"
+    [canReport]="canReport"
+    (reviewSubmitted)="handleReviewSubmission($event)"
+    (deleteRequest)="handleDeleteReview($event)"
+    (reportRequest)="handleReportReview($event)"
+  />
 </div>
 
-<div class="map">
-  <img src="../../../assets/images/map.png" alt="map image" />
-</div>
+<app-map [markers]="getMarkers()" width="42rem" [zoom]="14" />

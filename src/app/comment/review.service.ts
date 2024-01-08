@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {
-  ReviewDto,
-  ReviewRequest,
-  ReviewStatus,
-  ReviewStatusDto,
-} from './review.model';
+import { ReviewDto, ReviewRequest } from './review.model';
 import { HttpClient } from '@angular/common/http';
 import { MessageDto } from '../accommodation/accommodation.model';
 import { environment } from '../../env/env';
@@ -32,16 +27,26 @@ export class ReviewService {
     );
   }
 
-  deleteHostReview(reviewId: number): Observable<MessageDto> {
+  deleteReview(reviewId: number): Observable<MessageDto> {
     return this.httpClient.delete<MessageDto>(
       `${environment.apiHost}reviews/${reviewId}`,
     );
   }
 
-  reportHostReview(reviewId: number): Observable<MessageDto> {
+  reportReview(reviewId: number): Observable<MessageDto> {
     return this.httpClient.put<MessageDto>(
       `${environment.apiHost}reviews/${reviewId}/report`,
       {},
+    );
+  }
+
+  addAccommodationReview(
+    accommodationId: number,
+    review: ReviewRequest,
+  ): Observable<ReviewDto> {
+    return this.httpClient.post<ReviewDto>(
+      `${environment.apiHost}accommodations/${accommodationId}/reviews`,
+      review,
     );
   }
 }

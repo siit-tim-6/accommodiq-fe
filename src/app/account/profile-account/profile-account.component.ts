@@ -97,7 +97,7 @@ export class ProfileAccountComponent {
       author: reviewDto.author,
       comment: reviewDto.comment,
       date: new Date(reviewDto.date),
-      canDelete: reviewDto.deletable,
+      deletable: reviewDto.deletable,
       authorId: reviewDto.authorId,
     };
   }
@@ -135,7 +135,7 @@ export class ProfileAccountComponent {
 
   handleDeleteReview(reviewId: number) {
     this.hostAccountService
-      .deleteHostReview(reviewId)
+      .deleteReview(reviewId)
       .pipe(
         catchError((error) => {
           console.error('Error deleting review', error);
@@ -161,7 +161,7 @@ export class ProfileAccountComponent {
 
   handleReportReview(reviewId: number) {
     this.hostAccountService
-      .reportHostReview(reviewId)
+      .reportReview(reviewId)
       .pipe(
         catchError((error) => {
           console.error('Error reporting review', error);
