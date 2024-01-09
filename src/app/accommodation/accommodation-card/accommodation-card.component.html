@@ -30,8 +30,9 @@
       ></i>
 
       <p-button
-        *ngIf="accommodation.status === undefined"
-        icon="pi pi-heart"
+        *ngIf="accommodation.status === undefined && isUserGuest()"
+        icon="{{ isFavorite ? 'pi pi-heart-fill' : 'pi pi-heart' }}"
+        (click)="modifyFavorite()"
         [rounded]="true"
         severity="secondary"
       ></p-button>
@@ -82,7 +83,7 @@
   <div class="row">
     <span class="icon-label">
       <i class="pi pi-map-marker"></i>
-      <p>{{ accommodation.location }}</p>
+      <p>{{ accommodation.location.address }}</p>
     </span>
 
     <span class="icon-label">

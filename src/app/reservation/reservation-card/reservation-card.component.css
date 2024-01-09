@@ -1,0 +1,68 @@
+:host {
+  max-width: 1150px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.row > * {
+  margin-right: 15px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.icon-label {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon-label > * {
+  margin-right: 8px;
+}
+
+.first-line {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+:host {
+  display: flex;
+  flex-direction: row;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  border-top: 1px solid #ced4da;
+}
+
+img {
+  margin-right: 20px;
+  border-radius: 15px;
+  width: 270px;
+  height: 200px;
+  cursor: pointer;
+}
+
+.reservation-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.reservation-info h2 {
+  margin-top: 0;
+  cursor: pointer;
+}
+
+.icon-container i {
+  padding: 0 0.5rem;
+  cursor: pointer;
+}

@@ -6,7 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { LoginService } from '../login/login.service';
+import { LoginService } from '../../layout/login/login.service';
 import { AccountDetails, AccountRole } from './account.model';
 
 @Component({
@@ -18,11 +18,11 @@ export class AccountInfoComponent {
   @Input() user?: AccountDetails;
   @Input() averageRating: number = 0;
   @Input() numberOfReviews: number = 0;
+  @Input() accountId: number = 0;
   @Output() handleReportUserBtn: EventEmitter<number> =
     new EventEmitter<number>();
   imageUrl: string =
     'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
-  accountId!: number;
   stars: string[] = [];
   currentUserRole: string = '';
   currentUserEmail: string = '';
@@ -31,9 +31,10 @@ export class AccountInfoComponent {
     private route: ActivatedRoute,
     private loginService: LoginService,
     private router: Router,
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
-      this.accountId = +params['accountId'];
       this.currentUserEmail = this.loginService.getEmail();
       this.currentUserRole = this.loginService.getRole() || '';
     });

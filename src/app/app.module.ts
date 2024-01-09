@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Interceptor } from './infrastructure/auth/interceptor';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { ReservationModule } from './reservation/reservation.module';
+import { AccountModule } from './account/account.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +27,8 @@ import { ToastModule } from 'primeng/toast';
     HttpClientModule,
     NotificationModule,
     ToastModule,
+    ReservationModule,
+    AccountModule,
   ],
   providers: [
     {

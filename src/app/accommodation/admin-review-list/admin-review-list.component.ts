@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Accommodation } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
+import { Marker } from '../../infrastructure/gmaps/gmaps.model';
 
 @Component({
   selector: 'app-admin-review-list',
@@ -10,6 +11,7 @@ import { AccommodationService } from '../accommodation.service';
 })
 export class AdminReviewListComponent implements OnInit {
   accommodations: Accommodation[] = [];
+  apiLoaded: boolean = false;
 
   constructor(private service: AccommodationService) {}
 
@@ -23,5 +25,15 @@ export class AdminReviewListComponent implements OnInit {
 
   onModifiedSuccessfully(id: number) {
     this.accommodations = this.accommodations.filter((acc) => acc.id !== id);
+  }
+
+  protected getMarkers(): Marker[] {
+    return this.accommodations.map((accommodation) => {
+      return {
+        label: accommodation.title,
+        latitude: accommodation.location.latitude,
+        longitude: accommodation.location.longitude,
+      };
+    });
   }
 }

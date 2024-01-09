@@ -6,6 +6,7 @@ import {
   AccommodationTotalPrice,
 } from '../accommodation.model';
 import { getTimestampSeconds } from '../../utils/date.utils';
+import { Marker } from '../../infrastructure/gmaps/gmaps.model';
 import {
   EMPTY,
   Subscription,
@@ -14,15 +15,12 @@ import {
   catchError,
   throwError,
 } from 'rxjs';
-import { AccountRole } from '../../layout/account-info/account.model';
+import { AccountRole } from '../../account/account-info/account.model';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../env/env';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
-import {
-  ReviewDto,
-  ReviewRequest,
-} from '../../layout/profile-account/review.model';
-import { ReviewService } from '../../services/review.service';
+import { ReviewDto, ReviewRequest } from '../../comment/review.model';
+import { ReviewService } from '../../comment/review.service';
 import { Comment } from '../../comment/comment.model';
 
 @Component({
@@ -31,6 +29,8 @@ import { Comment } from '../../comment/comment.model';
   styleUrl: './accommodation-details.component.css',
 })
 export class AccommodationDetailsComponent implements OnInit, OnDestroy {
+  apiLoaded: boolean = false;
+
   accommodationId: number;
   accommodationDetails: AccommodationDetails;
   subscription?: Subscription;
@@ -61,7 +61,11 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
       title: '',
       rating: 0,
       reviewCount: 0,
-      location: '',
+      location: {
+        address: '',
+        latitude: 0,
+        longitude: 0,
+      },
       host: {
         id: 0,
         name: '',
@@ -92,6 +96,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
       }),
       switchMap((accommodation: AccommodationDetails) => {
         this.accommodationDetails = accommodation;
+        console.log(this.accommodationDetails);
         if (
           this.jwtService.getRole() === AccountRole.HOST &&
           this.accommodationDetails.host.id === this.jwtService.getUserId()
@@ -314,6 +319,16 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
+  protected getMarkers(): Marker[] {
+    return [
+      {
+        label: this.accommodationDetails.title,
+        latitude: this.accommodationDetails.location.latitude,
+        longitude: this.accommodationDetails.location.longitude,
+      },
+    ];
+  }
+
   handleReviewSubmission(review: ReviewRequest) {
     this.reviewService
       .addAccommodationReview(this.accommodationId, review)
@@ -358,9 +373,10 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
         }),
       )
       .subscribe((messageDto) => {
-        this.accommodationDetails.reviews = this.accommodationDetails.reviews
-          .filter((review) => review.id !== reviewId)
-          .map((review) => ({ ...review }));
+        this.accommodationDetails.reviews =
+          this.accommodationDetails.reviews.filter(
+            (review) => review.id !== reviewId,
+          );
         this.accommodationDetails.reviewCount--;
         this.messageService.add({
           severity: 'success',
@@ -392,18 +408,6 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
           detail: 'Review reported successfully',
         });
       });
-  }
-
-  private convertToComment(reviewDto: ReviewDto): Comment {
-    return {
-      id: reviewDto.id,
-      rating: reviewDto.rating,
-      author: reviewDto.author,
-      comment: reviewDto.comment,
-      date: new Date(reviewDto.date),
-      canDelete: reviewDto.canDelete,
-      authorId: reviewDto.authorId,
-    };
   }
 
   private calculateAverageRatingAndCount(): void {

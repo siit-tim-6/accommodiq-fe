@@ -13,6 +13,8 @@ import { AdminReviewListComponent } from './admin-review-list/admin-review-list.
 import { AccommodationAvailabilityPricingComponent } from './accommodation-availability-pricing/accommodation-availability-pricing.component';
 import { AccommodationUpdateComponent } from './accommodation-update/accommodation-update.component';
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
+import { GmapsModule } from '../infrastructure/gmaps/gmaps.module';
+import { GuestFavoritesListComponent } from './guest-favorites-list/guest-favorites-list.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { PrimengModule } from '../infrastructure/primeng/primeng.module';
     AdminReviewListComponent,
     AccommodationUpdateComponent,
     AccommodationAvailabilityPricingComponent,
+    GuestFavoritesListComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +36,7 @@ import { PrimengModule } from '../infrastructure/primeng/primeng.module';
     FormsModule,
     ReactiveFormsModule,
     PrimengModule,
+    GmapsModule,
   ],
   exports: [
     AccommodationSearchComponent,

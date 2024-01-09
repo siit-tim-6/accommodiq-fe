@@ -11,7 +11,7 @@ export interface Accommodation {
   title: string;
   rating: number;
   reviewCount: number;
-  location: string;
+  location: AccommodationLocation;
   minPrice: number;
   totalPrice: number;
   minGuests: number;
@@ -22,11 +22,17 @@ export interface Accommodation {
   image: string;
 }
 
+export type AccommodationLocation = {
+  address: string;
+  latitude: number;
+  longitude: number;
+};
+
 export interface AccommodationModifyDto {
   id?: number;
   title: string;
   description: string;
-  location: string;
+  location: AccommodationLocation;
   minGuests: number;
   maxGuests: number;
   automaticAcceptance: boolean;
@@ -117,7 +123,7 @@ export type AccommodationDetails = {
   title: string;
   rating: number;
   reviewCount: number;
-  location: string;
+  location: AccommodationLocation;
   host: AccommodationHost;
   images: string[];
   minGuests: number;
@@ -170,4 +176,8 @@ export type AccommodationAdvancedDetails = {
   type: string;
   images: string[];
   benefits: string[];
+};
+
+export type GuestFavorite = {
+  favoriteId: number;
 };
