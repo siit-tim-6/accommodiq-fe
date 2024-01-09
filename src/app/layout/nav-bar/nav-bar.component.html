@@ -23,6 +23,13 @@
   alt="my-accommodations-icon"
 />
 <img
+  *ngIf="role === AccountRole.HOST || role === AccountRole.GUEST"
+  [routerLink]="['/notifications']"
+  src="../../../assets/images/notifications-icon.svg"
+  alt="notifications-icon"
+/>
+
+<img
   *ngIf="role === AccountRole.HOST"
   [routerLink]="['/my-accommodations']"
   src="../../../assets/images/my-accommodations.svg"

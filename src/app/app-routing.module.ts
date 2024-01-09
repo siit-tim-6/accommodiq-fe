@@ -16,6 +16,7 @@ import { AccommodationUpdateComponent } from './accommodation/accommodation-upda
 import { ReservationListComponent } from './reservation/reservation-list/reservation-list.component';
 import { ProfileAccountComponent } from './account/profile-account/profile-account.component';
 import { GuestFavoritesListComponent } from './accommodation/guest-favorites-list/guest-favorites-list.component';
+import { NotificationSettingsComponent } from './notification/notification-settings/notification-settings.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'update-account', component: UpdateAccountComponent },
   { path: 'accommodation-create', component: AccommodationCreateComponent },
   { path: 'notifications', component: NotificationListComponent },
+  { path: 'notification-settings', component: NotificationSettingsComponent },
   { path: 'my-accommodations', component: HostsAccommodationListComponent },
   {
     path: 'accommodation-update/:accommodationId',

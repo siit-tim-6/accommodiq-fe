@@ -10,6 +10,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Interceptor } from './infrastructure/auth/interceptor';
 import { MessageService } from 'primeng/api';
+import { PrimengModule } from './infrastructure/primeng/primeng.module';
 import { ToastModule } from 'primeng/toast';
 import { ReservationModule } from './reservation/reservation.module';
 import { AccountModule } from './account/account.module';
@@ -26,6 +27,7 @@ import { AccountModule } from './account/account.module';
     ReactiveFormsModule,
     HttpClientModule,
     NotificationModule,
+    PrimengModule,
     ToastModule,
     ReservationModule,
     AccountModule,
