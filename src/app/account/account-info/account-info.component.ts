@@ -30,7 +30,6 @@ export class AccountInfoComponent {
   constructor(
     private route: ActivatedRoute,
     private loginService: LoginService,
-    private router: Router,
   ) {}
 
   ngOnInit(): void {

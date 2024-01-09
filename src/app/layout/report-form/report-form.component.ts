@@ -4,6 +4,7 @@ import { AccountService } from '../../services/account.service';
 import { ReportRequestDto } from './report.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { MessageDto } from '../../accommodation/accommodation.model';
 
 @Component({
   selector: 'app-report-form',
@@ -32,49 +33,69 @@ export class ReportFormComponent {
 
   onSubmit() {
     if (this.formGroup.valid) {
-      const reportRequest: ReportRequestDto = {
-        reason: this.formGroup.value.reason!,
-      };
+      if (!this.formGroup.valid) {
+        this.showWarningMessage('Reason needs to have at least 3 characters.');
+        return;
+      }
 
-      this.accountService.reportUser(this.accountId, reportRequest).subscribe({
-        next: (response) => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: response.message,
-          });
-          console.log('User reported successfully', response);
-          setTimeout(() => {
-            this.router.navigate(['/profile-account', this.accountId]);
-          }, 2000); // 2000 milliseconds delay
-        },
-        error: (error) => {
-          // Check if the error is the specific IllegalStateException
-          if (
-            error.error.message ===
-            'Cannot report user without a past reservation.'
-          ) {
-            this.messageService.add({
-              severity: 'warn',
-              summary: 'Warning',
-              detail: 'Cannot report user without a past reservation.',
-            });
-          } else {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: 'Error reporting user',
-            });
-          }
-          console.error('Error reporting user', error);
-        },
-      });
-    } else {
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'Warning',
-        detail: 'Reason needs to have at least 3 characters.',
-      });
+      const reportRequest: ReportRequestDto = this.createReportRequest();
+      this.reportUser(reportRequest);
     }
+  }
+
+  createReportRequest() {
+    return {
+      reason: this.formGroup.value.reason!,
+    };
+  }
+
+  reportUser(reportRequest: ReportRequestDto) {
+    this.accountService.reportUser(this.accountId, reportRequest).subscribe({
+      next: (response: MessageDto) => this.handleReportSuccess(response),
+      error: (error) => this.handleReportError(error),
+    });
+  }
+
+  handleReportSuccess(response: MessageDto) {
+    this.showSuccessMessage('User reported successfully', response.message);
+    console.log('User reported successfully', response);
+    setTimeout(() => {
+      this.router.navigate(['/profile-account', this.accountId]);
+    }, 2000); // 2000 milliseconds delay
+  }
+
+  handleReportError(error: any): void {
+    if (
+      error.error.message === 'Cannot report user without a past reservation.'
+    ) {
+      this.showWarningMessage('Cannot report user without a past reservation.');
+    } else {
+      this.showErrorMessage('Error reporting user');
+    }
+    console.error('Error reporting user', error);
+  }
+
+  showSuccessMessage(summary: string, detail: string): void {
+    this.messageService.add({
+      severity: 'success',
+      summary: summary,
+      detail: detail,
+    });
+  }
+
+  showWarningMessage(detail: string): void {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Warning',
+      detail: detail,
+    });
+  }
+
+  showErrorMessage(detail: string): void {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: detail,
+    });
   }
 }
