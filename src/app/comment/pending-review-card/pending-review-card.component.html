@@ -1,0 +1,37 @@
+<div class="accommodation-info">
+  <img
+    [src]="
+      pendingReview.image === ''
+        ? '../../../assets/images/pendingReview-image.png'
+        : environment.imageBase + pendingReview.image
+    "
+    alt="pendingReview-image"
+    [routerLink]="['/accommodation', pendingReview.accommodationId]"
+  />
+
+  <div class="title-rating">
+    <h3 [routerLink]="['/accommodation', pendingReview.accommodationId]">
+      {{ pendingReview.title }}
+    </h3>
+    <p-rating
+      [ngModel]="Math.floor(pendingReview.review.rating)"
+      [disabled]="true"
+      [cancel]="false"
+    />
+  </div>
+</div>
+
+<div class="review">
+  <p>{{ pendingReview.review.comment }}</p>
+</div>
+
+<div class="buttons">
+  <p-button label="Approve" icon="pi pi-check" (click)="approve()" />
+  <p-button
+    [style]="{ width: '100%' }"
+    label="Reject"
+    icon="pi pi-times"
+    severity="secondary"
+    (click)="decline()"
+  />
+</div>

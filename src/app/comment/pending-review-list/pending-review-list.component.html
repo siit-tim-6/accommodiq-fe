@@ -1,0 +1,11 @@
+<div class="main-content">
+  <h1>Pending reviews</h1>
+  <h4>Approve or deny accommodation reviews</h4>
+  <div *ngFor="let review of reviews">
+    <app-pending-review-card
+      [pendingReview]="review"
+      (approveEmitter)="approveReview($event)"
+      (declineEmitter)="declineReview($event)"
+    ></app-pending-review-card>
+  </div>
+</div>
