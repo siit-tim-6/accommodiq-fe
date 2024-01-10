@@ -8,9 +8,9 @@ import { ReviewBaseInfo, ReviewRequest } from '../review.model';
 })
 export class ReviewListComponent {
   @Input()
-  comments: ReviewBaseInfo[] = [];
+  reviews: ReviewBaseInfo[] = [];
   @Input()
-  canAddComment: boolean = true;
+  canAddReview: boolean = true;
   @Input() canReport: boolean = true;
   @Output() reviewSubmitted: EventEmitter<ReviewRequest> =
     new EventEmitter<ReviewRequest>();
@@ -21,11 +21,11 @@ export class ReviewListComponent {
     this.reviewSubmitted.emit(review);
   }
 
-  handleDeleteComment(commentId: number) {
-    this.deleteRequest.emit(commentId);
+  handleDeleteReview(reviewId: number) {
+    this.deleteRequest.emit(reviewId);
   }
 
-  handleReportComment(commentId: number) {
-    this.reportRequest.emit(commentId);
+  handleReportReview(reviewId: number) {
+    this.reportRequest.emit(reviewId);
   }
 }

@@ -121,8 +121,8 @@
   </div>
 
   <app-review-list
-    [comments]="accommodationDetails.reviews"
-    [canAddComment]="canAddComment"
+    [reviews]="accommodationDetails.reviews"
+    [canAddReview]="canAddComment"
     [canReport]="canReport"
     (reviewSubmitted)="handleReviewSubmission($event)"
     (deleteRequest)="handleDeleteReview($event)"

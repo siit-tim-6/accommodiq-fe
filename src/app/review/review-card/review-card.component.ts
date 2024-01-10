@@ -8,19 +8,19 @@ import { ReviewBaseInfo } from '../review.model';
   styleUrl: './review-card.component.css',
 })
 export class ReviewCardComponent {
-  @Input() comment!: ReviewBaseInfo;
+  @Input() review!: ReviewBaseInfo;
   @Input() canReport: boolean = true;
   @Output() deleteRequest = new EventEmitter<number>();
   @Output() reportRequest = new EventEmitter<number>();
 
   constructor(private router: Router) {}
 
-  deleteComment(comment: ReviewBaseInfo) {
-    this.deleteRequest.emit(comment.id);
+  deleteReview(review: ReviewBaseInfo) {
+    this.deleteRequest.emit(review.id);
   }
 
-  reportComment(comment: ReviewBaseInfo) {
-    this.reportRequest.emit(comment.id);
+  reportReview(review: ReviewBaseInfo) {
+    this.reportRequest.emit(review.id);
   }
 
   redirectToAuthorProfile(authorId: number) {

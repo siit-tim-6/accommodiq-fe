@@ -1,16 +1,16 @@
 <h1>Reviews</h1>
 
-<div *ngIf="canAddComment">
+<div *ngIf="canAddReview">
   <app-add-review-form
     (reviewSubmitted)="handleReviewSubmission($event)"
   ></app-add-review-form>
 </div>
 
-<div *ngFor="let comment of comments">
+<div *ngFor="let review of reviews">
   <app-review-card
-    [comment]="comment"
-    (deleteRequest)="handleDeleteComment($event)"
-    (reportRequest)="handleReportComment($event)"
+    [review]="review"
+    (deleteRequest)="handleDeleteReview($event)"
+    (reportRequest)="handleReportReview($event)"
     [canReport]="canReport"
   ></app-review-card>
 </div>

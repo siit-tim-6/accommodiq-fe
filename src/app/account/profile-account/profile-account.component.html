@@ -5,8 +5,8 @@
 ></app-account-info>
 <app-review-list
   *ngIf="accountDetails?.role === AccountRole.HOST"
-  [comments]="reviews"
-  [canAddComment]="canAddComment"
+  [reviews]="reviews"
+  [canAddReview]="canAddComment"
   [canReport]="canReport"
   (reviewSubmitted)="handleReviewSubmission($event)"
   (deleteRequest)="handleDeleteReview($event)"

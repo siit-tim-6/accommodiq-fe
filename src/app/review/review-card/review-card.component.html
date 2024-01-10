@@ -1,25 +1,25 @@
 <div class="first-line">
-  <h2 (click)="redirectToAuthorProfile(comment.authorId)">
-    {{ comment.author }}
+  <h2 (click)="redirectToAuthorProfile(review.authorId)">
+    {{ review.author }}
   </h2>
-  <p-rating [ngModel]="comment.rating" [cancel]="false" [readonly]="true" />
+  <p-rating [ngModel]="review.rating" [cancel]="false" [readonly]="true" />
 </div>
 
 <div class="row">
-  <p>{{ comment.comment }}</p>
+  <p>{{ review.comment }}</p>
 </div>
 <div class="last-line">
-  <p>{{ comment.date | date }}</p>
+  <p>{{ review.date | date }}</p>
   <i
     class="pi pi-trash"
-    *ngIf="comment.deletable"
-    (click)="deleteComment(comment)"
-    title="Delete Comment"
+    *ngIf="review.deletable"
+    (click)="deleteReview(review)"
+    title="Delete Review"
   ></i>
   <i
     class="pi pi-ban"
     *ngIf="canReport"
-    (click)="reportComment(comment)"
-    title="Report Comment"
+    (click)="reportReview(review)"
+    title="Report Review"
   ></i>
 </div>
