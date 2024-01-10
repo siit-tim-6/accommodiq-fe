@@ -29,7 +29,7 @@
   <p-button label="Approve" icon="pi pi-check" (click)="approve()" />
   <p-button
     [style]="{ width: '100%' }"
-    label="Reject"
+    [label]="pendingReview.review.status === 'PENDING' ? 'Decline' : 'Delete'"
     icon="pi pi-times"
     severity="secondary"
     (click)="decline()"

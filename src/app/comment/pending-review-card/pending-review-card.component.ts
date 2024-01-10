@@ -10,7 +10,7 @@ import { environment } from '../../../env/env';
 export class PendingReviewCardComponent {
   @Input() pendingReview!: PendingReviewDto;
   @Output() approveEmitter = new EventEmitter<PendingReviewDto>();
-  @Output() declineEmitter = new EventEmitter<PendingReviewDto>();
+  @Output() declineOrDeleteEmitter = new EventEmitter<PendingReviewDto>();
 
   protected readonly environment = environment;
   protected readonly Math = Math;
@@ -20,6 +20,6 @@ export class PendingReviewCardComponent {
   }
 
   decline() {
-    this.declineEmitter.emit(this.pendingReview);
+    this.declineOrDeleteEmitter.emit(this.pendingReview);
   }
 }

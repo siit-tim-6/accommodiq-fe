@@ -70,4 +70,10 @@ export class ReviewService {
       { status },
     );
   }
+
+  getReportedReviews() {
+    return this.httpClient.get<PendingReviewDto[]>(
+      `${environment.apiHost}accommodations/reviews/reported`,
+    );
+  }
 }

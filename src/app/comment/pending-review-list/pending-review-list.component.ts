@@ -9,7 +9,10 @@ import { MessageService } from 'primeng/api';
   styleUrl: './pending-review-list.component.css',
 })
 export class PendingReviewListComponent implements OnInit {
-  reviews: PendingReviewDto[] = [];
+  pendingReviews: PendingReviewDto[] = [];
+  reportedReviews: PendingReviewDto[] = [];
+  isPendingShowed: boolean = true;
+  reviewsToShow = this.pendingReviews;
 
   constructor(
     private reviewService: ReviewService,
@@ -19,7 +22,14 @@ export class PendingReviewListComponent implements OnInit {
   ngOnInit(): void {
     this.reviewService.getPendingReviews().subscribe({
       next: (reviews) => {
-        this.reviews = reviews;
+        this.pendingReviews = reviews;
+        this.refreshReviewsToShow();
+      },
+    });
+
+    this.reviewService.getReportedReviews().subscribe({
+      next: (reviews) => {
+        this.reportedReviews = reviews;
       },
     });
   }
@@ -29,9 +39,15 @@ export class PendingReviewListComponent implements OnInit {
       .changeAccommodationReviewStatus($event.review.id, ReviewStatus.ACCEPTED)
       .subscribe({
         next: () => {
-          this.reviews = this.reviews.filter(
+          this.pendingReviews = this.pendingReviews.filter(
             (r) => r.review.id !== $event.review.id,
           );
+
+          this.reportedReviews = this.pendingReviews.filter(
+            (r) => r.review.id !== $event.review.id,
+          );
+
+          this.refreshReviewsToShow();
         },
         error: () => {
           this.messageService.add({
@@ -43,22 +59,51 @@ export class PendingReviewListComponent implements OnInit {
       });
   }
 
-  declineReview($event: PendingReviewDto) {
-    this.reviewService
-      .changeAccommodationReviewStatus($event.review.id, ReviewStatus.DECLINED)
-      .subscribe({
+  declineOrDeleteReview($event: PendingReviewDto) {
+    if ($event.review.status === ReviewStatus.REPORTED) {
+      this.reviewService.deleteReview($event.review.id).subscribe({
         next: () => {
-          this.reviews = this.reviews.filter(
+          this.reportedReviews = this.reportedReviews.filter(
             (r) => r.review.id !== $event.review.id,
           );
+          this.refreshReviewsToShow();
         },
         error: () => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Error while declining review',
+            detail: 'Error while deleting review',
           });
         },
       });
+    } else {
+      this.reviewService
+        .changeAccommodationReviewStatus(
+          $event.review.id,
+          ReviewStatus.DECLINED,
+        )
+        .subscribe({
+          next: () => {
+            this.pendingReviews = this.pendingReviews.filter(
+              (r) => r.review.id !== $event.review.id,
+            );
+
+            this.refreshReviewsToShow();
+          },
+          error: () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error while declining review',
+            });
+          },
+        });
+    }
+  }
+
+  refreshReviewsToShow() {
+    this.reviewsToShow = this.isPendingShowed
+      ? this.pendingReviews
+      : this.reportedReviews;
   }
 }
