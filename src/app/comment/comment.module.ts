@@ -7,7 +7,7 @@ import { CommentCardComponent } from './comment-card/comment-card.component';
 import { ReviewListComponent } from './review-list/review-list.component';
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
 import { ReviewApprovalListComponent } from './review-approval-list/review-approval-list.component';
-import { ReviewApprovalCardComponent } from './review-card/review-approval-card.component';
+import { ReviewApprovalCardComponent } from './review-approval-card/review-approval-card.component';
 
 @NgModule({
   declarations: [
