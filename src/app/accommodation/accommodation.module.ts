@@ -6,7 +6,7 @@ import { AccommodationSearchComponent } from './accommodation-search/accommodati
 import { AccommodationCardComponent } from './accommodation-card/accommodation-card.component';
 import { AccommodationListComponent } from './accommodation-list/accommodation-list.component';
 import { AccommodationDetailsComponent } from './accommodation-details/accommodation-details.component';
-import { CommentModule } from '../comment/comment.module';
+import { CommentModule } from '../review/comment.module';
 import { HostsAccommodationListComponent } from './hosts-accommodation-list/hosts-accommodation-list.component';
 import { AccommodationCreateComponent } from './accommodation-create/accommodation-create.component';
 import { AdminReviewListComponent } from './admin-review-list/admin-review-list.component';

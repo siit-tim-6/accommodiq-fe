@@ -6,7 +6,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { UpdateAccountComponent } from './update-account/update-account.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
-import { CommentModule } from '../comment/comment.module';
+import { CommentModule } from '../review/comment.module';
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
 
 @NgModule({

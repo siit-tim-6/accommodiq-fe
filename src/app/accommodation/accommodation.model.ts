@@ -1,4 +1,4 @@
-import { Comment } from '../comment/comment.model';
+import { Comment } from '../review/comment.model';
 
 export enum AccommodationStatus {
   ACCEPTED = 'ACCEPTED',

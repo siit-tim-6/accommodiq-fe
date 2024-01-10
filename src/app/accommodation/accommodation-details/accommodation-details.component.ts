@@ -19,9 +19,9 @@ import { AccountRole } from '../../account/account-info/account.model';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../env/env';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
-import { ReviewDto, ReviewRequest } from '../../comment/review.model';
-import { ReviewService } from '../../comment/review.service';
-import { Comment } from '../../comment/comment.model';
+import { ReviewDto, ReviewRequest } from '../../review/review.model';
+import { ReviewService } from '../../review/review.service';
+import { Comment } from '../../review/comment.model';
 
 @Component({
   selector: 'app-accommodation-details',
@@ -337,7 +337,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
           let errorMessage = 'Error adding accommodation review';
           if (
             error.status === 403 &&
-            error.error.message.includes('Guest cannot comment')
+            error.error.message.includes('Guest cannot review')
           ) {
             errorMessage = error.error.message; // Specific error message
           }
