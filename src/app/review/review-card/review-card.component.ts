@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ReviewBaseInfo } from '../comment.model';
 import { Router } from '@angular/router';
+import { ReviewBaseInfo } from '../review.model';
 
 @Component({
   selector: 'app-review-card',

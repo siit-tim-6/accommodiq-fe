@@ -1,4 +1,4 @@
-import { ReviewBaseInfo } from '../review/comment.model';
+import { ReviewBaseInfo } from '../review/review.model';
 
 export enum AccommodationStatus {
   ACCEPTED = 'ACCEPTED',

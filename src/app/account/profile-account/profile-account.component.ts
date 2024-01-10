@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReviewService } from '../../review/review.service';
-import { ReviewDto, ReviewRequest } from '../../review/review.model';
-import { ReviewBaseInfo } from '../../review/comment.model';
+import {
+  ReviewBaseInfo,
+  ReviewDto,
+  ReviewRequest,
+} from '../../review/review.model';
 import { MessageDto } from '../../accommodation/accommodation.model';
 import { LoginService } from '../../layout/login/login.service';
 import { AccountDetails, AccountRole } from '../account-info/account.model';

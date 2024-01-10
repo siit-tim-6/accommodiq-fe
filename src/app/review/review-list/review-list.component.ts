@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ReviewBaseInfo } from '../comment.model';
-import { ReviewRequest } from '../review.model';
+import { ReviewBaseInfo, ReviewRequest } from '../review.model';
 
 @Component({
   selector: 'app-review-list',

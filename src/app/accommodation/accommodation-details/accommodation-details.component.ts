@@ -19,9 +19,12 @@ import { AccountRole } from '../../account/account-info/account.model';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../env/env';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
-import { ReviewDto, ReviewRequest } from '../../review/review.model';
+import {
+  ReviewBaseInfo,
+  ReviewDto,
+  ReviewRequest,
+} from '../../review/review.model';
 import { ReviewService } from '../../review/review.service';
-import { ReviewBaseInfo } from '../../review/comment.model';
 
 @Component({
   selector: 'app-accommodation-details',
