@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddCommentFormComponent } from './add-comment-form/add-comment-form.component';
-import { CommentCardComponent } from './comment-card/comment-card.component';
+import { ReviewCardComponent } from './review-card/review-card.component';
 import { ReviewListComponent } from './review-list/review-list.component';
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
 import { ReviewApprovalListComponent } from './review-approval-list/review-approval-list.component';
@@ -12,7 +12,7 @@ import { ReviewApprovalCardComponent } from './review-approval-card/review-appro
 @NgModule({
   declarations: [
     AddCommentFormComponent,
-    CommentCardComponent,
+    ReviewCardComponent,
     ReviewListComponent,
     ReviewApprovalListComponent,
     ReviewApprovalCardComponent,
@@ -24,6 +24,6 @@ import { ReviewApprovalCardComponent } from './review-approval-card/review-appro
     ReactiveFormsModule,
     PrimengModule,
   ],
-  exports: [AddCommentFormComponent, CommentCardComponent, ReviewListComponent],
+  exports: [AddCommentFormComponent, ReviewCardComponent, ReviewListComponent],
 })
 export class CommentModule {}

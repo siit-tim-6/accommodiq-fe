@@ -7,10 +7,10 @@
 </div>
 
 <div *ngFor="let comment of comments">
-  <app-comment
+  <app-review-card
     [comment]="comment"
     (deleteRequest)="handleDeleteComment($event)"
     (reportRequest)="handleReportComment($event)"
     [canReport]="canReport"
-  ></app-comment>
+  ></app-review-card>
 </div>

@@ -3,11 +3,11 @@ import { Comment } from '../comment.model';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-comment',
-  templateUrl: './comment-card.component.html',
-  styleUrl: './comment-card.component.css',
+  selector: 'app-review-card',
+  templateUrl: './review-card.component.html',
+  styleUrl: './review-card.component.css',
 })
-export class CommentCardComponent {
+export class ReviewCardComponent {
   @Input() comment!: Comment;
   @Input() canReport: boolean = true;
   @Output() deleteRequest = new EventEmitter<number>();
