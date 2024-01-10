@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ReviewDto, ReviewRequest } from './review.model';
+import {
+  PendingReviewDto,
+  ReviewDto,
+  ReviewRequest,
+  ReviewStatus,
+} from './review.model';
 import { HttpClient } from '@angular/common/http';
 import { MessageDto } from '../accommodation/accommodation.model';
 import { environment } from '../../env/env';
@@ -47,6 +52,22 @@ export class ReviewService {
     return this.httpClient.post<ReviewDto>(
       `${environment.apiHost}accommodations/${accommodationId}/reviews`,
       review,
+    );
+  }
+
+  getPendingReviews(): Observable<PendingReviewDto[]> {
+    return this.httpClient.get<PendingReviewDto[]>(
+      `${environment.apiHost}accommodations/reviews/pending`,
+    );
+  }
+
+  changeAccommodationReviewStatus(
+    reviewId: number,
+    status: ReviewStatus,
+  ): Observable<MessageDto> {
+    return this.httpClient.put<MessageDto>(
+      `${environment.apiHost}accommodations/reviews/${reviewId}/status`,
+      { status },
     );
   }
 }

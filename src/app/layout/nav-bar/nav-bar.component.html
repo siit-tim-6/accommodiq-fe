@@ -44,6 +44,13 @@
 />
 
 <img
+  *ngIf="role === AccountRole.ADMIN"
+  [routerLink]="['/pending-reviews']"
+  src="../../../assets/images/pending-reviews-icon.svg"
+  alt="pending-reviews-icon"
+/>
+
+<img
   *ngIf="role === AccountRole.GUEST"
   [routerLink]="['/favorites']"
   src="../../../assets/images/favorites-icon.svg"

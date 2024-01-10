@@ -17,6 +17,7 @@ import { ReservationListComponent } from './reservation/reservation-list/reserva
 import { ProfileAccountComponent } from './account/profile-account/profile-account.component';
 import { GuestFavoritesListComponent } from './accommodation/guest-favorites-list/guest-favorites-list.component';
 import { NotificationSettingsComponent } from './notification/notification-settings/notification-settings.component';
+import { PendingReviewListComponent } from './comment/pending-review-list/pending-review-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -60,6 +61,11 @@ const routes: Routes = [
     path: 'favorites',
     component: GuestFavoritesListComponent,
     canActivate: [() => CanActivateRole(AccountRole.GUEST)],
+  },
+  {
+    path: 'pending-reviews',
+    component: PendingReviewListComponent,
+    canActivate: [() => CanActivateRole(AccountRole.ADMIN)],
   },
 ];
 

@@ -17,9 +17,17 @@ export enum ReviewStatus {
   ACCEPTED = 'ACCEPTED',
   DECLINED = 'DECLINED',
   REPORTED = 'REPORTED',
+  PENDING = 'PENDING',
 }
 
 export interface ReviewRequest {
   rating: number;
   comment: string;
+}
+
+export interface PendingReviewDto {
+  review: ReviewDto;
+  title: string;
+  accommodationId: number;
+  image: string;
 }
