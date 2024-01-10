@@ -3,11 +3,11 @@ import { Comment } from '../comment.model';
 import { ReviewRequest } from '../review.model';
 
 @Component({
-  selector: 'app-comment-list',
-  templateUrl: './comment-list.component.html',
-  styleUrl: './comment-list.component.css',
+  selector: 'app-review-list',
+  templateUrl: './review-list.component.html',
+  styleUrl: './review-list.component.css',
 })
-export class CommentListComponent {
+export class ReviewListComponent {
   @Input()
   comments: Comment[] = [];
   @Input()

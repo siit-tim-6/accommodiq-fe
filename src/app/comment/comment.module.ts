@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddCommentFormComponent } from './add-comment-form/add-comment-form.component';
 import { CommentCardComponent } from './comment-card/comment-card.component';
-import { CommentListComponent } from './comment-list/comment-list.component';
+import { ReviewListComponent } from './review-list/review-list.component';
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
 import { ReviewApprovalListComponent } from './review-approval-list/review-approval-list.component';
 import { ReviewApprovalCardComponent } from './review-card/review-approval-card.component';
@@ -13,7 +13,7 @@ import { ReviewApprovalCardComponent } from './review-card/review-approval-card.
   declarations: [
     AddCommentFormComponent,
     CommentCardComponent,
-    CommentListComponent,
+    ReviewListComponent,
     ReviewApprovalListComponent,
     ReviewApprovalCardComponent,
   ],
@@ -24,10 +24,6 @@ import { ReviewApprovalCardComponent } from './review-card/review-approval-card.
     ReactiveFormsModule,
     PrimengModule,
   ],
-  exports: [
-    AddCommentFormComponent,
-    CommentCardComponent,
-    CommentListComponent,
-  ],
+  exports: [AddCommentFormComponent, CommentCardComponent, ReviewListComponent],
 })
 export class CommentModule {}
