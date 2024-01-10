@@ -4,11 +4,11 @@ import { ReviewRequest } from '../review.model';
 import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'app-add-comment-form',
-  templateUrl: './add-comment-form.component.html',
-  styleUrl: './add-comment-form.component.css',
+  selector: 'app-add-review-form',
+  templateUrl: './add-review-form.component.html',
+  styleUrl: './add-review-form.component.css',
 })
-export class AddCommentFormComponent {
+export class AddReviewFormComponent {
   @Output() reviewSubmitted: EventEmitter<ReviewRequest> =
     new EventEmitter<ReviewRequest>();
   reviewForm: FormGroup;
