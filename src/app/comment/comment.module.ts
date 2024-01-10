@@ -6,16 +6,16 @@ import { AddCommentFormComponent } from './add-comment-form/add-comment-form.com
 import { CommentCardComponent } from './comment-card/comment-card.component';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
-import { PendingReviewListComponent } from './pending-review-list/pending-review-list.component';
-import { PendingReviewCardComponent } from './pending-review-card/pending-review-card.component';
+import { ReviewApprovalListComponent } from './review-approval-list/review-approval-list.component';
+import { ReviewApprovalCardComponent } from './review-card/review-approval-card.component';
 
 @NgModule({
   declarations: [
     AddCommentFormComponent,
     CommentCardComponent,
     CommentListComponent,
-    PendingReviewListComponent,
-    PendingReviewCardComponent,
+    ReviewApprovalListComponent,
+    ReviewApprovalCardComponent,
   ],
   imports: [
     CommonModule,

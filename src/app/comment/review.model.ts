@@ -25,7 +25,7 @@ export interface ReviewRequest {
   comment: string;
 }
 
-export interface PendingReviewDto {
+export interface ReviewApprovalCardDto {
   review: ReviewDto;
   title: string;
   accommodationId: number;

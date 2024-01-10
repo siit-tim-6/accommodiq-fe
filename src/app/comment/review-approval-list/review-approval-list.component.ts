@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { PendingReviewDto, ReviewStatus } from '../review.model';
+import { ReviewApprovalCardDto, ReviewStatus } from '../review.model';
 import { ReviewService } from '../review.service';
 import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'app-pending-review-list',
-  templateUrl: './pending-review-list.component.html',
-  styleUrl: './pending-review-list.component.css',
+  selector: 'app-review-approval-list',
+  templateUrl: './review-approval-list.component.html',
+  styleUrl: './review-approval-list.component.css',
 })
-export class PendingReviewListComponent implements OnInit {
-  pendingReviews: PendingReviewDto[] = [];
-  reportedReviews: PendingReviewDto[] = [];
+export class ReviewApprovalListComponent implements OnInit {
+  pendingReviews: ReviewApprovalCardDto[] = [];
+  reportedReviews: ReviewApprovalCardDto[] = [];
   isPendingShowed: boolean = true;
   reviewsToShow = this.pendingReviews;
 
@@ -34,7 +34,7 @@ export class PendingReviewListComponent implements OnInit {
     });
   }
 
-  approveReview($event: PendingReviewDto) {
+  approveReview($event: ReviewApprovalCardDto) {
     this.reviewService
       .changeAccommodationReviewStatus($event.review.id, ReviewStatus.ACCEPTED)
       .subscribe({
@@ -59,7 +59,7 @@ export class PendingReviewListComponent implements OnInit {
       });
   }
 
-  declineOrDeleteReview($event: PendingReviewDto) {
+  declineOrDeleteReview($event: ReviewApprovalCardDto) {
     if ($event.review.status === ReviewStatus.REPORTED) {
       this.reviewService.deleteReview($event.review.id).subscribe({
         next: () => {

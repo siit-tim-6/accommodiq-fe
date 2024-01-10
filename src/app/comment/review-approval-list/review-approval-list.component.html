@@ -14,10 +14,10 @@
   ></p-toggleButton>
 
   <div *ngFor="let review of reviewsToShow">
-    <app-pending-review-card
-      [pendingReview]="review"
+    <app-review-approval-card
+      [review]="review"
       (approveEmitter)="approveReview($event)"
       (declineOrDeleteEmitter)="declineOrDeleteReview($event)"
-    ></app-pending-review-card>
+    ></app-review-approval-card>
   </div>
 </div>

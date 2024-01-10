@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
-  PendingReviewDto,
+  ReviewApprovalCardDto,
   ReviewDto,
   ReviewRequest,
   ReviewStatus,
@@ -55,8 +55,8 @@ export class ReviewService {
     );
   }
 
-  getPendingReviews(): Observable<PendingReviewDto[]> {
-    return this.httpClient.get<PendingReviewDto[]>(
+  getPendingReviews(): Observable<ReviewApprovalCardDto[]> {
+    return this.httpClient.get<ReviewApprovalCardDto[]>(
       `${environment.apiHost}accommodations/reviews/pending`,
     );
   }
@@ -72,7 +72,7 @@ export class ReviewService {
   }
 
   getReportedReviews() {
-    return this.httpClient.get<PendingReviewDto[]>(
+    return this.httpClient.get<ReviewApprovalCardDto[]>(
       `${environment.apiHost}accommodations/reviews/reported`,
     );
   }

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PendingReviewListComponent } from './pending-review-list.component';
+import { ReviewApprovalListComponent } from './review-approval-list.component';
 
 describe('PendingReviewsComponent', () => {
-  let component: PendingReviewListComponent;
-  let fixture: ComponentFixture<PendingReviewListComponent>;
+  let component: ReviewApprovalListComponent;
+  let fixture: ComponentFixture<ReviewApprovalListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PendingReviewListComponent],
+      declarations: [ReviewApprovalListComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PendingReviewListComponent);
+    fixture = TestBed.createComponent(ReviewApprovalListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

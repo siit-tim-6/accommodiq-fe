@@ -1,20 +1,20 @@
 <div class="accommodation-info">
   <img
     [src]="
-      pendingReview.image === ''
+      review.image === ''
         ? '../../../assets/images/pendingReview-image.png'
-        : environment.imageBase + pendingReview.image
+        : environment.imageBase + review.image
     "
     alt="pendingReview-image"
-    [routerLink]="['/accommodation', pendingReview.accommodationId]"
+    [routerLink]="['/accommodation', review.accommodationId]"
   />
 
   <div class="title-rating">
-    <h3 [routerLink]="['/accommodation', pendingReview.accommodationId]">
-      {{ pendingReview.title }}
+    <h3 [routerLink]="['/accommodation', review.accommodationId]">
+      {{ review.title }}
     </h3>
     <p-rating
-      [ngModel]="Math.floor(pendingReview.review.rating)"
+      [ngModel]="Math.floor(review.review.rating)"
       [disabled]="true"
       [cancel]="false"
     />
@@ -22,14 +22,14 @@
 </div>
 
 <div class="review">
-  <p>{{ pendingReview.review.comment }}</p>
+  <p>{{ review.review.comment }}</p>
 </div>
 
 <div class="buttons">
   <p-button label="Approve" icon="pi pi-check" (click)="approve()" />
   <p-button
     [style]="{ width: '100%' }"
-    [label]="pendingReview.review.status === 'PENDING' ? 'Decline' : 'Delete'"
+    [label]="review.review.status === 'PENDING' ? 'Decline' : 'Delete'"
     icon="pi pi-times"
     severity="secondary"
     (click)="decline()"
