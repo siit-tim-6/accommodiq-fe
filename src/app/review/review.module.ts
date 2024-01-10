@@ -26,4 +26,4 @@ import { ReviewApprovalCardComponent } from './review-approval-card/review-appro
   ],
   exports: [AddReviewFormComponent, ReviewCardComponent, ReviewListComponent],
 })
-export class CommentModule {}
+export class ReviewModule {}

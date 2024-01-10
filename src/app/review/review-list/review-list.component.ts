@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Comment } from '../comment.model';
+import { ReviewBaseInfo } from '../comment.model';
 import { ReviewRequest } from '../review.model';
 
 @Component({
@@ -9,7 +9,7 @@ import { ReviewRequest } from '../review.model';
 })
 export class ReviewListComponent {
   @Input()
-  comments: Comment[] = [];
+  comments: ReviewBaseInfo[] = [];
   @Input()
   canAddComment: boolean = true;
   @Input() canReport: boolean = true;

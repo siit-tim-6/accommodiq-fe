@@ -21,7 +21,7 @@ import { environment } from '../../../env/env';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
 import { ReviewDto, ReviewRequest } from '../../review/review.model';
 import { ReviewService } from '../../review/review.service';
-import { Comment } from '../../review/comment.model';
+import { ReviewBaseInfo } from '../../review/comment.model';
 
 @Component({
   selector: 'app-accommodation-details',
@@ -413,7 +413,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   private calculateAverageRatingAndCount(): void {
     if (this.accommodationDetails.reviews.length > 0) {
       const totalRating = this.accommodationDetails.reviews.reduce(
-        (acc: number, review: Comment) => acc + review.rating,
+        (acc: number, review: ReviewBaseInfo) => acc + review.rating,
         0,
       );
       // Calculate average and round to one decimal place

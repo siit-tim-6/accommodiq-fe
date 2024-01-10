@@ -6,7 +6,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { UpdateAccountComponent } from './update-account/update-account.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
-import { CommentModule } from '../review/comment.module';
+import { ReviewModule } from '../review/review.module';
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
 
 @NgModule({
@@ -16,13 +16,7 @@ import { PrimengModule } from '../infrastructure/primeng/primeng.module';
     RegistrationComponent,
     UpdateAccountComponent,
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterLink,
-    CommentModule,
-    PrimengModule,
-  ],
+  imports: [CommonModule, FormsModule, RouterLink, ReviewModule, PrimengModule],
   exports: [
     NavBarComponent,
     LoginComponent,

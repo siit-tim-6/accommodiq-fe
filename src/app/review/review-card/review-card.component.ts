@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Comment } from '../comment.model';
+import { ReviewBaseInfo } from '../comment.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,18 +8,18 @@ import { Router } from '@angular/router';
   styleUrl: './review-card.component.css',
 })
 export class ReviewCardComponent {
-  @Input() comment!: Comment;
+  @Input() comment!: ReviewBaseInfo;
   @Input() canReport: boolean = true;
   @Output() deleteRequest = new EventEmitter<number>();
   @Output() reportRequest = new EventEmitter<number>();
 
   constructor(private router: Router) {}
 
-  deleteComment(comment: Comment) {
+  deleteComment(comment: ReviewBaseInfo) {
     this.deleteRequest.emit(comment.id);
   }
 
-  reportComment(comment: Comment) {
+  reportComment(comment: ReviewBaseInfo) {
     this.reportRequest.emit(comment.id);
   }
 

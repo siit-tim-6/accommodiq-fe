@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReviewService } from '../../review/review.service';
 import { ReviewDto, ReviewRequest } from '../../review/review.model';
-import { Comment } from '../../review/comment.model';
+import { ReviewBaseInfo } from '../../review/comment.model';
 import { MessageDto } from '../../accommodation/accommodation.model';
 import { LoginService } from '../../layout/login/login.service';
 import { AccountDetails, AccountRole } from '../account-info/account.model';
@@ -17,7 +17,7 @@ import { catchError, throwError } from 'rxjs';
 })
 export class ProfileAccountComponent {
   accountDetails!: AccountDetails;
-  reviews: Comment[] = [];
+  reviews: ReviewBaseInfo[] = [];
   canAddComment: boolean = true;
   canReport: boolean = false;
   accountId!: number;
@@ -90,7 +90,7 @@ export class ProfileAccountComponent {
       });
   }
 
-  private convertToComment(reviewDto: ReviewDto): Comment {
+  private convertToComment(reviewDto: ReviewDto): ReviewBaseInfo {
     return {
       id: reviewDto.id,
       rating: reviewDto.rating,
@@ -186,7 +186,7 @@ export class ProfileAccountComponent {
   private calculateAverageRatingAndCount(): void {
     if (this.reviews.length > 0) {
       const totalRating = this.reviews.reduce(
-        (acc: number, review: Comment) => acc + review.rating,
+        (acc: number, review: ReviewBaseInfo) => acc + review.rating,
         0,
       );
       // Calculate average and round to one decimal place
