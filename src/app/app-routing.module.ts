@@ -10,7 +10,10 @@ import { NotificationListComponent } from './notification/notification-list/noti
 import { HostsAccommodationListComponent } from './accommodation/hosts-accommodation-list/hosts-accommodation-list.component';
 import { AdminReviewListComponent } from './accommodation/admin-review-list/admin-review-list.component';
 import { AccommodationAvailabilityPricingComponent } from './accommodation/accommodation-availability-pricing/accommodation-availability-pricing.component';
-import { CanActivateRole } from './infrastructure/auth/guards/role.guard';
+import {
+  CanActivateRole,
+  CanActivateRoles,
+} from './infrastructure/auth/guards/role.guard';
 import { AccountRole } from './account/account-info/account.model';
 import { AccommodationUpdateComponent } from './accommodation/accommodation-update/accommodation-update.component';
 import { ReservationListComponent } from './reservation/reservation-list/reservation-list.component';
@@ -51,7 +54,9 @@ const routes: Routes = [
   {
     path: 'my-reservations',
     component: ReservationListComponent,
-    canActivate: [() => CanActivateRole(AccountRole.GUEST)],
+    canActivate: [
+      () => CanActivateRoles([AccountRole.GUEST, AccountRole.HOST]),
+    ],
   },
   {
     path: 'profile-account/:accountId',

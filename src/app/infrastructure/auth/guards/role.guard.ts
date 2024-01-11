@@ -14,3 +14,15 @@ export const CanActivateRole = (role: AccountRole) => {
   }
   return true;
 };
+
+export const CanActivateRoles = (roles: AccountRole[]) => {
+  const jwtService = inject(JwtService);
+  const router = inject(Router);
+
+  let role = jwtService.getRole();
+  if (role === null || !roles.includes(role)) {
+    router.navigate(['/search']);
+    return false;
+  }
+  return true;
+};
