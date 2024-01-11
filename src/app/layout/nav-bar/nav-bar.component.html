@@ -10,7 +10,7 @@
 />
 
 <img
-  *ngIf="role === AccountRole.GUEST"
+  *ngIf="role === AccountRole.GUEST || role === AccountRole.HOST"
   [routerLink]="['/my-reservations']"
   src="../../../assets/images/reservations-icon.svg"
   alt="my-reservations-icon"
