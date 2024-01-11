@@ -76,7 +76,7 @@ export class ReservationListComponent implements OnInit {
           detail: 'Reservation successfully deleted!',
         });
       },
-      error: (error) => {
+      error: (_) => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -90,9 +90,6 @@ export class ReservationListComponent implements OnInit {
     this.service.cancel($event).subscribe({
       next: (_) => {
         this.reservations = this.reservations.filter((el) => el.id != $event);
-        this.cancellableReservationIds = this.cancellableReservationIds.filter(
-          (el) => el != $event,
-        );
 
         this.messageService.add({
           severity: 'success',
