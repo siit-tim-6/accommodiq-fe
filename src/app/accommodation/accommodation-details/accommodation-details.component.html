@@ -120,9 +120,9 @@
     </p>
   </div>
 
-  <app-comment-list
-    [comments]="accommodationDetails.reviews"
-    [canAddComment]="canAddComment"
+  <app-review-list
+    [reviews]="accommodationDetails.reviews"
+    [canAddReview]="canAddReview"
     [canReport]="canReport"
     (reviewSubmitted)="handleReviewSubmission($event)"
     (deleteRequest)="handleDeleteReview($event)"

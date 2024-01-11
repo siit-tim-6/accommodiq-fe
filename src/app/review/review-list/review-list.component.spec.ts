@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CommentCardComponent } from './comment-card.component';
+import { ReviewListComponent } from './review-list.component';
 
-describe('CommentComponent', () => {
-  let component: CommentCardComponent;
-  let fixture: ComponentFixture<CommentCardComponent>;
+describe('CommentListComponent', () => {
+  let component: ReviewListComponent;
+  let fixture: ComponentFixture<ReviewListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CommentCardComponent],
+      declarations: [ReviewListComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CommentCardComponent);
+    fixture = TestBed.createComponent(ReviewListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -5,13 +5,13 @@
   [numberOfReviews]="reviews.length"
   (handleReportUserBtn)="handleReportUserBtn()"
 ></app-account-info>
-<app-comment-list
+<app-review-list
   *ngIf="accountDetails?.role === AccountRole.HOST"
-  [comments]="reviews"
-  [canAddComment]="canAddComment"
+  [reviews]="reviews"
+  [canAddReview]="canAddReview"
   [canReport]="canReport"
   (reviewSubmitted)="handleReviewSubmission($event)"
   (deleteRequest)="handleDeleteReview($event)"
   (reportRequest)="handleReportReview($event)"
 >
-</app-comment-list>
+</app-review-list>

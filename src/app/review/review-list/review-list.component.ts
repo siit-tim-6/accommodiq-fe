@@ -1,17 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Comment } from '../comment.model';
-import { ReviewRequest } from '../review.model';
+import { ReviewBaseInfo, ReviewRequest } from '../review.model';
 
 @Component({
-  selector: 'app-comment-list',
-  templateUrl: './comment-list.component.html',
-  styleUrl: './comment-list.component.css',
+  selector: 'app-review-list',
+  templateUrl: './review-list.component.html',
+  styleUrl: './review-list.component.css',
 })
-export class CommentListComponent {
+export class ReviewListComponent {
   @Input()
-  comments: Comment[] = [];
+  reviews: ReviewBaseInfo[] = [];
   @Input()
-  canAddComment: boolean = true;
+  canAddReview: boolean = true;
   @Input() canReport: boolean = true;
   @Output() reviewSubmitted: EventEmitter<ReviewRequest> =
     new EventEmitter<ReviewRequest>();
@@ -22,11 +21,11 @@ export class CommentListComponent {
     this.reviewSubmitted.emit(review);
   }
 
-  handleDeleteComment(commentId: number) {
-    this.deleteRequest.emit(commentId);
+  handleDeleteReview(reviewId: number) {
+    this.deleteRequest.emit(reviewId);
   }
 
-  handleReportComment(commentId: number) {
-    this.reportRequest.emit(commentId);
+  handleReportReview(reviewId: number) {
+    this.reportRequest.emit(reviewId);
   }
 }

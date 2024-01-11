@@ -19,9 +19,12 @@ import { AccountRole } from '../../account/account-info/account.model';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../env/env';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
-import { ReviewDto, ReviewRequest } from '../../comment/review.model';
-import { ReviewService } from '../../comment/review.service';
-import { Comment } from '../../comment/comment.model';
+import {
+  ReviewBaseInfo,
+  ReviewDto,
+  ReviewRequest,
+} from '../../review/review.model';
+import { ReviewService } from '../../review/review.service';
 
 @Component({
   selector: 'app-accommodation-details',
@@ -35,7 +38,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   accommodationDetails: AccommodationDetails;
   subscription?: Subscription;
   accommodationImages: string[];
-  canAddComment: boolean = true;
+  canAddReview: boolean = true;
   canReport: boolean = false;
 
   rangeDates: Date[] | undefined;
@@ -54,7 +57,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
     private reviewService: ReviewService,
     private router: Router,
   ) {
-    this.canAddComment = this.jwtService.getRole() === AccountRole.GUEST;
+    this.canAddReview = this.jwtService.getRole() === AccountRole.GUEST;
     this.accommodationId = 0;
     this.accommodationDetails = {
       id: 0,
@@ -337,7 +340,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
           let errorMessage = 'Error adding accommodation review';
           if (
             error.status === 403 &&
-            error.error.message.includes('Guest cannot comment')
+            error.error.message.includes('Guest cannot review')
           ) {
             errorMessage = error.error.message; // Specific error message
           }
@@ -413,7 +416,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   private calculateAverageRatingAndCount(): void {
     if (this.accommodationDetails.reviews.length > 0) {
       const totalRating = this.accommodationDetails.reviews.reduce(
-        (acc: number, review: Comment) => acc + review.rating,
+        (acc: number, review: ReviewBaseInfo) => acc + review.rating,
         0,
       );
       // Calculate average and round to one decimal place

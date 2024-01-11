@@ -6,7 +6,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { UpdateAccountComponent } from './update-account/update-account.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
-import { CommentModule } from '../comment/comment.module';
+import { ReviewModule } from '../review/review.module';
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
 import { ReportFormComponent } from './report-form/report-form.component';
 
@@ -22,7 +22,7 @@ import { ReportFormComponent } from './report-form/report-form.component';
     CommonModule,
     FormsModule,
     RouterLink,
-    CommentModule,
+    ReviewModule,
     PrimengModule,
     ReactiveFormsModule,
   ],

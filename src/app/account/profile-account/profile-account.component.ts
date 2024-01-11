@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ReviewService } from '../../comment/review.service';
-import { ReviewDto, ReviewRequest } from '../../comment/review.model';
-import { Comment } from '../../comment/comment.model';
+import { ReviewService } from '../../review/review.service';
+import {
+  ReviewBaseInfo,
+  ReviewDto,
+  ReviewRequest,
+} from '../../review/review.model';
 import { MessageDto } from '../../accommodation/accommodation.model';
 import { LoginService } from '../../layout/login/login.service';
 import { AccountDetails, AccountRole } from '../account-info/account.model';
@@ -17,8 +20,8 @@ import { catchError, throwError } from 'rxjs';
 })
 export class ProfileAccountComponent {
   accountDetails!: AccountDetails;
-  reviews: Comment[] = [];
-  canAddComment: boolean = true;
+  reviews: ReviewBaseInfo[] = [];
+  canAddReview: boolean = true;
   canReport: boolean = false;
   accountId!: number;
   currentUserRole: string = '';
@@ -40,7 +43,7 @@ export class ProfileAccountComponent {
       this.fetchAccountDetails(this.accountId);
       this.currentUserEmail = this.loginService.getEmail();
       this.currentUserRole = this.loginService.getRole() || '';
-      this.canAddComment = this.currentUserRole === 'GUEST';
+      this.canAddReview = this.currentUserRole === 'GUEST';
     });
   }
 
@@ -86,12 +89,14 @@ export class ProfileAccountComponent {
       )
       .subscribe((reviews: ReviewDto[]) => {
         console.log(reviews);
-        this.reviews = reviews.map((review) => this.convertToComment(review));
+        this.reviews = reviews.map((review) =>
+          this.convertToReviewBaseInfo(review),
+        );
         this.calculateAverageRatingAndCount();
       });
   }
 
-  private convertToComment(reviewDto: ReviewDto): Comment {
+  private convertToReviewBaseInfo(reviewDto: ReviewDto): ReviewBaseInfo {
     return {
       id: reviewDto.id,
       rating: reviewDto.rating,
@@ -111,7 +116,7 @@ export class ProfileAccountComponent {
           let errorMessage = 'Error adding host review';
           if (
             error.status === 403 &&
-            error.error.message.includes('Guest cannot comment')
+            error.error.message.includes('Guest cannot review')
           ) {
             errorMessage = error.error.message; // Specific error message
           }
@@ -124,7 +129,7 @@ export class ProfileAccountComponent {
         }),
       )
       .subscribe((reviewDto: ReviewDto) => {
-        this.reviews.push(this.convertToComment(reviewDto));
+        this.reviews.push(this.convertToReviewBaseInfo(reviewDto));
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
@@ -191,7 +196,7 @@ export class ProfileAccountComponent {
   private calculateAverageRatingAndCount(): void {
     if (this.reviews.length > 0) {
       const totalRating = this.reviews.reduce(
-        (acc: number, review: Comment) => acc + review.rating,
+        (acc: number, review: ReviewBaseInfo) => acc + review.rating,
         0,
       );
       // Calculate average and round to one decimal place

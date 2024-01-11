@@ -1,4 +1,4 @@
-import { Comment } from '../comment/comment.model';
+import { ReviewBaseInfo } from '../review/review.model';
 
 export enum AccommodationStatus {
   ACCEPTED = 'ACCEPTED',
@@ -129,7 +129,7 @@ export type AccommodationDetails = {
   minGuests: number;
   maxGuests: number;
   description: string;
-  reviews: Comment[];
+  reviews: ReviewBaseInfo[];
   benefits: string[];
   type: string;
   minPrice: number;

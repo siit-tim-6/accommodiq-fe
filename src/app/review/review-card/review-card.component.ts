@@ -1,26 +1,26 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Comment } from '../comment.model';
 import { Router } from '@angular/router';
+import { ReviewBaseInfo } from '../review.model';
 
 @Component({
-  selector: 'app-comment',
-  templateUrl: './comment-card.component.html',
-  styleUrl: './comment-card.component.css',
+  selector: 'app-review-card',
+  templateUrl: './review-card.component.html',
+  styleUrl: './review-card.component.css',
 })
-export class CommentCardComponent {
-  @Input() comment!: Comment;
+export class ReviewCardComponent {
+  @Input() review!: ReviewBaseInfo;
   @Input() canReport: boolean = true;
   @Output() deleteRequest = new EventEmitter<number>();
   @Output() reportRequest = new EventEmitter<number>();
 
   constructor(private router: Router) {}
 
-  deleteComment(comment: Comment) {
-    this.deleteRequest.emit(comment.id);
+  deleteReview(review: ReviewBaseInfo) {
+    this.deleteRequest.emit(review.id);
   }
 
-  reportComment(comment: Comment) {
-    this.reportRequest.emit(comment.id);
+  reportReview(review: ReviewBaseInfo) {
+    this.reportRequest.emit(review.id);
   }
 
   redirectToAuthorProfile(authorId: number) {
