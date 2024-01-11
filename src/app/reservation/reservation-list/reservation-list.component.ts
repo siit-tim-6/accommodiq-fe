@@ -4,6 +4,8 @@ import { ReservationService } from '../reservation.service';
 import { getTimestampMiliseconds } from '../../utils/date.utils';
 import { Marker } from '../../infrastructure/gmaps/gmaps.model';
 import { MessageService } from 'primeng/api';
+import { JwtService } from '../../infrastructure/auth/jwt.service';
+import { AccountRole } from '../../account/account-info/account.model';
 
 @Component({
   selector: 'app-reservation-list',
@@ -12,16 +14,22 @@ import { MessageService } from 'primeng/api';
 })
 export class ReservationListComponent implements OnInit {
   reservations: Reservation[] = [];
+  loggedInRole: AccountRole | null;
 
   constructor(
     private service: ReservationService,
     private messageService: MessageService,
-  ) {}
+    private jwtService: JwtService,
+  ) {
+    this.loggedInRole = jwtService.getRole();
+  }
 
   ngOnInit(): void {
-    this.service.getAll().subscribe((reservations) => {
-      this.reservations = reservations;
-    });
+    if (this.loggedInRole != null) {
+      this.service.getAll(this.loggedInRole).subscribe((reservations) => {
+        this.reservations = reservations;
+      });
+    }
   }
 
   search(searchParams: ReservationSearchParams) {
@@ -34,22 +42,27 @@ export class ReservationListComponent implements OnInit {
         ? 0
         : getTimestampMiliseconds(searchParams.reservationDates[1]);
 
-    this.service
-      .findByFilter(
-        searchParams.title,
-        startDate,
-        endDate,
-        searchParams.status ?? '',
-      )
-      .subscribe((reservations) => {
-        this.reservations = reservations;
-      });
+    if (this.loggedInRole != null) {
+      this.service
+        .findByFilter(
+          this.loggedInRole,
+          searchParams.title,
+          startDate,
+          endDate,
+          searchParams.status ?? '',
+        )
+        .subscribe((reservations) => {
+          this.reservations = reservations;
+        });
+    }
   }
 
   clear() {
-    this.service.getAll().subscribe((reservations) => {
-      this.reservations = reservations;
-    });
+    if (this.loggedInRole != null) {
+      this.service.getAll(this.loggedInRole).subscribe((reservations) => {
+        this.reservations = reservations;
+      });
+    }
   }
 
   protected getMarkers(): Marker[] {
