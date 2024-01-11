@@ -13,6 +13,7 @@ import { AccommodationAvailabilityPricingComponent } from './accommodation/accom
 import { CanActivateRole } from './infrastructure/auth/guards/role.guard';
 import { AccountRole } from './account/account-info/account.model';
 import { AccommodationUpdateComponent } from './accommodation/accommodation-update/accommodation-update.component';
+import { ReportFormComponent } from './layout/report-form/report-form.component';
 import { ReservationListComponent } from './reservation/reservation-list/reservation-list.component';
 import { ProfileAccountComponent } from './account/profile-account/profile-account.component';
 import { GuestFavoritesListComponent } from './accommodation/guest-favorites-list/guest-favorites-list.component';
@@ -56,6 +57,10 @@ const routes: Routes = [
   {
     path: 'profile-account/:accountId',
     component: ProfileAccountComponent,
+  },
+  {
+    path: 'report/:accountId',
+    component: ReportFormComponent,
   },
   {
     path: 'favorites',
