@@ -88,9 +88,9 @@ export class ReservationListComponent implements OnInit {
     });
   }
 
-  cancel($event: number) {
+  cancel(reservationId: number) {
     this.service
-      .changeReservationStatus($event, ReservationStatus.CANCELLED)
+      .changeReservationStatus(reservationId, ReservationStatus.CANCELLED)
       .subscribe({
         next: (reservation) => {
           this.handleChangeStatusResponse(reservation);
@@ -100,9 +100,9 @@ export class ReservationListComponent implements OnInit {
       });
   }
 
-  accept($event: number) {
+  accept(reservationId: number) {
     this.service
-      .changeReservationStatus($event, ReservationStatus.ACCEPTED)
+      .changeReservationStatus(reservationId, ReservationStatus.ACCEPTED)
       .subscribe({
         next: (reservation) => {
           this.handleChangeStatusResponse(reservation);
@@ -112,9 +112,9 @@ export class ReservationListComponent implements OnInit {
       });
   }
 
-  decline($event: number) {
+  decline(reservationId: number) {
     this.service
-      .changeReservationStatus($event, ReservationStatus.DECLINED)
+      .changeReservationStatus(reservationId, ReservationStatus.DECLINED)
       .subscribe({
         next: (reservation) => {
           this.handleChangeStatusResponse(reservation);
