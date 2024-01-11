@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Reservation } from './reservation.model';
+import { Reservation, ReservationStatus } from './reservation.model';
 import { environment } from '../../env/env';
 import { MessageDto } from '../accommodation/accommodation.model';
 
@@ -37,6 +37,19 @@ export class ReservationService {
   delete(id: number): Observable<MessageDto> {
     return this.httpClient.delete<MessageDto>(
       `${environment.apiHost}reservations/${id}`,
+    );
+  }
+
+  getCancellableReservationIds(): Observable<number[]> {
+    return this.httpClient.get<number[]>(
+      `${environment.apiHost}guests/reservations/cancellable`,
+    );
+  }
+
+  cancel(id: number) {
+    return this.httpClient.put<MessageDto>(
+      `${environment.apiHost}reservations/${id}/status`,
+      { status: ReservationStatus.CANCELLED },
     );
   }
 }
