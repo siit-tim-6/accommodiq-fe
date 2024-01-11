@@ -15,8 +15,8 @@ export class ReservationCardComponent {
 
   constructor() {}
 
-  protected formatTimestamp(timestampSeconds: number): string {
-    const date = new Date(timestampSeconds * 1000);
+  protected formatTimestamp(timestampMiliseconds: number): string {
+    const date = new Date(timestampMiliseconds);
     const months = [
       'Jan',
       'Feb',

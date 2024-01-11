@@ -12,7 +12,7 @@ import {
 import { FormUtils, FormValidators } from '../../utils/form.utils';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { getTimestampSeconds } from '../../utils/date.utils';
+import { getTimestampMiliseconds } from '../../utils/date.utils';
 
 @Component({
   selector: 'app-accommodation-availability-pricing',
@@ -161,8 +161,12 @@ export class AccommodationAvailabilityPricingComponent {
 
   private addNewRange(dates: Date[], price: number): void {
     const availabilityData: AvailabilityDto = {
-      fromDate: getTimestampSeconds(this.availabilityForm.value.pickedDates[0]),
-      toDate: getTimestampSeconds(this.availabilityForm.value.pickedDates[1]),
+      fromDate: getTimestampMiliseconds(
+        this.availabilityForm.value.pickedDates[0],
+      ),
+      toDate: getTimestampMiliseconds(
+        this.availabilityForm.value.pickedDates[1],
+      ),
       price: this.availabilityForm.value.price,
     };
 

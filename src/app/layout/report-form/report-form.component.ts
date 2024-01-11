@@ -67,6 +67,14 @@ export class ReportFormComponent {
       error.error.message === 'Cannot report user without a past reservation.'
     ) {
       this.showWarningMessage('Cannot report user without a past reservation.');
+    }
+    if (
+      error.error.message ===
+      'Cannot report user more than once per reservation.'
+    ) {
+      this.showWarningMessage(
+        'Cannot report user more than once per reservation.',
+      );
     } else {
       this.showErrorMessage('Error reporting user');
     }

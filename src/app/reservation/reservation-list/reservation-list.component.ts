@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Reservation, ReservationSearchParams } from '../reservation.model';
 import { ReservationService } from '../reservation.service';
-import { getTimestampSeconds } from '../../utils/date.utils';
+import { getTimestampMiliseconds } from '../../utils/date.utils';
 import { Marker } from '../../infrastructure/gmaps/gmaps.model';
 import { MessageService } from 'primeng/api';
 
@@ -28,11 +28,11 @@ export class ReservationListComponent implements OnInit {
     let startDate: number =
       searchParams.reservationDates.length != 2
         ? 0
-        : getTimestampSeconds(searchParams.reservationDates[0]);
+        : getTimestampMiliseconds(searchParams.reservationDates[0]);
     let endDate: number =
       searchParams.reservationDates.length != 2
         ? 0
-        : getTimestampSeconds(searchParams.reservationDates[1]);
+        : getTimestampMiliseconds(searchParams.reservationDates[1]);
 
     this.service
       .findByFilter(
