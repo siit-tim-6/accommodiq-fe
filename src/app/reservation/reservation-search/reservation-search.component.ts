@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ReservationSearchParams } from '../reservation.model';
 
 @Component({
@@ -12,6 +12,9 @@ export class ReservationSearchComponent {
 
   @Output()
   onClear = new EventEmitter<never>();
+
+  @Input()
+  reservationCount: number = 0;
 
   accommodationTitle: string = '';
   reservationDates: Date[] = [];
