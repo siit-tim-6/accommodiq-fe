@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  Reservation,
-  ReservationSearchParams,
-  ReservationStatus,
-} from '../reservation.model';
+import { Reservation, ReservationSearchParams } from '../reservation.model';
 import { ReservationService } from '../reservation.service';
 import { getTimestampSeconds } from '../../utils/date.utils';
 import { Marker } from '../../infrastructure/gmaps/gmaps.model';
@@ -92,20 +88,21 @@ export class ReservationListComponent implements OnInit {
 
   cancel($event: number) {
     this.service.cancel($event).subscribe({
-      next: (_) => {
-        this.reservations.find((el) => el.id == $event)!.status =
-          ReservationStatus.CANCELLED;
+      next: (reservation) => {
+        this.reservations = this.reservations.map((el) =>
+          el.id == reservation.id ? reservation : el,
+        );
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
           detail: 'Reservation successfully canceled!',
         });
       },
-      error: (_) => {
+      error: (err) => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Unable to cancel selected reservation.',
+          detail: err.error.message,
         });
       },
     });
