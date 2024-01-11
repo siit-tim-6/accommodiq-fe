@@ -32,15 +32,13 @@ export class ReportFormComponent {
   }
 
   onSubmit() {
-    if (this.formGroup.valid) {
-      if (!this.formGroup.valid) {
-        this.showWarningMessage('Reason needs to have at least 3 characters.');
-        return;
-      }
-
-      const reportRequest: ReportRequestDto = this.createReportRequest();
-      this.reportUser(reportRequest);
+    if (!this.formGroup.valid) {
+      this.showWarningMessage('Reason needs to have at least 3 characters.');
+      return;
     }
+
+    const reportRequest: ReportRequestDto = this.createReportRequest();
+    this.reportUser(reportRequest);
   }
 
   createReportRequest() {
