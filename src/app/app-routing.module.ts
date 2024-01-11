@@ -37,22 +37,22 @@ const routes: Routes = [
   {
     path: 'accommodation-update/:accommodationId',
     component: AccommodationUpdateComponent,
-    canActivate: [() => CanActivateRole(AccountRole.HOST)],
+    canActivate: [() => CanActivateRole([AccountRole.HOST])],
   },
   {
     path: 'accommodation-availability-pricing/:accommodationId',
     component: AccommodationAvailabilityPricingComponent,
-    canActivate: [() => CanActivateRole(AccountRole.HOST)],
+    canActivate: [() => CanActivateRole([AccountRole.HOST])],
   },
   {
     path: 'accommodations-review',
     component: AdminReviewListComponent,
-    canActivate: [() => CanActivateRole(AccountRole.ADMIN)],
+    canActivate: [() => CanActivateRole([AccountRole.ADMIN])],
   },
   {
     path: 'my-reservations',
     component: ReservationListComponent,
-    canActivate: [() => CanActivateRole(AccountRole.GUEST)],
+    canActivate: [() => CanActivateRole([AccountRole.GUEST, AccountRole.HOST])],
   },
   {
     path: 'profile-account/:accountId',
@@ -65,12 +65,12 @@ const routes: Routes = [
   {
     path: 'favorites',
     component: GuestFavoritesListComponent,
-    canActivate: [() => CanActivateRole(AccountRole.GUEST)],
+    canActivate: [() => CanActivateRole([AccountRole.GUEST])],
   },
   {
     path: 'review-approval',
     component: ReviewApprovalListComponent,
-    canActivate: [() => CanActivateRole(AccountRole.ADMIN)],
+    canActivate: [() => CanActivateRole([AccountRole.ADMIN])],
   },
 ];
 

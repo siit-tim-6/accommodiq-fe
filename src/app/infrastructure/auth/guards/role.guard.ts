@@ -3,12 +3,12 @@ import { inject } from '@angular/core';
 import { AccountRole } from '../../../account/account-info/account.model';
 import { JwtService } from '../jwt.service';
 
-export const CanActivateRole = (role: AccountRole) => {
+export const CanActivateRole = (role: AccountRole[]) => {
   const jwtService = inject(JwtService);
   const router = inject(Router);
 
   let token = localStorage.getItem('user');
-  if (token === null || jwtService.getRole() !== role) {
+  if (token === null || !role.includes(jwtService.getRole()!)) {
     router.navigate(['/search']); //unauthorized
     return false;
   }
