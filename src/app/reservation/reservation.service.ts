@@ -4,17 +4,25 @@ import { Observable } from 'rxjs';
 import { Reservation, ReservationStatus } from './reservation.model';
 import { environment } from '../../env/env';
 import { MessageDto } from '../accommodation/accommodation.model';
+import { JwtService } from '../infrastructure/auth/jwt.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReservationService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private jwtService: JwtService,
+  ) {}
 
   getAll(): Observable<Reservation[]> {
-    return this.httpClient.get<Reservation[]>(
-      `${environment.apiHost}guests/reservations`,
-    );
+    return this.jwtService.getRole() === 'GUEST'
+      ? this.httpClient.get<Reservation[]>(
+          `${environment.apiHost}guests/reservations`,
+        )
+      : this.httpClient.get<Reservation[]>(
+          `${environment.apiHost}hosts/reservations`,
+        );
   }
 
   findByFilter(
@@ -50,6 +58,13 @@ export class ReservationService {
     return this.httpClient.put<Reservation>(
       `${environment.apiHost}reservations/${id}/status`,
       { status: ReservationStatus.CANCELLED },
+    );
+  }
+
+  changeReservationStatus(id: number, status: ReservationStatus) {
+    return this.httpClient.put<Reservation>(
+      `${environment.apiHost}reservations/${id}/status`,
+      { status: status },
     );
   }
 }
