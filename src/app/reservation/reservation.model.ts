@@ -20,6 +20,8 @@ export type Reservation = {
   endDate: number;
   status: ReservationStatus;
   totalPrice: number;
+  guestName?: string;
+  pastCancellations?: number;
 };
 
 export type ReservationSearchParams = {
