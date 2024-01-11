@@ -89,8 +89,6 @@ export class ReservationListComponent implements OnInit {
   cancel($event: number) {
     this.service.cancel($event).subscribe({
       next: (_) => {
-        this.reservations = this.reservations.filter((el) => el.id != $event);
-
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
