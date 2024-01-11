@@ -47,7 +47,7 @@ export class ReservationService {
   }
 
   cancel(id: number) {
-    return this.httpClient.put<MessageDto>(
+    return this.httpClient.put<Reservation>(
       `${environment.apiHost}reservations/${id}/status`,
       { status: ReservationStatus.CANCELLED },
     );
