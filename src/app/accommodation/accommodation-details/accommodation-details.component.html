@@ -122,7 +122,7 @@
 
   <app-review-list
     [reviews]="accommodationDetails.reviews"
-    [canAddReview]="canAddComment"
+    [canAddReview]="canAddReview"
     [canReport]="canReport"
     (reviewSubmitted)="handleReviewSubmission($event)"
     (deleteRequest)="handleDeleteReview($event)"
