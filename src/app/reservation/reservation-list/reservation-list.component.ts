@@ -12,6 +12,7 @@ import { MessageService } from 'primeng/api';
 })
 export class ReservationListComponent implements OnInit {
   reservations: Reservation[] = [];
+  cancellableReservationIds: number[] = [];
 
   constructor(
     private service: ReservationService,
@@ -21,6 +22,9 @@ export class ReservationListComponent implements OnInit {
   ngOnInit(): void {
     this.service.getAll().subscribe((reservations) => {
       this.reservations = reservations;
+    });
+    this.service.getCancellableReservationIds().subscribe((ids) => {
+      this.cancellableReservationIds = ids;
     });
   }
 
@@ -69,7 +73,7 @@ export class ReservationListComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
-          detail: 'Reservation sucessfully deleted!',
+          detail: 'Reservation successfully deleted!',
         });
       },
       error: (error) => {
@@ -77,6 +81,30 @@ export class ReservationListComponent implements OnInit {
           severity: 'error',
           summary: 'Error',
           detail: 'Unable to delete selected reservation.',
+        });
+      },
+    });
+  }
+
+  cancel($event: number) {
+    this.service.cancel($event).subscribe({
+      next: (_) => {
+        this.reservations = this.reservations.filter((el) => el.id != $event);
+        this.cancellableReservationIds = this.cancellableReservationIds.filter(
+          (el) => el != $event,
+        );
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Reservation successfully canceled!',
+        });
+      },
+      error: (_) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Unable to cancel selected reservation.',
         });
       },
     });

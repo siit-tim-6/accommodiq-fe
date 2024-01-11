@@ -9,9 +9,11 @@ import { environment } from '../../../env/env';
 })
 export class ReservationCardComponent {
   @Output() onDelete = new EventEmitter<number>();
+  @Output() onCancel = new EventEmitter<number>();
   @Input() reservation!: Reservation;
   protected readonly Math = Math;
   protected readonly imageBase = environment.imageBase;
+  @Input() cancellable: boolean = false;
 
   constructor() {}
 
@@ -39,5 +41,9 @@ export class ReservationCardComponent {
 
   delete() {
     this.onDelete.emit(this.reservation.id);
+  }
+
+  cancel() {
+    this.onCancel.emit(this.reservation.id);
   }
 }

@@ -18,9 +18,19 @@
       <p-button
         *ngIf="reservation.status === 'PENDING'"
         label="Delete"
+        icon="pi pi-trash"
         [rounded]="true"
         severity="secondary"
         (onClick)="delete()"
+      ></p-button>
+
+      <p-button
+        *ngIf="cancellable"
+        icon="pi pi-times"
+        label="Cancel"
+        [rounded]="true"
+        severity="secondary"
+        (onClick)="cancel()"
       ></p-button>
     </div>
   </span>
