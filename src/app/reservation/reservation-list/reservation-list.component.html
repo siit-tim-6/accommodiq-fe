@@ -7,10 +7,11 @@
   <div *ngFor="let res of reservations">
     <app-reservation-card
       [reservation]="res"
-      [cancellable]="
-        cancellableReservationIds.includes(res.accommodationId) &&
-        res.status === 'ACCEPTED'
-      "
+      [cancellable]="isCancellable(res)"
+      [acceptable]="isAcceptable(res)"
+      [deletable]="isDeletable(res)"
+      (onAccept)="accept($event)"
+      (onDecline)="decline($event)"
       (onDelete)="delete($event)"
       (onCancel)="cancel($event)"
     />
