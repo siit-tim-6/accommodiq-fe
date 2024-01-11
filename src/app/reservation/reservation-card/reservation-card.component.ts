@@ -10,10 +10,16 @@ import { environment } from '../../../env/env';
 export class ReservationCardComponent {
   @Output() onDelete = new EventEmitter<number>();
   @Output() onCancel = new EventEmitter<number>();
+  @Output() onAccept = new EventEmitter<number>();
+  @Output() onDecline = new EventEmitter<number>();
+
   @Input() reservation!: Reservation;
+  @Input() cancellable: boolean = false;
+  @Input() acceptable: boolean = false;
+  @Input() deletable: boolean = false;
+
   protected readonly Math = Math;
   protected readonly imageBase = environment.imageBase;
-  @Input() cancellable: boolean = false;
 
   constructor() {}
 
@@ -45,5 +51,13 @@ export class ReservationCardComponent {
 
   cancel() {
     this.onCancel.emit(this.reservation.id);
+  }
+
+  accept() {
+    this.onAccept.emit(this.reservation.id);
+  }
+
+  decline() {
+    this.onDecline.emit(this.reservation.id);
   }
 }

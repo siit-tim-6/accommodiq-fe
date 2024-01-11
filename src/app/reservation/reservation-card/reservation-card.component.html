@@ -16,12 +16,13 @@
 
     <div class="icon-container">
       <p-button
-        *ngIf="reservation.status === 'PENDING'"
+        *ngIf="deletable"
         label="Delete"
         icon="pi pi-trash"
         [rounded]="true"
         severity="secondary"
         (onClick)="delete()"
+        [style]="{ 'box-shadow': 'none' }"
       ></p-button>
 
       <p-button
@@ -31,6 +32,26 @@
         [rounded]="true"
         severity="secondary"
         (onClick)="cancel()"
+        [style]="{ 'box-shadow': 'none' }"
+      ></p-button>
+
+      <p-button
+        *ngIf="acceptable"
+        icon="pi pi-check"
+        label="Accept"
+        [rounded]="true"
+        (onClick)="accept()"
+        [style]="{ 'box-shadow': 'none' }"
+      ></p-button>
+
+      <p-button
+        *ngIf="acceptable"
+        icon="pi pi-times"
+        label="Decline"
+        [rounded]="true"
+        severity="secondary"
+        (onClick)="decline()"
+        [style]="{ 'box-shadow': 'none' }"
       ></p-button>
     </div>
   </span>
