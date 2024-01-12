@@ -14,9 +14,10 @@ import { PrimengModule } from './infrastructure/primeng/primeng.module';
 import { ToastModule } from 'primeng/toast';
 import { ReservationModule } from './reservation/reservation.module';
 import { AccountModule } from './account/account.module';
+import { ReportCardComponent } from './report/report-card/report-card.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ReportCardComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
