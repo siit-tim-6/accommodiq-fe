@@ -31,10 +31,17 @@ export class ReportCardListComponent implements OnInit {
   }
 
   deleteReport(id: number) {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Report deleted',
-      detail: `Report with id ${id} has been deleted`,
+    this.service.deleteReport(id).subscribe({
+      next: (_) => {
+        this.reports = this.reports.filter((report) => report.id !== id);
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Report not deleted',
+          detail: `${err.error.message}`,
+        });
+      },
     });
   }
 }
