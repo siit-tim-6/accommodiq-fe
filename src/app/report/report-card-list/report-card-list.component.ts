@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReportCardDto } from '../report.model';
 import { ReportService } from '../report.service';
 import { MessageService } from 'primeng/api';
+import { AccountStatus } from '../../account/account-info/account.model';
 
 @Component({
   selector: 'app-report-card-list',
@@ -22,18 +23,32 @@ export class ReportCardListComponent implements OnInit {
     });
   }
 
-  blockUser(id: number) {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'User blocked',
-      detail: `User with id ${id} has been blocked`,
-    });
+  blockUser(report: ReportCardDto) {
+    this.service
+      .changeUserStatus(report.reportedUser.id, AccountStatus.BLOCKED)
+      .subscribe({
+        next: (_) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'User blocked',
+            detail: 'User has been blocked successfully',
+          });
+          this.reports = this.reports.filter((r) => r.id !== report.id);
+        },
+        error: (err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'User not blocked',
+            detail: `${err.error.message}`,
+          });
+        },
+      });
   }
 
-  deleteReport(id: number) {
-    this.service.deleteReport(id).subscribe({
+  deleteReport(report: ReportCardDto) {
+    this.service.deleteReport(report.id).subscribe({
       next: (_) => {
-        this.reports = this.reports.filter((report) => report.id !== id);
+        this.reports = this.reports.filter((r) => r.id !== report.id);
       },
       error: (err) => {
         this.messageService.add({

@@ -24,14 +24,14 @@
   <p-button
     label="Block {{ report.reportedUser.role.toLowerCase() }}"
     icon="pi pi-ban"
-    (click)="blockUser(report.reportedUser.id)"
+    (click)="blockUser()"
     [style]="{ width: '100%', 'box-shadow': 'none' }"
   ></p-button>
   <p-button
     label="Dismiss report"
     severity="secondary"
     icon="pi pi-trash"
-    (click)="deleteReport(report.id)"
+    (click)="deleteReport()"
     [style]="{ width: '100%', 'box-shadow': 'none' }"
   ></p-button>
 </div>

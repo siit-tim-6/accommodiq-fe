@@ -9,16 +9,16 @@ import { ReportCardDto } from '../report.model';
 export class ReportCardComponent {
   @Input() report!: ReportCardDto;
 
-  @Output() onBlockUser = new EventEmitter<number>();
-  @Output() onDelete = new EventEmitter<number>();
+  @Output() onBlockUser = new EventEmitter<ReportCardDto>();
+  @Output() onDelete = new EventEmitter<ReportCardDto>();
 
   constructor() {}
 
-  blockUser(id: number) {
-    this.onBlockUser.emit(id);
+  blockUser() {
+    this.onBlockUser.emit(this.report);
   }
 
-  deleteReport(id: number) {
-    this.onDelete.emit(id);
+  deleteReport() {
+    this.onDelete.emit(this.report);
   }
 }
