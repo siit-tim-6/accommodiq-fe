@@ -11,7 +11,7 @@ export class ReportService {
 
   getAll() {
     return this.httpClient.get<ReportCardDto[]>(
-      `${environment.apiHost}/reports`,
+      `${environment.apiHost}reports`,
     );
   }
 }
