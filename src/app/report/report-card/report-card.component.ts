@@ -7,18 +7,18 @@ import { ReportCardDto } from '../report.model';
   styleUrl: './report-card.component.css',
 })
 export class ReportCardComponent {
-  @Input() reportCard!: ReportCardDto;
+  @Input() report!: ReportCardDto;
 
-  @Output() blockUserEmitter = new EventEmitter<number>();
-  @Output() deleteReportEmitter = new EventEmitter<number>();
+  @Output() onBlockUser = new EventEmitter<number>();
+  @Output() onDelete = new EventEmitter<number>();
 
   constructor() {}
 
   blockUser(id: number) {
-    this.blockUserEmitter.emit(id);
+    this.onBlockUser.emit(id);
   }
 
   deleteReport(id: number) {
-    this.deleteReportEmitter.emit(id);
+    this.onDelete.emit(id);
   }
 }

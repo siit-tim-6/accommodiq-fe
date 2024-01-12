@@ -1,1 +1,7 @@
-<p>report-card-list works!</p>
+<div *ngFor="let report of reports">
+  <app-report-card
+    [report]="report"
+    (onDelete)="deleteReport($event)"
+    (onBlockUser)="blockUser($event)"
+  ></app-report-card>
+</div>
