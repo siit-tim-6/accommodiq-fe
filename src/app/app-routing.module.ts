@@ -10,7 +10,7 @@ import { NotificationListComponent } from './notification/notification-list/noti
 import { HostsAccommodationListComponent } from './accommodation/hosts-accommodation-list/hosts-accommodation-list.component';
 import { AdminReviewListComponent } from './accommodation/admin-review-list/admin-review-list.component';
 import { AccommodationAvailabilityPricingComponent } from './accommodation/accommodation-availability-pricing/accommodation-availability-pricing.component';
-import { CanActivateRole } from './infrastructure/auth/guards/role.guard';
+import { CanActivateRoles } from './infrastructure/auth/guards/role.guard';
 import { AccountRole } from './account/account-info/account.model';
 import { AccommodationUpdateComponent } from './accommodation/accommodation-update/accommodation-update.component';
 import { ReportFormComponent } from './layout/report-form/report-form.component';
@@ -38,22 +38,24 @@ const routes: Routes = [
   {
     path: 'accommodation-update/:accommodationId',
     component: AccommodationUpdateComponent,
-    canActivate: [() => CanActivateRole(AccountRole.HOST)],
+    canActivate: [() => CanActivateRoles([AccountRole.HOST])],
   },
   {
     path: 'accommodation-availability-pricing/:accommodationId',
     component: AccommodationAvailabilityPricingComponent,
-    canActivate: [() => CanActivateRole(AccountRole.HOST)],
+    canActivate: [() => CanActivateRoles([AccountRole.HOST])],
   },
   {
     path: 'accommodations-review',
     component: AdminReviewListComponent,
-    canActivate: [() => CanActivateRole(AccountRole.ADMIN)],
+    canActivate: [() => CanActivateRoles([AccountRole.ADMIN])],
   },
   {
     path: 'my-reservations',
     component: ReservationListComponent,
-    canActivate: [() => CanActivateRole(AccountRole.GUEST)],
+    canActivate: [
+      () => CanActivateRoles([AccountRole.GUEST, AccountRole.HOST]),
+    ],
   },
   {
     path: 'profile-account/:accountId',
@@ -66,12 +68,12 @@ const routes: Routes = [
   {
     path: 'favorites',
     component: GuestFavoritesListComponent,
-    canActivate: [() => CanActivateRole(AccountRole.GUEST)],
+    canActivate: [() => CanActivateRoles([AccountRole.GUEST])],
   },
   {
     path: 'review-approval',
     component: ReviewApprovalListComponent,
-    canActivate: [() => CanActivateRole(AccountRole.ADMIN)],
+    canActivate: [() => CanActivateRoles([AccountRole.ADMIN])],
   },
   {
     path: 'user-reports',
