@@ -6,7 +6,7 @@ import {
   ReviewRequest,
   ReviewStatus,
 } from './review.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { MessageDto } from '../accommodation/accommodation.model';
 import { environment } from '../../env/env';
 
@@ -55,12 +55,6 @@ export class ReviewService {
     );
   }
 
-  getPendingReviews(): Observable<ReviewApprovalCardDto[]> {
-    return this.httpClient.get<ReviewApprovalCardDto[]>(
-      `${environment.apiHost}accommodations/reviews/pending`,
-    );
-  }
-
   changeAccommodationReviewStatus(
     reviewId: number,
     status: ReviewStatus,
@@ -71,9 +65,13 @@ export class ReviewService {
     );
   }
 
-  getReportedReviews() {
+  getReviewsByStatus(
+    status: ReviewStatus,
+  ): Observable<ReviewApprovalCardDto[]> {
+    const params = new HttpParams().set('status', status);
     return this.httpClient.get<ReviewApprovalCardDto[]>(
-      `${environment.apiHost}accommodations/reviews/reported`,
+      `${environment.apiHost}accommodations/reviews`,
+      { params },
     );
   }
 }

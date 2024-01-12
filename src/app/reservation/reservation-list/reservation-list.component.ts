@@ -5,10 +5,11 @@ import {
   ReservationStatus,
 } from '../reservation.model';
 import { ReservationService } from '../reservation.service';
-import { getTimestampSeconds } from '../../utils/date.utils';
+import { getTimestampMiliseconds } from '../../utils/date.utils';
 import { Marker } from '../../infrastructure/gmaps/gmaps.model';
 import { MessageService } from 'primeng/api';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
+import { AccountRole } from '../../account/account-info/account.model';
 
 @Component({
   selector: 'app-reservation-list',
@@ -18,12 +19,15 @@ import { JwtService } from '../../infrastructure/auth/jwt.service';
 export class ReservationListComponent implements OnInit {
   reservations: Reservation[] = [];
   cancellableReservationIds: number[] = [];
+  loggedInRole: AccountRole | null;
 
   constructor(
     private service: ReservationService,
     private messageService: MessageService,
     private jwtService: JwtService,
-  ) {}
+  ) {
+    this.loggedInRole = jwtService.getRole();
+  }
 
   ngOnInit(): void {
     this.refreshReservationList();
@@ -34,28 +38,33 @@ export class ReservationListComponent implements OnInit {
     let startDate: number =
       searchParams.reservationDates.length != 2
         ? 0
-        : getTimestampSeconds(searchParams.reservationDates[0]);
+        : getTimestampMiliseconds(searchParams.reservationDates[0]);
     let endDate: number =
       searchParams.reservationDates.length != 2
         ? 0
-        : getTimestampSeconds(searchParams.reservationDates[1]);
+        : getTimestampMiliseconds(searchParams.reservationDates[1]);
 
-    this.service
-      .findByFilter(
-        searchParams.title,
-        startDate,
-        endDate,
-        searchParams.status ?? '',
-      )
-      .subscribe((reservations) => {
-        this.reservations = reservations;
-      });
+    if (this.loggedInRole != null) {
+      this.service
+        .findByFilter(
+          this.loggedInRole,
+          searchParams.title,
+          startDate,
+          endDate,
+          searchParams.status ?? '',
+        )
+        .subscribe((reservations) => {
+          this.reservations = reservations;
+        });
+    }
   }
 
   clear() {
-    this.service.getAll().subscribe((reservations) => {
-      this.reservations = reservations;
-    });
+    if (this.loggedInRole != null) {
+      this.service.getAll(this.loggedInRole).subscribe((reservations) => {
+        this.reservations = reservations;
+      });
+    }
   }
 
   protected getMarkers(): Marker[] {
@@ -163,13 +172,14 @@ export class ReservationListComponent implements OnInit {
   }
 
   refreshReservationList() {
-    this.service.getAll().subscribe((reservations) => {
+    if (this.loggedInRole == null) return;
+    this.service.getAll(this.loggedInRole).subscribe((reservations) => {
       this.reservations = reservations;
     });
   }
 
   refreshCancellableReservationIds() {
-    if (this.jwtService.getRole() != 'GUEST') return;
+    if (this.loggedInRole != 'GUEST') return;
     this.service.getCancellableReservationIds().subscribe((ids) => {
       this.cancellableReservationIds = ids;
     });

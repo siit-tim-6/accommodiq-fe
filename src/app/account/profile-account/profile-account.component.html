@@ -1,12 +1,14 @@
 <app-account-info
   [user]="accountDetails"
+  [accountId]="accountId"
   [averageRating]="averageRating"
   [numberOfReviews]="reviews.length"
+  (handleReportUserBtn)="handleReportUserBtn()"
 ></app-account-info>
 <app-review-list
   *ngIf="accountDetails?.role === AccountRole.HOST"
   [reviews]="reviews"
-  [canAddReview]="canAddComment"
+  [canAddReview]="canAddReview"
   [canReport]="canReport"
   (reviewSubmitted)="handleReviewSubmission($event)"
   (deleteRequest)="handleDeleteReview($event)"

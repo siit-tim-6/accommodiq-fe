@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Accommodation, SearchParams } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
-import { getTimestampSeconds } from '../../utils/date.utils';
+import { getTimestampMiliseconds } from '../../utils/date.utils';
 import { Marker } from '../../infrastructure/gmaps/gmaps.model';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
 
@@ -39,11 +39,11 @@ export class AccommodationListComponent implements OnInit {
     let fromDate: number =
       searchParams.rangeDates === undefined || searchParams.rangeDates === null
         ? 0
-        : getTimestampSeconds(searchParams.rangeDates[0]);
+        : getTimestampMiliseconds(searchParams.rangeDates[0]);
     let toDate: number =
       searchParams.rangeDates === undefined || searchParams.rangeDates === null
         ? 0
-        : getTimestampSeconds(searchParams.rangeDates[1]);
+        : getTimestampMiliseconds(searchParams.rangeDates[1]);
 
     this.service
       .findByFilter(

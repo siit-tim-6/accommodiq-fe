@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Reservation } from '../reservation.model';
 import { environment } from '../../../env/env';
+import { AccountRole } from '../../account/account-info/account.model';
 
 @Component({
   selector: 'app-reservation-card',
@@ -14,17 +15,19 @@ export class ReservationCardComponent {
   @Output() onDecline = new EventEmitter<number>();
 
   @Input() reservation!: Reservation;
+  @Input() loggedInRole!: AccountRole | null;
   @Input() cancellable: boolean = false;
   @Input() acceptable: boolean = false;
   @Input() deletable: boolean = false;
 
   protected readonly Math = Math;
   protected readonly imageBase = environment.imageBase;
+  protected readonly AccountRole = AccountRole;
 
   constructor() {}
 
-  protected formatTimestamp(timestampSeconds: number): string {
-    const date = new Date(timestampSeconds * 1000);
+  protected formatTimestamp(timestampMiliseconds: number): string {
+    const date = new Date(timestampMiliseconds);
     const months = [
       'Jan',
       'Feb',

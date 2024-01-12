@@ -7,6 +7,7 @@
   <div *ngFor="let res of reservations">
     <app-reservation-card
       [reservation]="res"
+      [loggedInRole]="loggedInRole"
       [cancellable]="isCancellable(res)"
       [acceptable]="isAcceptable(res)"
       [deletable]="isDeletable(res)"

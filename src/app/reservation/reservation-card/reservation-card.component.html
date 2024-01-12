@@ -90,6 +90,16 @@
       <p>{{ reservation.status }}</p>
     </span>
 
+    <span *ngIf="loggedInRole == AccountRole.HOST" class="icon-label">
+      <i class="pi pi-user"></i>
+      <p>{{ reservation.guestName }}</p>
+    </span>
+
+    <span *ngIf="loggedInRole == AccountRole.HOST" class="icon-label">
+      <i class="pi pi-exclamation-circle"></i>
+      <p>Cancelled {{ reservation.pastCancellations }} times</p>
+    </span>
+
     <p>
       <span>
         <span class="bold">€{{ reservation.totalPrice }} </span>

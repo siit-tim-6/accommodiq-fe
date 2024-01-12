@@ -5,7 +5,7 @@ import {
   AccommodationDetails,
   AccommodationTotalPrice,
 } from '../accommodation.model';
-import { getTimestampSeconds } from '../../utils/date.utils';
+import { getTimestampMiliseconds } from '../../utils/date.utils';
 import { Marker } from '../../infrastructure/gmaps/gmaps.model';
 import {
   EMPTY,
@@ -38,7 +38,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   accommodationDetails: AccommodationDetails;
   subscription?: Subscription;
   accommodationImages: string[];
-  canAddComment: boolean = true;
+  canAddReview: boolean = true;
   canReport: boolean = false;
 
   rangeDates: Date[] | undefined;
@@ -57,7 +57,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
     private reviewService: ReviewService,
     private router: Router,
   ) {
-    this.canAddComment = this.jwtService.getRole() === AccountRole.GUEST;
+    this.canAddReview = this.jwtService.getRole() === AccountRole.GUEST;
     this.accommodationId = 0;
     this.accommodationDetails = {
       id: 0,
@@ -121,8 +121,8 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
         )
           return this.accommodationService.getTotalPrice(
             this.accommodationDetails.id,
-            getTimestampSeconds(this.rangeDates[0]),
-            getTimestampSeconds(this.rangeDates[1]),
+            getTimestampMiliseconds(this.rangeDates[0]),
+            getTimestampMiliseconds(this.rangeDates[1]),
             0,
           );
         else if (
@@ -132,8 +132,8 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
         ) {
           return this.accommodationService.getTotalPrice(
             this.accommodationDetails.id,
-            getTimestampSeconds(this.rangeDates[0]),
-            getTimestampSeconds(this.rangeDates[1]),
+            getTimestampMiliseconds(this.rangeDates[0]),
+            getTimestampMiliseconds(this.rangeDates[1]),
             this.guests,
           );
         } else {
@@ -253,10 +253,10 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
     return this.accommodationService
       .getIsAvailable(
         this.accommodationDetails.id,
-        getTimestampSeconds(
+        getTimestampMiliseconds(
           this.rangeDates === undefined ? new Date() : this.rangeDates[0],
         ),
-        getTimestampSeconds(
+        getTimestampMiliseconds(
           this.rangeDates === undefined ? new Date() : this.rangeDates[1],
         ),
       )
@@ -266,10 +266,10 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
           if (this.accommodationAvailable) {
             return this.accommodationService.getTotalPrice(
               this.accommodationDetails.id,
-              getTimestampSeconds(
+              getTimestampMiliseconds(
                 this.rangeDates === undefined ? new Date() : this.rangeDates[0],
               ),
-              getTimestampSeconds(
+              getTimestampMiliseconds(
                 this.rangeDates === undefined ? new Date() : this.rangeDates[1],
               ),
               this.guests === undefined ? 0 : this.guests,
@@ -291,8 +291,8 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
       this.accommodationService
         .createReservation(userId, {
           accommodationId: this.accommodationId,
-          startDate: getTimestampSeconds(this.rangeDates[0]),
-          endDate: getTimestampSeconds(this.rangeDates[1]),
+          startDate: getTimestampMiliseconds(this.rangeDates[0]),
+          endDate: getTimestampMiliseconds(this.rangeDates[1]),
           numberOfGuests: +this.guests,
         })
         .subscribe({

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReviewService } from '../../review/review.service';
 import {
   ReviewBaseInfo,
@@ -21,7 +21,7 @@ import { catchError, throwError } from 'rxjs';
 export class ProfileAccountComponent {
   accountDetails!: AccountDetails;
   reviews: ReviewBaseInfo[] = [];
-  canAddComment: boolean = true;
+  canAddReview: boolean = true;
   canReport: boolean = false;
   accountId!: number;
   currentUserRole: string = '';
@@ -34,6 +34,7 @@ export class ProfileAccountComponent {
     private loginService: LoginService,
     private accountService: AccountService,
     private messageService: MessageService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +43,7 @@ export class ProfileAccountComponent {
       this.fetchAccountDetails(this.accountId);
       this.currentUserEmail = this.loginService.getEmail();
       this.currentUserRole = this.loginService.getRole() || '';
-      this.canAddComment = this.currentUserRole === 'GUEST';
+      this.canAddReview = this.currentUserRole === 'GUEST';
     });
   }
 
@@ -88,12 +89,14 @@ export class ProfileAccountComponent {
       )
       .subscribe((reviews: ReviewDto[]) => {
         console.log(reviews);
-        this.reviews = reviews.map((review) => this.convertToComment(review));
+        this.reviews = reviews.map((review) =>
+          this.convertToReviewBaseInfo(review),
+        );
         this.calculateAverageRatingAndCount();
       });
   }
 
-  private convertToComment(reviewDto: ReviewDto): ReviewBaseInfo {
+  private convertToReviewBaseInfo(reviewDto: ReviewDto): ReviewBaseInfo {
     return {
       id: reviewDto.id,
       rating: reviewDto.rating,
@@ -126,7 +129,7 @@ export class ProfileAccountComponent {
         }),
       )
       .subscribe((reviewDto: ReviewDto) => {
-        this.reviews.push(this.convertToComment(reviewDto));
+        this.reviews.push(this.convertToReviewBaseInfo(reviewDto));
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
@@ -184,6 +187,10 @@ export class ProfileAccountComponent {
           detail: 'Review reported successfully.',
         });
       });
+  }
+
+  handleReportUserBtn() {
+    this.router.navigate(['/report', this.accountId]);
   }
 
   private calculateAverageRatingAndCount(): void {

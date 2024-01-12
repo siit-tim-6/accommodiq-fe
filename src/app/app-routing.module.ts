@@ -10,12 +10,10 @@ import { NotificationListComponent } from './notification/notification-list/noti
 import { HostsAccommodationListComponent } from './accommodation/hosts-accommodation-list/hosts-accommodation-list.component';
 import { AdminReviewListComponent } from './accommodation/admin-review-list/admin-review-list.component';
 import { AccommodationAvailabilityPricingComponent } from './accommodation/accommodation-availability-pricing/accommodation-availability-pricing.component';
-import {
-  CanActivateRole,
-  CanActivateRoles,
-} from './infrastructure/auth/guards/role.guard';
+import { CanActivateRoles } from './infrastructure/auth/guards/role.guard';
 import { AccountRole } from './account/account-info/account.model';
 import { AccommodationUpdateComponent } from './accommodation/accommodation-update/accommodation-update.component';
+import { ReportFormComponent } from './layout/report-form/report-form.component';
 import { ReservationListComponent } from './reservation/reservation-list/reservation-list.component';
 import { ProfileAccountComponent } from './account/profile-account/profile-account.component';
 import { GuestFavoritesListComponent } from './accommodation/guest-favorites-list/guest-favorites-list.component';
@@ -39,17 +37,17 @@ const routes: Routes = [
   {
     path: 'accommodation-update/:accommodationId',
     component: AccommodationUpdateComponent,
-    canActivate: [() => CanActivateRole(AccountRole.HOST)],
+    canActivate: [() => CanActivateRoles([AccountRole.HOST])],
   },
   {
     path: 'accommodation-availability-pricing/:accommodationId',
     component: AccommodationAvailabilityPricingComponent,
-    canActivate: [() => CanActivateRole(AccountRole.HOST)],
+    canActivate: [() => CanActivateRoles([AccountRole.HOST])],
   },
   {
     path: 'accommodations-review',
     component: AdminReviewListComponent,
-    canActivate: [() => CanActivateRole(AccountRole.ADMIN)],
+    canActivate: [() => CanActivateRoles([AccountRole.ADMIN])],
   },
   {
     path: 'my-reservations',
@@ -63,14 +61,18 @@ const routes: Routes = [
     component: ProfileAccountComponent,
   },
   {
+    path: 'report/:accountId',
+    component: ReportFormComponent,
+  },
+  {
     path: 'favorites',
     component: GuestFavoritesListComponent,
-    canActivate: [() => CanActivateRole(AccountRole.GUEST)],
+    canActivate: [() => CanActivateRoles([AccountRole.GUEST])],
   },
   {
     path: 'review-approval',
     component: ReviewApprovalListComponent,
-    canActivate: [() => CanActivateRole(AccountRole.ADMIN)],
+    canActivate: [() => CanActivateRoles([AccountRole.ADMIN])],
   },
 ];
 

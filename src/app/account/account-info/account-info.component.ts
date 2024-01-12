@@ -1,5 +1,11 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { LoginService } from '../../layout/login/login.service';
 import { AccountDetails, AccountRole } from './account.model';
 
@@ -12,6 +18,9 @@ export class AccountInfoComponent {
   @Input() user?: AccountDetails;
   @Input() averageRating: number = 0;
   @Input() numberOfReviews: number = 0;
+  @Input() accountId: number = 0;
+  @Output() handleReportUserBtn: EventEmitter<number> =
+    new EventEmitter<number>();
   imageUrl: string =
     'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
   stars: string[] = [];
@@ -50,4 +59,8 @@ export class AccountInfoComponent {
   }
 
   protected readonly AccountRole = AccountRole;
+
+  reportUserBtnClick() {
+    this.handleReportUserBtn.emit(this.accountId);
+  }
 }

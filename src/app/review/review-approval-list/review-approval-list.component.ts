@@ -20,16 +20,17 @@ export class ReviewApprovalListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.reviewService.getPendingReviews().subscribe({
+    this.reviewService.getReviewsByStatus(ReviewStatus.PENDING).subscribe({
       next: (reviews) => {
         this.pendingReviews = reviews;
         this.refreshReviewsToShow();
       },
     });
 
-    this.reviewService.getReportedReviews().subscribe({
+    this.reviewService.getReviewsByStatus(ReviewStatus.REPORTED).subscribe({
       next: (reviews) => {
         this.reportedReviews = reviews;
+        this.refreshReviewsToShow();
       },
     });
   }

@@ -20,6 +20,7 @@
         id="report-btn"
         class="account-info-button"
         severity="danger"
+        (click)="reportUserBtnClick()"
       ></p-button>
       <p-button
         *ngIf="user?.email === currentUserEmail"
