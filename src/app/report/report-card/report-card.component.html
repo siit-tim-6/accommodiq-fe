@@ -1,16 +1,16 @@
 <div class="users-info">
-  <h3 [routerLink]="['/profile-account', report.reportedUser.id]">
-    {{ report.reportedUser.name }}
-  </h3>
-  <span>
-    <i class="pi pi-user"></i>
-    {{ report.reportedUser.name }}
-  </span>
+  <div class="reported-user-info">
+    <h3 [routerLink]="['/profile-account', report.reportedUser.id]">
+      {{ report.reportedUser.name }}
+    </h3>
+
+    <span> <i class="pi pi-user"></i> {{ report.reportedUser.role }} </span>
+  </div>
 
   <span>
     <i class="pi pi-flag"></i>
-    Reported by
-    <h3 [routerLink]="['profile-account', report.reportingUser.id]">
+    <p>Reported by</p>
+    <h3 [routerLink]="['/profile-account', report.reportingUser.id]">
       {{ report.reportingUser.name }}
     </h3>
   </span>
@@ -22,13 +22,16 @@
 
 <div class="report-actions">
   <p-button
-    label="Block"
+    label="Block {{ report.reportedUser.role.toLowerCase() }}"
     icon="pi pi-ban"
     (click)="blockUser(report.reportedUser.id)"
+    [style]="{ width: '100%', 'box-shadow': 'none' }"
   ></p-button>
   <p-button
-    label="Delete"
+    label="Dismiss report"
+    severity="secondary"
     icon="pi pi-trash"
     (click)="deleteReport(report.id)"
+    [style]="{ width: '100%', 'box-shadow': 'none' }"
   ></p-button>
 </div>
