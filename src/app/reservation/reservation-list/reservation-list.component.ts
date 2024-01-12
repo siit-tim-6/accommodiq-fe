@@ -61,9 +61,8 @@ export class ReservationListComponent implements OnInit {
 
   clear() {
     if (this.loggedInRole != null) {
-      this.service.getAll(this.loggedInRole).subscribe((reservations) => {
-        this.reservations = reservations;
-      });
+      this.refreshReservationList();
+      this.refreshCancellableReservationIds();
     }
   }
 
@@ -134,9 +133,7 @@ export class ReservationListComponent implements OnInit {
   }
 
   isAcceptable(reservation: Reservation) {
-    return (
-      reservation.status == 'PENDING' && this.jwtService.getRole() == 'HOST'
-    );
+    return reservation.status == 'PENDING' && this.loggedInRole == 'HOST';
   }
 
   isCancellable(reservation: Reservation) {
@@ -148,7 +145,7 @@ export class ReservationListComponent implements OnInit {
   }
 
   isDeletable(res: Reservation) {
-    return res.status == 'PENDING' && this.jwtService.getRole() == 'GUEST';
+    return res.status == 'PENDING' && this.loggedInRole == 'GUEST';
   }
 
   handleChangeStatusResponse(reservation: Reservation) {
