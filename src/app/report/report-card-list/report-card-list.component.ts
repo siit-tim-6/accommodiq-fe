@@ -17,7 +17,9 @@ export class ReportCardListComponent implements OnInit {
     private messageService: MessageService,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.refreshReports();
+  }
 
   blockUser(report: ReportCardDto) {
     this.service
