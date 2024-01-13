@@ -12,7 +12,3 @@
 .main-content {
   width: 100%;
 }
-
-:host p-button {
-  cursor: pointer;
-}
