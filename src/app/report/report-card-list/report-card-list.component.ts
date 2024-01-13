@@ -17,11 +17,7 @@ export class ReportCardListComponent implements OnInit {
     private messageService: MessageService,
   ) {}
 
-  ngOnInit(): void {
-    this.service.getAll().subscribe((reports: ReportCardDto[]) => {
-      this.reports = reports;
-    });
-  }
+  ngOnInit(): void {}
 
   blockUser(report: ReportCardDto) {
     this.service
@@ -33,7 +29,7 @@ export class ReportCardListComponent implements OnInit {
             summary: 'User blocked',
             detail: 'User has been blocked successfully',
           });
-          this.reports = this.reports.filter((r) => r.id !== report.id);
+          this.refreshReports();
         },
         error: (err) => {
           this.messageService.add({
@@ -57,6 +53,12 @@ export class ReportCardListComponent implements OnInit {
           detail: `${err.error.message}`,
         });
       },
+    });
+  }
+
+  refreshReports() {
+    this.service.getAll().subscribe((reports: ReportCardDto[]) => {
+      this.reports = reports;
     });
   }
 }

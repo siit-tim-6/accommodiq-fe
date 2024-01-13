@@ -114,7 +114,7 @@ export class NotificationListComponent implements OnInit {
   }
 
   handleNotification(notification: NotificationDto): void {
-    this.notifications.push(notification);
+    this.notifications.unshift(notification);
     this.setNotificationToShow(this.showAll);
   }
 }

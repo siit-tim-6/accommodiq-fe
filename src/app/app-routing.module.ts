@@ -78,7 +78,7 @@ const routes: Routes = [
   {
     path: 'user-reports',
     component: ReportCardListComponent,
-    canActivate: [() => CanActivateRole(AccountRole.ADMIN)],
+    canActivate: [() => CanActivateRoles([AccountRole.ADMIN])],
   },
 ];
 
