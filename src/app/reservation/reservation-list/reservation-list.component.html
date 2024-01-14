@@ -1,7 +1,21 @@
 <div class="main-content">
-  <app-reservation-search (onSearch)="search($event)" (onClear)="clear()" />
+  <app-reservation-search
+    [reservationCount]="reservations.length"
+    (onSearch)="search($event)"
+    (onClear)="clear()"
+  />
   <div *ngFor="let res of reservations">
-    <app-reservation-card [reservation]="res" (onDelete)="delete($event)" />
+    <app-reservation-card
+      [reservation]="res"
+      [loggedInRole]="loggedInRole"
+      [cancellable]="isCancellable(res)"
+      [acceptable]="isAcceptable(res)"
+      [deletable]="isDeletable(res)"
+      (onAccept)="accept($event)"
+      (onDecline)="decline($event)"
+      (onDelete)="delete($event)"
+      (onCancel)="cancel($event)"
+    />
   </div>
 </div>
 

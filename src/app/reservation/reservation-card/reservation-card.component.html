@@ -16,11 +16,42 @@
 
     <div class="icon-container">
       <p-button
-        *ngIf="reservation.status === 'PENDING'"
+        *ngIf="deletable"
         label="Delete"
+        icon="pi pi-trash"
         [rounded]="true"
         severity="secondary"
         (onClick)="delete()"
+        [style]="{ 'box-shadow': 'none' }"
+      ></p-button>
+
+      <p-button
+        *ngIf="cancellable"
+        icon="pi pi-times"
+        label="Cancel"
+        [rounded]="true"
+        severity="secondary"
+        (onClick)="cancel()"
+        [style]="{ 'box-shadow': 'none' }"
+      ></p-button>
+
+      <p-button
+        *ngIf="acceptable"
+        icon="pi pi-check"
+        label="Accept"
+        [rounded]="true"
+        (onClick)="accept()"
+        [style]="{ 'box-shadow': 'none' }"
+      ></p-button>
+
+      <p-button
+        *ngIf="acceptable"
+        icon="pi pi-times"
+        label="Decline"
+        [rounded]="true"
+        severity="secondary"
+        (onClick)="decline()"
+        [style]="{ 'box-shadow': 'none' }"
       ></p-button>
     </div>
   </span>
@@ -57,6 +88,16 @@
     <span class="icon-label">
       <i class="pi pi-info-circle"></i>
       <p>{{ reservation.status }}</p>
+    </span>
+
+    <span *ngIf="loggedInRole == AccountRole.HOST" class="icon-label">
+      <i class="pi pi-user"></i>
+      <p>{{ reservation.guestName }}</p>
+    </span>
+
+    <span *ngIf="loggedInRole == AccountRole.HOST" class="icon-label">
+      <i class="pi pi-exclamation-circle"></i>
+      <p>Cancelled {{ reservation.pastCancellations }} times</p>
     </span>
 
     <p>
