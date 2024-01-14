@@ -25,7 +25,7 @@ export class ReportService {
 
   changeUserStatus(id: number, status: AccountStatus) {
     return this.httpClient.put<MessageDto>(
-      `${environment.apiHost}reports/users/${id}/status`,
+      `${environment.apiHost}users/${id}/status`,
       { status: status },
     );
   }
