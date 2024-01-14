@@ -1,0 +1,21 @@
+:host {
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.graphs {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.chart-info {
+  font-size: 24px;
+  text-align: center;
+}
