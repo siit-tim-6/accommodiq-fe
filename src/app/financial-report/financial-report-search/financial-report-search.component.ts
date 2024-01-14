@@ -11,6 +11,8 @@ export class FinancialReportSearchComponent {
 
   dateRange: Date[] = [];
 
+  constructor() {}
+
   dateChange() {
     if (this.isDateRangeValid()) this.onDateChange.emit(this.dateRange);
   }

@@ -1,4 +1,8 @@
 <div class="main-content">
-  <app-financial-report-search />
-  <app-financial-report-card />
+  <app-financial-report-search (onDateChange)="handleDateChange($event)" />
+
+  <p *ngIf="!dateChangeTriggered">Select a date range first!</p>
+  <div *ngIf="dateChangeTriggered">
+    <app-financial-report-card *ngFor="let entry of entries" />
+  </div>
 </div>
