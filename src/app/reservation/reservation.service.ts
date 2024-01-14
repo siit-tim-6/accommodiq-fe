@@ -5,16 +5,12 @@ import { Reservation, ReservationStatus } from './reservation.model';
 import { environment } from '../../env/env';
 import { MessageDto } from '../accommodation/accommodation.model';
 import { AccountRole } from '../account/account-info/account.model';
-import { JwtService } from '../infrastructure/auth/jwt.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReservationService {
-  constructor(
-    private httpClient: HttpClient,
-    private jwtService: JwtService,
-  ) {}
+  constructor(private httpClient: HttpClient) {}
 
   getAll(role: AccountRole): Observable<Reservation[]> {
     let roleString;
