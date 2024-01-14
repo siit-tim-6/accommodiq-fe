@@ -3,6 +3,6 @@
 
   <p *ngIf="!dateChangeTriggered">Select a date range first!</p>
   <div *ngIf="dateChangeTriggered">
-    <app-financial-report-card *ngFor="let entry of entries" />
+    <app-financial-report-card *ngFor="let entry of entries" [entry]="entry" />
   </div>
 </div>

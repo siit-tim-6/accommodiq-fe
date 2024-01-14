@@ -1,1 +1,33 @@
-<p>financial-report-card works!</p>
+<img
+  [src]="
+    entry.accommodationImage === ''
+      ? '../../../assets/images/accommodation-image.png'
+      : imageBase + entry.accommodationImage
+  "
+  alt="accommodation-image"
+  [routerLink]="['/accommodation', entry.accommodationId]"
+/>
+
+<div class="entry-info">
+  <span class="first-line">
+    <h2 [routerLink]="['/accommodation', entry.accommodationId]">
+      {{ entry.accommodationTitle }}
+    </h2>
+  </span>
+
+  <div class="row">
+    <span class="icon-label">
+      <i class="pi pi-euro"></i>
+      <p>
+        <span class="bold">{{ entry.revenue }}</span>
+      </p>
+    </span>
+
+    <span class="icon-label">
+      <i class="pi pi-bookmark"></i>
+      <p>
+        <span class="bold">{{ entry.reservationCount }}</span> reservations
+      </p>
+    </span>
+  </div>
+</div>
