@@ -20,6 +20,7 @@ import { GuestFavoritesListComponent } from './accommodation/guest-favorites-lis
 import { NotificationSettingsComponent } from './notification/notification-settings/notification-settings.component';
 import { ReviewApprovalListComponent } from './review/review-approval-list/review-approval-list.component';
 import { ReportCardListComponent } from './report/report-card-list/report-card-list.component';
+import { FinancialReportListComponent } from './financial-report/financial-report-list/financial-report-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -79,6 +80,11 @@ const routes: Routes = [
     path: 'user-reports',
     component: ReportCardListComponent,
     canActivate: [() => CanActivateRoles([AccountRole.ADMIN])],
+  },
+  {
+    path: 'financial-reports',
+    component: FinancialReportListComponent,
+    canActivate: [() => CanActivateRoles([AccountRole.HOST])],
   },
 ];
 
