@@ -17,3 +17,7 @@ export interface PasswordChangeRequest {
   oldPassword: string;
   newPassword: string;
 }
+
+export enum AccountStatus {
+  BLOCKED = 'BLOCKED',
+}

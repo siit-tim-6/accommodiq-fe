@@ -51,6 +51,13 @@
 />
 
 <img
+  *ngIf="role === AccountRole.ADMIN"
+  [routerLink]="['/user-reports']"
+  src="../../../assets/images/user-reports-icon.svg"
+  alt="user-reports-icon"
+/>
+
+<img
   *ngIf="role === AccountRole.GUEST"
   [routerLink]="['/favorites']"
   src="../../../assets/images/favorites-icon.svg"

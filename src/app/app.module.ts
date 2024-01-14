@@ -14,6 +14,7 @@ import { PrimengModule } from './infrastructure/primeng/primeng.module';
 import { ToastModule } from 'primeng/toast';
 import { ReservationModule } from './reservation/reservation.module';
 import { AccountModule } from './account/account.module';
+import { ReportModule } from './report/report.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +32,7 @@ import { AccountModule } from './account/account.module';
     ToastModule,
     ReservationModule,
     AccountModule,
+    ReportModule,
   ],
   providers: [
     {
