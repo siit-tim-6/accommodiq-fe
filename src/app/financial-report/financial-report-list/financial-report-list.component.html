@@ -5,6 +5,8 @@
   <div *ngIf="dateChangeTriggered">
     <app-financial-report-card *ngFor="let entry of entries" [entry]="entry" />
   </div>
+
+  <app-financial-report-individual />
 </div>
 
 <app-financial-report-graphs [entries]="entries" />

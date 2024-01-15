@@ -1,7 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FinancialReportEntry } from './financial-report.model';
+import {
+  AccommodationTitle,
+  FinancialReportEntry,
+  FinancialReportIndividualEntry,
+} from './financial-report.model';
 import { environment } from '../../env/env';
 
 @Injectable({
@@ -22,6 +26,21 @@ export class FinancialReportService {
       `
     ${environment.apiHost}hosts/financial-report`,
       { params: queryParams },
+    );
+  }
+
+  getTitles(): Observable<AccommodationTitle[]> {
+    return this.httpClient.get<AccommodationTitle[]>(
+      `${environment.apiHost}hosts/accommodation-titles`,
+    );
+  }
+
+  getAccommodationYearlyReport(
+    accommodationId: number,
+    year: number,
+  ): Observable<FinancialReportIndividualEntry[]> {
+    return this.httpClient.get<FinancialReportIndividualEntry[]>(
+      `${environment.apiHost}accommodations/${accommodationId}/financial-report?year=${year}`,
     );
   }
 }

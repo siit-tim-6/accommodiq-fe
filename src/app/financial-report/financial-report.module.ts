@@ -6,6 +6,7 @@ import { FinancialReportListComponent } from './financial-report-list/financial-
 import { FormsModule } from '@angular/forms';
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
 import { FinancialReportGraphsComponent } from './financial-report-graphs/financial-report-graphs.component';
+import { FinancialReportIndividualComponent } from './financial-report-individual/financial-report-individual.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { FinancialReportGraphsComponent } from './financial-report-graphs/financ
     FinancialReportCardComponent,
     FinancialReportListComponent,
     FinancialReportGraphsComponent,
+    FinancialReportIndividualComponent,
   ],
   imports: [CommonModule, FormsModule, PrimengModule],
   exports: [FinancialReportSearchComponent, FinancialReportCardComponent],

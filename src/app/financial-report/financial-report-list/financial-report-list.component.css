@@ -12,3 +12,8 @@
 .main-content {
   width: 100%;
 }
+
+.main-content > :last-child {
+  display: block;
+  margin-top: 50px;
+}
