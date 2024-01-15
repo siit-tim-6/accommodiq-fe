@@ -6,7 +6,12 @@
     <app-financial-report-card *ngFor="let entry of entries" [entry]="entry" />
   </div>
 
-  <app-financial-report-individual />
+  <app-financial-report-individual
+    (onUpdate)="handleMonthlyEntriesChange($event)"
+  />
 </div>
 
-<app-financial-report-graphs [entries]="entries" />
+<app-financial-report-graphs
+  [entries]="entries"
+  [monthlyEntries]="monthlyEntries"
+/>

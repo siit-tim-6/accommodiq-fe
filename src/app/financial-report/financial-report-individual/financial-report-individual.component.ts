@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FinancialReportService } from '../financial-report.service';
 import {
   AccommodationTitle,
@@ -15,6 +15,9 @@ export class FinancialReportIndividualComponent implements OnInit {
   selectedAccommodation: AccommodationTitle | null = null;
   selectedYear: Date | null = null;
   entries: FinancialReportIndividualEntry[] = [];
+
+  @Output()
+  onUpdate = new EventEmitter<FinancialReportIndividualEntry[]>();
 
   constructor(private service: FinancialReportService) {}
 
@@ -33,6 +36,7 @@ export class FinancialReportIndividualComponent implements OnInit {
         )
         .subscribe((entries) => {
           this.entries = entries;
+          this.onUpdate.emit(entries);
         });
     }
   }

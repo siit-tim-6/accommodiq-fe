@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FinancialReportService } from '../financial-report.service';
-import { FinancialReportEntry } from '../financial-report.model';
+import {
+  FinancialReportEntry,
+  FinancialReportIndividualEntry,
+} from '../financial-report.model';
 import { getTimestampMiliseconds } from '../../utils/date.utils';
 
 @Component({
@@ -10,6 +13,7 @@ import { getTimestampMiliseconds } from '../../utils/date.utils';
 })
 export class FinancialReportListComponent {
   entries: FinancialReportEntry[] = [];
+  monthlyEntries: FinancialReportIndividualEntry[] = [];
   dateChangeTriggered = false;
 
   constructor(private service: FinancialReportService) {}
@@ -24,5 +28,9 @@ export class FinancialReportListComponent {
       .subscribe((entries) => {
         this.entries = entries;
       });
+  }
+
+  handleMonthlyEntriesChange(newEntries: FinancialReportIndividualEntry[]) {
+    this.monthlyEntries = newEntries;
   }
 }

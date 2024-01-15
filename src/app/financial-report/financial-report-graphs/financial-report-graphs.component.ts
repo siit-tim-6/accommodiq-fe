@@ -6,7 +6,10 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { FinancialReportEntry } from '../financial-report.model';
+import {
+  FinancialReportEntry,
+  FinancialReportIndividualEntry,
+} from '../financial-report.model';
 import { UIChart } from 'primeng/chart';
 
 @Component({
@@ -16,9 +19,12 @@ import { UIChart } from 'primeng/chart';
 })
 export class FinancialReportGraphsComponent implements OnInit, OnChanges {
   @Input() entries!: FinancialReportEntry[];
+  @Input() monthlyEntries!: FinancialReportIndividualEntry[];
   @ViewChild('chart') chart!: UIChart;
   revenueChartData: any;
   reservationsChartData: any;
+  revenueMonthlyChartData: any;
+  reservationsMonthlyChartData: any;
 
   ngOnInit() {
     this.revenueChartData = {
@@ -42,6 +48,8 @@ export class FinancialReportGraphsComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.revenueChartData = this.getRevenueData();
     this.reservationsChartData = this.getReservationsData();
+    this.revenueMonthlyChartData = this.getMonthlyRevenueData();
+    this.reservationsMonthlyChartData = this.getMonthlyReservationsData();
   }
 
   getRevenueData(): any {
@@ -61,6 +69,28 @@ export class FinancialReportGraphsComponent implements OnInit, OnChanges {
       datasets: [
         {
           data: this.entries.map((entry) => entry.reservationCount),
+        },
+      ],
+    };
+  }
+
+  getMonthlyRevenueData(): any {
+    return {
+      labels: this.monthlyEntries.map((entry) => entry.month),
+      datasets: [
+        {
+          data: this.monthlyEntries.map((entry) => entry.revenue),
+        },
+      ],
+    };
+  }
+
+  getMonthlyReservationsData(): any {
+    return {
+      labels: this.monthlyEntries.map((entry) => entry.month),
+      datasets: [
+        {
+          data: this.monthlyEntries.map((entry) => entry.reservationCount),
         },
       ],
     };
