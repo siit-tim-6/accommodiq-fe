@@ -1,0 +1,19 @@
+<h1>Financial reports</h1>
+<h4>Take a look at an overview of your revenue</h4>
+
+<div class="row">
+  <p-calendar
+    selectionMode="range"
+    placeholder="Date"
+    [readonlyInput]="true"
+    [showIcon]="true"
+    [(ngModel)]="dateRange"
+    (onBlur)="dateChange()"
+  />
+
+  <p-button
+    icon="pi pi-file-pdf"
+    label="Export to PDF"
+    (onClick)="handleExportClick()"
+  ></p-button>
+</div>

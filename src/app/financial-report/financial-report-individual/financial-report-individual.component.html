@@ -1,0 +1,34 @@
+<div class="row">
+  <p-dropdown
+    [options]="accommodationTitles"
+    placeholder="Select an accommodation"
+    optionLabel="title"
+    [(ngModel)]="selectedAccommodation"
+    (onChange)="handleInputChange()"
+  />
+
+  <p-calendar
+    [(ngModel)]="selectedYear"
+    view="year"
+    placeholder="Select a year"
+    (onBlur)="handleInputChange()"
+    dateFormat="yy"
+  />
+</div>
+
+<p-table [value]="entries">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Month</th>
+      <th>Revenue</th>
+      <th>Reservations</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-entry>
+    <tr>
+      <td>{{ entry.month }}</td>
+      <td>{{ entry.revenue }}</td>
+      <td>{{ entry.reservationCount }}</td>
+    </tr>
+  </ng-template>
+</p-table>

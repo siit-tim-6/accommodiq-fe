@@ -20,6 +20,7 @@ import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TagModule } from 'primeng/tag';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [],
@@ -45,6 +46,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     RadioButtonModule,
     TagModule,
     ToggleButtonModule,
+    ChartModule,
   ],
 })
 export class PrimengModule {}
