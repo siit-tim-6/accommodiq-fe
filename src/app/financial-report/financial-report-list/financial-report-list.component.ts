@@ -69,19 +69,7 @@ export class FinancialReportListComponent {
         pdf.setFontSize(24);
         pdf.text('Date: ' + date.toUTCString(), 25, 75);
         pdf.addImage(dataImage, 'PNG', 25, 100, dataWidth, dataHeight);
-
-        // domToImage
-        //   .toPng(this.chartsToExport.nativeElement, {
-        //     width: chartsWidth,
-        //     height: chartsHeight,
-        //   })
-        //   .then((chartsImage) => {
-        //     console.log(chartsImage);
-        //     pdf.addPage();
-        //     pdf.addImage(chartsImage, 'PNG', 25, 50, chartsWidth, chartsHeight);
         pdf.save(`financial-report-${getTimestampMiliseconds(date)}.pdf`);
-        // })
-        // .catch((error) => this.handleError(error));
       })
       .catch((error) => this.handleError(error));
   }
