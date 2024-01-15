@@ -10,4 +10,10 @@
     [(ngModel)]="dateRange"
     (onBlur)="dateChange()"
   />
+
+  <p-button
+    icon="pi pi-file-pdf"
+    label="Export to PDF"
+    (onClick)="handleExportClick()"
+  ></p-button>
 </div>

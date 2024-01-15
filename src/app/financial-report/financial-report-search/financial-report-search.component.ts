@@ -9,12 +9,19 @@ export class FinancialReportSearchComponent {
   @Output()
   onDateChange = new EventEmitter<Date[]>();
 
+  @Output()
+  exportToPdf = new EventEmitter<void>();
+
   dateRange: Date[] = [];
 
   constructor() {}
 
   dateChange() {
     if (this.isDateRangeValid()) this.onDateChange.emit(this.dateRange);
+  }
+
+  handleExportClick() {
+    this.exportToPdf.emit();
   }
 
   private isDateRangeValid() {
