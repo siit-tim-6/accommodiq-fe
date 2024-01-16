@@ -86,7 +86,7 @@ export class AccommodationCreateComponent implements OnInit {
               this.messageService.add({
                 severity: 'error',
                 summary: 'Error',
-                detail: 'Error updating accommodation. Please try again later.',
+                detail: error,
               });
             },
           });
@@ -103,7 +103,7 @@ export class AccommodationCreateComponent implements OnInit {
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
-              detail: 'Error creating accommodation. Please try again later.',
+              detail: error.message ?? error,
             });
           },
         });
