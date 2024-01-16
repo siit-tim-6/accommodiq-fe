@@ -5,12 +5,11 @@
       : imageBase + reservation.accommodationImage
   "
   alt="accommodation-image"
-  [routerLink]="['/accommodation', reservation.accommodationId]"
 />
 
 <div class="reservation-info">
   <span class="first-line">
-    <h2 [routerLink]="['/accommodation', reservation.accommodationId]">
+    <h2>
       {{ reservation.accommodationTitle }}
     </h2>
 
@@ -21,7 +20,7 @@
         icon="pi pi-trash"
         [rounded]="true"
         severity="secondary"
-        (onClick)="delete()"
+        (onClick)="delete($event)"
         [style]="{ 'box-shadow': 'none' }"
       ></p-button>
 
@@ -31,7 +30,7 @@
         label="Cancel"
         [rounded]="true"
         severity="secondary"
-        (onClick)="cancel()"
+        (onClick)="cancel($event)"
         [style]="{ 'box-shadow': 'none' }"
       ></p-button>
 
@@ -40,7 +39,7 @@
         icon="pi pi-check"
         label="Accept"
         [rounded]="true"
-        (onClick)="accept()"
+        (onClick)="accept($event)"
         [style]="{ 'box-shadow': 'none' }"
       ></p-button>
 
@@ -50,7 +49,7 @@
         label="Decline"
         [rounded]="true"
         severity="secondary"
-        (onClick)="decline()"
+        (onClick)="decline($event)"
         [style]="{ 'box-shadow': 'none' }"
       ></p-button>
     </div>

@@ -48,19 +48,23 @@ export class ReservationCardComponent {
     } ${date.getUTCFullYear()}`;
   }
 
-  delete() {
+  delete(event: MouseEvent) {
+    event.stopPropagation();
     this.onDelete.emit(this.reservation.id);
   }
 
-  cancel() {
+  cancel(event: MouseEvent) {
+    event.stopPropagation();
     this.onCancel.emit(this.reservation.id);
   }
 
-  accept() {
+  accept(event: MouseEvent) {
+    event.stopPropagation();
     this.onAccept.emit(this.reservation.id);
   }
 
-  decline() {
+  decline(event: MouseEvent) {
+    event.stopPropagation();
     this.onDecline.emit(this.reservation.id);
   }
 }
