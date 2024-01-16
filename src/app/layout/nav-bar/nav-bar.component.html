@@ -59,6 +59,13 @@
 
 <img
   *ngIf="role === AccountRole.ADMIN"
+  [routerLink]="['/host-reviews-approval']"
+  src="../../../assets/images/host-reports-icon.svg"
+  alt="host-reports-icon"
+/>
+
+<img
+  *ngIf="role === AccountRole.ADMIN"
   [routerLink]="['/user-reports']"
   src="../../../assets/images/user-reports-icon.svg"
   alt="user-reports-icon"
