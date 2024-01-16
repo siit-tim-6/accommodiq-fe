@@ -30,6 +30,7 @@ export class AccountInfoComponent {
   constructor(
     private route: ActivatedRoute,
     private loginService: LoginService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -62,5 +63,9 @@ export class AccountInfoComponent {
 
   reportUserBtnClick() {
     this.handleReportUserBtn.emit(this.accountId);
+  }
+
+  editUserBtnClick() {
+    this.router.navigate(['update-account']);
   }
 }
