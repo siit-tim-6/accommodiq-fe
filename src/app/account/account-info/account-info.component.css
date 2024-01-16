@@ -50,21 +50,25 @@
 }
 
 :host .num-ratings {
-  font-weight: lighter;
+  font-weight: normal;
 }
 
 :host #full-name {
   font-size: xxx-large;
   font-weight: bold;
+  margin-right: 30px;
 }
 
 :host i {
   margin-right: 10px;
-  margin-left: 50px;
 }
 
 :host .account-info-button {
   margin-left: 30px;
   font-size: medium;
   font-weight: bold;
+}
+
+:host span:not(.star-value) {
+  font-family: "Inter", sans-serif;
 }

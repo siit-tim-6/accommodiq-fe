@@ -102,10 +102,10 @@
           <ng-template pTemplate="body" let-availabilityRange>
             <tr>
               <td>
-                {{ availabilityRange.fromDate * 1000 | date: "dd/MM/yyyy" }}
+                {{ availabilityRange.fromDate | date: "dd/MM/yyyy" }}
               </td>
               <td>
-                {{ availabilityRange.toDate * 1000 | date: "dd/MM/yyyy" }}
+                {{ availabilityRange.toDate | date: "dd/MM/yyyy" }}
               </td>
               <td>{{ availabilityRange.price }}</td>
               <td>

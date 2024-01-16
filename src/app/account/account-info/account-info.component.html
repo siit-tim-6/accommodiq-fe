@@ -5,8 +5,10 @@
   <div class="right-section">
     <div class="top-row">
       <span id="full-name">{{ user?.firstName }} {{ user?.lastName }}</span>
-      <i class="pi pi-id-card"></i>
-      <span>{{ user?.address }}</span>
+      <div>
+        <i class="pi pi-id-card"></i>
+        <span>{{ user?.address }}</span>
+      </div>
       <p-button
         *ngIf="
           (user?.role === AccountRole.GUEST &&
@@ -27,6 +29,7 @@
         label="Edit"
         id="edit-btn"
         class="account-info-button"
+        (click)="editUserBtnClick()"
       ></p-button>
     </div>
     <div class="top-row middle-row">
@@ -45,7 +48,11 @@
     </div>
     <div class="bottom-row" *ngIf="user?.role === AccountRole.HOST">
       <div class="rating">
-        <span *ngFor="let star of stars" [class]="star"></span>
+        <span
+          class="star-value"
+          *ngFor="let star of stars"
+          [class]="star"
+        ></span>
         <span class="rating-value">{{ averageRating }}</span>
         <span class="num-ratings">{{ numberOfReviews }} ratings</span>
       </div>
