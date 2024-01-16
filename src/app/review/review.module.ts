@@ -8,6 +8,7 @@ import { ReviewListComponent } from './review-list/review-list.component';
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
 import { ReviewApprovalListComponent } from './review-approval-list/review-approval-list.component';
 import { ReviewApprovalCardComponent } from './review-approval-card/review-approval-card.component';
+import { HostReviewApprovalCardComponent } from './host-review-approval-card/host-review-approval-card.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ReviewApprovalCardComponent } from './review-approval-card/review-appro
     ReviewListComponent,
     ReviewApprovalListComponent,
     ReviewApprovalCardComponent,
+    HostReviewApprovalCardComponent,
   ],
   imports: [
     CommonModule,
