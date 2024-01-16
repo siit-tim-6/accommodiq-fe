@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Dropdown } from 'primeng/dropdown';
 import { AccommodationService } from '../accommodation.service';
 import { SearchParams } from '../accommodation.model';
@@ -46,6 +46,8 @@ export class AccommodationSearchComponent implements OnInit {
   today: Date = new Date();
 
   constructor(private accommodationService: AccommodationService) {}
+
+  @Input() numberOfAccommodations!: number;
 
   @Output()
   onSearch = new EventEmitter<SearchParams>();
