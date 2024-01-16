@@ -5,12 +5,11 @@
       : imageBase + accommodation.image
   "
   alt="accommodation-image"
-  [routerLink]="['/accommodation', accommodation.id]"
 />
 
 <div class="accommodation-info">
   <span class="first-line">
-    <h2 [routerLink]="['/accommodation', accommodation.id]">
+    <h2>
       {{ accommodation.title }}
     </h2>
 
@@ -19,20 +18,18 @@
         *ngIf="accommodation.status !== undefined"
         class="pi pi-calendar-plus"
         style="color: dodgerblue; font-size: 2rem"
-        [routerLink]="['/accommodation-availability-pricing', accommodation.id]"
       ></i>
 
       <i
         *ngIf="accommodation.status !== undefined"
         class="pi pi-wrench"
         style="color: dodgerblue; font-size: 2rem"
-        [routerLink]="['/accommodation-update', accommodation.id]"
       ></i>
 
       <p-button
         *ngIf="accommodation.status === undefined && isUserGuest()"
         icon="{{ isFavorite ? 'pi pi-heart-fill' : 'pi pi-heart' }}"
-        (click)="modifyFavorite()"
+        (click)="modifyFavorite($event)"
         [rounded]="true"
         severity="secondary"
       ></p-button>

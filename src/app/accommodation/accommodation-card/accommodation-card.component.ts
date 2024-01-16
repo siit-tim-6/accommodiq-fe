@@ -8,6 +8,7 @@ import { AccommodationService } from '../accommodation.service';
 import { environment } from '../../../env/env';
 import { JwtService } from '../../infrastructure/auth/jwt.service';
 import { AccountRole } from '../../account/account-info/account.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-accommodation-card',
@@ -27,6 +28,7 @@ export class AccommodationCardComponent {
   constructor(
     private accommodationService: AccommodationService,
     private jwtService: JwtService,
+    private messageService: MessageService,
   ) {}
 
   onClick(status: AccommodationStatus) {
@@ -40,7 +42,8 @@ export class AccommodationCardComponent {
       });
   }
 
-  modifyFavorite() {
+  modifyFavorite(event: MouseEvent) {
+    event.stopPropagation();
     if (this.isFavorite) {
       this.accommodationService
         .removeGuestFavoriteAccommodation(this.accommodation.id)
@@ -48,7 +51,10 @@ export class AccommodationCardComponent {
           next: (_) => {
             this.isFavorite = !this.isFavorite;
             this.removedFromFavorites.emit(this.accommodation.id);
-            alert('Removed from favorites');
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Removed from favorites!',
+            });
           },
           error: (error) => console.log(error), // Snackbar later
         });
@@ -58,7 +64,10 @@ export class AccommodationCardComponent {
         .subscribe({
           next: (_) => {
             this.isFavorite = !this.isFavorite;
-            alert('Added to favorites');
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Added to favorites!',
+            });
           },
           error: (error) => console.log(error), // Snackbar later
         });

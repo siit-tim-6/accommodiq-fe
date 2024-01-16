@@ -1,3 +1,7 @@
+:host {
+  cursor: pointer;
+}
+
 .row {
   display: flex;
   flex-direction: row;
