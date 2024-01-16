@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Accommodation } from '../accommodation.model';
 import { AccommodationService } from '../accommodation.service';
-import { HttpClient } from '@angular/common/http';
+import { Marker } from '../../infrastructure/gmaps/gmaps.model';
 
 @Component({
   selector: 'app-guest-favorites-list',
@@ -26,5 +26,15 @@ export class GuestFavoritesListComponent implements OnInit {
     this.favoriteAccommodations = this.favoriteAccommodations.filter(
       (a) => a.id !== id,
     );
+  }
+
+  getMarkers(): Marker[] {
+    return this.favoriteAccommodations.map((el) => {
+      return {
+        label: el.title,
+        latitude: el.location.latitude,
+        longitude: el.location.longitude,
+      };
+    });
   }
 }
