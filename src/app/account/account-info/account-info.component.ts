@@ -23,7 +23,13 @@ export class AccountInfoComponent {
     new EventEmitter<number>();
   imageUrl: string =
     'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
-  stars: string[] = [];
+  stars: string[] = [
+    'pi pi-star',
+    'pi pi-star',
+    'pi pi-star',
+    'pi pi-star',
+    'pi pi-star',
+  ];
   currentUserRole: string = '';
   currentUserEmail: string = '';
 

@@ -56,11 +56,11 @@
 :host #full-name {
   font-size: xxx-large;
   font-weight: bold;
+  margin-right: 30px;
 }
 
 :host i {
   margin-right: 10px;
-  margin-left: 50px;
 }
 
 :host .account-info-button {
