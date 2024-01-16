@@ -157,7 +157,10 @@ export class AccommodationCreateComponent implements OnInit {
     this.formGroup = this.formBuilder.group(
       {
         name: [this.accommodationToUpdate?.title, Validators.required],
-        location: [this.accommodationToUpdate?.location, Validators.required],
+        location: [
+          this.accommodationToUpdate?.location.address,
+          Validators.required,
+        ],
         description: [
           this.accommodationToUpdate?.description,
           Validators.required,

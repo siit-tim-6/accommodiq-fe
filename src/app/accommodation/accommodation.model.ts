@@ -20,6 +20,8 @@ export interface Accommodation {
   pricingType: string;
   status?: AccommodationStatus;
   image: string;
+  type: string;
+  benefits: string[];
 }
 
 export type AccommodationLocation = {
@@ -169,7 +171,7 @@ export type AccommodationAdvancedDetails = {
   id: number;
   title: string;
   description: string;
-  location: string;
+  location: AccommodationLocation;
   minGuests: number;
   maxGuests: number;
   automaticAcceptance: boolean;

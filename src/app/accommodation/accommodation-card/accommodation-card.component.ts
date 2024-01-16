@@ -78,4 +78,9 @@ export class AccommodationCardComponent {
   isUserGuest() {
     return this.jwtService.getRole() === AccountRole.GUEST;
   }
+
+  toCommaSep(arr: string[]) {
+    if (arr != undefined) return arr.join(', ');
+    return '';
+  }
 }

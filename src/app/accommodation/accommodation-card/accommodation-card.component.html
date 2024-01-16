@@ -93,8 +93,13 @@
     </span>
 
     <span class="icon-label">
-      <i class="pi pi-wifi"></i>
-      <p>Wi-Fi</p>
+      <i class="pi pi-info-circle"></i>
+      <p>{{ accommodation.type }}</p>
+    </span>
+
+    <span *ngIf="accommodation.benefits.length > 0" class="icon-label">
+      <i class="pi pi-check-circle"></i>
+      <p>{{ toCommaSep(accommodation.benefits) }}</p>
     </span>
 
     <p>
