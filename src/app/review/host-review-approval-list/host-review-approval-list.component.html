@@ -1,0 +1,11 @@
+<div class="main-content">
+  <h1>Reported Host Reviews</h1>
+  <h4>Accept or delete reported host reviews</h4>
+  <div *ngFor="let review of reviews">
+    <app-host-review-approval-card
+      [hostReview]="review"
+      (acceptEmitter)="accept($event)"
+      (deleteEmitter)="delete($event)"
+    ></app-host-review-approval-card>
+  </div>
+</div>
