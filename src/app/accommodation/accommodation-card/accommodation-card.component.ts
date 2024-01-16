@@ -31,7 +31,8 @@ export class AccommodationCardComponent {
     private messageService: MessageService,
   ) {}
 
-  onClick(status: AccommodationStatus) {
+  onClick(status: AccommodationStatus, event: MouseEvent) {
+    event.stopPropagation();
     this.accommodationService
       .changeAccommodationStatus(this.accommodation.id, status)
       .subscribe({

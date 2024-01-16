@@ -6,6 +6,7 @@
       [accommodation]="accommodation"
       [isFavorite]="true"
       (removedFromFavorites)="removeFromFavorites($event)"
+      [routerLink]="['/accommodation', accommodation.id]"
     />
   </div>
 </div>

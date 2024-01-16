@@ -6,6 +6,7 @@
       [showAcceptanceButtons]="true"
       [accommodation]="accommodation"
       (modifiedSuccessfully)="onModifiedSuccessfully($event)"
+      [routerLink]="['/accommodation', accommodation.id]"
     />
   </div>
 </div>

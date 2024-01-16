@@ -18,12 +18,14 @@
         *ngIf="accommodation.status !== undefined"
         class="pi pi-calendar-plus"
         style="color: dodgerblue; font-size: 2rem"
+        [routerLink]="['/accommodation-availability-pricing', accommodation.id]"
       ></i>
 
       <i
         *ngIf="accommodation.status !== undefined"
         class="pi pi-wrench"
         style="color: dodgerblue; font-size: 2rem"
+        [routerLink]="['/accommodation-update', accommodation.id]"
       ></i>
 
       <p-button
@@ -55,12 +57,12 @@
 
     <div class="icon-container" *ngIf="showAcceptanceButtons">
       <i
-        (click)="onClick(AccommodationStatus.ACCEPTED)"
+        (click)="onClick(AccommodationStatus.ACCEPTED, $event)"
         class="pi pi-check-circle"
         style="color: green; font-size: 2.5rem"
       ></i>
       <i
-        (click)="onClick(AccommodationStatus.DENIED)"
+        (click)="onClick(AccommodationStatus.DENIED, $event)"
         class="pi pi-times-circle"
         style="color: red; font-size: 2.5rem"
       ></i>
