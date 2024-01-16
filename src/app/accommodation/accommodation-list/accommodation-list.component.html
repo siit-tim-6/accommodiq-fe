@@ -1,5 +1,9 @@
 <div class="main-content">
-  <app-accommodation-search (onSearch)="search($event)" (onClear)="clear()" />
+  <app-accommodation-search
+    (onSearch)="search($event)"
+    (onClear)="clear()"
+    [numberOfAccommodations]="elements.length"
+  />
   <div *ngFor="let el of elements">
     <app-accommodation-card
       [accommodation]="el"
