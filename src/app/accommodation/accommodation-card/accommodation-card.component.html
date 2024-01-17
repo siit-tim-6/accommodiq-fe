@@ -5,12 +5,11 @@
       : imageBase + accommodation.image
   "
   alt="accommodation-image"
-  [routerLink]="['/accommodation', accommodation.id]"
 />
 
 <div class="accommodation-info">
   <span class="first-line">
-    <h2 [routerLink]="['/accommodation', accommodation.id]">
+    <h2>
       {{ accommodation.title }}
     </h2>
 
@@ -32,7 +31,7 @@
       <p-button
         *ngIf="accommodation.status === undefined && isUserGuest()"
         icon="{{ isFavorite ? 'pi pi-heart-fill' : 'pi pi-heart' }}"
-        (click)="modifyFavorite()"
+        (click)="modifyFavorite($event)"
         [rounded]="true"
         severity="secondary"
       ></p-button>
@@ -58,12 +57,12 @@
 
     <div class="icon-container" *ngIf="showAcceptanceButtons">
       <i
-        (click)="onClick(AccommodationStatus.ACCEPTED)"
+        (click)="onClick(AccommodationStatus.ACCEPTED, $event)"
         class="pi pi-check-circle"
         style="color: green; font-size: 2.5rem"
       ></i>
       <i
-        (click)="onClick(AccommodationStatus.DENIED)"
+        (click)="onClick(AccommodationStatus.DENIED, $event)"
         class="pi pi-times-circle"
         style="color: red; font-size: 2.5rem"
       ></i>
@@ -94,8 +93,13 @@
     </span>
 
     <span class="icon-label">
-      <i class="pi pi-wifi"></i>
-      <p>Wi-Fi</p>
+      <i class="pi pi-info-circle"></i>
+      <p>{{ accommodation.type }}</p>
+    </span>
+
+    <span *ngIf="accommodation.benefits.length > 0" class="icon-label">
+      <i class="pi pi-check-circle"></i>
+      <p>{{ toCommaSep(accommodation.benefits) }}</p>
     </span>
 
     <p>

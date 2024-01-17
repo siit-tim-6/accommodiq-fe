@@ -6,9 +6,8 @@
       [accommodation]="accommodation"
       [isFavorite]="true"
       (removedFromFavorites)="removeFromFavorites($event)"
+      [routerLink]="['/accommodation', accommodation.id]"
     />
   </div>
 </div>
-<div class="map">
-  <img src="../../../assets/images/map.png" alt="map image" />
-</div>
+<app-map [markers]="getMarkers()" width="35rem" [zoom]="11" />

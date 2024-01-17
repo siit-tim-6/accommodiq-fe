@@ -6,6 +6,7 @@
   />
   <div *ngFor="let res of reservations">
     <app-reservation-card
+      [routerLink]="['/accommodation', res.accommodationId]"
       [reservation]="res"
       [loggedInRole]="loggedInRole"
       [cancellable]="isCancellable(res)"

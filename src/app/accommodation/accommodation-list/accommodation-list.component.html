@@ -8,6 +8,7 @@
     <app-accommodation-card
       [accommodation]="el"
       [isFavorite]="isFavorite(el)"
+      [routerLink]="['/accommodation', el.id]"
     />
   </div>
 </div>

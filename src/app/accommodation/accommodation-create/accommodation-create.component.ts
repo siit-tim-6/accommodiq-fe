@@ -86,7 +86,7 @@ export class AccommodationCreateComponent implements OnInit {
               this.messageService.add({
                 severity: 'error',
                 summary: 'Error',
-                detail: 'Error updating accommodation. Please try again later.',
+                detail: error,
               });
             },
           });
@@ -103,7 +103,7 @@ export class AccommodationCreateComponent implements OnInit {
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
-              detail: 'Error creating accommodation. Please try again later.',
+              detail: error.message ?? error,
             });
           },
         });
@@ -157,7 +157,10 @@ export class AccommodationCreateComponent implements OnInit {
     this.formGroup = this.formBuilder.group(
       {
         name: [this.accommodationToUpdate?.title, Validators.required],
-        location: [this.accommodationToUpdate?.location, Validators.required],
+        location: [
+          this.accommodationToUpdate?.location.address,
+          Validators.required,
+        ],
         description: [
           this.accommodationToUpdate?.description,
           Validators.required,
