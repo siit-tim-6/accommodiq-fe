@@ -12,6 +12,10 @@
 </div>
 
 <div class="review">
+  <h3 [routerLink]="['/profile-account', hostReview.review.authorId]">
+    {{ hostReview.review.author }}
+    <span>{{ hostReview.review.date | date: "dd/MM/yyyy" }}</span>
+  </h3>
   <p>{{ hostReview.review.comment }}</p>
 </div>
 

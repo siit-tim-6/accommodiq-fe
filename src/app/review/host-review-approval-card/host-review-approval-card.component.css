@@ -22,7 +22,6 @@
 .review {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   border-left: 1px solid #ced4da;
   border-right: 1px solid #ced4da;
   width: 25vw;
@@ -30,6 +29,7 @@
 
 .review > p {
   text-align: justify;
+  margin-bottom: 0;
 }
 
 img {
@@ -40,9 +40,15 @@ img {
   cursor: pointer;
 }
 
-.host-info h3 {
+:host h3 {
   cursor: pointer;
   margin: 0;
+}
+
+h3 > span {
+  font-style: italic;
+  font-size: medium;
+  font-family: sans-serif;
 }
 
 p-button {
