@@ -16,9 +16,15 @@
 </div>
 
 <div class="buttons">
-  <p-button label="Accept" icon="pi pi-check" (click)="accept()" />
   <p-button
-    [style]="{ width: '100%' }"
+    [style]="{ width: '100%', 'box-shadow': 'none', 'margin-bottom': '10px' }"
+    label="Accept"
+    icon="pi pi-check"
+    (click)="accept()"
+  />
+
+  <p-button
+    [style]="{ width: '100%', 'box-shadow': 'none' }"
     label="Delete"
     icon="pi pi-times"
     severity="secondary"
