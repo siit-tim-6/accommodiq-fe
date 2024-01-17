@@ -21,6 +21,7 @@ import { NotificationSettingsComponent } from './notification/notification-setti
 import { ReviewApprovalListComponent } from './review/review-approval-list/review-approval-list.component';
 import { ReportCardListComponent } from './report/report-card-list/report-card-list.component';
 import { FinancialReportListComponent } from './financial-report/financial-report-list/financial-report-list.component';
+import { HostReviewApprovalListComponent } from './review/host-review-approval-list/host-review-approval-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -85,6 +86,11 @@ const routes: Routes = [
     path: 'financial-reports',
     component: FinancialReportListComponent,
     canActivate: [() => CanActivateRoles([AccountRole.HOST])],
+  },
+  {
+    path: 'host-reviews-approval',
+    component: HostReviewApprovalListComponent,
+    canActivate: [() => CanActivateRoles([AccountRole.ADMIN])],
   },
 ];
 

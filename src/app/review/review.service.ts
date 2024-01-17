@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
+  HostReviewApprovalCardDto,
   ReviewApprovalCardDto,
   ReviewDto,
   ReviewRequest,
@@ -72,6 +73,26 @@ export class ReviewService {
     return this.httpClient.get<ReviewApprovalCardDto[]>(
       `${environment.apiHost}accommodations/reviews`,
       { params },
+    );
+  }
+
+  getHostReviewsByStatus(
+    status: ReviewStatus,
+  ): Observable<HostReviewApprovalCardDto[]> {
+    const params = new HttpParams().set('status', status);
+    return this.httpClient.get<HostReviewApprovalCardDto[]>(
+      `${environment.apiHost}hosts/reviews`,
+      { params },
+    );
+  }
+
+  changeHostReviewStatus(
+    reviewId: number,
+    status: ReviewStatus,
+  ): Observable<MessageDto> {
+    return this.httpClient.put<MessageDto>(
+      `${environment.apiHost}hosts/reviews/${reviewId}/status`,
+      { status },
     );
   }
 }

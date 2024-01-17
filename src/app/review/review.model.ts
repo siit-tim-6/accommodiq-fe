@@ -32,6 +32,12 @@ export interface ReviewApprovalCardDto {
   image: string;
 }
 
+export interface HostReviewApprovalCardDto {
+  review: ReviewDto;
+  hostId: number;
+  name: string;
+}
+
 export interface ReviewBaseInfo {
   id: number;
   rating: number;
