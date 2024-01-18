@@ -282,14 +282,9 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   }
 
   makeReservation() {
-    let userId = this.jwtService.getUserId();
-    if (
-      userId !== null &&
-      this.rangeDates !== undefined &&
-      this.guests !== undefined
-    ) {
+    if (this.rangeDates !== undefined && this.guests !== undefined) {
       this.accommodationService
-        .createReservation(userId, {
+        .createReservation({
           accommodationId: this.accommodationId,
           startDate: getTimestampMiliseconds(this.rangeDates[0]),
           endDate: getTimestampMiliseconds(this.rangeDates[1]),

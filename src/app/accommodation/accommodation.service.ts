@@ -274,11 +274,10 @@ export class AccommodationService {
   }
 
   createReservation(
-    guestId: number,
     reservation: ReservationRequest,
   ): Observable<ReservationRequest> {
     return this.httpClient.post<ReservationRequest>(
-      `${environment.apiHost}guests/${guestId}/reservations`,
+      `${environment.apiHost}guests/reservations`,
       reservation,
     );
   }
