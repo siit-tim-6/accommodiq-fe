@@ -12,6 +12,7 @@ export class FinancialReportSearchComponent {
   @Output()
   exportToPdf = new EventEmitter<void>();
 
+  today: Date = new Date();
   dateRange: Date[] = [];
 
   constructor() {}
