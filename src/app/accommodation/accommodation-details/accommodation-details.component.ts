@@ -45,7 +45,7 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
   guests: number | string | undefined;
   totalPrice: number | undefined;
 
-  today: Date = new Date();
+  today: Date;
   positiveInteger: RegExp = /^[1-9]\d*$/;
   accommodationAvailable: boolean = true;
 
@@ -57,6 +57,8 @@ export class AccommodationDetailsComponent implements OnInit, OnDestroy {
     private reviewService: ReviewService,
     private router: Router,
   ) {
+    this.today = new Date();
+    this.today.setDate(this.today.getDate() + 1);
     this.canAddReview = this.jwtService.getRole() === AccountRole.GUEST;
     this.accommodationId = 0;
     this.accommodationDetails = {
