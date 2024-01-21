@@ -43,9 +43,12 @@ export class AccommodationSearchComponent implements OnInit {
   selectedAccommodationType: string = '';
   selectedBenefits: string[] = [];
 
-  today: Date = new Date();
+  today: Date;
 
-  constructor(private accommodationService: AccommodationService) {}
+  constructor(private accommodationService: AccommodationService) {
+    this.today = new Date();
+    this.today.setDate(this.today.getDate() + 1);
+  }
 
   @Input() numberOfAccommodations!: number;
 
