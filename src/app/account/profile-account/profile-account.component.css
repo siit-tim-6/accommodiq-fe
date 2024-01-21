@@ -1,0 +1,69 @@
+:host {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+:host .profile-container {
+  display: flex;
+  align-items: center;
+  margin-top: 80px;
+}
+
+:host .left-section {
+  margin-right: 30px;
+}
+
+:host .rounded-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+}
+
+:host .right-section {
+  flex-grow: 1;
+}
+
+:host .top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: x-large;
+}
+
+:host .top-row,
+.middle-row,
+.bottom-row {
+  margin-bottom: 25px;
+  font-size: x-large;
+}
+
+:host .rating {
+  display: flex;
+  align-items: center;
+}
+
+:host .rating-value {
+  font-weight: bold;
+  margin-right: 15px;
+  margin-left: 10px;
+}
+
+:host .num-ratings {
+  font-weight: lighter;
+}
+
+:host #full-name {
+  font-size: xxx-large;
+  font-weight: bold;
+}
+
+:host i {
+  margin-right: 10px;
+  margin-left: 50px;
+}
+
+:host .account-info-button {
+  margin-left: 30px;
+  font-size: medium;
+  font-weight: bold;
+}

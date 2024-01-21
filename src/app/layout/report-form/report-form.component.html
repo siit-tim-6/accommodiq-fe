@@ -1,0 +1,22 @@
+<p-dialog [closable]="false" [visible]="true" [draggable]="false">
+  <h1>Report User</h1>
+
+  <form [formGroup]="formGroup" (submit)="onSubmit()">
+    <div class="inline-update-form">
+      <div>
+        <span>
+          <textarea
+            rows="5"
+            cols="30"
+            id="reason"
+            name="reason"
+            pInputTextarea
+            formControlName="reason"
+            placeholder="Reason for reporting user"
+          ></textarea>
+        </span>
+      </div>
+    </div>
+    <p-button type="submit" [label]="'Report'"></p-button>
+  </form>
+</p-dialog>

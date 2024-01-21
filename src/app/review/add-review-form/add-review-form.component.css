@@ -1,0 +1,12 @@
+:host form {
+  display: flex;
+  align-items: center;
+}
+
+:host input {
+  width: 100%;
+}
+
+:host p-rating {
+  margin: 10px;
+}

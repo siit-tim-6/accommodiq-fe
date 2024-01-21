@@ -1,0 +1,12 @@
+<div class="main-content">
+  <h1>{{ reports.length }} User Reports</h1>
+  <h4>Block users or dismiss reports</h4>
+
+  <div *ngFor="let report of reports">
+    <app-report-card
+      [report]="report"
+      (onDelete)="deleteReport($event)"
+      (onBlockUser)="blockUser($event)"
+    ></app-report-card>
+  </div>
+</div>

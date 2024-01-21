@@ -1,0 +1,128 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  align-items: center;
+  width: fit-content;
+  box-sizing: border-box;
+  overflow-y: hidden;
+}
+
+:host :not(input) {
+  text-align: center;
+}
+
+:host div {
+  margin-bottom: 20px;
+}
+
+:host #description {
+  width: 100%;
+  height: 150px;
+  resize: none;
+  text-align: left;
+  padding-left: 10px;
+  font:
+    15px "Inter",
+    sans-serif;
+}
+
+:host input {
+  width: 100%;
+}
+
+:host .checkbox-group {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+:host .checkbox-option {
+  margin-bottom: 10px;
+}
+
+:host i {
+  margin-left: 10px;
+}
+
+:host .p-float-label {
+  margin-bottom: 20px;
+}
+
+:host .inline-update-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+:host .column-wrapper {
+  margin-left: 40px;
+}
+
+:host .row-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+:host .min-max-input-wrapper {
+  width: 105px;
+}
+
+:host .between-line {
+  height: 2px;
+  background-color: black;
+  width: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+:host .file-upload-wrapper {
+  width: 450px;
+}
+
+:host p-dropdown:focus {
+  border-color: #007ad9;
+  box-shadow: 0 0 0 0.25rem rgba(0, 122, 217, 0.25);
+}
+
+:host .calendar-wrapper {
+  width: 220px;
+}
+
+:host #price {
+  width: 90px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+:host form {
+  margin-top: 20px;
+}
+
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched,
+p-dropdown.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.empty-message {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: red;
+  /* Add more styling as needed */
+}
+
+.uploaded-image-item {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%; /* Adjust as needed */
+  margin-bottom: 0.5rem; /* Spacing between items */
+  line-height: 1.5; /* Adjust line height as needed */
+}

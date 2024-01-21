@@ -1,0 +1,23 @@
+<div class="main-content">
+  <h1 *ngIf="isPendingShowed">Pending reviews</h1>
+  <h1 *ngIf="!isPendingShowed">Reported reviews</h1>
+  <h4 *ngIf="isPendingShowed">Approve or deny accommodation reviews</h4>
+  <h4 *ngIf="!isPendingShowed">
+    Approve or delete reported accommodation reviews
+  </h4>
+  <p-toggleButton
+    [style]="{ 'box-shadow': 'none' }"
+    (click)="refreshReviewsToShow()"
+    [(ngModel)]="isPendingShowed"
+    onLabel="Show reported reviews"
+    offLabel="Show pending reviews"
+  ></p-toggleButton>
+
+  <div *ngFor="let review of reviewsToShow">
+    <app-review-approval-card
+      [review]="review"
+      (approveEmitter)="approveReview($event)"
+      (declineOrDeleteEmitter)="declineOrDeleteReview($event)"
+    ></app-review-approval-card>
+  </div>
+</div>

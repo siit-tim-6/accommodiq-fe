@@ -1,0 +1,120 @@
+<img
+  [src]="
+    accommodation.image === ''
+      ? '../../../assets/images/accommodation-image.png'
+      : imageBase + accommodation.image
+  "
+  alt="accommodation-image"
+/>
+
+<div class="accommodation-info">
+  <span class="first-line">
+    <h2>
+      {{ accommodation.title }}
+    </h2>
+
+    <div class="icon-container" *ngIf="!showAcceptanceButtons">
+      <i
+        *ngIf="accommodation.status !== undefined"
+        class="pi pi-calendar-plus"
+        style="color: dodgerblue; font-size: 2rem"
+        [routerLink]="['/accommodation-availability-pricing', accommodation.id]"
+      ></i>
+
+      <i
+        *ngIf="accommodation.status !== undefined"
+        class="pi pi-wrench"
+        style="color: dodgerblue; font-size: 2rem"
+        [routerLink]="['/accommodation-update', accommodation.id]"
+      ></i>
+
+      <p-button
+        *ngIf="accommodation.status === undefined && isUserGuest()"
+        icon="{{ isFavorite ? 'pi pi-heart-fill' : 'pi pi-heart' }}"
+        (click)="modifyFavorite($event)"
+        [rounded]="true"
+        severity="secondary"
+      ></p-button>
+      <i
+        *ngIf="accommodation.status === AccommodationStatus.ACCEPTED"
+        pTooltip="Accommodation is accepted"
+        class="pi pi-check-circle"
+        style="color: green; font-size: 2rem"
+      ></i>
+      <i
+        *ngIf="accommodation.status === AccommodationStatus.DENIED"
+        pTooltip="Accommodation is denied"
+        class="pi pi-times-circle"
+        style="color: red; font-size: 2rem"
+      ></i>
+      <i
+        *ngIf="accommodation.status === AccommodationStatus.PENDING"
+        pTooltip="Accommodation is pending"
+        class="pi pi-question-circle"
+        style="color: orange; font-size: 2rem"
+      ></i>
+    </div>
+
+    <div class="icon-container" *ngIf="showAcceptanceButtons">
+      <i
+        (click)="onClick(AccommodationStatus.ACCEPTED, $event)"
+        class="pi pi-check-circle"
+        style="color: green; font-size: 2.5rem"
+      ></i>
+      <i
+        (click)="onClick(AccommodationStatus.DENIED, $event)"
+        class="pi pi-times-circle"
+        style="color: red; font-size: 2.5rem"
+      ></i>
+    </div>
+  </span>
+
+  <div class="row">
+    <p-rating
+      [ngModel]="Math.floor(accommodation.rating)"
+      [disabled]="true"
+      [cancel]="false"
+    />
+    <p class="bold">{{ accommodation.rating }}</p>
+    <p>{{ accommodation.reviewCount }} ratings</p>
+  </div>
+
+  <div class="row">
+    <span class="icon-label">
+      <i class="pi pi-map-marker"></i>
+      <p>{{ accommodation.location.address }}</p>
+    </span>
+
+    <span class="icon-label">
+      <i class="pi pi-users"></i>
+      <p>
+        {{ accommodation.minGuests }} - {{ accommodation.maxGuests }} guests
+      </p>
+    </span>
+
+    <span class="icon-label">
+      <i class="pi pi-info-circle"></i>
+      <p>{{ accommodation.type }}</p>
+    </span>
+
+    <span *ngIf="accommodation.benefits.length > 0" class="icon-label">
+      <i class="pi pi-check-circle"></i>
+      <p>{{ toCommaSep(accommodation.benefits) }}</p>
+    </span>
+
+    <p>
+      <span *ngIf="accommodation.totalPrice !== 0">
+        <span class="bold">€{{ accommodation.totalPrice }} </span>
+        EUR total
+      </span>
+      <span *ngIf="accommodation.totalPrice === 0">
+        From
+        <span class="bold"> €{{ accommodation.minPrice }} </span>
+        <span *ngIf="accommodation.pricingType === 'PER_NIGHT'">/ night</span>
+        <span *ngIf="accommodation.pricingType === 'PER_GUEST'"
+          >/ guest / night</span
+        >
+      </span>
+    </p>
+  </div>
+</div>

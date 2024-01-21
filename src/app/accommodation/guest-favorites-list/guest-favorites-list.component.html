@@ -1,0 +1,13 @@
+<div class="main-content">
+  <h1>Favorite accommodations</h1>
+  <h4>View, add or remove your favorite accommodations</h4>
+  <div *ngFor="let accommodation of favoriteAccommodations">
+    <app-accommodation-card
+      [accommodation]="accommodation"
+      [isFavorite]="true"
+      (removedFromFavorites)="removeFromFavorites($event)"
+      [routerLink]="['/accommodation', accommodation.id]"
+    />
+  </div>
+</div>
+<app-map [markers]="getMarkers()" width="35rem" [zoom]="11" />

@@ -1,0 +1,33 @@
+<h1>{{ reservationCount }} Reservations in total</h1>
+<h4>View, filter, and search your reservations</h4>
+
+<div class="row">
+  <span class="p-input-icon-left search-input">
+    <i class="pi pi-search"></i>
+    <input
+      type="text"
+      pInputText
+      placeholder="Search"
+      [(ngModel)]="accommodationTitle"
+    />
+  </span>
+
+  <p-calendar
+    selectionMode="range"
+    placeholder="Date"
+    [readonlyInput]="true"
+    [showIcon]="true"
+    [(ngModel)]="reservationDates"
+  />
+
+  <p-dropdown
+    #statusDropdown
+    [options]="reservationStatus"
+    [(ngModel)]="selectedReservationStatus"
+    [showClear]="true"
+    placeholder="Select Status"
+  />
+
+  <p-button severity="secondary" label="Clear" (onClick)="clear()" />
+  <p-button label="Search" (onClick)="search()" />
+</div>

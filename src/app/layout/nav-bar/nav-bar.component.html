@@ -1,0 +1,93 @@
+<img
+  [routerLink]="['/search']"
+  src="../../../assets/images/accommodiq-logo.svg"
+  alt="accommodiq-logo"
+/>
+<img
+  [routerLink]="['/search']"
+  src="../../../assets/images/search-icon.svg"
+  alt="search-icon"
+/>
+
+<img
+  *ngIf="role === AccountRole.GUEST || role === AccountRole.HOST"
+  [routerLink]="['/my-reservations']"
+  src="../../../assets/images/reservations-icon.svg"
+  alt="my-reservations-icon"
+/>
+
+<img
+  *ngIf="role === AccountRole.HOST"
+  [routerLink]="['/accommodation-create']"
+  src="../../../assets/images/accommodations-create.svg"
+  alt="my-accommodations-icon"
+/>
+<img
+  *ngIf="role === AccountRole.HOST || role === AccountRole.GUEST"
+  [routerLink]="['/notifications']"
+  src="../../../assets/images/notifications-icon.svg"
+  alt="notifications-icon"
+/>
+
+<img
+  *ngIf="role === AccountRole.HOST"
+  [routerLink]="['/my-accommodations']"
+  src="../../../assets/images/my-accommodations.svg"
+  alt="my-accommodations-icon"
+/>
+
+<img
+  *ngIf="role === AccountRole.HOST"
+  [routerLink]="['/financial-reports']"
+  src="../../../assets/images/financial-reports.svg"
+  alt="financial-reports-icon"
+/>
+
+<img
+  *ngIf="role === AccountRole.ADMIN"
+  [routerLink]="['/accommodations-review']"
+  src="../../../assets/images/accommodations-review.svg"
+  alt="accommodations-review-icon"
+/>
+
+<img
+  *ngIf="role === AccountRole.ADMIN"
+  [routerLink]="['/review-approval']"
+  src="../../../assets/images/pending-reviews-icon.svg"
+  alt="pending-reviews-icon"
+/>
+
+<img
+  *ngIf="role === AccountRole.ADMIN"
+  [routerLink]="['/host-reviews-approval']"
+  src="../../../assets/images/host-reports-icon.svg"
+  alt="host-reports-icon"
+/>
+
+<img
+  *ngIf="role === AccountRole.ADMIN"
+  [routerLink]="['/user-reports']"
+  src="../../../assets/images/user-reports-icon.svg"
+  alt="user-reports-icon"
+/>
+
+<img
+  *ngIf="role === AccountRole.GUEST"
+  [routerLink]="['/favorites']"
+  src="../../../assets/images/favorites-icon.svg"
+  alt="favorite-accommodations-icon"
+/>
+
+<img
+  *ngIf="role === null"
+  [routerLink]="['/login']"
+  src="../../../assets/images/account-icon.svg"
+  alt="account-icon"
+/>
+<img
+  *ngIf="role !== null"
+  [routerLink]="['/update-account']"
+  src="../../../assets/images/account-icon.svg"
+  alt="account-icon"
+/>
+<i *ngIf="role !== null" class="pi pi-sign-out" (click)="signOut()"> </i>

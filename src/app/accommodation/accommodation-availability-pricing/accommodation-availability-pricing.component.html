@@ -1,0 +1,123 @@
+<p-dialog [closable]="false" [visible]="true" [draggable]="false">
+  <h2>Update availability of your apartment</h2>
+  <form [formGroup]="bookingDetailsForm">
+    <div>
+      <div>
+        <div>
+          <span>
+            <span>Cancellation deadline:</span>
+            <input
+              pInputText
+              [required]="true"
+              type="number"
+              id="cancellation-deadline"
+              name="cancellation-deadline"
+              formControlName="cancellationDeadline"
+              placeholder="in days"
+            />
+          </span>
+        </div>
+
+        <div class="checkbox-group">
+          <span class="checkbox-option">
+            <p-checkbox
+              formControlName="pricePerGuest"
+              id="price-per-guests"
+              name="price-per-guests"
+              label="Price per guest"
+              [binary]="true"
+            ></p-checkbox>
+          </span>
+        </div>
+      </div>
+      <p-button label="Update" type="submit" (click)="onSubmit()"></p-button>
+    </div>
+  </form>
+
+  <div *ngIf="isNewRangeEmpty" class="empty-message">
+    You need to choose dates and price.
+  </div>
+
+  <form [formGroup]="availabilityForm">
+    <div>
+      <div class="row-wrapper availability-wrapper">
+        <div class="calendar-wrapper">
+          <p-calendar
+            formControlName="pickedDates"
+            name="range"
+            selectionMode="range"
+            [readonlyInput]="true"
+            placeholder="Select the Range"
+            appendTo="body"
+            dateFormat="dd/mm/yy"
+          ></p-calendar>
+        </div>
+        <div>
+          <span>
+            <input
+              pInputText
+              id="price"
+              name="price"
+              formControlName="price"
+              placeholder="Price"
+            />
+          </span>
+        </div>
+        <div>
+          <p-button label="Add" (click)="addRange()"></p-button>
+        </div>
+      </div>
+
+      <div *ngIf="overlappingReservations" class="empty-message">
+        This range overlaps with existing reservation. Can't be deleted.
+      </div>
+
+      <div *ngIf="overlappingRanges" class="empty-message">
+        New range overlaps with existing ranges
+      </div>
+
+      <div
+        *ngIf="submitAttempted && availabilityRanges.length === 0"
+        class="empty-message"
+      >
+        Please add at least one availability range.
+      </div>
+
+      <div class="file-upload-wrapper">
+        <p-table
+          [value]="availabilityRanges"
+          [paginator]="true"
+          [rows]="4"
+          [showCurrentPageReport]="true"
+          [tableStyle]="{ width: '450px' }"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 27%">Start Date</th>
+              <th style="width: 27%">End Date</th>
+              <th style="width: 27%">Price</th>
+              <th style="width: 19%"></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-availabilityRange>
+            <tr>
+              <td>
+                {{ availabilityRange.fromDate | date: "dd/MM/yyyy" }}
+              </td>
+              <td>
+                {{ availabilityRange.toDate | date: "dd/MM/yyyy" }}
+              </td>
+              <td>{{ availabilityRange.price }}</td>
+              <td>
+                <p-button
+                  label="X"
+                  (click)="removeRange(availabilityRange)"
+                ></p-button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </form>
+</p-dialog>

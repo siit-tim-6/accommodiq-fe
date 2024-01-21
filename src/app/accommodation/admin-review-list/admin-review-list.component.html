@@ -1,0 +1,14 @@
+<div class="main-content">
+  <h1>{{ accommodations.length }} Accommodation change requests</h1>
+  <h4>Review, approve or deny accommodations</h4>
+  <div *ngFor="let accommodation of accommodations">
+    <app-accommodation-card
+      [showAcceptanceButtons]="true"
+      [accommodation]="accommodation"
+      (modifiedSuccessfully)="onModifiedSuccessfully($event)"
+      [routerLink]="['/accommodation', accommodation.id]"
+    />
+  </div>
+</div>
+
+<app-map [markers]="getMarkers()" width="35rem" [zoom]="11" />

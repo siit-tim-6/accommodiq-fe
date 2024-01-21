@@ -1,0 +1,7 @@
+:host :not(input) {
+  text-align: center;
+}
+
+:host div {
+  margin-bottom: 20px;
+}

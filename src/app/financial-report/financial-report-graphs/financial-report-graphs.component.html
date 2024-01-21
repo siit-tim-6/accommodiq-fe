@@ -1,0 +1,22 @@
+<div class="graphs">
+  <div class="column">
+    <p-chart type="pie" [data]="revenueChartData"></p-chart>
+    <p class="chart-info" *ngIf="entries.length !== 0">
+      Total revenue <span class="bold">{{ getTotalRevenue() }}</span>
+    </p>
+    <p-chart type="pie" [data]="reservationsChartData"></p-chart>
+    <p class="chart-info" *ngIf="entries.length !== 0">
+      Total reservations <span class="bold">{{ getTotalReservations() }}</span>
+    </p>
+  </div>
+  <div class="column">
+    <p-chart type="pie" [data]="revenueMonthlyChartData"></p-chart>
+    <p class="chart-info" *ngIf="monthlyEntries.length !== 0">
+      Monthly revenue
+    </p>
+    <p-chart type="pie" [data]="reservationsMonthlyChartData"></p-chart>
+    <p class="chart-info" *ngIf="monthlyEntries.length !== 0">
+      Monthly reservations
+    </p>
+  </div>
+</div>

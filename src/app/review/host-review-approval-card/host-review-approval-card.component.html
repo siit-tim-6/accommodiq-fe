@@ -1,0 +1,37 @@
+<div class="host-info">
+  <div class="title-rating">
+    <h3 [routerLink]="['/profile-account', hostReview.hostId]">
+      {{ hostReview.name }}
+    </h3>
+    <p-rating
+      [ngModel]="Math.floor(hostReview.review.rating)"
+      [disabled]="true"
+      [cancel]="false"
+    />
+  </div>
+</div>
+
+<div class="review">
+  <h3 [routerLink]="['/profile-account', hostReview.review.authorId]">
+    {{ hostReview.review.author }}
+    <span>{{ hostReview.review.date | date: "dd/MM/yyyy" }}</span>
+  </h3>
+  <p>{{ hostReview.review.comment }}</p>
+</div>
+
+<div class="buttons">
+  <p-button
+    [style]="{ width: '100%', 'box-shadow': 'none', 'margin-bottom': '10px' }"
+    label="Accept"
+    icon="pi pi-check"
+    (click)="accept()"
+  />
+
+  <p-button
+    [style]="{ width: '100%', 'box-shadow': 'none' }"
+    label="Delete"
+    icon="pi pi-times"
+    severity="secondary"
+    (click)="delete()"
+  />
+</div>

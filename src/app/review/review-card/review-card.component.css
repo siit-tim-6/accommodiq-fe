@@ -1,0 +1,58 @@
+:host .row {
+  display: flex;
+  align-items: center;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  color: #000000;
+  cursor: default;
+
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 15px;
+}
+
+:host h2,
+p {
+  margin: 5px 5px;
+}
+
+:host p {
+  font-weight: 400;
+  text-align: justify;
+}
+:host .first-line {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+:host .last-line {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 200;
+  font-size: 0.8em;
+}
+
+.pi-trash,
+.pi-ban {
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.pi-trash:hover,
+.pi-ban:hover {
+  color: red;
+}
+
+:host h2 {
+  cursor: pointer;
+}
+
+:host h2:hover {
+  color: rgb(128, 128, 128);
+}

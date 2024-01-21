@@ -1,0 +1,22 @@
+<div #dataToExport class="main-content">
+  <app-financial-report-search
+    (onDateChange)="handleDateChange($event)"
+    (exportToPdf)="exportToPdf()"
+  />
+
+  <p *ngIf="!dateChangeTriggered">Select a date range first!</p>
+  <div *ngIf="dateChangeTriggered">
+    <app-financial-report-card *ngFor="let entry of entries" [entry]="entry" />
+  </div>
+
+  <app-financial-report-individual
+    (onUpdate)="handleMonthlyEntriesChange($event)"
+  />
+</div>
+
+<div #chartsToExport>
+  <app-financial-report-graphs
+    [entries]="entries"
+    [monthlyEntries]="monthlyEntries"
+  />
+</div>

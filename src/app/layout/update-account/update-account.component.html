@@ -1,0 +1,148 @@
+<p-dialog
+  [closable]="false"
+  [visible]="true"
+  [draggable]="false"
+  *ngIf="accountDetails !== undefined"
+>
+  <h1>Update your account</h1>
+
+  <div class="inline-update-form">
+    <div>
+      <div class="form-wrapper">
+        <h3>Update your personal data</h3>
+        <form (submit)="onUpdatePersonalData()">
+          <div>
+            <span class="p-input-icon-left">
+              <i class="pi pi-user"></i>
+              <input
+                pInputText
+                placeholder="Enter first name"
+                id="first-name"
+                name="first-name"
+                type="text"
+                [(ngModel)]="accountDetails.firstName"
+                required
+              />
+            </span>
+          </div>
+          <div>
+            <span class="p-input-icon-left">
+              <i class="pi pi-user"></i>
+              <input
+                pInputText
+                placeholder="Enter last name"
+                id="last-name"
+                name="last-name"
+                type="text"
+                [(ngModel)]="accountDetails.lastName"
+                required
+              />
+            </span>
+          </div>
+          <div>
+            <span class="p-input-icon-left">
+              <i class="pi pi-envelope"></i>
+              <input
+                pInputText
+                placeholder="Enter email"
+                id="email"
+                name="email"
+                type="email"
+                [(ngModel)]="accountDetails.email"
+                disabled
+                required
+              />
+            </span>
+          </div>
+          <div>
+            <span class="p-input-icon-left">
+              <i class="pi pi-home"></i>
+              <input
+                pInputText
+                placeholder="Enter address"
+                id="address"
+                name="address"
+                type="text"
+                [(ngModel)]="accountDetails.address"
+                required
+              />
+            </span>
+          </div>
+          <div>
+            <span class="p-input-icon-left">
+              <i class="pi pi-phone"></i>
+              <input
+                pInputText
+                placeholder="Enter phone number"
+                id="phone-number"
+                name="phone-number"
+                type="tel"
+                [(ngModel)]="accountDetails.phoneNumber"
+                required
+              />
+            </span>
+          </div>
+          <p-button label="Update" type="submit"></p-button>
+        </form>
+      </div>
+
+      <div class="form-wrapper delete-from-wrapper">
+        <h3>Delete your account</h3>
+        <form (submit)="onDelete()">
+          <p-button label="Delete" type="submit" severity="danger"></p-button>
+        </form>
+      </div>
+    </div>
+
+    <div>
+      <div class="form-wrapper">
+        <h3>Update your password</h3>
+        <form (submit)="onUpdatePassword()">
+          <div>
+            <span class="p-input-icon-left">
+              <i class="pi pi-shield"></i>
+              <input
+                pInputText
+                placeholder="Enter old password"
+                id="old-password"
+                name="old-password"
+                type="password"
+                [(ngModel)]="oldPassword"
+                required
+              />
+            </span>
+          </div>
+          <div>
+            <span class="p-input-icon-left">
+              <i class="pi pi-shield"></i>
+              <input
+                pInputText
+                placeholder="Enter new password"
+                id="new-password"
+                name="new-password"
+                type="password"
+                [(ngModel)]="newPassword"
+                required
+              />
+            </span>
+          </div>
+          <div>
+            <span class="p-input-icon-left">
+              <i class="pi pi-shield"></i>
+              <input
+                pInputText
+                placeholder="Repeat new password"
+                id="repeat-new-password"
+                name="repeat-new-password"
+                type="password"
+                [(ngModel)]="repeatNewPassword"
+                required
+              />
+            </span>
+          </div>
+          <p-button label="Update" type="submit"></p-button>
+        </form>
+      </div>
+    </div>
+  </div>
+</p-dialog>

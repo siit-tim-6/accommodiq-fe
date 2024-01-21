@@ -1,0 +1,133 @@
+<div class="main">
+  <div class="heading-row">
+    <h1>{{ accommodationDetails.title }}</h1>
+    <div class="rating-row">
+      <p-rating
+        [ngModel]="accommodationDetails.rating"
+        [cancel]="false"
+        [readonly]="true"
+      />
+      <p class="bold">{{ accommodationDetails.rating }}</p>
+      <p>{{ accommodationDetails.reviewCount }} reviews</p>
+    </div>
+  </div>
+
+  <h4>{{ accommodationDetails.location.address }}</h4>
+
+  <div class="row">
+    <h3>
+      Hosted by
+      <span
+        class="bold"
+        (click)="redirectToHostProfile(accommodationDetails.host.id)"
+        >{{ accommodationDetails.host.name }}</span
+      >
+    </h3>
+    <p-rating
+      [ngModel]="accommodationDetails.host.rating"
+      [cancel]="false"
+      [readonly]="true"
+    />
+    <p class="bold">{{ accommodationDetails.host.rating }}</p>
+    <p>{{ accommodationDetails.host.reviewCount }} reviews</p>
+  </div>
+
+  <div class="main-content">
+    <p-galleria
+      [value]="accommodationImages"
+      [containerStyle]="{ 'max-width': '640px' }"
+      [numVisible]="5"
+      [showItemNavigators]="true"
+    >
+      <ng-template pTemplate="item" let-item>
+        <img [src]="item" style="height: 380px; border-radius: 15px" />
+      </ng-template>
+      <ng-template pTemplate="thumbnail" let-item>
+        <div
+          class="grid grid-nogutter justify-content-center"
+          style="border-radius: 15px; height: 85px; margin-right: 15px"
+        >
+          <img [src]="item" style="border-radius: 15px; height: 80px" />
+        </div>
+      </ng-template>
+    </p-galleria>
+
+    <div class="row" style="margin-bottom: 25px">
+      <p>{{ accommodationDetails.type }}</p>
+      <span class="icon-label">
+        <i class="pi pi-users"></i>
+        <p>
+          {{ accommodationDetails.minGuests }}-{{
+            accommodationDetails.maxGuests
+          }}
+          guests
+        </p>
+      </span>
+      <span class="icon-label">
+        <i class="pi pi-thumbs-up-fill"></i>
+        <p>{{ accommodationDetails.benefits.join(", ") }}</p>
+      </span>
+    </div>
+
+    <div class="row" style="margin-bottom: 25px">
+      <p-calendar
+        [(ngModel)]="rangeDates"
+        selectionMode="range"
+        placeholder="Date"
+        [showIcon]="true"
+        placeholder="Date"
+        [minDate]="today"
+        [required]="true"
+        (onBlur)="calendarBlur()"
+      />
+      <span class="p-input-icon-left">
+        <i class="pi pi-users"></i>
+        <input
+          [(ngModel)]="guests"
+          type="number"
+          pInputText
+          placeholder="Guests"
+          [pKeyFilter]="positiveInteger"
+          [min]="accommodationDetails.minGuests"
+          [max]="accommodationDetails.maxGuests"
+          required
+          (change)="guestsChange()"
+        />
+      </span>
+      <p *ngIf="totalPrice !== undefined">
+        <span class="bold">€{{ totalPrice }}</span> EUR total
+      </p>
+      <p *ngIf="totalPrice === undefined">
+        From <span class="bold">€{{ accommodationDetails.minPrice }}</span
+        ><span *ngIf="accommodationDetails.pricingType === 'PER_GUEST'">
+          / guest</span
+        >
+        / night
+      </p>
+
+      <div [pTooltip]="getButtonError()">
+        <p-button
+          label="Reserve"
+          [disabled]="canMakeReservation() !== true"
+          (onClick)="makeReservation()"
+        >
+        </p-button>
+      </div>
+    </div>
+
+    <p class="description">
+      {{ accommodationDetails.description }}
+    </p>
+  </div>
+
+  <app-review-list
+    [reviews]="accommodationDetails.reviews"
+    [canAddReview]="canAddReview"
+    [canReport]="canReport"
+    (reviewSubmitted)="handleReviewSubmission($event)"
+    (deleteRequest)="handleDeleteReview($event)"
+    (reportRequest)="handleReportReview($event)"
+  />
+</div>
+
+<app-map [markers]="getMarkers()" width="42rem" [zoom]="14" />

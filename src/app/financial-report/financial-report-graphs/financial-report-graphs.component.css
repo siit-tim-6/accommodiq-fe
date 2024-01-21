@@ -1,0 +1,26 @@
+:host {
+  position: fixed;
+  right: 200px;
+  top: 0;
+}
+
+.graphs {
+  display: flex;
+  flex-direction: row;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.chart-info {
+  font-size: 24px;
+  text-align: center;
+}
+
+.column {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

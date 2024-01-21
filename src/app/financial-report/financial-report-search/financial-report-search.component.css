@@ -1,0 +1,41 @@
+h1:first-child {
+  margin: 0;
+}
+
+h4:first-of-type {
+  margin-top: 0px;
+}
+
+.top-offset {
+  margin-top: -12px;
+}
+
+.row:first-of-type {
+  margin-top: 30px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+
+.row > * {
+  margin-right: 20px;
+}
+
+:host {
+  ::ng-deep span.p-calendar {
+    flex-direction: row-reverse;
+  }
+
+  ::ng-deep button.p-datepicker-trigger {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  ::ng-deep span.p-calendar > input {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+}

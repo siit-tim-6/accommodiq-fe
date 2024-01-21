@@ -1,0 +1,32 @@
+h1:first-child {
+  margin: 0;
+}
+
+h4:first-of-type {
+  margin-top: 0;
+}
+
+:host {
+  display: flex;
+  flex-direction: row;
+}
+
+:host > :first-child {
+  padding-top: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.main-content {
+  width: 100%;
+}
+
+:host .interaction {
+  display: flex;
+  align-items: center;
+}
+
+:host .interaction > * {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}

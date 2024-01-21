@@ -1,0 +1,145 @@
+<p-dialog [closable]="false" [visible]="true" [draggable]="false">
+  <h1 *ngIf="accommodationToUpdate === undefined">Create new apartment</h1>
+  <h1 *ngIf="accommodationToUpdate !== undefined">Update apartment</h1>
+
+  <form [formGroup]="formGroup" (submit)="onSubmit()">
+    <div class="inline-update-form">
+      <div>
+        <div>
+          <span>
+            <input
+              pInputText
+              [required]="true"
+              type="text"
+              id="name"
+              name="name"
+              formControlName="name"
+              placeholder="Name"
+            />
+          </span>
+        </div>
+        <div>
+          <span>
+            <textarea
+              rows="5"
+              cols="30"
+              id="description"
+              name="description"
+              pInputTextarea
+              formControlName="description"
+              placeholder="Description"
+            ></textarea>
+          </span>
+        </div>
+        <div>
+          <span>
+            <input
+              pInputText
+              id="address"
+              name="address"
+              formControlName="location"
+              placeholder="Address"
+            />
+          </span>
+        </div>
+
+        <div class="checkbox-group" formGroupName="benefits">
+          <div *ngFor="let benefit of benefitOptions" class="checkbox-option">
+            <p-checkbox
+              name="benefits"
+              [label]="benefit.benefitName"
+              [binary]="true"
+              (onChange)="onBenefitChange($event.checked, benefit.benefitName)"
+              [ngModel]="benefit.isChecked"
+              [ngModelOptions]="{ standalone: true }"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <div class="column-wrapper">
+        <div
+          *ngIf="submitAttempted && images.length === 0"
+          class="empty-message"
+        >
+          Please add at least one image.
+        </div>
+
+        <div class="file-upload-wrapper">
+          <p-fileUpload
+            name="demo[]"
+            (onSelect)="onFileSelect($event)"
+            (onRemove)="onFileRemove($event)"
+            [multiple]="true"
+            accept="image/*"
+            [maxFileSize]="1000000"
+            [auto]="true"
+            chooseLabel="Select Images"
+            #imageUpload
+          >
+          </p-fileUpload>
+        </div>
+
+        <span class="label-text">Number of guests</span>
+        <div class="row-wrapper">
+          <div class="min-max-input-wrapper">
+            <span class="p-input-icon-left">
+              <i class="pi pi-users"></i>
+              <input
+                type="number"
+                id="min-guests"
+                name="min-guests"
+                pInputText
+                formControlName="minGuests"
+                placeholder="min"
+              />
+            </span>
+          </div>
+
+          <div class="between-line"></div>
+
+          <div class="min-max-input-wrapper">
+            <span class="p-input-icon-left">
+              <i class="pi pi-users"></i>
+              <input
+                type="number"
+                id="max-guests"
+                name="max-guests"
+                pInputText
+                formControlName="maxGuests"
+                placeholder="max"
+              />
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <p-dropdown
+            id="apartment-type"
+            name="apartment-type"
+            [options]="apartmentTypes"
+            formControlName="apartmentType"
+            [showClear]="true"
+            placeholder="Select a Type"
+          ></p-dropdown>
+        </div>
+
+        <div class="checkbox-group">
+          <span class="checkbox-option">
+            <p-checkbox
+              formControlName="automaticallyAcceptIncomingReservations"
+              id="accept-incoming-reservations"
+              name="accept-incoming-reservations"
+              label="Automatically accept incoming reservations"
+              [binary]="true"
+            ></p-checkbox>
+          </span>
+        </div>
+      </div>
+    </div>
+    <p-button
+      type="submit"
+      [label]="accommodationToUpdate === undefined ? 'Create' : 'Update'"
+    ></p-button>
+  </form>
+</p-dialog>

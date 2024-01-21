@@ -1,0 +1,68 @@
+:host {
+  border-top: 1px solid #ced4da;
+  border-bottom: 1px solid #ced4da;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: row;
+}
+
+:host > div {
+  padding: 10px;
+}
+.users-info {
+  display: flex;
+  width: 20vw;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.reported-user-info {
+  display: flex;
+  align-items: baseline;
+}
+
+.reported-user-info > * {
+  margin-right: 1rem;
+}
+
+.report-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-left: 1px solid #ced4da;
+  border-right: 1px solid #ced4da;
+  width: 25vw;
+}
+
+.report-info > p {
+  text-align: justify;
+}
+
+p-button {
+  cursor: pointer;
+}
+
+.report-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.report-actions :first-child {
+  margin-bottom: 1rem;
+}
+
+h3 {
+  cursor: pointer;
+  margin: 0;
+}
+
+span {
+  display: flex;
+  align-items: center;
+}
+
+span * {
+  margin-right: 0.4rem;
+}

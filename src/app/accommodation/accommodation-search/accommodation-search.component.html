@@ -1,0 +1,93 @@
+<h1>{{ numberOfAccommodations }} stays</h1>
+<h4>Book your next stay at one of our properties</h4>
+
+<div class="row">
+  <span class="p-input-icon-left">
+    <i class="pi top-offset">
+      <img src="../../../assets/images/location-icon.svg" alt="location icon" />
+    </i>
+    <input
+      type="text"
+      pInputText
+      placeholder="Location"
+      [(ngModel)]="location"
+    />
+  </span>
+
+  <p-calendar
+    selectionMode="range"
+    placeholder="Date"
+    [minDate]="today"
+    [readonlyInput]="true"
+    [showIcon]="true"
+    [(ngModel)]="rangeDates"
+  />
+
+  <span class="p-input-icon-left">
+    <i class="pi pi-users"></i>
+    <input
+      type="number"
+      [min]="1"
+      pInputText
+      [(ngModel)]="guests"
+      [pKeyFilter]="positiveInteger"
+      placeholder="Guests"
+    />
+  </span>
+
+  <p-button
+    (onClick)="op.toggle($event)"
+    icon="pi pi-filter"
+    label="More filters"
+    severity="secondary"
+    [ngStyle]="{ marginRight: '0px' }"
+  />
+  <p-overlayPanel #op>
+    <div class="filter-panel">
+      <div class="row">
+        <p-inputNumber
+          mode="currency"
+          currency="EUR"
+          placeholder="Min Price"
+          [(ngModel)]="minPrice"
+        />
+        <p-inputNumber
+          [ngStyle]="{ marginRight: '0px' }"
+          mode="currency"
+          currency="EUR"
+          placeholder="Max Price"
+          [(ngModel)]="maxPrice"
+        />
+      </div>
+      <div class="row">
+        <p-dropdown
+          #typeDropdown
+          [options]="accommodationTypes"
+          [(ngModel)]="selectedAccommodationType"
+          placeholder="Select Type"
+        />
+        <p-button
+          *ngIf="selectedAccommodationType !== ''"
+          icon="pi pi-times-circle"
+          (onClick)="clearDropdown(typeDropdown, $event)"
+        />
+        <p-multiSelect
+          [options]="benefits"
+          [(ngModel)]="selectedBenefits"
+          [filter]="false"
+          placeholder="Select Benefits"
+        />
+      </div>
+    </div>
+  </p-overlayPanel>
+</div>
+
+<div class="row">
+  <span class="p-input-icon-left search-input">
+    <i class="pi pi-search"></i>
+    <input type="text" pInputText placeholder="Search" [(ngModel)]="title" />
+  </span>
+
+  <p-button severity="secondary" label="Clear" (onClick)="clear()" />
+  <p-button label="Search" (onClick)="search()" />
+</div>

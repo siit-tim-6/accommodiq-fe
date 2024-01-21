@@ -1,0 +1,16 @@
+<div class="main-content">
+  <app-accommodation-search
+    (onSearch)="search($event)"
+    (onClear)="clear()"
+    [numberOfAccommodations]="elements.length"
+  />
+  <div *ngFor="let el of elements">
+    <app-accommodation-card
+      [accommodation]="el"
+      [isFavorite]="isFavorite(el)"
+      [routerLink]="['/accommodation', el.id]"
+    />
+  </div>
+</div>
+
+<app-map [markers]="getMarkers()" width="35rem" [zoom]="11" />
