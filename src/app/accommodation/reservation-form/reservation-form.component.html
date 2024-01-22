@@ -1,0 +1,39 @@
+<div class="row" style="margin-bottom: 25px">
+  <p-calendar
+    id="calendar-input"
+    [(ngModel)]="rangeDates"
+    ngDefaultControl
+    selectionMode="range"
+    placeholder="Date"
+    [showIcon]="true"
+    placeholder="Date"
+    [required]="true"
+    (onBlur)="calendarBlur()"
+  />
+  <span class="p-input-icon-left">
+    <i class="pi pi-users"></i>
+    <input
+      id="guests-input"
+      [(ngModel)]="guests"
+      ngDefaultControl
+      type="number"
+      pInputText
+      placeholder="Guests"
+      [min]="minGuests"
+      [max]="maxGuests"
+      required
+      (change)="guestsChange()"
+    />
+  </span>
+  <p *ngIf="totalPrice !== undefined">
+    <span class="bold">€{{ totalPrice }}</span> EUR total
+  </p>
+
+  <p-button
+    id="make-reservation-btn"
+    label="Reserve"
+    [disabled]="canMakeReservation() !== true"
+    (onClick)="makeReservation()"
+  >
+  </p-button>
+</div>

@@ -15,6 +15,7 @@ import { AccommodationUpdateComponent } from './accommodation-update/accommodati
 import { PrimengModule } from '../infrastructure/primeng/primeng.module';
 import { GmapsModule } from '../infrastructure/gmaps/gmaps.module';
 import { GuestFavoritesListComponent } from './guest-favorites-list/guest-favorites-list.component';
+import { ReservationFormComponent } from './reservation-form/reservation-form.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { GuestFavoritesListComponent } from './guest-favorites-list/guest-favori
     AccommodationUpdateComponent,
     AccommodationAvailabilityPricingComponent,
     GuestFavoritesListComponent,
+    ReservationFormComponent,
   ],
   imports: [
     CommonModule,

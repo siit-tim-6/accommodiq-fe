@@ -1,0 +1,13 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.row > * {
+  margin-right: 15px;
+}
+
+.row > :last-child {
+  margin-right: 0px;
+}
