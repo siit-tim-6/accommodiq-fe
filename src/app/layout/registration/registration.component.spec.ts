@@ -315,14 +315,16 @@ describe('RegistrationComponent', () => {
       registrationService,
       'registerUser',
     ).and.returnValue(of(expectedAccount));
-    spyOn(component, 'registerUser');
+    spyOn(component, 'registerUser').and.callThrough();
     const registrationForm = fixture.debugElement.query(
       By.css('form'),
     ).nativeElement;
     registrationForm.dispatchEvent(new Event('submit'));
+    fixture.detectChanges();
 
     expect(component.isValidForm()).toBeTrue();
     expect(component.registerUser).toHaveBeenCalled();
+    expect(registerServiceSpy).toHaveBeenCalled();
   });
 
   it('should validate form correctly', () => {
