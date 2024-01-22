@@ -139,8 +139,7 @@ export class ReservationListComponent implements OnInit {
   isCancellable(reservation: Reservation) {
     return (
       this.jwtService.getRole() == 'GUEST' &&
-      this.cancellableReservationIds.includes(reservation.accommodationId) &&
-      reservation.status === 'ACCEPTED'
+      this.cancellableReservationIds.includes(reservation.id)
     );
   }
 

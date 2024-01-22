@@ -22,6 +22,7 @@
         severity="secondary"
         (onClick)="delete($event)"
         [style]="{ 'box-shadow': 'none' }"
+        aria-placeholder="delete"
       ></p-button>
 
       <p-button
@@ -32,6 +33,7 @@
         severity="secondary"
         (onClick)="cancel($event)"
         [style]="{ 'box-shadow': 'none' }"
+        aria-placeholder="cancel"
       ></p-button>
 
       <p-button
@@ -41,6 +43,7 @@
         [rounded]="true"
         (onClick)="accept($event)"
         [style]="{ 'box-shadow': 'none' }"
+        aria-placeholder="accept"
       ></p-button>
 
       <p-button
@@ -51,6 +54,7 @@
         severity="secondary"
         (onClick)="decline($event)"
         [style]="{ 'box-shadow': 'none' }"
+        aria-placeholder="decline"
       ></p-button>
     </div>
   </span>
@@ -76,7 +80,7 @@
       <p>{{ reservation.guests }} guests</p>
     </span>
 
-    <span class="icon-label">
+    <span class="icon-label time">
       <i class="pi pi-calendar"></i>
       <p>
         {{ formatTimestamp(reservation.startDate) }} -
@@ -84,7 +88,7 @@
       </p>
     </span>
 
-    <span class="icon-label">
+    <span class="icon-label status">
       <i class="pi pi-info-circle"></i>
       <p>{{ reservation.status }}</p>
     </span>
