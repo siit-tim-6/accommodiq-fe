@@ -82,27 +82,27 @@
   <div class="row">
     <span class="icon-label">
       <i class="pi pi-map-marker"></i>
-      <p>{{ accommodation.location.address }}</p>
+      <p aria-label="address">{{ accommodation.location.address }}</p>
     </span>
 
     <span class="icon-label">
       <i class="pi pi-users"></i>
-      <p>
+      <p aria-label="guest-range">
         {{ accommodation.minGuests }} - {{ accommodation.maxGuests }} guests
       </p>
     </span>
 
     <span class="icon-label">
       <i class="pi pi-info-circle"></i>
-      <p>{{ accommodation.type }}</p>
+      <p aria-label="type">{{ accommodation.type }}</p>
     </span>
 
     <span *ngIf="accommodation.benefits.length > 0" class="icon-label">
       <i class="pi pi-check-circle"></i>
-      <p>{{ toCommaSep(accommodation.benefits) }}</p>
+      <p aria-label="benefits">{{ toCommaSep(accommodation.benefits) }}</p>
     </span>
 
-    <p>
+    <p aria-label="price">
       <span *ngIf="accommodation.totalPrice !== 0">
         <span class="bold">€{{ accommodation.totalPrice }} </span>
         EUR total
