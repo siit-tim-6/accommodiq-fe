@@ -16,12 +16,14 @@ export class AccountService {
   constructor(private httpClient: HttpClient) {}
 
   getAccountDetails(): Observable<AccountDetails> {
+    // test
     return this.httpClient.get<AccountDetails>(
       `${environment.apiHost}users/me`,
     );
   }
 
   updateAccountDetails(
+    // test
     accountDetails: AccountDetails,
   ): Observable<AccountDetails> {
     return this.httpClient.put<AccountDetails>(
@@ -31,6 +33,7 @@ export class AccountService {
   }
 
   deleteAccount(): Observable<any> {
+    // test
     return this.httpClient.delete<any>(`${environment.apiHost}users`);
   }
 
