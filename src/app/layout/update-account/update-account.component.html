@@ -82,7 +82,13 @@
               />
             </span>
           </div>
-          <p-button label="Update" type="submit"></p-button>
+          <p-button
+            id="personal-data-button"
+            label="Update"
+            type="submit"
+            (onClick)="onUpdatePersonalData()"
+            [disabled]="!areDetailsValid()"
+          ></p-button>
         </form>
       </div>
 
@@ -140,7 +146,12 @@
               />
             </span>
           </div>
-          <p-button label="Update" type="submit"></p-button>
+          <p-button
+            label="Update"
+            id="password-button"
+            type="submit"
+            [disabled]="!arePasswordsValid()"
+          ></p-button>
         </form>
       </div>
     </div>

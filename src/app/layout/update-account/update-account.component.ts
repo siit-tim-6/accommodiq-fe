@@ -12,9 +12,9 @@ import { MessageService } from 'primeng/api';
 })
 export class UpdateAccountComponent implements OnInit {
   accountDetails!: AccountDetails;
-  oldPassword: string | undefined;
-  newPassword: string | undefined;
-  repeatNewPassword: string | undefined;
+  oldPassword: string = '';
+  newPassword: string = '';
+  repeatNewPassword: string = '';
 
   constructor(
     private accountService: AccountService,
@@ -85,22 +85,24 @@ export class UpdateAccountComponent implements OnInit {
     });
   }
 
-  private areDetailsValid() {
+  protected areDetailsValid() {
     return (
-      this.accountDetails.firstName !== '' &&
-      this.accountDetails.lastName !== '' &&
-      this.accountDetails.email === this.loginService.getEmail() &&
-      this.accountDetails.email !== '' &&
-      this.accountDetails.phoneNumber !== '' &&
-      this.accountDetails.address !== ''
+      this.accountDetails.firstName.trim() !== '' &&
+      this.accountDetails.lastName.trim() !== '' &&
+      this.accountDetails.email.trim() === this.loginService.getEmail() &&
+      this.accountDetails.email.trim() !== '' &&
+      this.accountDetails.phoneNumber.trim() !== '' &&
+      this.accountDetails.address.trim() !== ''
     );
   }
 
-  private arePasswordsValid() {
+  protected arePasswordsValid() {
     return (
-      this.oldPassword !== '' &&
-      this.newPassword !== '' &&
-      this.repeatNewPassword !== ''
+      this.oldPassword?.trim() !== '' &&
+      this.newPassword?.trim() !== '' &&
+      this.repeatNewPassword?.trim() !== '' &&
+      this.oldPassword?.trim() !== this.newPassword?.trim() &&
+      this.newPassword?.trim() === this.repeatNewPassword?.trim()
     );
   }
 
