@@ -9,6 +9,7 @@ import { AccommodationService } from '../accommodation.service';
 import {
   AccommodationServiceMock,
   availabilityMock,
+  reservationMock,
   totalPriceMock,
 } from '../../mocks/accommodation.service.mock';
 import { of } from 'rxjs';
@@ -53,6 +54,16 @@ describe('ReservationFormComponent', () => {
     expect(button.nativeElement.disabled).toBeFalsy();
   });
 
+  it('should disable button when guest field is not valid', () => {
+    component.guests = 0;
+    component.rangeDates = [new Date(), new Date()];
+
+    fixture.detectChanges();
+
+    const button = fixture.debugElement.query(By.css('#make-reservation-btn'));
+    expect(button.nativeElement.disabled).toBeTruthy();
+  });
+
   it('should call guest on change and fetch total price after that', () => {
     spyOn(component, 'guestsChange');
 
@@ -60,9 +71,9 @@ describe('ReservationFormComponent', () => {
     guestsInput.nativeElement.dispatchEvent(new Event('change'));
 
     expect(component.guestsChange).toHaveBeenCalled();
-    const quoteService =
+    const accommodationService =
       fixture.debugElement.injector.get(AccommodationService);
-    let spy = spyOn(quoteService, 'getTotalPrice').and.returnValue(
+    let spy = spyOn(accommodationService, 'getTotalPrice').and.returnValue(
       of(totalPriceMock),
     );
     fixture.detectChanges();
@@ -78,5 +89,23 @@ describe('ReservationFormComponent', () => {
     calendar.nativeElement.dispatchEvent(new Event('blur'));
 
     expect(component.calendarBlur).toHaveBeenCalled();
+  });
+
+  it('expect to call make reservation', () => {
+    component.guests = 2;
+    component.rangeDates = [new Date(), new Date()];
+
+    fixture.detectChanges();
+
+    const accommodationService =
+      fixture.debugElement.injector.get(AccommodationService);
+    let spy = spyOn(accommodationService, 'createReservation').and.returnValue(
+      of(reservationMock),
+    );
+
+    const button = fixture.debugElement.query(By.css('#make-reservation-btn'));
+    button.nativeElement.dispatchEvent(new Event('click'));
+
+    expect(accommodationService.createReservation).toHaveBeenCalled();
   });
 });
