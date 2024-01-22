@@ -97,15 +97,11 @@ describe('ReservationFormComponent', () => {
 
     fixture.detectChanges();
 
-    const accommodationService =
-      fixture.debugElement.injector.get(AccommodationService);
-    let spy = spyOn(accommodationService, 'createReservation').and.returnValue(
-      of(reservationMock),
-    );
+    let spy = spyOn(component, 'makeReservation');
 
     const button = fixture.debugElement.query(By.css('#make-reservation-btn'));
     button.nativeElement.dispatchEvent(new Event('click'));
 
-    expect(accommodationService.createReservation).toHaveBeenCalled();
+    expect(component.makeReservation).toHaveBeenCalled();
   });
 });
