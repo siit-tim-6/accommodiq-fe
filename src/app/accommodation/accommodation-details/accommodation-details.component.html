@@ -71,6 +71,7 @@
 
     <div class="row" style="margin-bottom: 25px">
       <p-calendar
+        id="calendar-input"
         [(ngModel)]="rangeDates"
         selectionMode="range"
         placeholder="Date"
@@ -83,6 +84,7 @@
       <span class="p-input-icon-left">
         <i class="pi pi-users"></i>
         <input
+          id="guests-input"
           [(ngModel)]="guests"
           type="number"
           pInputText
@@ -107,6 +109,7 @@
 
       <div [pTooltip]="getButtonError()">
         <p-button
+          id="make-reservation-btn"
           label="Reserve"
           [disabled]="canMakeReservation() !== true"
           (onClick)="makeReservation()"
