@@ -175,26 +175,24 @@
 
     <div class="flex flex-wrap gap-3">
       <div class="flex align-items-center">
-        <label class="radio-button-wrapper">
-          <p-radioButton
+        <label>
+          <input
+            type="radio"
             [(ngModel)]="selectedRole"
-            id="roleHost"
             name="role"
             value="HOST"
-            #roleInput="ngModel"
-          ></p-radioButton>
-          <span>Host</span>
+          />
+          Host
         </label>
 
-        <label class="radio-button-wrapper">
-          <p-radioButton
+        <label>
+          <input
+            type="radio"
             [(ngModel)]="selectedRole"
-            id="roleGuest"
             name="role"
             value="GUEST"
-            #roleInput="ngModel"
-          ></p-radioButton>
-          <span>Guest</span>
+          />
+          Guest
         </label>
       </div>
       <div *ngIf="selectedRole == '' && isFormSubmitted">

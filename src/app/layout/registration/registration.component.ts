@@ -28,52 +28,8 @@ export class RegistrationComponent {
 
   onSubmit() {
     this.isFormSubmitted = true;
-
     if (this.isValidForm()) {
-      this.isFormSubmitted = false;
-
-      const user: User = {
-        firstName: this.firstName.trim(),
-        lastName: this.lastName.trim(),
-        address: this.address.trim(),
-        phoneNumber: this.phoneNumber.trim(),
-      };
-
-      const account: Account = {
-        email: this.email.trim(),
-        password: this.password.trim(),
-        role: this.selectedRole,
-        user: user,
-      };
-      this.registrationService.registerUser(account).subscribe({
-        next: (response) => {
-          console.log('Registration successful', response);
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Registration Successful',
-            detail: 'Registration successful. Verify your email',
-          });
-          setTimeout(() => {
-            this.router.navigate(['/login']);
-          }, 3000); // 2000 milliseconds delay (2 seconds)
-        },
-        error: (error) => {
-          console.error('Registration failed', error);
-          let detailMessage = 'Registration failed';
-          if (
-            error.error &&
-            error.error.message === 'Email is already in use'
-          ) {
-            detailMessage = 'Registration failed: Email is already in use';
-          }
-
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Registration Failed',
-            detail: detailMessage,
-          });
-        },
-      });
+      this.registerUser();
     } else {
       console.log('Invalid form');
       this.messageService.add({
@@ -82,6 +38,50 @@ export class RegistrationComponent {
         detail: 'Please fill out the form correctly.',
       });
     }
+  }
+
+  registerUser() {
+    this.isFormSubmitted = false;
+
+    const user: User = {
+      firstName: this.firstName.trim(),
+      lastName: this.lastName.trim(),
+      address: this.address.trim(),
+      phoneNumber: this.phoneNumber.trim(),
+    };
+
+    const account: Account = {
+      email: this.email.trim(),
+      password: this.password.trim(),
+      role: this.selectedRole,
+      user: user,
+    };
+    this.registrationService.registerUser(account).subscribe({
+      next: (response) => {
+        console.log('Registration successful', response);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Registration Successful',
+          detail: 'Registration successful. Verify your email',
+        });
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 3000); // 2000 milliseconds delay (2 seconds)
+      },
+      error: (error) => {
+        console.error('Registration failed', error);
+        let detailMessage = 'Registration failed';
+        if (error.error && error.error.message === 'Email is already in use') {
+          detailMessage = 'Registration failed: Email is already in use';
+        }
+
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Registration Failed',
+          detail: detailMessage,
+        });
+      },
+    });
   }
 
   isPasswordMatch(): boolean {
