@@ -48,8 +48,10 @@ export class ReservationFormComponent {
 
   canMakeReservation() {
     return (
+      typeof this.guests == 'number' &&
       (this.guests as number) >= this.minGuests &&
       (this.guests as number) <= this.maxGuests &&
+      this.rangeDates.length == 2 &&
       this.rangeDates[0] != null &&
       this.rangeDates[1] != null
     );

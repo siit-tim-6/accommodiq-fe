@@ -6,32 +6,32 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
 import { AccommodationService } from '../accommodation.service';
-import {
-  AccommodationServiceMock,
-  availabilityMock,
-  reservationMock,
-  totalPriceMock,
-} from '../../mocks/accommodation.service.mock';
-import { of } from 'rxjs';
+import { AccommodationServiceMock } from '../../mocks/accommodation.service.mock';
 
 describe('ReservationFormComponent', () => {
   let component: ReservationFormComponent;
   let fixture: ComponentFixture<ReservationFormComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [ReservationFormComponent],
       imports: [FormsModule, HttpClientModule, HttpClientTestingModule],
-      // providers: [
-      //   { provide: AccommodationService, useClass: AccommodationServiceMock },
-      // ],
-    }).compileComponents();
+      providers: [
+        { provide: AccommodationService, useClass: AccommodationServiceMock },
+      ],
+    });
 
+    await TestBed.compileComponents();
+  });
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(ReservationFormComponent);
-    component = fixture.componentInstance;
+    component = fixture.debugElement.componentInstance;
+
     component.accommodationId = 1;
     component.minGuests = 1;
     component.maxGuests = 3;
+
     fixture.detectChanges();
   });
 
@@ -39,12 +39,12 @@ describe('ReservationFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('make reservations button should be disabled by default', () => {
+  it('should make make-reservations button disabled by default', () => {
     const button = fixture.debugElement.query(By.css('#make-reservation-btn'));
     expect(button.nativeElement.disabled).toBeTruthy();
   });
 
-  it('should enable button when all fields are valid', () => {
+  it('should enable the button when all fields are valid', () => {
     component.guests = 2;
     component.rangeDates = [new Date(), new Date()];
 
@@ -54,7 +54,7 @@ describe('ReservationFormComponent', () => {
     expect(button.nativeElement.disabled).toBeFalsy();
   });
 
-  it('should disable button when guest field is not valid', () => {
+  it('should disable the button when guests field is not inside provided range', () => {
     component.guests = 0;
     component.rangeDates = [new Date(), new Date()];
 
@@ -64,44 +64,80 @@ describe('ReservationFormComponent', () => {
     expect(button.nativeElement.disabled).toBeTruthy();
   });
 
-  it('should call guest on change and fetch total price after that', () => {
+  it('should disable the button when guests field is not of type number', () => {
+    component.guests = 'aaa';
+    component.rangeDates = [new Date(), new Date()];
+
+    fixture.detectChanges();
+
+    const button = fixture.debugElement.query(By.css('#make-reservation-btn'));
+    expect(button.nativeElement.disabled).toBeTruthy();
+  });
+
+  it('should disable the button when rangeDates field is invalid', () => {
+    component.guests = 2;
+    component.rangeDates = [];
+
+    fixture.detectChanges();
+
+    const button = fixture.debugElement.query(By.css('#make-reservation-btn'));
+    expect(button.nativeElement.disabled).toBeTruthy();
+  });
+
+  it('should call guestsChange on change', () => {
     spyOn(component, 'guestsChange');
+
+    component.guests = 2;
+
+    fixture.detectChanges();
 
     const guestsInput = fixture.debugElement.query(By.css('#guests-input'));
     guestsInput.nativeElement.dispatchEvent(new Event('change'));
 
     expect(component.guestsChange).toHaveBeenCalled();
-    const accommodationService =
-      fixture.debugElement.injector.get(AccommodationService);
-    let spy = spyOn(accommodationService, 'getTotalPrice').and.returnValue(
-      of(totalPriceMock),
-    );
+
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      expect(component.totalPrice).toEqual(totalPriceMock.totalPrice);
+      expect(component.totalPrice).toEqual(200);
+      const totalPriceP = fixture.debugElement.query(By.css('#total-price'));
+      expect(totalPriceP.nativeElement.innerText).toEqual('€200 EUR total');
     });
   });
 
-  it('expect calendar blur to be called', () => {
+  it('should call calendarBlur on blur', () => {
     spyOn(component, 'calendarBlur');
 
     const calendar = fixture.debugElement.query(By.css('#calendar-input'));
-    calendar.nativeElement.dispatchEvent(new Event('blur'));
+    calendar.nativeElement.dispatchEvent(new Event('onBlur'));
 
     expect(component.calendarBlur).toHaveBeenCalled();
+
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(component.isAvailable).toBeTrue();
+    });
   });
 
-  it('expect to call make reservation', () => {
+  it('should call makeReservation when the button is clicked', () => {
+    const accommodationService =
+      fixture.debugElement.injector.get(AccommodationService);
+    spyOn(accommodationService, 'createReservation');
+    spyOn(component, 'makeReservation');
+
     component.guests = 2;
     component.rangeDates = [new Date(), new Date()];
 
     fixture.detectChanges();
 
-    let spy = spyOn(component, 'makeReservation');
-
     const button = fixture.debugElement.query(By.css('#make-reservation-btn'));
-    button.nativeElement.dispatchEvent(new Event('click'));
+    button.nativeElement.dispatchEvent(new Event('onClick'));
 
+    expect(button.nativeElement.disabled).toBeFalsy();
     expect(component.makeReservation).toHaveBeenCalled();
+
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(accommodationService.createReservation).toHaveBeenCalled();
+    });
   });
 });

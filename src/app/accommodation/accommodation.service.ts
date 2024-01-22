@@ -195,9 +195,11 @@ export class AccommodationService {
     dateTo: number,
     guests: number | string,
   ): Observable<AccommodationTotalPrice> {
-    return this.httpClient.get<AccommodationTotalPrice>(`
+    return this.httpClient.get<AccommodationTotalPrice>(
+      `
     ${environment.apiHost}accommodations/${id}/total-price?dateFrom=${dateFrom}&dateTo=${dateTo}&guests=${guests}
-    `);
+    `.trim(),
+    );
   }
 
   getIsAvailable(
