@@ -7,8 +7,6 @@ import { MessageService } from 'primeng/api';
 import { By } from '@angular/platform-browser';
 import { AccountService } from '../../services/account.service';
 import { accountDetails } from '../../services/account.service.mock';
-import { AccountRole } from '../../account/account-info/account.model';
-import { LoginService } from '../login/login.service';
 import { of } from 'rxjs';
 
 describe('UpdateAccountComponent', () => {
@@ -19,7 +17,7 @@ describe('UpdateAccountComponent', () => {
     await TestBed.configureTestingModule({
       imports: [FormsModule, HttpClientTestingModule],
       declarations: [UpdateAccountComponent],
-      providers: [MessageService],
+      providers: [MessageService, AccountService],
     }).compileComponents();
   });
 
@@ -29,7 +27,14 @@ describe('UpdateAccountComponent', () => {
   });
 
   it('should create', () => {
+    const accountService = fixture.debugElement.injector.get(AccountService);
+    const accountServiceSpy = spyOn(
+      accountService,
+      'getAccountDetails',
+    ).and.returnValue(of(accountDetails));
+    fixture.detectChanges();
     expect(component).toBeTruthy();
+    expect(accountServiceSpy).toHaveBeenCalled();
   });
 
   it('should disable the button when the passwords are empty', () => {
