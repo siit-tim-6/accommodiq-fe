@@ -9,6 +9,7 @@ import { AccountService } from '../../services/account.service';
 import { accountDetails } from '../../services/account.service.mock';
 import { AccountRole } from '../../account/account-info/account.model';
 import { LoginService } from '../login/login.service';
+import { of } from 'rxjs';
 
 describe('UpdateAccountComponent', () => {
   let component: UpdateAccountComponent;
@@ -122,16 +123,17 @@ describe('UpdateAccountComponent', () => {
   });
 
   it('should enable the button when the form is valid', () => {
-    const loginService = TestBed.inject(LoginService);
-    spyOn(loginService, 'getEmail').and.returnValue(accountDetails.email);
+    spyOn(component, 'onUpdatePersonalData');
     component.accountDetails = accountDetails;
 
     fixture.detectChanges();
 
-    expect(loginService.getEmail).toHaveBeenCalled();
-
     const button = fixture.debugElement.query(By.css('#personal-data-button'));
     expect(button).toBeTruthy(); // Check if the button element is found
     expect(button.nativeElement.disabled).toBeFalsy();
+
+    button.nativeElement.click();
+
+    expect(component.onUpdatePersonalData).toHaveBeenCalled();
   });
 });

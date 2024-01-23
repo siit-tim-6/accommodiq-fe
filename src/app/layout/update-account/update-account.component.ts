@@ -89,7 +89,6 @@ export class UpdateAccountComponent implements OnInit {
     return (
       this.accountDetails.firstName.trim() !== '' &&
       this.accountDetails.lastName.trim() !== '' &&
-      this.accountDetails.email.trim() === this.loginService.getEmail() &&
       this.accountDetails.email.trim() !== '' &&
       this.accountDetails.phoneNumber.trim() !== '' &&
       this.accountDetails.address.trim() !== ''
