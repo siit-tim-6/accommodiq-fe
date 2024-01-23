@@ -7,6 +7,7 @@ import { MessageService } from 'primeng/api';
 import { By } from '@angular/platform-browser';
 import { AccountService } from '../../services/account.service';
 import { accountDetails } from '../../services/account.service.mock';
+import { AccountRole } from '../../account/account-info/account.model';
 
 describe('UpdateAccountComponent', () => {
   let component: UpdateAccountComponent;
@@ -105,7 +106,14 @@ describe('UpdateAccountComponent', () => {
   });
 
   it('should enable the button when the form is valid', () => {
-    component.accountDetails = accountDetails;
+    component.accountDetails = {
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'email123@example.com',
+      address: 'Address 123',
+      phoneNumber: '123456789',
+      role: AccountRole.HOST,
+    };
 
     fixture.detectChanges();
 
