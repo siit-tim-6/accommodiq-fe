@@ -6,6 +6,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MessageService } from 'primeng/api';
 import { By } from '@angular/platform-browser';
 import { AccountService } from '../../services/account.service';
+import { accountDetails } from '../../services/account.service.mock';
 
 describe('UpdateAccountComponent', () => {
   let component: UpdateAccountComponent;
@@ -28,8 +29,65 @@ describe('UpdateAccountComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should use the quoteList from the service', () => {
-    const quoteService = fixture.debugElement.injector.get(AccountService);
+  it('should disable the button when the form is invalid', () => {
+    component.accountDetails = accountDetails;
+    component.newPassword = '123456';
+    component.accountDetails.firstName = '';
+
     fixture.detectChanges();
+
+    const button = fixture.debugElement.query(By.css('#personal-data-button'));
+    expect(button).toBeTruthy(); // Check if the button element is found
+    expect(button.nativeElement.disabled).toBeTruthy();
+  });
+
+  it('should disable the button when the passwords are empty', () => {
+    component.accountDetails = accountDetails;
+    component.newPassword = '';
+    component.repeatNewPassword = '';
+
+    fixture.detectChanges();
+
+    const button = fixture.debugElement.query(By.css('#password-button'));
+    expect(button).toBeTruthy(); // Check if the button element is found
+    expect(button.nativeElement.disabled).toBeTruthy();
+  });
+
+  it('should disable the button when the passwords are not matching', () => {
+    component.accountDetails = accountDetails;
+    component.newPassword = '123456';
+    component.repeatNewPassword = '1234567';
+
+    fixture.detectChanges();
+
+    const button = fixture.debugElement.query(By.css('#password-button'));
+    expect(button).toBeTruthy(); // Check if the button element is found
+    expect(button.nativeElement.disabled).toBeTruthy();
+  });
+
+  it('should enable the button when the passwords are matching', () => {
+    component.accountDetails = accountDetails;
+    component.newPassword = '123456';
+    component.repeatNewPassword = '123456';
+    component.oldPassword = '12345';
+
+    fixture.detectChanges();
+
+    const button = fixture.debugElement.query(By.css('#password-button'));
+    expect(button).toBeTruthy(); // Check if the button element is found
+    expect(button.nativeElement.disabled).toBeFalsy();
+  });
+
+  it('should disable the button when the old password is same as the new password', () => {
+    component.accountDetails = accountDetails;
+    component.newPassword = '123456';
+    component.repeatNewPassword = '123456';
+    component.oldPassword = '123456';
+
+    fixture.detectChanges();
+
+    const button = fixture.debugElement.query(By.css('#password-button'));
+    expect(button).toBeTruthy(); // Check if the button element is found
+    expect(button.nativeElement.disabled).toBeTruthy();
   });
 });

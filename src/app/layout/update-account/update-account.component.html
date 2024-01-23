@@ -10,7 +10,7 @@
     <div>
       <div class="form-wrapper">
         <h3>Update your personal data</h3>
-        <form (submit)="onUpdatePersonalData()">
+        <form>
           <div>
             <span class="p-input-icon-left">
               <i class="pi pi-user"></i>
@@ -82,20 +82,20 @@
               />
             </span>
           </div>
-          <p-button
+          <button
             id="personal-data-button"
             label="Update"
             type="submit"
-            (onClick)="onUpdatePersonalData()"
+            (click)="onUpdatePersonalData()"
             [disabled]="!areDetailsValid()"
-          ></p-button>
+          ></button>
         </form>
       </div>
 
       <div class="form-wrapper delete-from-wrapper">
         <h3>Delete your account</h3>
         <form (submit)="onDelete()">
-          <p-button label="Delete" type="submit" severity="danger"></p-button>
+          <button label="Delete" type="submit" severity="danger"></button>
         </form>
       </div>
     </div>
@@ -103,7 +103,7 @@
     <div>
       <div class="form-wrapper">
         <h3>Update your password</h3>
-        <form (submit)="onUpdatePassword()">
+        <form>
           <div>
             <span class="p-input-icon-left">
               <i class="pi pi-shield"></i>
@@ -146,12 +146,12 @@
               />
             </span>
           </div>
-          <p-button
+          <button
             label="Update"
             id="password-button"
             type="submit"
             [disabled]="!arePasswordsValid()"
-          ></p-button>
+          ></button>
         </form>
       </div>
     </div>
