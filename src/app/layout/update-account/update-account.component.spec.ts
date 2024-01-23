@@ -6,7 +6,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MessageService } from 'primeng/api';
 import { By } from '@angular/platform-browser';
 import { AccountService } from '../../services/account.service';
-import { accountDetails } from '../../services/account.service.mock';
+import { validAccountDetails } from '../../services/account.service.mock';
 import { of } from 'rxjs';
 
 describe('UpdateAccountComponent', () => {
@@ -27,18 +27,34 @@ describe('UpdateAccountComponent', () => {
   });
 
   it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should call getAccountDetails', () => {
     const accountService = fixture.debugElement.injector.get(AccountService);
     const accountServiceSpy = spyOn(
       accountService,
       'getAccountDetails',
-    ).and.returnValue(of(accountDetails));
+    ).and.returnValue(of(validAccountDetails));
+    spyOn(component, 'onUpdatePersonalData');
     fixture.detectChanges();
     expect(component).toBeTruthy();
     expect(accountServiceSpy).toHaveBeenCalled();
+    expect(component.accountDetails).toEqual(validAccountDetails);
+
+    const button = fixture.debugElement.query(By.css('#personal-data-button'));
+    expect(button).toBeTruthy(); // Check if the button element is found
+    expect(button.nativeElement.disabled).toBeFalsy();
+
+    button.nativeElement.click();
+
+    fixture.detectChanges();
+
+    expect(component.onUpdatePersonalData).toHaveBeenCalled();
   });
 
   it('should disable the button when the passwords are empty', () => {
-    component.accountDetails = accountDetails;
+    component.accountDetails = validAccountDetails;
     component.newPassword = '';
     component.repeatNewPassword = '';
     component.oldPassword = '12345';
@@ -51,7 +67,7 @@ describe('UpdateAccountComponent', () => {
   });
 
   it('should disable the button when the passwords are not matching', () => {
-    component.accountDetails = accountDetails;
+    component.accountDetails = validAccountDetails;
     component.newPassword = '123456';
     component.repeatNewPassword = '1234567';
 
@@ -63,7 +79,7 @@ describe('UpdateAccountComponent', () => {
   });
 
   it('should enable the button when the passwords are matching', () => {
-    component.accountDetails = accountDetails;
+    component.accountDetails = validAccountDetails;
     component.newPassword = '123456';
     component.repeatNewPassword = '123456';
     component.oldPassword = '12345';
@@ -76,7 +92,7 @@ describe('UpdateAccountComponent', () => {
   });
 
   it('should disable the button when the old password is same as the new password', () => {
-    component.accountDetails = accountDetails;
+    component.accountDetails = validAccountDetails;
     component.newPassword = '123456';
     component.repeatNewPassword = '123456';
     component.oldPassword = '123456';
@@ -89,7 +105,7 @@ describe('UpdateAccountComponent', () => {
   });
 
   it('should disable the button when the old password is empty', () => {
-    component.accountDetails = accountDetails;
+    component.accountDetails = validAccountDetails;
     component.newPassword = '123456';
     component.repeatNewPassword = '123456';
     component.oldPassword = '';
@@ -102,7 +118,7 @@ describe('UpdateAccountComponent', () => {
   });
 
   it('should call updatePassword when the button is clicked', () => {
-    component.accountDetails = accountDetails;
+    component.accountDetails = validAccountDetails;
     component.newPassword = '123456';
     component.repeatNewPassword = '123456';
     component.oldPassword = '12345';
@@ -117,7 +133,7 @@ describe('UpdateAccountComponent', () => {
   });
 
   it('should disable the button when the form is invalid', () => {
-    component.accountDetails = accountDetails;
+    component.accountDetails = validAccountDetails;
     component.accountDetails.firstName = '';
 
     fixture.detectChanges();
@@ -129,7 +145,7 @@ describe('UpdateAccountComponent', () => {
 
   it('should enable the button when the form is valid', () => {
     spyOn(component, 'onUpdatePersonalData');
-    component.accountDetails = accountDetails;
+    component.accountDetails = validAccountDetails;
 
     fixture.detectChanges();
 
@@ -138,6 +154,8 @@ describe('UpdateAccountComponent', () => {
     expect(button.nativeElement.disabled).toBeFalsy();
 
     button.nativeElement.click();
+
+    fixture.detectChanges();
 
     expect(component.onUpdatePersonalData).toHaveBeenCalled();
   });

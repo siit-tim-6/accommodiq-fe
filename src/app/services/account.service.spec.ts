@@ -4,7 +4,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { accountDetails } from './account.service.mock';
+import { validAccountDetails } from './account.service.mock';
 import { environment } from '../../env/env';
 import {
   AccountDetails,
@@ -36,7 +36,7 @@ describe('AccountService', () => {
     // Act
     service.getAccountDetails().subscribe((res) => {
       // Assert
-      expect(res).toEqual(accountDetails);
+      expect(res).toEqual(validAccountDetails);
     });
 
     const req = httpController.expectOne({
@@ -44,7 +44,7 @@ describe('AccountService', () => {
       url: `${environment.apiHost}users/me`,
     });
 
-    req.flush(accountDetails);
+    req.flush(validAccountDetails);
   });
 
   it('should call updateAccountDetails and return account details', () => {
@@ -58,7 +58,7 @@ describe('AccountService', () => {
       role: AccountRole.HOST,
     };
 
-    service.updateAccountDetails(accountDetails).subscribe((res) => {
+    service.updateAccountDetails(validAccountDetails).subscribe((res) => {
       // Assert
       expect(res).toEqual(updatedAccountDetails);
     });
@@ -75,7 +75,7 @@ describe('AccountService', () => {
     // Act
     service.deleteAccount().subscribe((res) => {
       // Assert
-      expect(res).toEqual(accountDetails);
+      expect(res).toEqual(validAccountDetails);
     });
 
     const req = httpController.expectOne({
@@ -83,6 +83,6 @@ describe('AccountService', () => {
       url: `${environment.apiHost}users`,
     });
 
-    req.flush(accountDetails);
+    req.flush(validAccountDetails);
   });
 });

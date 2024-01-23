@@ -3,7 +3,7 @@ import {
   AccountRole,
 } from '../account/account-info/account.model';
 
-const accountDetails: AccountDetails = {
+const validAccountDetails: AccountDetails = {
   firstName: 'John',
   lastName: 'Doe',
   email: 'email123@example.com',
@@ -12,4 +12,4 @@ const accountDetails: AccountDetails = {
   role: AccountRole.HOST,
 };
 
-export { accountDetails };
+export { validAccountDetails };
