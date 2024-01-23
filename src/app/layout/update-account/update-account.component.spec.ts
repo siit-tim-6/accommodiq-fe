@@ -8,6 +8,7 @@ import { By } from '@angular/platform-browser';
 import { AccountService } from '../../services/account.service';
 import { accountDetails } from '../../services/account.service.mock';
 import { AccountRole } from '../../account/account-info/account.model';
+import { LoginService } from '../login/login.service';
 
 describe('UpdateAccountComponent', () => {
   let component: UpdateAccountComponent;
@@ -94,6 +95,21 @@ describe('UpdateAccountComponent', () => {
     expect(button.nativeElement.disabled).toBeTruthy();
   });
 
+  it('should call updatePassword when the button is clicked', () => {
+    component.accountDetails = accountDetails;
+    component.newPassword = '123456';
+    component.repeatNewPassword = '123456';
+    component.oldPassword = '12345';
+    spyOn(component, 'onUpdatePassword');
+
+    fixture.detectChanges();
+
+    const button = fixture.debugElement.query(By.css('#password-button'));
+    button.nativeElement.click();
+
+    expect(component.onUpdatePassword).toHaveBeenCalled();
+  });
+
   it('should disable the button when the form is invalid', () => {
     component.accountDetails = accountDetails;
     component.accountDetails.firstName = '';
@@ -106,16 +122,13 @@ describe('UpdateAccountComponent', () => {
   });
 
   it('should enable the button when the form is valid', () => {
-    component.accountDetails = {
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'email123@example.com',
-      address: 'Address 123',
-      phoneNumber: '123456789',
-      role: AccountRole.HOST,
-    };
+    const loginService = TestBed.inject(LoginService);
+    spyOn(loginService, 'getEmail').and.returnValue(accountDetails.email);
+    component.accountDetails = accountDetails;
 
     fixture.detectChanges();
+
+    expect(loginService.getEmail).toHaveBeenCalled();
 
     const button = fixture.debugElement.query(By.css('#personal-data-button'));
     expect(button).toBeTruthy(); // Check if the button element is found

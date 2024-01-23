@@ -145,6 +145,7 @@
           id="password-button"
           type="submit"
           [disabled]="!arePasswordsValid()"
+          (click)="onUpdatePassword()"
         ></button>
       </form>
     </div>
