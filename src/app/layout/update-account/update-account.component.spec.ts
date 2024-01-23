@@ -36,6 +36,11 @@ describe('UpdateAccountComponent', () => {
       accountService,
       'getAccountDetails',
     ).and.returnValue(of(validAccountDetails));
+    const updateDetailsSpy = spyOn(
+      accountService,
+      'updateAccountDetails',
+    ).and.returnValue(of());
+
     spyOn(component, 'onUpdatePersonalData');
     fixture.detectChanges();
     expect(component).toBeTruthy();
@@ -45,12 +50,10 @@ describe('UpdateAccountComponent', () => {
     const button = fixture.debugElement.query(By.css('#personal-data-button'));
     expect(button).toBeTruthy(); // Check if the button element is found
     expect(button.nativeElement.disabled).toBeFalsy();
-
     button.nativeElement.click();
-
     fixture.detectChanges();
-
     expect(component.onUpdatePersonalData).toHaveBeenCalled();
+    expect(updateDetailsSpy).toHaveBeenCalled();
   });
 
   it('should disable the button when the passwords are empty', () => {

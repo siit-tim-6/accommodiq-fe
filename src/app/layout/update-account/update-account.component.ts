@@ -41,10 +41,6 @@ export class UpdateAccountComponent implements OnInit {
 
   onUpdatePersonalData() {
     this.prepareAccountDetails();
-    if (!this.areDetailsValid()) {
-      alert('Please fill in all the fields');
-      return;
-    }
     this.accountService.updateAccountDetails(this.accountDetails).subscribe({
       next: () => {
         alert('Account details updated successfully');
