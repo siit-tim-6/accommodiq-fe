@@ -2,6 +2,8 @@ import {
   AccountDetails,
   AccountRole,
 } from '../account/account-info/account.model';
+import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
 
 const validAccountDetails: AccountDetails = {
   firstName: 'John',
@@ -12,4 +14,15 @@ const validAccountDetails: AccountDetails = {
   role: AccountRole.HOST,
 };
 
-export { validAccountDetails };
+@Injectable()
+class AccountServiceMock {
+  getAccountDetails() {
+    return of(validAccountDetails);
+  }
+
+  updateAccountDetails() {
+    return of(validAccountDetails);
+  }
+}
+
+export { validAccountDetails, AccountServiceMock };

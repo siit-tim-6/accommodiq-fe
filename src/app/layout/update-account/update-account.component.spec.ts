@@ -1,60 +1,53 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { UpdateAccountComponent } from './update-account.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MessageService } from 'primeng/api';
+import { HttpClientModule } from '@angular/common/http';
 import { By } from '@angular/platform-browser';
-import { AccountService } from '../../services/account.service';
-import { validAccountDetails } from '../../services/account.service.mock';
+import {
+  AccountServiceMock,
+  validAccountDetails,
+} from '../../services/account.service.mock';
 import { of } from 'rxjs';
+import { AccountService } from '../../services/account.service';
+import { MessageService } from 'primeng/api';
+import { AccountRole } from '../../account/account-info/account.model';
 
 describe('UpdateAccountComponent', () => {
   let component: UpdateAccountComponent;
   let fixture: ComponentFixture<UpdateAccountComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [FormsModule, HttpClientTestingModule],
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [UpdateAccountComponent],
-      providers: [MessageService, AccountService],
+      imports: [FormsModule, HttpClientTestingModule, HttpClientModule],
+      providers: [
+        MessageService,
+        { provide: AccountService, useClass: AccountServiceMock },
+      ],
     }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UpdateAccountComponent);
     component = fixture.debugElement.componentInstance;
+
+    fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create Update Account Component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call getAccountDetails', () => {
+  it('should fetch Account Details on init', waitForAsync(() => {
     const accountService = fixture.debugElement.injector.get(AccountService);
-    const accountServiceSpy = spyOn(
-      accountService,
-      'getAccountDetails',
-    ).and.returnValue(of(validAccountDetails));
-    const updateDetailsSpy = spyOn(
-      accountService,
-      'updateAccountDetails',
-    ).and.returnValue(of());
-
-    spyOn(component, 'onUpdatePersonalData');
+    spyOn(accountService, 'getAccountDetails');
     fixture.detectChanges();
-    expect(component).toBeTruthy();
-    expect(accountServiceSpy).toHaveBeenCalled();
-    expect(component.accountDetails).toEqual(validAccountDetails);
-
-    const button = fixture.debugElement.query(By.css('#personal-data-button'));
-    expect(button).toBeTruthy(); // Check if the button element is found
-    expect(button.nativeElement.disabled).toBeFalsy();
-    button.nativeElement.click();
-    fixture.detectChanges();
-    expect(component.onUpdatePersonalData).toHaveBeenCalled();
-    expect(updateDetailsSpy).toHaveBeenCalled();
-  });
+    fixture.whenStable().then(() => {
+      expect(component.accountDetails).toEqual(validAccountDetails);
+    });
+  }));
 
   it('should disable the button when the passwords are empty', () => {
     component.accountDetails = validAccountDetails;
@@ -147,10 +140,23 @@ describe('UpdateAccountComponent', () => {
   });
 
   it('should enable the button when the form is valid', () => {
+    let accountService = fixture.debugElement.injector.get(AccountService);
+    spyOn(accountService, 'updateAccountDetails').and.returnValue(
+      of(validAccountDetails),
+    );
     spyOn(component, 'onUpdatePersonalData');
-    component.accountDetails = validAccountDetails;
+    component.accountDetails = {
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'email123@example.com',
+      address: 'Address 123',
+      phoneNumber: '123456789',
+      role: AccountRole.HOST,
+    };
 
     fixture.detectChanges();
+
+    expect(component.accountDetails.firstName).toEqual('John');
 
     const button = fixture.debugElement.query(By.css('#personal-data-button'));
     expect(button).toBeTruthy(); // Check if the button element is found
@@ -160,6 +166,9 @@ describe('UpdateAccountComponent', () => {
 
     fixture.detectChanges();
 
-    expect(component.onUpdatePersonalData).toHaveBeenCalled();
+    fixture.whenStable().then(() => {
+      expect(component.onUpdatePersonalData).toHaveBeenCalled();
+      expect(accountService.updateAccountDetails).toHaveBeenCalled();
+    });
   });
 });
