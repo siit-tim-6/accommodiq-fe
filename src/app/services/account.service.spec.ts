@@ -9,6 +9,7 @@ import { environment } from '../../env/env';
 import {
   AccountDetails,
   AccountRole,
+  PasswordChangeRequest,
 } from '../account/account-info/account.model';
 
 describe('AccountService', () => {
@@ -84,5 +85,25 @@ describe('AccountService', () => {
     });
 
     req.flush(validAccountDetails);
+  });
+
+  it('should call updatePassword', () => {
+    // Act
+    const passwordDto: PasswordChangeRequest = {
+      oldPassword: '12345',
+      newPassword: '123456',
+    };
+
+    service.updatePassword(passwordDto).subscribe((res) => {
+      // Assert
+      expect(res).toEqual({});
+    });
+
+    const req = httpController.expectOne({
+      method: 'PUT',
+      url: `${environment.apiHost}users/password`,
+    });
+
+    req.flush({});
   });
 });

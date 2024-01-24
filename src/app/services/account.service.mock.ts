@@ -23,6 +23,10 @@ class AccountServiceMock {
   updateAccountDetails() {
     return of(validAccountDetails);
   }
+
+  updatePassword() {
+    return of({});
+  }
 }
 
 export { validAccountDetails, AccountServiceMock };

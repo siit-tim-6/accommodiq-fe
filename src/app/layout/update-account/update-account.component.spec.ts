@@ -9,7 +9,6 @@ import {
   AccountServiceMock,
   validAccountDetails,
 } from '../../services/account.service.mock';
-import { of } from 'rxjs';
 import { AccountService } from '../../services/account.service';
 import { MessageService } from 'primeng/api';
 import { AccountRole } from '../../account/account-info/account.model';
@@ -119,13 +118,19 @@ describe('UpdateAccountComponent', () => {
     component.repeatNewPassword = '123456';
     component.oldPassword = '12345';
     spyOn(component, 'onUpdatePassword');
-
+    const accountService = fixture.debugElement.injector.get(AccountService);
+    spyOn(accountService, 'updatePassword');
     fixture.detectChanges();
 
     const button = fixture.debugElement.query(By.css('#password-button'));
     button.nativeElement.click();
 
-    expect(component.onUpdatePassword).toHaveBeenCalled();
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      expect(component.onUpdatePassword).toHaveBeenCalled();
+      expect(accountService.updatePassword).toHaveBeenCalled();
+    });
   });
 
   it('should disable the button when the form is invalid', () => {
@@ -141,9 +146,7 @@ describe('UpdateAccountComponent', () => {
 
   it('should enable the button when the form is valid', () => {
     let accountService = fixture.debugElement.injector.get(AccountService);
-    spyOn(accountService, 'updateAccountDetails').and.returnValue(
-      of(validAccountDetails),
-    );
+    spyOn(accountService, 'updateAccountDetails');
     spyOn(component, 'onUpdatePersonalData');
     component.accountDetails = {
       firstName: 'John',
